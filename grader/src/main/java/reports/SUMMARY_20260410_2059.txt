@@ -1,9 +1,0 @@
-BATCH GRADING SUMMARY
-=====================
-Date          : 2026-04-10T20:59:40.477180200
-Total Students: 1
-Full Marks    : 0
-
-DETAILED SCORES:
---------------------------------------------------
-                                      0 / 100    Needs Improvement

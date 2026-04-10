@@ -1,6 +1,0 @@
-Compilation Failed
-
-Main.java:12: error: class SelfGrader is public, should be declared in a file named SelfGrader.java
-public class SelfGrader {
-       ^
-1 error

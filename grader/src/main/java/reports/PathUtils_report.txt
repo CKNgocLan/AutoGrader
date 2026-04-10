@@ -1,6 +1,0 @@
-Compilation Failed
-
-Main.java:5: error: class PathUtils is public, should be declared in a file named PathUtils.java
-public class PathUtils {
-       ^
-1 error

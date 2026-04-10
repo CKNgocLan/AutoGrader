@@ -1,6 +1,0 @@
-Compilation Failed
-
-Main.java:6: error: interface TestCase is public, should be declared in a file named TestCase.java
-public interface TestCase {
-       ^
-1 error

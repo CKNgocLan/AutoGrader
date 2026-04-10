@@ -1,6 +1,0 @@
-Compilation Failed
-
-Main.java:3: error: class Consts is public, should be declared in a file named Consts.java
-public class Consts {
-       ^
-1 error

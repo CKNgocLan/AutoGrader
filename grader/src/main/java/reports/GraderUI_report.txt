@@ -1,6 +1,0 @@
-Compilation Failed
-
-Main.java:15: error: class GraderUI is public, should be declared in a file named GraderUI.java
-public class GraderUI extends JFrame {
-       ^
-1 error
