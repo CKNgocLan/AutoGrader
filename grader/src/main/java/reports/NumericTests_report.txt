@@ -1,0 +1,6 @@
+Compilation Failed
+
+Main.java:15: error: class NumericTests is public, should be declared in a file named NumericTests.java
+public class NumericTests {
+       ^
+1 error

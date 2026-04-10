@@ -1,0 +1,6 @@
+Compilation Failed
+
+Main.java:10: error: class Autograder is public, should be declared in a file named Autograder.java
+public class Autograder {
+       ^
+1 error

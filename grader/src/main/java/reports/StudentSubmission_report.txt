@@ -1,0 +1,6 @@
+Compilation Failed
+
+Main.java:5: error: class StudentSubmission is public, should be declared in a file named StudentSubmission.java
+public class StudentSubmission {
+       ^
+1 error

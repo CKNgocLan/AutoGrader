@@ -1,0 +1,6 @@
+Compilation Failed
+
+Main.java:9: error: class LecturerGraderOLD is public, should be declared in a file named LecturerGraderOLD.java
+public class LecturerGraderOLD {
+       ^
+1 error
