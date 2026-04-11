@@ -285,7 +285,7 @@ public class GraderUI extends JFrame {
         try {
             Files.copy(studentFile.toPath(), Paths.get("Main.java"), StandardCopyOption.REPLACE_EXISTING);
 
-            Process compile = new ProcessBuilder("javac", "Main.java").start();
+            Process compile = new ProcessBuilder("javac", "*.java").start();
             if (compile.waitFor() != 0) {
                 String errorMsg = getErrorMessage(compile.getErrorStream());
                 saveIndividualReport(studentName, 0, "Compilation Failed\n\n" + errorMsg);

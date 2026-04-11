@@ -15,3 +15,5 @@ auto-grader/.project
 auto-grader/.settings/org.eclipse.jdt.core.prefs
 
 auto-grader/.settings/org.eclipse.m2e.core.prefs
+
+auto-grader/reports/
