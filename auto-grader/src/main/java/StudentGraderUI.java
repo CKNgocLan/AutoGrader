@@ -1,5 +1,11 @@
 import javax.swing.*;
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Insets;
+import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.event.*;
 import java.io.*;
 import java.nio.file.*;
@@ -8,6 +14,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.poi.ss.util.CellRangeAddress;
 
 public class StudentGraderUI extends JFrame {
 
@@ -139,9 +149,12 @@ public class StudentGraderUI extends JFrame {
 
                     log(passed ? "PASSED" : "FAILED");
                 }
+                int totalScore = scores.stream().mapToInt(Integer::intValue).sum();
+                
+                // Generate Excel Report
+                generateExcelReport("student Name", "student ID", "student Email", totalScore, tests, scores, passedList);
 
                 // Step 3: Generate report
-                int totalScore = scores.stream().mapToInt(Integer::intValue).sum();
                 generateStudentReport(submissionFolder.getName(), totalScore, tests, scores, passedList);
 
                 log("\n" + "=".repeat(60));
@@ -284,6 +297,133 @@ public class StudentGraderUI extends JFrame {
             logArea.append(message + "\n");
             logArea.setCaretPosition(logArea.getDocument().getLength());
         });
+    }
+    
+	// ====================== EXCEL REPORT ======================
+	private static void generateExcelReport(String name, String id, String email, int totalScore, List<TestCase> tests,
+			List<Integer> scores, List<Boolean> passed) {
+		try (Workbook workbook = new XSSFWorkbook()) {
+			Sheet sheet = workbook.createSheet("Lab Result");
+
+			// Styles
+			CellStyle headerStyle = createHeaderStyle(workbook);
+			CellStyle fullStyle = createFullPointsStyle(workbook);
+			CellStyle zeroStyle = createZeroPointsStyle(workbook);
+
+			// Header Row
+			Row headerRow = sheet.createRow(0);
+			int col = 0;
+
+			headerRow.createCell(col++).setCellValue("Student Name");
+			headerRow.createCell(col++).setCellValue("Student ID");
+			headerRow.createCell(col++).setCellValue("Email");
+			headerRow.createCell(col++).setCellValue("Total Score");
+			headerRow.createCell(col++).setCellValue("Percentage");
+			headerRow.createCell(col++).setCellValue("Status");
+
+			for (TestCase t : tests) {
+				Cell cell = headerRow.createCell(col++);
+				cell.setCellValue(t.getName() + " (" + t.getPoints() + " pts)");
+				cell.setCellStyle(headerStyle);
+			}
+
+			// Data Row
+			Row dataRow = sheet.createRow(1);
+			col = 0;
+
+			dataRow.createCell(col++).setCellValue(name);
+			dataRow.createCell(col++).setCellValue(id);
+			dataRow.createCell(col++).setCellValue(email);
+			dataRow.createCell(col++).setCellValue(totalScore);
+			dataRow.createCell(col++).setCellValue(String.format("%.1f%%", totalScore / 1.0));
+			dataRow.createCell(col++).setCellValue(
+					(totalScore == 100) ? "Excellent" : (totalScore >= 70 ? "Good" : "Needs Improvement"));
+
+			// Per-testcase scores with formatting
+			for (int i = 0; i < tests.size(); i++) {
+				Cell cell = dataRow.createCell(col++);
+				int pts = scores.get(i);
+				cell.setCellValue(pts);
+
+				if (pts == tests.get(i).getPoints()) {
+					cell.setCellStyle(fullStyle);
+				} else if (pts == 0) {
+					cell.setCellStyle(zeroStyle);
+				}
+			}
+
+			// Auto-size columns
+			for (int i = 0; i < col; i++) {
+				sheet.autoSizeColumn(i);
+			}
+
+			// Color scale for Total Score
+			applyColorScale(sheet, 1);
+
+			// Save file
+			String fileName = Constants.REPORTS_DIR + "/" + sanitize(name) + "_report.xlsx";
+			try (FileOutputStream fos = new FileOutputStream(fileName)) {
+				workbook.write(fos);
+			}
+
+			System.out.println("✅ Excel report generated successfully!");
+
+		} catch (Exception e) {
+			System.out.println("Warning: Could not generate Excel report: " + e.getMessage());
+		}
+	}
+	
+	private static CellStyle createHeaderStyle(Workbook wb) {
+		CellStyle style = wb.createCellStyle();
+		org.apache.poi.ss.usermodel.Font font = wb.createFont();
+		font.setBold(true);
+		style.setFont(font);
+		style.setAlignment(HorizontalAlignment.CENTER);
+		style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		return style;
+	}
+
+	private static CellStyle createFullPointsStyle(Workbook wb) {
+		CellStyle style = wb.createCellStyle();
+		style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
+		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		return style;
+	}
+
+	private static CellStyle createZeroPointsStyle(Workbook wb) {
+		CellStyle style = wb.createCellStyle();
+		style.setFillForegroundColor(IndexedColors.ROSE.getIndex());
+		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		return style;
+	}
+	
+	private static void applyColorScale(Sheet sheet, int row) {
+		SheetConditionalFormatting scf = sheet.getSheetConditionalFormatting();
+		CellRangeAddress range = new CellRangeAddress(row, row, 3, 3); // Total Score column (index 3)
+
+		ConditionalFormattingRule rule = scf.createConditionalFormattingColorScaleRule();
+		ColorScaleFormatting csf = rule.getColorScaleFormatting();
+		csf.setNumControlPoints(3);
+
+		ConditionalFormattingThreshold min = csf.createThreshold();
+		min.setRangeType(ConditionalFormattingThreshold.RangeType.MIN);
+
+		ConditionalFormattingThreshold mid = csf.createThreshold();
+		mid.setRangeType(ConditionalFormattingThreshold.RangeType.NUMBER);
+		mid.setValue(50.0);
+
+		ConditionalFormattingThreshold max = csf.createThreshold();
+		max.setRangeType(ConditionalFormattingThreshold.RangeType.MAX);
+
+//		csf.setColors(new org.apache.poi.ss.usermodel.Color[] { IndexedColors.RED.getIndex(), IndexedColors.YELLOW.getColor(),
+//				IndexedColors.GREEN.getColor() });
+
+		scf.addConditionalFormatting(new CellRangeAddress[] { range }, rule);
+	}
+	
+	private static String sanitize(String str) {
+        return str.replaceAll("[^a-zA-Z0-9._-]", "_");
     }
 
     public static void main(String[] args) {

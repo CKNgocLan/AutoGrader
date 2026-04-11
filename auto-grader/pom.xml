@@ -6,7 +6,15 @@
 	<artifactId>auto-grader</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
-
+	
+		<!-- Source: https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.2.3</version>
+			<scope>compile</scope>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
