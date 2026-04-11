@@ -1,4 +1,4 @@
-package grok;
+
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -7,7 +7,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import grok.submissions.Main;
+//import submissions.Main;
 
 /**
  * // Your test suite (add more here)
@@ -29,7 +29,7 @@ public class NumericTests {
 			// Run student's main safely with timeout
 			Thread thread = new Thread(() -> {
 				try {
-					Main.main(new String[0]);
+//					Main.main(new String[0]);
 				} catch (Exception ignored) {
 				}
 			});

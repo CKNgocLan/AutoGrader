@@ -1,0 +1,45 @@
+ Volume in drive D is WesternDigital
+ Volume Serial Number is DAEF-4E14
+
+ Directory of D:\eclipse-wksp\AutoGrader\auto-grader
+
+2026/04/10  22:34    <DIR>          src
+
+ Directory of D:\eclipse-wksp\AutoGrader\auto-grader
+
+2026/04/10  22:37               395 Main.java
+               1 File(s)            395 bytes
+
+ Directory of D:\eclipse-wksp\AutoGrader\auto-grader\src\main\java\grok
+
+2026/04/10  22:36            18,148 GraderUI.java
+2026/04/10  22:38             3,494 NumericTests.java
+2026/04/10  22:36               281 TestCase.java
+               3 File(s)         21,923 bytes
+
+ Directory of D:\eclipse-wksp\AutoGrader\auto-grader\src\main\java\grok\submissions
+
+2026/04/10  22:37               395 Main.java
+               1 File(s)            395 bytes
+
+ Directory of D:\eclipse-wksp\AutoGrader\sample-submissions\875050
+
+2026/01/08  15:57             1,373 Employee.java
+2026/01/08  16:07               792 ProblemApplication_0.java
+               2 File(s)          2,165 bytes
+
+ Directory of D:\eclipse-wksp\AutoGrader\sample-submissions\875050\constantValue
+
+2026/01/13  16:08               202 Const.java
+2026/01/13  15:34               187 TaxRate.java
+               2 File(s)            389 bytes
+
+ Directory of D:\eclipse-wksp\AutoGrader\sample-submissions\875067
+
+2026/04/10  22:53               949 App.java
+2026/04/10  22:49             1,027 Employee.java
+               2 File(s)          1,976 bytes
+
+     Total Files Listed:
+              11 File(s)         27,243 bytes
+               1 Dir(s)  748,001,361,920 bytes free
