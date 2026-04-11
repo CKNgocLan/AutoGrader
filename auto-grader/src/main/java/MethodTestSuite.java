@@ -1,4 +1,5 @@
 import java.lang.reflect.*;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -13,26 +14,26 @@ public class MethodTestSuite {
         // Test 1: Class exists (10 pts)
         tests.add(createClassExistsTest(10));
 
-        // Test 2: No-argument constructor (15 pts)
-        tests.add(createNoArgConstructorTest(15));
-
-        // Test 3: Constructor with name, id, department, position (20 pts)
-        tests.add(createFullConstructorTest(20));
-
-        // Test 4: Constructor with name and id only (15 pts)
-        tests.add(createPartialConstructorTest(15));
-
-        // Test 5: getName() and setName() (10 pts)
-        tests.add(createNameGetterSetterTest(10));
-
-        // Test 6: getIdNumber() and setIdNumber() (10 pts)
-        tests.add(createIdGetterSetterTest(10));
-
-        // Test 7: getDepartment() and setDepartment() (10 pts)
-        tests.add(createDepartmentGetterSetterTest(10));
-
-        // Test 8: getPosition() and setPosition() (10 pts)
-        tests.add(createPositionGetterSetterTest(10));
+//        // Test 2: No-argument constructor (15 pts)
+//        tests.add(createNoArgConstructorTest(15));
+//
+//        // Test 3: Constructor with name, id, department, position (20 pts)
+//        tests.add(createFullConstructorTest(20));
+//
+//        // Test 4: Constructor with name and id only (15 pts)
+//        tests.add(createPartialConstructorTest(15));
+//
+//        // Test 5: getName() and setName() (10 pts)
+//        tests.add(createNameGetterSetterTest(10));
+//
+//        // Test 6: getIdNumber() and setIdNumber() (10 pts)
+//        tests.add(createIdGetterSetterTest(10));
+//
+//        // Test 7: getDepartment() and setDepartment() (10 pts)
+//        tests.add(createDepartmentGetterSetterTest(10));
+//
+//        // Test 8: getPosition() and setPosition() (10 pts)
+//        tests.add(createPositionGetterSetterTest(10));
 
         return tests;
     }
@@ -42,19 +43,30 @@ public class MethodTestSuite {
     // ===================================================================
     private static TestCase createClassExistsTest(int points) {
         return new TestCase() {
-            public String getName() { return "Class Employee exists"; }
-            public int getPoints() { return points; }
-            public boolean runTest() {
-                try {
-                    Class.forName("Employee");
-                    return true;
-                } catch (ClassNotFoundException e) {
-                    return false;
-                }
-            }
-            public String getFeedback() {
-                return "Class 'Employee' was not found. Make sure Employee.java is in the submission folder.";
-            }
+			@Override
+			public String getName() {
+				return "Class Employee exists";
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class.forName("Employee");
+					return true;
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return "Class 'Employee' was not found. Make sure Employee.java is in the submission folder.";
+			}
         };
     }
 

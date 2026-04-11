@@ -8,4 +8,8 @@ public class PathUtils {
 	public static String currentFolderPath(Class<?> classPackage) {
 		return Paths.get(classPackage.getResource(Constants.USER_DIR).toString()).toString();
 	}
+	
+	public static String targetClasses() {
+		return Paths.get(System.getProperty(Constants.USER_DIR), Constants.TARGET, Constants.CLASSES).toString();
+	}
 }

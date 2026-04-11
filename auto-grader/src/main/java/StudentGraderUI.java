@@ -74,10 +74,11 @@ public class StudentGraderUI extends JFrame {
 
         log("Student Submission Grader Ready\n");
         log("Instructions:");
-        log("1. Put all your .java files in one folder");
-        log("2. Select that folder using Browse");
-        log("3. Click \"Grade My Submission\"");
-        log("4. Check the detailed report in reports/ folder\n");
+        log("1. DELETE PACKAGE STATEMENT (first line)");
+        log("2. PUT ALL your .java files in one folder but NOT APPLICATION FILE containing main()");
+        log("3. Select that folder using Browse");
+        log("4. Click \"Grade My Submission\"");
+        log("5. Check the detailed report in reports/ folder\n");
     }
 
     private void browseFolder(ActionEvent e) {
@@ -188,6 +189,8 @@ public class StudentGraderUI extends JFrame {
             ProcessBuilder pb = new ProcessBuilder();
             List<String> cmd = new ArrayList<>();
             cmd.add("javac");
+            cmd.add("-d");
+            cmd.add(PathUtils.targetClasses());
             cmd.addAll(javaFiles);
             pb.command(cmd);
 

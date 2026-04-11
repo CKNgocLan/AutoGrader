@@ -1,1 +1,1 @@
-java -cp GraderUI.jar GraderUI
+java -cp GraderUI.jar StudentGraderUI
