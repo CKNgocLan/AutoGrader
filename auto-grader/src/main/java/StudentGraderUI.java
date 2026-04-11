@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class StudentGraderUI extends JFrame {
 
@@ -122,7 +123,8 @@ public class StudentGraderUI extends JFrame {
                 log("Running your test cases...\n");
 
                 // Step 2: Run tests
-                List<TestCase> tests = NumericTests.getAllTests();
+//                List<TestCase> tests = SampleTestSuite.getAllTests();
+                List<TestCase> tests = MethodTestSuite.getAllTests();
                 int totalScore = 0;
                 List<Integer> scores = new ArrayList<>();
                 List<Boolean> passedList = new ArrayList<>();
@@ -147,11 +149,11 @@ public class StudentGraderUI extends JFrame {
                 log("=".repeat(60));
 
                 if (totalScore == 100) {
-                    log("🎉 Excellent! All tests passed.");
+                    log("Excellent! All tests passed.");
                 } else if (totalScore >= 70) {
-                    log("👍 Good work! Review the failed tests below.");
+                    log("Good work! Review the failed tests below.");
                 } else {
-                    log("💡 Please review the failed tests and try again.");
+                    log("Please review the failed tests and try again.");
                 }
 
                 log("\nDetailed report saved in reports/ folder.");
@@ -244,7 +246,7 @@ public class StudentGraderUI extends JFrame {
                 int score = scores.get(i);
 
                 sb.append(String.format("%-45s %s %3d / %d pts%n",
-                        t.getName(), p ? "✓ PASSED" : "✗ FAILED", score, t.getPoints()));
+                        t.getName(), p ? "PASSED" : "FAILED", score, t.getPoints()));
 
                 if (!p) {
                     sb.append("   Feedback : ").append(t.getFeedback()).append("\n\n");
