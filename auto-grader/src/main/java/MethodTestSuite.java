@@ -1,5 +1,4 @@
 import java.lang.reflect.*;
-import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -14,12 +13,12 @@ public class MethodTestSuite {
         // Test 1: Class exists (10 pts)
         tests.add(createClassExistsTest(10));
 
-//        // Test 2: No-argument constructor (15 pts)
-//        tests.add(createNoArgConstructorTest(15));
-//
-//        // Test 3: Constructor with name, id, department, position (20 pts)
-//        tests.add(createFullConstructorTest(20));
-//
+        // Test 2: No-argument constructor (15 pts)
+        tests.add(createNoArgConstructorTest(15));
+
+        // Test 3: Constructor with name, id, department, position (20 pts)
+        tests.add(createFullConstructorTest(20));
+
 //        // Test 4: Constructor with name and id only (15 pts)
 //        tests.add(createPartialConstructorTest(15));
 //
@@ -45,7 +44,7 @@ public class MethodTestSuite {
         return new TestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(ClassAgrs.EMPLOYEE);
+				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(ClassArgs.EMPLOYEE);
 			}
 
 			@Override
@@ -56,8 +55,7 @@ public class MethodTestSuite {
 			@Override
 			public boolean runTest() {
 				try {
-//					Class.forName("Employee");
-					Class.forName(ClassAgrs.EMPLOYEE);
+					Class.forName(ClassArgs.EMPLOYEE);
 					return true;
 				} catch (ClassNotFoundException e) {
 					return false;
@@ -66,8 +64,7 @@ public class MethodTestSuite {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CLASS_NOT_FOUND.getContent(ClassAgrs.EMPLOYEE);
-//				return "Class 'Employee' was not found. Make sure Employee.java is in the submission folder.";
+				return Feedback.CLASS_NOT_FOUND.getContent(ClassArgs.EMPLOYEE);
 			}
         };
     }
@@ -77,31 +74,41 @@ public class MethodTestSuite {
     // ===================================================================
     private static TestCase createNoArgConstructorTest(int points) {
         return new TestCase() {
-            public String getName() { return "No-argument constructor Employee()"; }
-            public int getPoints() { return points; }
-            public boolean runTest() {
-                try {
-                    Class<?> clazz = Class.forName("Employee");
-                    Constructor<?> ctor = clazz.getDeclaredConstructor();
-                    Object emp = ctor.newInstance();
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CONSTRUCTOR_NO_ARGS.getName(ClassArgs.EMPLOYEE);
+			}
 
-                    // Check default values using getters
-                    Method getName = clazz.getMethod("getName");
-                    Method getId = clazz.getMethod("getIdNumber");
-                    Method getDept = clazz.getMethod("getDepartment");
-                    Method getPos = clazz.getMethod("getPosition");
+			@Override
+			public int getPoints() {
+				return points;
+			}
 
-                    return "".equals(getName.invoke(emp)) &&
-                           (int) getId.invoke(emp) == 0 &&
-                           "".equals(getDept.invoke(emp)) &&
-                           "".equals(getPos.invoke(emp));
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            public String getFeedback() {
-                return "No-argument constructor Employee() is missing or does not initialize fields to default values (empty strings and 0).";
-            }
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(ClassArgs.EMPLOYEE);
+					Constructor<?> ctor = clazz.getDeclaredConstructor();
+					Object emp = ctor.newInstance();
+					return true;
+
+//					// Check default values using getters
+//					Method getName = clazz.getMethod("getName");
+//					Method getId = clazz.getMethod("getIdNumber");
+//					Method getDept = clazz.getMethod("getDepartment");
+//					Method getPos = clazz.getMethod("getPosition");
+//
+//					return "".equals(getName.invoke(emp)) && (int) getId.invoke(emp) == 0
+//							&& "".equals(getDept.invoke(emp)) && "".equals(getPos.invoke(emp));
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CONSTRUCTOR_MISSING_NO_ARGS.getContent(ClassArgs.EMPLOYEE);
+			}
         };
     }
 
@@ -110,30 +117,43 @@ public class MethodTestSuite {
     // ===================================================================
     private static TestCase createFullConstructorTest(int points) {
         return new TestCase() {
-            public String getName() { return "Full constructor Employee(String, int, String, String)"; }
-            public int getPoints() { return points; }
-            public boolean runTest() {
-                try {
-                    Class<?> clazz = Class.forName("Employee");
-                    Constructor<?> ctor = clazz.getDeclaredConstructor(String.class, int.class, String.class, String.class);
-                    Object emp = ctor.newInstance("Alice Smith", 12345, "IT", "Developer");
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CONSTRUCTOR_FULL_ARGS.getName(ClassArgs.EMPLOYEE);
+			}
 
-                    Method getName = clazz.getMethod("getName");
-                    Method getId = clazz.getMethod("getIdNumber");
-                    Method getDept = clazz.getMethod("getDepartment");
-                    Method getPos = clazz.getMethod("getPosition");
+			@Override
+			public int getPoints() {
+				return points;
+			}
 
-                    return "Alice Smith".equals(getName.invoke(emp)) &&
-                           (int) getId.invoke(emp) == 12345 &&
-                           "IT".equals(getDept.invoke(emp)) &&
-                           "Developer".equals(getPos.invoke(emp));
-                } catch (Exception e) {
-                    return false;
-                }
-            }
-            public String getFeedback() {
-                return "Full constructor Employee(String name, int id, String department, String position) is missing or does not set fields correctly.";
-            }
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(ClassArgs.EMPLOYEE);
+					Constructor<?> ctor = clazz.getDeclaredConstructor(String.class, int.class, String.class,
+							String.class);
+					Object emp = ctor.newInstance("Alice Smith", 12345, "IT", "Developer");
+					return true;
+
+//                    Method getName = clazz.getMethod("getName");
+//                    Method getId = clazz.getMethod("getIdNumber");
+//                    Method getDept = clazz.getMethod("getDepartment");
+//                    Method getPos = clazz.getMethod("getPosition");
+//
+//                    return "Alice Smith".equals(getName.invoke(emp)) &&
+//                           (int) getId.invoke(emp) == 12345 &&
+//                           "IT".equals(getDept.invoke(emp)) &&
+//                           "Developer".equals(getPos.invoke(emp));
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CONSTRUCTOR_MISSING_FULL_ARGS.getContent(ClassArgs.EMPLOYEE);
+			}
         };
     }
 
