@@ -124,9 +124,7 @@ public class StudentGraderUI extends JFrame {
                 log("Running your test cases...\n");
 
                 // Step 2: Run tests
-//                List<TestCase> tests = SampleTestSuite.getAllTests();
                 List<TestCase> tests = MethodTestSuite.getAllTests();
-                int totalScore = 0;
                 List<Integer> scores = new ArrayList<>();
                 List<Boolean> passedList = new ArrayList<>();
 
@@ -139,10 +137,11 @@ public class StudentGraderUI extends JFrame {
                     scores.add(points);
                     passedList.add(passed);
 
-                    log(passed ? "PASSED" : "✗ FAILED");
+                    log(passed ? "PASSED" : "FAILED");
                 }
 
                 // Step 3: Generate report
+                int totalScore = scores.stream().mapToInt(Integer::intValue).sum();
                 generateStudentReport(submissionFolder.getName(), totalScore, tests, scores, passedList);
 
                 log("\n" + "=".repeat(60));

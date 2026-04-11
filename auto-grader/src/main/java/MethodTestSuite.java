@@ -45,7 +45,7 @@ public class MethodTestSuite {
         return new TestCase() {
 			@Override
 			public String getName() {
-				return "Class Employee exists";
+				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(ClassAgrs.EMPLOYEE);
 			}
 
 			@Override
@@ -56,7 +56,8 @@ public class MethodTestSuite {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName("Employee");
+//					Class.forName("Employee");
+					Class.forName(ClassAgrs.EMPLOYEE);
 					return true;
 				} catch (ClassNotFoundException e) {
 					return false;
@@ -65,7 +66,8 @@ public class MethodTestSuite {
 
 			@Override
 			public String getFeedback() {
-				return "Class 'Employee' was not found. Make sure Employee.java is in the submission folder.";
+				return Feedback.CLASS_NOT_FOUND.getContent(ClassAgrs.EMPLOYEE);
+//				return "Class 'Employee' was not found. Make sure Employee.java is in the submission folder.";
 			}
         };
     }
