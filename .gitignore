@@ -15,3 +15,13 @@ auto-grader/.project
 auto-grader/.settings/org.eclipse.jdt.core.prefs
 
 auto-grader/.settings/org.eclipse.m2e.core.prefs
+
+auto-grader/reports/
+
+*.class
+
+auto-grader/src/main/java/backup/
+
+auto-grader/sample-submissions/875050/
+
+auto-grader/sample-submissions/875067/
