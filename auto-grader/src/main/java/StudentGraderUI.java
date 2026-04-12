@@ -9,8 +9,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -58,14 +61,12 @@ public class StudentGraderUI extends JFrame {
     private JButton clearLogButton;
     
     private Map<String, List<String>> labQuestionsMap = new LinkedHashMap<>();
-    private Map<String, String> testSuiteMap = new HashMap<>(); // question -> TestSuite Class Name
 
-    public StudentGraderUI() {
+    public StudentGraderUI() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
         setTitle("Student Self-Grader - Java Lab");
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        setSize(1080, 620);
         setUndecorated(false);
         setVisible(false);
         
@@ -132,37 +133,20 @@ public class StudentGraderUI extends JFrame {
         openReportsButton.addActionListener(e -> openReportsFolder());
         clearLogButton.addActionListener(e -> logArea.setText(""));
 
-        log("Student Submission Grader Ready\n");
-        log("Instructions:");
+        log("Student Submission Grader Instructions:\n");
         log("1. DELETE PACKAGE STATEMENT (first line)");
         log("2. PUT ALL your .java files in one folder but NOT APPLICATION FILE containing main()");
         log("3. Select that folder using Browse");
-        log("4. Click \"Grade My Submission\"");
+        log("4. Click \"Start Grading\"");
         log("5. Check the detailed report in reports/ folder\n");
     }
     
-	private void initializeTestSuites() {
+	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
-		labQuestionsMap.put("Lab 1 - Basic OOP", Arrays.asList(
-				"Q1 - Constructor"
-				, "Q2 - Getter & Setter"
-				, "Q3 - Simple Calculator"
-			)
-		);
-
-		labQuestionsMap.put("Lab 2 - Inheritance", Arrays.asList("Q1 - Animal Hierarchy", "Q2 - Shape Abstract Class"));
-
-		labQuestionsMap.put("Lab 3 - Arrays & Collections", Arrays.asList("Q1 - Student Array", "Q2 - Dynamic List"));
-
-		// Map question name to actual TestSuite class name (without .java)
-		testSuiteMap.put("Q1 - Constructor", "ConstructorTestSuite");
-		testSuiteMap.put("Q2 - Getter & Setter", "GetterSetterTestSuite");
-		testSuiteMap.put("Q3 - Simple Calculator", "CalculatorTestSuite");
-		testSuiteMap.put("Q1 - Animal Hierarchy", "AnimalTestSuite");
-		testSuiteMap.put("Q2 - Shape Abstract Class", "ShapeTestSuite");
-		testSuiteMap.put("Q1 - Student Array", "ArrayTestSuite");
-		testSuiteMap.put("Q2 - Dynamic List", "CollectionTestSuite");
+		for (Field field : Labs.class.getDeclaredFields()) {
+			labQuestionsMap.put(String.valueOf(field.get(field.getName())), Questions.getNameList());
+		}
 	}
     
     private void initializeComboBoxes() {
@@ -205,19 +189,19 @@ public class StudentGraderUI extends JFrame {
             return;
         }
         
+		String selectedLab = (String) labComboBox.getSelectedItem();
+		if (selectedLab == null) {
+			JOptionPane.showMessageDialog(this, "Please select a Lab!", "Warning", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		System.out.println("Selected Lab: " + selectedLab);
+        
 		String selectedQuestion = (String) questionComboBox.getSelectedItem();
 		if (selectedQuestion == null) {
 			JOptionPane.showMessageDialog(this, "Please select a Question!", "Warning", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
 		System.out.println("Selected Question: " + selectedQuestion);
-
-		String testSuiteClassName = testSuiteMap.get(selectedQuestion);
-		if (testSuiteClassName == null) {
-			log("❌ No test suite found for selected question.");
-			return;
-		}
-		System.out.println("Selected Test Suite: " + testSuiteClassName);
 		
         logArea.setText(""); // Clear previous log
         log("Starting self-grading for folder: " + submissionFolder.getName());
@@ -238,10 +222,21 @@ public class StudentGraderUI extends JFrame {
                 }
 
                 log("Compilation successful!\n");
-                log("Running your test cases...\n");
 
                 // Step 2: Run tests
-                List<TestCase> tests = MethodTestSuite.getAllTests();
+                // TODO retrieve test suite based on selected lab & question 
+                List<TestCase> tests = TestSuiteUtils.invokeAllTests(selectedLab, selectedQuestion);
+                if (tests == null || tests.size() == 0) {
+                	SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(this, 
+                        		MessageFormat.format("TEST SUITE IS UNDER CONSTRUCTION!\n({0} - {1})", selectedLab, selectedQuestion), 
+                            "ATTENTION", JOptionPane.WARNING_MESSAGE);
+                        gradeButton.setEnabled(true);
+                    });
+                	return;
+                }
+
+                log("Running your test cases...\n");
                 List<Integer> scores = new ArrayList<>();
                 List<Boolean> passedList = new ArrayList<>();
 
@@ -249,8 +244,6 @@ public class StudentGraderUI extends JFrame {
                     log("→ " + test.getName() + " (" + test.getPoints() + " pts) ... ");
                     boolean passed = test.runTest();
                     int points = passed ? test.getPoints() : 0;
-                    // TODO replace totalScore
-//                    totalScore += points;
                     scores.add(points);
                     passedList.add(passed);
 
@@ -284,7 +277,6 @@ public class StudentGraderUI extends JFrame {
                         "Success", JOptionPane.INFORMATION_MESSAGE);
                     gradeButton.setEnabled(true);
                 });
-
             } catch (Exception ex) {
                 log("\nUnexpected error: " + ex.getMessage());
                 gradeButton.setEnabled(true);
@@ -535,7 +527,12 @@ public class StudentGraderUI extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new StudentGraderUI().setVisible(true);
+        	try {
+				new StudentGraderUI().setVisible(true);
+			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         });
     }
 }
