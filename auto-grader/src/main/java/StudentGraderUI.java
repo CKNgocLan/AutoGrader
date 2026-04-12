@@ -1,37 +1,72 @@
-import javax.swing.*;
-
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Insets;
-import java.awt.Color;
-import java.awt.Desktop;
-import java.awt.event.*;
-import java.io.*;
-import java.nio.file.*;
+import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.ColorScaleFormatting;
+import org.apache.poi.ss.usermodel.ConditionalFormattingRule;
+import org.apache.poi.ss.usermodel.ConditionalFormattingThreshold;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.SheetConditionalFormatting;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class StudentGraderUI extends JFrame {
 
     private JTextField folderPathField;
     private JButton browseButton, gradeButton, openReportsButton;
+    private JComboBox<String> labComboBox;
+    private JComboBox<String> questionComboBox;
     private JTextArea logArea;
     private JButton clearLogButton;
+    
+    private Map<String, List<String>> labQuestionsMap = new LinkedHashMap<>();
 
-    public StudentGraderUI() {
+    public StudentGraderUI() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
         setTitle("Student Self-Grader - Java Lab");
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-//        setSize(1080, 620);
         setUndecorated(false);
         setVisible(false);
         
@@ -50,10 +85,21 @@ public class StudentGraderUI extends JFrame {
         gradeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         gradeButton.setBackground(new Color(0, 150, 0));
         gradeButton.setForeground(Color.WHITE);
+        
+        // Lab and Question drop down
+        labComboBox = new JComboBox<>();
+        questionComboBox = new JComboBox<>();
 
         topPanel.add(new JLabel("Submission Folder:"));
         topPanel.add(folderPathField);
         topPanel.add(browseButton);
+        // LAB drop down
+        topPanel.add(new JLabel("     Lab:"));
+        topPanel.add(labComboBox);
+        // QUESTION drop down
+        topPanel.add(new JLabel("     Question:"));
+        topPanel.add(questionComboBox);
+        
         topPanel.add(gradeButton);
 
         // ==================== CENTER: Log Area ====================
@@ -75,6 +121,11 @@ public class StudentGraderUI extends JFrame {
         add(topPanel, BorderLayout.NORTH);
         add(logScroll, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
+        
+        // Update questions when lab changes
+        labComboBox.addActionListener(e -> updateQuestionComboBox());
+        initializeTestSuites();
+        initializeComboBoxes();
 
         // Event Listeners
         browseButton.addActionListener(this::browseFolder);
@@ -82,14 +133,40 @@ public class StudentGraderUI extends JFrame {
         openReportsButton.addActionListener(e -> openReportsFolder());
         clearLogButton.addActionListener(e -> logArea.setText(""));
 
-        log("Student Submission Grader Ready\n");
-        log("Instructions:");
+        log("Student Submission Grader Instructions:\n");
         log("1. DELETE PACKAGE STATEMENT (first line)");
         log("2. PUT ALL your .java files in one folder but NOT APPLICATION FILE containing main()");
         log("3. Select that folder using Browse");
-        log("4. Click \"Grade My Submission\"");
+        log("4. Click \"Start Grading\"");
         log("5. Check the detailed report in reports/ folder\n");
     }
+    
+	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
+		// === ADD YOUR LABS AND QUESTIONS HERE ===
+		// Format: Lab Name -> List of Questions
+		for (Field field : Labs.class.getDeclaredFields()) {
+			labQuestionsMap.put(String.valueOf(field.get(field.getName())), Questions.getNameList());
+		}
+	}
+    
+    private void initializeComboBoxes() {
+        for (String lab : labQuestionsMap.keySet()) {
+            labComboBox.addItem(lab);
+        }
+        // Trigger first update
+        updateQuestionComboBox();
+    }
+    
+	private void updateQuestionComboBox() {
+		String selectedLab = (String) labComboBox.getSelectedItem();
+		if (selectedLab == null)
+			return;
+
+		questionComboBox.removeAllItems();
+		for (String question : labQuestionsMap.get(selectedLab)) {
+			questionComboBox.addItem(question);
+		}
+	}
 
     private void browseFolder(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
@@ -111,7 +188,21 @@ public class StudentGraderUI extends JFrame {
                 "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+        
+		String selectedLab = (String) labComboBox.getSelectedItem();
+		if (selectedLab == null) {
+			JOptionPane.showMessageDialog(this, "Please select a Lab!", "Warning", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		System.out.println("Selected Lab: " + selectedLab);
+        
+		String selectedQuestion = (String) questionComboBox.getSelectedItem();
+		if (selectedQuestion == null) {
+			JOptionPane.showMessageDialog(this, "Please select a Question!", "Warning", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		System.out.println("Selected Question: " + selectedQuestion);
+		
         logArea.setText(""); // Clear previous log
         log("Starting self-grading for folder: " + submissionFolder.getName());
         log("Compiling your Java files...\n");
@@ -131,10 +222,21 @@ public class StudentGraderUI extends JFrame {
                 }
 
                 log("Compilation successful!\n");
-                log("Running your test cases...\n");
 
                 // Step 2: Run tests
-                List<TestCase> tests = MethodTestSuite.getAllTests();
+                // TODO retrieve test suite based on selected lab & question 
+                List<TestCase> tests = TestSuiteUtils.invokeAllTests(selectedLab, selectedQuestion);
+                if (tests == null || tests.size() == 0) {
+                	SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(this, 
+                        		MessageFormat.format("TEST SUITE IS UNDER CONSTRUCTION!\n({0} - {1})", selectedLab, selectedQuestion), 
+                            "ATTENTION", JOptionPane.WARNING_MESSAGE);
+                        gradeButton.setEnabled(true);
+                    });
+                	return;
+                }
+
+                log("Running your test cases...\n");
                 List<Integer> scores = new ArrayList<>();
                 List<Boolean> passedList = new ArrayList<>();
 
@@ -142,8 +244,6 @@ public class StudentGraderUI extends JFrame {
                     log("→ " + test.getName() + " (" + test.getPoints() + " pts) ... ");
                     boolean passed = test.runTest();
                     int points = passed ? test.getPoints() : 0;
-                    // TODO replace totalScore
-//                    totalScore += points;
                     scores.add(points);
                     passedList.add(passed);
 
@@ -177,7 +277,6 @@ public class StudentGraderUI extends JFrame {
                         "Success", JOptionPane.INFORMATION_MESSAGE);
                     gradeButton.setEnabled(true);
                 });
-
             } catch (Exception ex) {
                 log("\nUnexpected error: " + ex.getMessage());
                 gradeButton.setEnabled(true);
@@ -428,7 +527,12 @@ public class StudentGraderUI extends JFrame {
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new StudentGraderUI().setVisible(true);
+        	try {
+				new StudentGraderUI().setVisible(true);
+			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         });
     }
 }
