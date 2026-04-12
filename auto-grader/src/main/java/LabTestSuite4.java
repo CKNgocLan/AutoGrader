@@ -50,7 +50,7 @@ public class LabTestSuite4 {
 		return new TestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(ClassArgs.EMPLOYEE);
+				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(ClassName.EMPLOYEE);
 			}
 
 			@Override
@@ -61,7 +61,7 @@ public class LabTestSuite4 {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(ClassArgs.EMPLOYEE);
+					Class.forName(ClassName.EMPLOYEE);
 					return true;
 				} catch (ClassNotFoundException e) {
 					return false;
@@ -70,7 +70,7 @@ public class LabTestSuite4 {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CLASS_NOT_FOUND.getContent(ClassArgs.EMPLOYEE);
+				return Feedback.CLASS_NOT_FOUND.getContent(ClassName.EMPLOYEE);
 			}
 		};
 	}
@@ -82,7 +82,7 @@ public class LabTestSuite4 {
 		return new TestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CONSTRUCTOR_NO_ARGS.getName(ClassArgs.EMPLOYEE);
+				return TestcaseType.CHECK_CONSTRUCTOR_NO_ARGS.getName(ClassName.EMPLOYEE);
 			}
 
 			@Override
@@ -93,7 +93,7 @@ public class LabTestSuite4 {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(ClassArgs.EMPLOYEE).getDeclaredConstructor().newInstance();
+					Class.forName(ClassName.EMPLOYEE).getDeclaredConstructor().newInstance();
 					return true;
 				} catch (Exception e) {
 					return false;
@@ -102,7 +102,7 @@ public class LabTestSuite4 {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CONSTRUCTOR_MISSING_NO_ARGS.getContent(ClassArgs.EMPLOYEE);
+				return Feedback.CONSTRUCTOR_MISSING_NO_ARGS.getContent(ClassName.EMPLOYEE);
 			}
 		};
 	}
@@ -114,7 +114,7 @@ public class LabTestSuite4 {
 		return new TestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CONSTRUCTOR_FULL_ARGS.getName(ClassArgs.EMPLOYEE);
+				return TestcaseType.CHECK_CONSTRUCTOR_FULL_ARGS.getName(ClassName.EMPLOYEE);
 			}
 
 			@Override
@@ -125,7 +125,7 @@ public class LabTestSuite4 {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(ClassArgs.EMPLOYEE)
+					Class.forName(ClassName.EMPLOYEE)
 							.getDeclaredConstructor(String.class, int.class, String.class, String.class)
 							.newInstance("Alice Smith", 12345, "IT", "Developer");
 					return true;
@@ -136,7 +136,7 @@ public class LabTestSuite4 {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CONSTRUCTOR_MISSING_FULL_ARGS.getContent(ClassArgs.EMPLOYEE);
+				return Feedback.CONSTRUCTOR_MISSING_FULL_ARGS.getContent(ClassName.EMPLOYEE);
 			}
 		};
 	}
