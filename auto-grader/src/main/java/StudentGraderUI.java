@@ -1,30 +1,64 @@
-import javax.swing.*;
-
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Insets;
-import java.awt.Color;
-import java.awt.Desktop;
-import java.awt.event.*;
-import java.io.*;
-import java.nio.file.*;
+import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Map;
 
-import org.apache.poi.ss.usermodel.*;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.ColorScaleFormatting;
+import org.apache.poi.ss.usermodel.ConditionalFormattingRule;
+import org.apache.poi.ss.usermodel.ConditionalFormattingThreshold;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.SheetConditionalFormatting;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class StudentGraderUI extends JFrame {
 
     private JTextField folderPathField;
     private JButton browseButton, gradeButton, openReportsButton;
+    private JComboBox<String> labComboBox;
+    private JComboBox<String> questionComboBox;
     private JTextArea logArea;
     private JButton clearLogButton;
+    
+    private Map<String, List<String>> labQuestionsMap = new LinkedHashMap<>();
+    private Map<String, String> testSuiteMap = new HashMap<>(); // question -> TestSuite Class Name
 
     public StudentGraderUI() {
         setTitle("Student Self-Grader - Java Lab");
@@ -50,10 +84,21 @@ public class StudentGraderUI extends JFrame {
         gradeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         gradeButton.setBackground(new Color(0, 150, 0));
         gradeButton.setForeground(Color.WHITE);
+        
+        // Lab and Question drop down
+        labComboBox = new JComboBox<>();
+        questionComboBox = new JComboBox<>();
 
         topPanel.add(new JLabel("Submission Folder:"));
         topPanel.add(folderPathField);
         topPanel.add(browseButton);
+        // LAB drop down
+        topPanel.add(new JLabel("     Lab:"));
+        topPanel.add(labComboBox);
+        // QUESTION drop down
+        topPanel.add(new JLabel("     Question:"));
+        topPanel.add(questionComboBox);
+        
         topPanel.add(gradeButton);
 
         // ==================== CENTER: Log Area ====================
@@ -75,6 +120,11 @@ public class StudentGraderUI extends JFrame {
         add(topPanel, BorderLayout.NORTH);
         add(logScroll, BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
+        
+        // Update questions when lab changes
+        labComboBox.addActionListener(e -> updateQuestionComboBox());
+        initializeTestSuites();
+        initializeComboBoxes();
 
         // Event Listeners
         browseButton.addActionListener(this::browseFolder);
@@ -90,6 +140,49 @@ public class StudentGraderUI extends JFrame {
         log("4. Click \"Grade My Submission\"");
         log("5. Check the detailed report in reports/ folder\n");
     }
+    
+	private void initializeTestSuites() {
+		// === ADD YOUR LABS AND QUESTIONS HERE ===
+		// Format: Lab Name -> List of Questions
+		labQuestionsMap.put("Lab 1 - Basic OOP", Arrays.asList(
+				"Q1 - Constructor"
+				, "Q2 - Getter & Setter"
+				, "Q3 - Simple Calculator"
+			)
+		);
+
+		labQuestionsMap.put("Lab 2 - Inheritance", Arrays.asList("Q1 - Animal Hierarchy", "Q2 - Shape Abstract Class"));
+
+		labQuestionsMap.put("Lab 3 - Arrays & Collections", Arrays.asList("Q1 - Student Array", "Q2 - Dynamic List"));
+
+		// Map question name to actual TestSuite class name (without .java)
+		testSuiteMap.put("Q1 - Constructor", "ConstructorTestSuite");
+		testSuiteMap.put("Q2 - Getter & Setter", "GetterSetterTestSuite");
+		testSuiteMap.put("Q3 - Simple Calculator", "CalculatorTestSuite");
+		testSuiteMap.put("Q1 - Animal Hierarchy", "AnimalTestSuite");
+		testSuiteMap.put("Q2 - Shape Abstract Class", "ShapeTestSuite");
+		testSuiteMap.put("Q1 - Student Array", "ArrayTestSuite");
+		testSuiteMap.put("Q2 - Dynamic List", "CollectionTestSuite");
+	}
+    
+    private void initializeComboBoxes() {
+        for (String lab : labQuestionsMap.keySet()) {
+            labComboBox.addItem(lab);
+        }
+        // Trigger first update
+        updateQuestionComboBox();
+    }
+    
+	private void updateQuestionComboBox() {
+		String selectedLab = (String) labComboBox.getSelectedItem();
+		if (selectedLab == null)
+			return;
+
+		questionComboBox.removeAllItems();
+		for (String question : labQuestionsMap.get(selectedLab)) {
+			questionComboBox.addItem(question);
+		}
+	}
 
     private void browseFolder(ActionEvent e) {
         JFileChooser chooser = new JFileChooser();
@@ -111,7 +204,21 @@ public class StudentGraderUI extends JFrame {
                 "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
+		String selectedQuestion = (String) questionComboBox.getSelectedItem();
+		if (selectedQuestion == null) {
+			JOptionPane.showMessageDialog(this, "Please select a Question!", "Warning", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		System.out.println("Selected Question: " + selectedQuestion);
 
+		String testSuiteClassName = testSuiteMap.get(selectedQuestion);
+		if (testSuiteClassName == null) {
+			log("❌ No test suite found for selected question.");
+			return;
+		}
+		System.out.println("Selected Test Suite: " + testSuiteClassName);
+		
         logArea.setText(""); // Clear previous log
         log("Starting self-grading for folder: " + submissionFolder.getName());
         log("Compiling your Java files...\n");
