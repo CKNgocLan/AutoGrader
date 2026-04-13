@@ -3,8 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SampleTestSuite {
-	public static List<TestCase> getAllTests() {
-		List<TestCase> tests = new ArrayList<>();
+	public static List<ITestCase> getAllTests() {
+		List<ITestCase> tests = new ArrayList<>();
 
 		// Test 1: Sum (20 pts)
 		tests.add(createClassExistsTest(50));
@@ -15,8 +15,8 @@ public class SampleTestSuite {
 	// ===================================================================
     // Test 1: Class exists
     // ===================================================================
-    private static TestCase createClassExistsTest(int points) {
-        return new TestCase() {
+    private static ITestCase createClassExistsTest(int points) {
+        return new ITestCase() {
             public String getName() { return "Class Employee exists"; }
             public int getPoints() { return points; }
             public boolean runTest() {

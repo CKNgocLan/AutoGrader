@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class LabTestSuite3 {
 
-	public static List<TestCase> getAllTests(String question) {
+	public static List<ITestCase> getAllTests(String question) {
 		switch (question) {
 		case Questions.Q1:
 			return Arrays.asList(
@@ -28,8 +28,8 @@ public class LabTestSuite3 {
 		}
 	}
 	
-	public static List<TestCase> getAllTests() {
-		List<TestCase> tests = new ArrayList<>();
+	public static List<ITestCase> getAllTests() {
+		List<ITestCase> tests = new ArrayList<>();
 
 		// Test 1: Class exists (10 pts)
 		tests.add(createClassExistsTest(10));
@@ -46,11 +46,11 @@ public class LabTestSuite3 {
 	// ===================================================================
 	// Test 1: Class exists
 	// ===================================================================
-	private static TestCase createClassExistsTest(int points) {
-		return new TestCase() {
+	private static ITestCase createClassExistsTest(int points) {
+		return new ITestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(ClassArgs.EMPLOYEE);
+				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(ClassName.EMPLOYEE);
 			}
 
 			@Override
@@ -61,7 +61,7 @@ public class LabTestSuite3 {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(ClassArgs.EMPLOYEE);
+					Class.forName(ClassName.EMPLOYEE);
 					return true;
 				} catch (ClassNotFoundException e) {
 					return false;
@@ -70,7 +70,7 @@ public class LabTestSuite3 {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CLASS_NOT_FOUND.getContent(ClassArgs.EMPLOYEE);
+				return Feedback.CLASS_NOT_FOUND.getContent(ClassName.EMPLOYEE);
 			}
 		};
 	}
@@ -78,11 +78,11 @@ public class LabTestSuite3 {
 	// ===================================================================
 	// Test 2: No-argument constructor
 	// ===================================================================
-	private static TestCase createNoArgConstructorTest(int points) {
-		return new TestCase() {
+	private static ITestCase createNoArgConstructorTest(int points) {
+		return new ITestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CONSTRUCTOR_NO_ARGS.getName(ClassArgs.EMPLOYEE);
+				return TestcaseType.CHECK_CONSTRUCTOR_NO_ARGS.getName(ClassName.EMPLOYEE);
 			}
 
 			@Override
@@ -93,7 +93,7 @@ public class LabTestSuite3 {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(ClassArgs.EMPLOYEE).getDeclaredConstructor().newInstance();
+					Class.forName(ClassName.EMPLOYEE).getDeclaredConstructor().newInstance();
 					return true;
 				} catch (Exception e) {
 					return false;
@@ -102,7 +102,7 @@ public class LabTestSuite3 {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CONSTRUCTOR_MISSING_NO_ARGS.getContent(ClassArgs.EMPLOYEE);
+				return Feedback.CONSTRUCTOR_MISSING_NO_ARGS.getContent(ClassName.EMPLOYEE);
 			}
 		};
 	}
@@ -110,11 +110,11 @@ public class LabTestSuite3 {
 	// ===================================================================
 	// Test 3: Full constructor (name, id, department, position)
 	// ===================================================================
-	private static TestCase createFullConstructorTest(int points) {
-		return new TestCase() {
+	private static ITestCase createFullConstructorTest(int points) {
+		return new ITestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CONSTRUCTOR_FULL_ARGS.getName(ClassArgs.EMPLOYEE);
+				return TestcaseType.CHECK_CONSTRUCTOR_FULL_ARGS.getName(ClassName.EMPLOYEE);
 			}
 
 			@Override
@@ -125,7 +125,7 @@ public class LabTestSuite3 {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(ClassArgs.EMPLOYEE)
+					Class.forName(ClassName.EMPLOYEE)
 							.getDeclaredConstructor(String.class, int.class, String.class, String.class)
 							.newInstance("Alice Smith", 12345, "IT", "Developer");
 					return true;
@@ -136,7 +136,7 @@ public class LabTestSuite3 {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CONSTRUCTOR_MISSING_FULL_ARGS.getContent(ClassArgs.EMPLOYEE);
+				return Feedback.CONSTRUCTOR_MISSING_FULL_ARGS.getContent(ClassName.EMPLOYEE);
 			}
 		};
 	}

@@ -3,7 +3,7 @@ import java.util.List;
 
 public class TestSuiteUtils {
 
-	public static List<TestCase> invokeAllTests(String lab, String question)
+	public static List<ITestCase> invokeAllTests(String lab, String question)
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		switch (lab) {
 		case Labs.L1:
