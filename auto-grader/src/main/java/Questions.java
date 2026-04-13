@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Questions {
 	public static final String Q1 = "Question 1";
@@ -15,6 +16,6 @@ public class Questions {
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				return null;
 			}
-		}).toList();
+		}).collect(Collectors.toList());
 	}
 }
