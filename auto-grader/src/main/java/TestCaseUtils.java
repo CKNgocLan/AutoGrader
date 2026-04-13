@@ -5,7 +5,7 @@ public class TestCaseUtils {
 	 * @param className
 	 * @return
 	 */
-	public static TestCase createClassExistsTest(String className) {
+	public static ITestCase createClassExistsTest(String className) {
 		return createClassExistsTest(className, 1);
 	}
 	
@@ -15,8 +15,8 @@ public class TestCaseUtils {
 	 * @param points
 	 * @return
 	 */
-	public static TestCase createClassExistsTest(String className, int points) {
-		return new TestCase() {
+	public static ITestCase createClassExistsTest(String className, int points) {
+		return new ITestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(className);
@@ -49,7 +49,7 @@ public class TestCaseUtils {
 	 * @param className
 	 * @return
 	 */
-	public static TestCase createNoArgConstructorTest(String className) {
+	public static ITestCase createNoArgConstructorTest(String className) {
 		return createNoArgConstructorTest(className, 1);
 	}
 
@@ -59,8 +59,8 @@ public class TestCaseUtils {
 	 * @param points
 	 * @return
 	 */
-	public static TestCase createNoArgConstructorTest(String className, int points) {
-		return new TestCase() {
+	public static ITestCase createNoArgConstructorTest(String className, int points) {
+		return new ITestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CONSTRUCTOR_NO_ARGS.getName(className);
@@ -93,7 +93,7 @@ public class TestCaseUtils {
 	 * @param className
 	 * @return
 	 */
-	public static TestCase createFullConstructorTest(String className) {
+	public static ITestCase createFullConstructorTest(String className) {
 		return createFullConstructorTest(className, 1);
 	}
 
@@ -103,8 +103,8 @@ public class TestCaseUtils {
 	 * @param points
 	 * @return
 	 */
-	public static TestCase createFullConstructorTest(String className, int points, Class<?>... parameterTypes) {
-		return new TestCase() {
+	public static ITestCase createFullConstructorTest(String className, int points, Class<?>... parameterTypes) {
+		return new ITestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CONSTRUCTOR_FULL_ARGS.getName(className);

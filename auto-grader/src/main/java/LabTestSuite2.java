@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class LabTestSuite2 {
 
-	public static List<TestCase> getAllTests(String question) {
+	public static List<ITestCase> getAllTests(String question) {
 		switch (question) {
 		case Questions.Q1:
 			return Arrays.asList(
@@ -32,8 +32,8 @@ public class LabTestSuite2 {
 		}
 	}
 	
-	public static List<TestCase> getAllTests() {
-		List<TestCase> tests = new ArrayList<>();
+	public static List<ITestCase> getAllTests() {
+		List<ITestCase> tests = new ArrayList<>();
 
 		// Test 1: Class exists (10 pts)
 		tests.add(createClassExistsTest(10));
@@ -50,8 +50,8 @@ public class LabTestSuite2 {
 	// ===================================================================
 	// Test 1: Class exists
 	// ===================================================================
-	private static TestCase createClassExistsTest(int points) {
-		return new TestCase() {
+	private static ITestCase createClassExistsTest(int points) {
+		return new ITestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(ClassName.EMPLOYEE);
@@ -82,8 +82,8 @@ public class LabTestSuite2 {
 	// ===================================================================
 	// Test 2: No-argument constructor
 	// ===================================================================
-	private static TestCase createNoArgConstructorTest(int points) {
-		return new TestCase() {
+	private static ITestCase createNoArgConstructorTest(int points) {
+		return new ITestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CONSTRUCTOR_NO_ARGS.getName(ClassName.EMPLOYEE);
@@ -114,8 +114,8 @@ public class LabTestSuite2 {
 	// ===================================================================
 	// Test 3: Full constructor (name, id, department, position)
 	// ===================================================================
-	private static TestCase createFullConstructorTest(int points) {
-		return new TestCase() {
+	private static ITestCase createFullConstructorTest(int points) {
+		return new ITestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CONSTRUCTOR_FULL_ARGS.getName(ClassName.EMPLOYEE);

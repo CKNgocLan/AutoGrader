@@ -7,8 +7,8 @@ import java.util.*;
  */
 public class MethodTestSuite {
 
-    public static List<TestCase> getAllTests() {
-        List<TestCase> tests = new ArrayList<>();
+    public static List<ITestCase> getAllTests() {
+        List<ITestCase> tests = new ArrayList<>();
 
         // Test 1: Class exists (10 pts)
         tests.add(createClassExistsTest(10));
@@ -40,8 +40,8 @@ public class MethodTestSuite {
     // ===================================================================
     // Test 1: Class exists
     // ===================================================================
-    private static TestCase createClassExistsTest(int points) {
-        return new TestCase() {
+    private static ITestCase createClassExistsTest(int points) {
+        return new ITestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(ClassName.EMPLOYEE);
@@ -72,8 +72,8 @@ public class MethodTestSuite {
     // ===================================================================
     // Test 2: No-argument constructor
     // ===================================================================
-    private static TestCase createNoArgConstructorTest(int points) {
-        return new TestCase() {
+    private static ITestCase createNoArgConstructorTest(int points) {
+        return new ITestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CONSTRUCTOR_NO_ARGS.getName(ClassName.EMPLOYEE);
@@ -115,8 +115,8 @@ public class MethodTestSuite {
     // ===================================================================
     // Test 3: Full constructor (name, id, department, position)
     // ===================================================================
-    private static TestCase createFullConstructorTest(int points) {
-        return new TestCase() {
+    private static ITestCase createFullConstructorTest(int points) {
+        return new ITestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CONSTRUCTOR_FULL_ARGS.getName(ClassName.EMPLOYEE);
@@ -160,8 +160,8 @@ public class MethodTestSuite {
     // ===================================================================
     // Test 4: Partial constructor (name, id only)
     // ===================================================================
-    private static TestCase createPartialConstructorTest(int points) {
-        return new TestCase() {
+    private static ITestCase createPartialConstructorTest(int points) {
+        return new ITestCase() {
             public String getName() { return "Partial constructor Employee(String, int)"; }
             public int getPoints() { return points; }
             public boolean runTest() {
@@ -192,26 +192,26 @@ public class MethodTestSuite {
     // ===================================================================
     // Test 5-8: Getters and Setters
     // ===================================================================
-    private static TestCase createNameGetterSetterTest(int points) {
+    private static ITestCase createNameGetterSetterTest(int points) {
         return createGetterSetterTest("Name", "getName", "setName", String.class, "Test Employee Name", points);
     }
 
-    private static TestCase createIdGetterSetterTest(int points) {
+    private static ITestCase createIdGetterSetterTest(int points) {
         return createGetterSetterTest("IdNumber", "getIdNumber", "setIdNumber", int.class, 99999, points);
     }
 
-    private static TestCase createDepartmentGetterSetterTest(int points) {
+    private static ITestCase createDepartmentGetterSetterTest(int points) {
         return createGetterSetterTest("Department", "getDepartment", "setDepartment", String.class, "HR Department", points);
     }
 
-    private static TestCase createPositionGetterSetterTest(int points) {
+    private static ITestCase createPositionGetterSetterTest(int points) {
         return createGetterSetterTest("Position", "getPosition", "setPosition", String.class, "Senior Manager", points);
     }
 
     // Generic helper for getter + setter pair
-    private static TestCase createGetterSetterTest(String field, String getterName, String setterName,
+    private static ITestCase createGetterSetterTest(String field, String getterName, String setterName,
                                                    Class<?> type, Object testValue, int points) {
-        return new TestCase() {
+        return new ITestCase() {
             public String getName() { return "Getter & Setter: " + field; }
             public int getPoints() { return points; }
             public boolean runTest() {

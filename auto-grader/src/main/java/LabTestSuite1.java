@@ -6,7 +6,7 @@ import java.util.*;
  */
 public class LabTestSuite1 {
 
-	public static List<TestCase> getAllTests(String question) {
+	public static List<ITestCase> getAllTests(String question) {
 		switch (question) {
 		case Questions.Q1:
 			return Arrays.asList(

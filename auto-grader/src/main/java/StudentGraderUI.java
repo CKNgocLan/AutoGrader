@@ -225,7 +225,7 @@ public class StudentGraderUI extends JFrame {
 
                 // Step 2: Run tests
                 // TODO retrieve test suite based on selected lab & question 
-                List<TestCase> tests = TestSuiteUtils.invokeAllTests(selectedLab, selectedQuestion);
+                List<ITestCase> tests = TestSuiteUtils.invokeAllTests(selectedLab, selectedQuestion);
                 if (tests == null || tests.size() == 0) {
                 	SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, 
@@ -240,7 +240,7 @@ public class StudentGraderUI extends JFrame {
                 List<Integer> scores = new ArrayList<>();
                 List<Boolean> passedList = new ArrayList<>();
 
-                for (TestCase test : tests) {
+                for (ITestCase test : tests) {
                     log("→ " + test.getName() + " (" + test.getPoints() + " pts) ... ");
                     boolean passed = test.runTest();
                     int points = passed ? test.getPoints() : 0;
@@ -339,7 +339,7 @@ public class StudentGraderUI extends JFrame {
     }
 
     private void generateStudentReport(String folderName, int totalScore, 
-                                       List<TestCase> tests, 
+                                       List<ITestCase> tests, 
                                        List<Integer> scores, 
                                        List<Boolean> passed) {
         try {
@@ -355,7 +355,7 @@ public class StudentGraderUI extends JFrame {
             sb.append("--------------------------------------------------\n\n");
 
             for (int i = 0; i < tests.size(); i++) {
-                TestCase t = tests.get(i);
+                ITestCase t = tests.get(i);
                 boolean p = passed.get(i);
                 int score = scores.get(i);
 
@@ -399,7 +399,7 @@ public class StudentGraderUI extends JFrame {
     }
     
 	// ====================== EXCEL REPORT ======================
-	private static void generateExcelReport(String name, String id, String email, int totalScore, List<TestCase> tests,
+	private static void generateExcelReport(String name, String id, String email, int totalScore, List<ITestCase> tests,
 			List<Integer> scores, List<Boolean> passed) {
 		try (Workbook workbook = new XSSFWorkbook()) {
 			Sheet sheet = workbook.createSheet("Lab Result");
@@ -420,7 +420,7 @@ public class StudentGraderUI extends JFrame {
 			headerRow.createCell(col++).setCellValue("Percentage");
 			headerRow.createCell(col++).setCellValue("Status");
 
-			for (TestCase t : tests) {
+			for (ITestCase t : tests) {
 				Cell cell = headerRow.createCell(col++);
 				cell.setCellValue(t.getName() + " (" + t.getPoints() + " pts)");
 				cell.setCellStyle(headerStyle);
