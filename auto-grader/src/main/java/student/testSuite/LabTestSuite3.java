@@ -1,12 +1,18 @@
-package student;
+package student.testSuite;
 import java.lang.reflect.*;
 import java.util.*;
+
+import student.consts.ClassName;
+import student.consts.Feedback;
+import student.consts.Questions;
+import student.consts.TestcaseType;
+import student.models.ITestCase;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
  * as per the uploaded Employee.java
  */
-public class LabTestSuite4 {
+public class LabTestSuite3 {
 
 	public static List<ITestCase> getAllTests(String question) {
 		switch (question) {

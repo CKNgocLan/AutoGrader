@@ -1,4 +1,8 @@
-package student;
+package student.utils;
+
+import student.consts.Feedback;
+import student.consts.TestcaseType;
+import student.models.ITestCase;
 
 public class TestCaseUtils {
 	/**

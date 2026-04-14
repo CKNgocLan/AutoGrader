@@ -52,6 +52,13 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import student.consts.Constants;
+import student.consts.Labs;
+import student.consts.Questions;
+import student.models.ITestCase;
+import student.utils.PathUtils;
+import student.utils.TestSuiteUtils;
+
 public class StudentGraderUI extends JFrame {
 
     private JTextField folderPathField;
@@ -531,7 +538,6 @@ public class StudentGraderUI extends JFrame {
         	try {
 				new StudentGraderUI().setVisible(true);
 			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         });

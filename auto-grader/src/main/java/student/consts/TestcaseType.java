@@ -1,4 +1,4 @@
-package student;
+package student.consts;
 import java.text.MessageFormat;
 
 public enum TestcaseType {

@@ -1,6 +1,16 @@
-package student;
+package student.utils;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+
+import student.consts.Labs;
+import student.models.ITestCase;
+import student.testSuite.LabTestSuite1;
+import student.testSuite.LabTestSuite2;
+import student.testSuite.LabTestSuite3;
+import student.testSuite.LabTestSuite4;
+import student.testSuite.LabTestSuite5;
+import student.testSuite.LabTestSuite6;
+import student.testSuite.LabTestSuite7;
 
 public class TestSuiteUtils {
 

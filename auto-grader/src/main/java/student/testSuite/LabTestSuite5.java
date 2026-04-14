@@ -1,27 +1,29 @@
-package student;
+package student.testSuite;
 import java.lang.reflect.*;
 import java.util.*;
+
+import student.consts.ClassName;
+import student.consts.Feedback;
+import student.consts.Questions;
+import student.consts.TestcaseType;
+import student.models.ITestCase;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
  * as per the uploaded Employee.java
  */
-public class LabTestSuite2 {
+public class LabTestSuite5 {
 
 	public static List<ITestCase> getAllTests(String question) {
 		switch (question) {
 		case Questions.Q1:
 			return Arrays.asList(
 					createClassExistsTest(10)
-//					, createNoArgConstructorTest(15)
-//					, createFullConstructorTest(20)
+					, createNoArgConstructorTest(15)
+					, createFullConstructorTest(20)
 				);
 		case Questions.Q2:
-			return Arrays.asList(
-//					createClassExistsTest(10)
-					createNoArgConstructorTest(15)
-//					, createFullConstructorTest(20)
-				);
+			return null;
 		case Questions.Q3:
 			return null;
 		case Questions.Q4:
