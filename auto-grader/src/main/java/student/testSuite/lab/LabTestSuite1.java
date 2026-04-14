@@ -1,4 +1,4 @@
-package student.testSuite;
+package student.testSuite.lab;
 import java.util.*;
 
 import student.constant.ClassName;

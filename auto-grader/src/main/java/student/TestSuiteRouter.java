@@ -1,18 +1,19 @@
-package student.util;
+package student;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import student.constant.Lab;
 import student.model.ITestCase;
-import student.testSuite.LabTestSuite1;
-import student.testSuite.LabTestSuite2;
-import student.testSuite.LabTestSuite3;
-import student.testSuite.LabTestSuite4;
-import student.testSuite.LabTestSuite5;
-import student.testSuite.LabTestSuite6;
-import student.testSuite.LabTestSuite7;
+import student.testSuite.lab.LabTestSuite1;
+import student.testSuite.lab.LabTestSuite2;
+import student.testSuite.lab.LabTestSuite3;
+import student.testSuite.lab.LabTestSuite4;
+import student.testSuite.lab.LabTestSuite5;
+import student.testSuite.lab.LabTestSuite6;
+import student.testSuite.lab.LabTestSuite7;
 
-public class TestSuiteUtil {
+public class TestSuiteRouter {
 
 	public static List<ITestCase> invokeAllTests(String lab, String question)
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {

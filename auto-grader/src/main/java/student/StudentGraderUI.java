@@ -57,7 +57,6 @@ import student.constant.Lab;
 import student.constant.Question;
 import student.model.ITestCase;
 import student.util.PathUtil;
-import student.util.TestSuiteUtil;
 
 public class StudentGraderUI extends JFrame {
 
@@ -233,7 +232,7 @@ public class StudentGraderUI extends JFrame {
 
                 // Step 2: Run tests
                 // TODO retrieve test suite based on selected lab & question 
-                List<ITestCase> tests = TestSuiteUtil.invokeAllTests(selectedLab, selectedQuestion);
+                List<ITestCase> tests = TestSuiteRouter.invokeAllTests(selectedLab, selectedQuestion);
                 if (tests == null || tests.size() == 0) {
                 	SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, 
