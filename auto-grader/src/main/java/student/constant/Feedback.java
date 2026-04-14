@@ -1,4 +1,4 @@
-package student.consts;
+package student.constant;
 import java.text.MessageFormat;
 
 public enum Feedback {

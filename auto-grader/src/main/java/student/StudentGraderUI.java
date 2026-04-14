@@ -52,12 +52,12 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import student.consts.Constants;
-import student.consts.Labs;
-import student.consts.Questions;
-import student.models.ITestCase;
-import student.utils.PathUtils;
-import student.utils.TestSuiteUtils;
+import student.constant.Constants;
+import student.constant.Labs;
+import student.constant.Questions;
+import student.model.ITestCase;
+import student.util.PathUtils;
+import student.util.TestSuiteUtils;
 
 public class StudentGraderUI extends JFrame {
 

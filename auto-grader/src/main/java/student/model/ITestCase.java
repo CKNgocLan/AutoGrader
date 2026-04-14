@@ -1,4 +1,4 @@
-package student.models;
+package student.model;
 
 
 /**

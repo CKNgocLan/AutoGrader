@@ -2,10 +2,10 @@ package student.testSuite;
 import java.lang.reflect.*;
 import java.util.*;
 
-import student.consts.ClassName;
-import student.consts.Feedback;
-import student.consts.TestcaseType;
-import student.models.ITestCase;
+import student.constant.ClassName;
+import student.constant.Feedback;
+import student.constant.TestcaseType;
+import student.model.ITestCase;
 
 /**
  * Test suite for the Employee class.

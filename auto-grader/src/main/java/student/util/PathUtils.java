@@ -1,7 +1,7 @@
-package student.utils;
+package student.util;
 import java.nio.file.Paths;
 
-import student.consts.Constants;
+import student.constant.Constants;
 
 public class PathUtils {
 	public static String createFolderPath(Class<?> classPackage, String destination) {

@@ -1,9 +1,9 @@
-package student.utils;
+package student.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import student.consts.Labs;
-import student.models.ITestCase;
+import student.constant.Labs;
+import student.model.ITestCase;
 import student.testSuite.LabTestSuite1;
 import student.testSuite.LabTestSuite2;
 import student.testSuite.LabTestSuite3;

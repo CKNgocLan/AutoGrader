@@ -1,4 +1,4 @@
-package student.consts;
+package student.constant;
 
 public class MethodName {
 	public static final String GET_ALL_TESTS = "getAllTests";

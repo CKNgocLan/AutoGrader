@@ -1,10 +1,10 @@
 package student.testSuite;
 import java.util.*;
 
-import student.consts.ClassName;
-import student.consts.Questions;
-import student.models.ITestCase;
-import student.utils.TestCaseUtils;
+import student.constant.ClassName;
+import student.constant.Questions;
+import student.model.ITestCase;
+import student.util.TestCaseUtils;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
