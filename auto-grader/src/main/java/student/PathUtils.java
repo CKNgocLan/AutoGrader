@@ -1,3 +1,4 @@
+package student;
 import java.nio.file.Paths;
 
 public class PathUtils {

@@ -1,3 +1,4 @@
+package student;
 
 public class Constants {
 	public static final String SRC = "src";
