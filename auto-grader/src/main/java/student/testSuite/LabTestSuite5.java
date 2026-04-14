@@ -4,7 +4,7 @@ import java.util.*;
 
 import student.constant.ClassName;
 import student.constant.Feedback;
-import student.constant.Questions;
+import student.constant.Question;
 import student.constant.TestcaseType;
 import student.model.ITestCase;
 
@@ -16,19 +16,19 @@ public class LabTestSuite5 {
 
 	public static List<ITestCase> getAllTests(String question) {
 		switch (question) {
-		case Questions.Q1:
+		case Question.Q1:
 			return Arrays.asList(
 					createClassExistsTest(10)
 					, createNoArgConstructorTest(15)
 					, createFullConstructorTest(20)
 				);
-		case Questions.Q2:
+		case Question.Q2:
 			return null;
-		case Questions.Q3:
+		case Question.Q3:
 			return null;
-		case Questions.Q4:
+		case Question.Q4:
 			return null;
-		case Questions.Q5:
+		case Question.Q5:
 			return null;
 		default:
 			return null;

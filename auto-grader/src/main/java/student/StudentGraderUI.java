@@ -53,11 +53,11 @@ import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import student.constant.Constants;
-import student.constant.Labs;
-import student.constant.Questions;
+import student.constant.Lab;
+import student.constant.Question;
 import student.model.ITestCase;
-import student.util.PathUtils;
-import student.util.TestSuiteUtils;
+import student.util.PathUtil;
+import student.util.TestSuiteUtil;
 
 public class StudentGraderUI extends JFrame {
 
@@ -152,8 +152,8 @@ public class StudentGraderUI extends JFrame {
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
-		for (Field field : Labs.class.getDeclaredFields()) {
-			labQuestionsMap.put(String.valueOf(field.get(field.getName())), Questions.getNameList());
+		for (Field field : Lab.class.getDeclaredFields()) {
+			labQuestionsMap.put(String.valueOf(field.get(field.getName())), Question.getNameList());
 		}
 	}
     
@@ -233,7 +233,7 @@ public class StudentGraderUI extends JFrame {
 
                 // Step 2: Run tests
                 // TODO retrieve test suite based on selected lab & question 
-                List<ITestCase> tests = TestSuiteUtils.invokeAllTests(selectedLab, selectedQuestion);
+                List<ITestCase> tests = TestSuiteUtil.invokeAllTests(selectedLab, selectedQuestion);
                 if (tests == null || tests.size() == 0) {
                 	SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, 
@@ -309,7 +309,7 @@ public class StudentGraderUI extends JFrame {
             List<String> cmd = new ArrayList<>();
             cmd.add("javac");
             cmd.add("-d");
-            cmd.add(PathUtils.targetClasses());
+            cmd.add(PathUtil.targetClasses());
             cmd.addAll(javaFiles);
             pb.command(cmd);
 

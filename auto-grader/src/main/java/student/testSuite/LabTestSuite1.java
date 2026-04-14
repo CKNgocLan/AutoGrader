@@ -2,9 +2,9 @@ package student.testSuite;
 import java.util.*;
 
 import student.constant.ClassName;
-import student.constant.Questions;
+import student.constant.Question;
 import student.model.ITestCase;
-import student.util.TestCaseUtils;
+import student.util.TestCaseUtil;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
@@ -14,23 +14,23 @@ public class LabTestSuite1 {
 
 	public static List<ITestCase> getAllTests(String question) {
 		switch (question) {
-		case Questions.Q1:
+		case Question.Q1:
 			return Arrays.asList(
-					TestCaseUtils.createClassExistsTest(ClassName.EMPLOYEE, 10)
-					, TestCaseUtils.createNoArgConstructorTest(ClassName.EMPLOYEE, 15)
-					, TestCaseUtils.createFullConstructorTest(ClassName.EMPLOYEE, 20)
+					TestCaseUtil.createClassExistsTest(ClassName.EMPLOYEE, 10)
+					, TestCaseUtil.createNoArgConstructorTest(ClassName.EMPLOYEE, 15)
+					, TestCaseUtil.createFullConstructorTest(ClassName.EMPLOYEE, 20)
 			);
-		case Questions.Q2:
+		case Question.Q2:
 			return Arrays.asList(
-					TestCaseUtils.createClassExistsTest(ClassName.EMPLOYEE)
-					, TestCaseUtils.createNoArgConstructorTest(ClassName.EMPLOYEE)
-					, TestCaseUtils.createFullConstructorTest(ClassName.EMPLOYEE)
+					TestCaseUtil.createClassExistsTest(ClassName.EMPLOYEE)
+					, TestCaseUtil.createNoArgConstructorTest(ClassName.EMPLOYEE)
+					, TestCaseUtil.createFullConstructorTest(ClassName.EMPLOYEE)
 			);
-		case Questions.Q3:
+		case Question.Q3:
 			return null;
-		case Questions.Q4:
+		case Question.Q4:
 			return null;
-		case Questions.Q5:
+		case Question.Q5:
 			return null;
 		default:
 			return null;

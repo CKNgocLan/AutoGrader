@@ -4,7 +4,7 @@ import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.ITestCase;
 
-public class TestCaseUtils {
+public class TestCaseUtil {
 	/**
 	 * Class existence testcase
 	 * @param className

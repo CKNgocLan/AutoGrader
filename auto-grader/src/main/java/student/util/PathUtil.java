@@ -3,7 +3,7 @@ import java.nio.file.Paths;
 
 import student.constant.Constants;
 
-public class PathUtils {
+public class PathUtil {
 	public static String createFolderPath(Class<?> classPackage, String destination) {
 		return Paths.get(Constants.SRC, Constants.MAIN, Constants.JAVA, classPackage.getPackageName(), Constants.SUBMISSIONS).toString();
 	}

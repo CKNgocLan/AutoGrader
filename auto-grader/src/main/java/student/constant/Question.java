@@ -3,7 +3,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Questions {
+public class Question {
 	public static final String Q1 = "Question 1";
 	public static final String Q2 = "Question 2";
 	public static final String Q3 = "Question 3";
@@ -11,7 +11,7 @@ public class Questions {
 	public static final String Q5 = "Question 5";
 
 	public static List<String> getNameList() {
-		return Arrays.asList(Questions.class.getDeclaredFields()).stream().map(field -> {
+		return Arrays.asList(Question.class.getDeclaredFields()).stream().map(field -> {
 			try {
 				return String.valueOf(field.get(field.getName()));
 			} catch (IllegalArgumentException | IllegalAccessException e) {

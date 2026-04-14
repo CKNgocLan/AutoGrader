@@ -2,7 +2,7 @@ package student.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
-import student.constant.Labs;
+import student.constant.Lab;
 import student.model.ITestCase;
 import student.testSuite.LabTestSuite1;
 import student.testSuite.LabTestSuite2;
@@ -12,24 +12,24 @@ import student.testSuite.LabTestSuite5;
 import student.testSuite.LabTestSuite6;
 import student.testSuite.LabTestSuite7;
 
-public class TestSuiteUtils {
+public class TestSuiteUtil {
 
 	public static List<ITestCase> invokeAllTests(String lab, String question)
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		switch (lab) {
-		case Labs.L1:
+		case Lab.L1:
 			return LabTestSuite1.getAllTests(question);
-		case Labs.L2:
+		case Lab.L2:
 			return LabTestSuite2.getAllTests(question);
-		case Labs.L3:
+		case Lab.L3:
 			return LabTestSuite3.getAllTests(question);
-		case Labs.L4:
+		case Lab.L4:
 			return LabTestSuite4.getAllTests(question);
-		case Labs.L5:
+		case Lab.L5:
 			return LabTestSuite5.getAllTests(question);
-		case Labs.L6:
+		case Lab.L6:
 			return LabTestSuite6.getAllTests(question);
-		case Labs.L7:
+		case Lab.L7:
 			return LabTestSuite7.getAllTests(question);
 		default:
 			return List.of();
