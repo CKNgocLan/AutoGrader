@@ -1,9 +1,11 @@
 package student.testSuite.lab;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 import student.constant.ClassName;
 import student.constant.Question;
 import student.model.ITestCase;
+import student.testSuite.classTestSuite.ClassTest;
 import student.util.TestCaseUtil;
 
 /**
@@ -16,15 +18,15 @@ public class LabTestSuite1 {
 		switch (question) {
 		case Question.Q1:
 			return Arrays.asList(
-					TestCaseUtil.createClassExistsTest(ClassName.EMPLOYEE, 10)
-					, TestCaseUtil.createNoArgConstructorTest(ClassName.EMPLOYEE, 15)
-					, TestCaseUtil.createFullConstructorTest(ClassName.EMPLOYEE, 20)
+					ClassTest.checkExistence(ClassName.EMPLOYEE, 10)
+					, ClassTest.checkNoArgConstructor(ClassName.EMPLOYEE, 15)
+					, ClassTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 20)
 			);
 		case Question.Q2:
 			return Arrays.asList(
-					TestCaseUtil.createClassExistsTest(ClassName.EMPLOYEE)
-					, TestCaseUtil.createNoArgConstructorTest(ClassName.EMPLOYEE)
-					, TestCaseUtil.createFullConstructorTest(ClassName.EMPLOYEE)
+					ClassTest.checkExistence(ClassName.EMPLOYEE)
+					, ClassTest.checkNoArgConstructor(ClassName.EMPLOYEE)
+					, ClassTest.checkFullArgsConstructor(ClassName.EMPLOYEE)
 			);
 		case Question.Q3:
 			return null;
