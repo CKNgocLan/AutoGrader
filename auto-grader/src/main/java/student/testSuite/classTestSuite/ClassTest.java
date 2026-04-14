@@ -1,8 +1,18 @@
 package student.testSuite.classTestSuite;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import student.constant.Feedback;
 import student.constant.TestcaseType;
+import student.model.Attribute;
 import student.model.ITestCase;
+import student.util.TestCaseUtil;
 
 public class ClassTest {
 	/**
@@ -139,6 +149,120 @@ public class ClassTest {
 			@Override
 			public String getFeedback() {
 				return Feedback.CONSTRUCTOR_MISSING_FULL_ARGS.getContent(className);
+			}
+		};
+	}
+	
+	/**
+	 * Attribute declaration testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public static ITestCase checkAttributes(String className, int points) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_ATTRIBUTE.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					for (Field field : Class.forName(className).getDeclaredFields()) {
+						if (TestCaseUtil.checkField(field)) {
+							return false;
+						}
+					}
+
+					return true;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.ATTRIBUTE_DECLARED_NOT_CORRECT.getContent(className);
+			}
+		};
+	}
+	
+	/**
+	 * Getter method declaration testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public static ITestCase checkGetters(String className, int points) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_GETTER.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return TestCaseUtil.checkGetter(Class.forName(className));
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className);
+			}
+		};
+	}
+	
+	/**
+	 * Setter method declaration testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public static ITestCase checkSetters(String className, int points) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_SETTER.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return TestCaseUtil.checkSetter(Class.forName(className));
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.SETTER_DECLARED_NOT_CORRECT.getContent(className);
 			}
 		};
 	}

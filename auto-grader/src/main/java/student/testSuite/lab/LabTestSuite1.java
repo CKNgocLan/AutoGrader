@@ -16,14 +16,24 @@ public class LabTestSuite1 {
 
 	public static List<ITestCase> getAllTests(String question) {
 		switch (question) {
+		case Question.Q0:
+			return Arrays.asList(
+					ClassTest.checkExistence(ClassName.EMPLOYEE, 10)
+					, ClassTest.checkNoArgConstructor(ClassName.EMPLOYEE, 15)
+					, ClassTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 20)
+					, ClassTest.checkGetters(ClassName.EMPLOYEE, 05)
+					, ClassTest.checkSetters(ClassName.EMPLOYEE, 05)
+					);
 		case Question.Q1:
-			return Arrays.asList(ClassTest.checkExistence(ClassName.EMPLOYEE, 10),
-					ClassTest.checkNoArgConstructor(ClassName.EMPLOYEE, 15),
-					ClassTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 20));
+			return null;
+//			return Arrays.asList(ClassTest.checkExistence(ClassName.EMPLOYEE, 10),
+//					ClassTest.checkNoArgConstructor(ClassName.EMPLOYEE, 15),
+//					ClassTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 20));
 		case Question.Q2:
-			return Arrays.asList(ClassTest.checkExistence(ClassName.EMPLOYEE),
-					ClassTest.checkNoArgConstructor(ClassName.EMPLOYEE),
-					ClassTest.checkFullArgsConstructor(ClassName.EMPLOYEE));
+			return null;
+//			return Arrays.asList(ClassTest.checkExistence(ClassName.EMPLOYEE),
+//					ClassTest.checkNoArgConstructor(ClassName.EMPLOYEE),
+//					ClassTest.checkFullArgsConstructor(ClassName.EMPLOYEE));
 		case Question.Q3:
 			return null;
 		case Question.Q4:

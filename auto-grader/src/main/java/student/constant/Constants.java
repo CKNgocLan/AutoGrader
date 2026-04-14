@@ -12,4 +12,8 @@ public class Constants {
 	public static final String REPORTS_DIR = "reports";
 
 	public static final String SUBMISSIONS = "submissions";
+	
+	public static final String UNDERSCORE = "_";
+	
+	public static final String ID = "id";
 }
