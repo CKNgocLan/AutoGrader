@@ -5,6 +5,9 @@ public class Employee {
 	private String department;
 	private String position;
 	private int idNumber;
+	private Double refDouble;
+	private double priDouble;
+
 
 	public Employee(String name, int idNumber, String department, String position) {
 		this.name = name;

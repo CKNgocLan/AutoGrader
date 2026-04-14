@@ -8,6 +8,8 @@ public enum Feedback {
 	, ATTRIBUTE_DECLARED_NOT_CORRECT("Attributes of class {0} NOT CORRECT.")
 	, GETTER_DECLARED_NOT_CORRECT("Getter method of class {0} NOT CORRECT.")
 	, SETTER_DECLARED_NOT_CORRECT("Setter method of class {0} NOT CORRECT.")
+	, GETTER_OPERATION_WORKING_NOT_PROPERLY("Getter of class {0} WORKING NOT PROPERLY.")
+	, SETTER_OPERATION_WORKING_NOT_PROPERLY("Setter of class {0} WORKING NOT PROPERLY.")
 	;
 	
 	private final String value;

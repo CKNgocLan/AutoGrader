@@ -8,6 +8,10 @@ public enum TestcaseType {
 	, CHECK_CLASS_ATTRIBUTE("Check Attribute Declaration of Class: {0}")
 	, CHECK_CLASS_GETTER("Check Getter Method Declaration of Class: {0}")
 	, CHECK_CLASS_SETTER("Check Setter Method Declaration of Class: {0}")
+	, CHECK_CLASS_GETTER_OPERATION("Check GETTER Operation of Class: {0}")
+	, CHECK_CLASS_SETTER_OPERATION("Check SETTER Operation of Class: {0}")
+	, CHECK_CLASS_GETTER_OPERATION_FOR_FIELD("Check GETTER Operation of Class: {0} for field {1}")
+	, CHECK_CLASS_SETTER_OPERATION_FOR_FIELD("Check SETTER Operation of Class: {0} for field {1}")
 	;
 	
 	private final String value;

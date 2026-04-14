@@ -1,6 +1,7 @@
 package student.testSuite.classTestSuite;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import student.checker.GetterChecker;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.Attribute;
@@ -263,6 +265,56 @@ public class ClassTest {
 			@Override
 			public String getFeedback() {
 				return Feedback.SETTER_DECLARED_NOT_CORRECT.getContent(className);
+			}
+		};
+	}
+	
+	/**
+	 * Getter method logic testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public static ITestCase checkGetterOperation(String className, int points) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_GETTER_OPERATION.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className);
+					if (!TestCaseUtil.checkGetter(clazz)) {
+						return false;
+					}
+					
+					Field[] fields = clazz.getDeclaredFields();
+					if (!GetterChecker.check()) {
+						return false;
+					}
+					
+					if (!GetterChecker.checkStringGetter(clazz, "name", "Michale Jackson")) {
+						return false;
+					}
+					
+					return GetterChecker.checkIntGetter(clazz, "idNumber", 5678);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.GETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(className);
 			}
 		};
 	}
