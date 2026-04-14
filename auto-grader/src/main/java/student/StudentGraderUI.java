@@ -55,6 +55,7 @@ import student.constant.Constants;
 import student.constant.Lab;
 import student.constant.Question;
 import student.model.ITestCase;
+import student.model.LabTestSuiteFactory;
 import student.util.PathUtil;
 
 public class StudentGraderUI extends JFrame {
@@ -66,6 +67,8 @@ public class StudentGraderUI extends JFrame {
     private JComboBox<String> questionComboBox;
     private JTextArea logArea;
     private JButton clearLogButton;
+    
+    private TestSuiteRouter testSuiteRouter;
     
     private Map<String, List<String>> labQuestionsMap = new LinkedHashMap<>();
 
@@ -133,6 +136,8 @@ public class StudentGraderUI extends JFrame {
         labComboBox.addActionListener(e -> updateQuestionComboBox());
         initializeTestSuites();
         initializeComboBoxes();
+        
+        testSuiteRouter = new TestSuiteRouter();
 
         // Event Listeners
         browseButton.addActionListener(this::browseFolder);
@@ -232,7 +237,7 @@ public class StudentGraderUI extends JFrame {
 
                 // Step 2: Run tests
                 // TODO retrieve test suite based on selected lab & question 
-                List<ITestCase> tests = TestSuiteRouter.invokeAllTests(selectedLab, selectedQuestion);
+                List<ITestCase> tests = testSuiteRouter.invokeAllTests(selectedLab, selectedQuestion);
                 if (tests == null || tests.size() == 0) {
                 	SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, 

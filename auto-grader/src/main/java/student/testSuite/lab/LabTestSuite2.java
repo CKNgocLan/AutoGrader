@@ -1,20 +1,20 @@
 package student.testSuite.lab;
-import java.lang.reflect.*;
 import java.util.*;
 
 import student.constant.ClassName;
 import student.constant.Feedback;
 import student.constant.Question;
 import student.constant.TestcaseType;
+import student.model.ALabTestSuite;
 import student.model.ITestCase;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
  * as per the uploaded Employee.java
  */
-public class LabTestSuite2 {
-
-	public static List<ITestCase> getAllTests(String question) {
+public class LabTestSuite2 extends ALabTestSuite {
+	@Override
+	public List<ITestCase> getAllTests(String question) {
 		switch (question) {
 		case Question.Q1:
 			return Arrays.asList(

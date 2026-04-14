@@ -5,6 +5,7 @@ import java.util.List;
 
 import student.constant.ClassName;
 import student.constant.Question;
+import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.testSuite.classTestSuite.ClassTest;
 
@@ -12,9 +13,9 @@ import student.testSuite.classTestSuite.ClassTest;
  * Test suite for the Employee class. Tests constructors, getters, and setters
  * as per the uploaded Employee.java
  */
-public class LabTestSuite1 {
-
-	public static List<ITestCase> getAllTests(String question) {
+public class LabTestSuite1 extends ALabTestSuite {
+	@Override
+	public List<ITestCase> getAllTests(String question) {
 		switch (question) {
 		case Question.Q0:
 			return Arrays.asList(
