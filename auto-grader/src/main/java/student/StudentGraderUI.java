@@ -1,4 +1,5 @@
 package student;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -18,8 +19,6 @@ import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,8 +58,9 @@ import student.model.ITestCase;
 import student.util.PathUtil;
 
 public class StudentGraderUI extends JFrame {
-
-    private JTextField folderPathField;
+	private static final long serialVersionUID = 3700796113357733984L;
+	
+	private JTextField folderPathField;
     private JButton browseButton, gradeButton, openReportsButton;
     private JComboBox<String> labComboBox;
     private JComboBox<String> questionComboBox;
