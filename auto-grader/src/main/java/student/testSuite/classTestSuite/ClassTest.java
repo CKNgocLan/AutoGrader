@@ -177,13 +177,17 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					for (Field field : Class.forName(className).getDeclaredFields()) {
-						if (TestCaseUtil.checkField(field)) {
+					for(Field field : Class.forName(className).getDeclaredFields()) {
+						if (!TestCaseUtil.checkField(field)
+							|| (Modifier.isStatic(field.getModifiers()) && !TestCaseUtil.checkPrivateStaticField(field))) {
 							return false;
 						}
 					}
 
 					return true;
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.getMessage());
+					return false;
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;

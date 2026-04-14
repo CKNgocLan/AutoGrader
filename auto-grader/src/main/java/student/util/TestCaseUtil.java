@@ -11,7 +11,14 @@ import student.constant.MethodName;
 
 public class TestCaseUtil {
 	public static boolean checkField(Field field) {
-		return Modifier.isPrivate(field.getModifiers()) && isCamelCase(field.getName());
+		return Modifier.isPrivate(field.getModifiers())
+				&& isCamelCase(field.getName());
+	}
+	
+	public static boolean checkPrivateStaticField(Field field) {
+		return Modifier.isPrivate(field.getModifiers())
+				&& Modifier.isStatic(field.getModifiers())
+				&& isAllUppercase(field.getName());
 	}
 	
 	public static boolean checkGetter(Class<?> clazz) {
@@ -41,12 +48,16 @@ public class TestCaseUtil {
 	/* *************************************************************************** */
 	
 	public static List<String> getGettersFromAttributes(Class<?> clazz) {
-		return Stream.of(clazz.getDeclaredFields()).map(field -> getGetterName(field.getName()))
+		return Stream.of(clazz.getDeclaredFields())
+				.filter(field -> !Modifier.isStatic(field.getModifiers()))
+				.map(field -> getGetterName(field.getName()))
 				.collect(Collectors.toList());
 	}
 	
 	public static List<String> getSettersFromAttributes(Class<?> clazz) {
-		return Stream.of(clazz.getDeclaredFields()).map(field -> getSetterName(field.getName()))
+		return Stream.of(clazz.getDeclaredFields())
+				.filter(field -> !Modifier.isStatic(field.getModifiers()))
+				.map(field -> getSetterName(field.getName()))
 				.collect(Collectors.toList());
 	}
 	
@@ -75,6 +86,20 @@ public class TestCaseUtil {
 
 		return true;
 	}
+	
+	public static boolean isAllUppercase(String name) {
+		if (name == null || name.isEmpty()) {
+			return false;
+		}
+		for (char c : name.toCharArray()) {
+			if (!Character.isUpperCase(c) && c != Constants.UNDERSCORE_CHAR) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/* *************************************************************************** */
 	
 	public static String getGetterName(String attributeName) {
         if (attributeName == null || attributeName.isEmpty()) {

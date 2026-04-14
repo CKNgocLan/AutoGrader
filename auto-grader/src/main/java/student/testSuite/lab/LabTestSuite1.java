@@ -21,6 +21,7 @@ public class LabTestSuite1 {
 					ClassTest.checkExistence(ClassName.EMPLOYEE, 10)
 					, ClassTest.checkNoArgConstructor(ClassName.EMPLOYEE, 15)
 					, ClassTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 20)
+					, ClassTest.checkAttributes(ClassName.EMPLOYEE, 5)
 					, ClassTest.checkGetters(ClassName.EMPLOYEE, 5)
 					, ClassTest.checkSetters(ClassName.EMPLOYEE, 5)
 					, ClassTest.checkGetterOperation(ClassName.EMPLOYEE, 5)
