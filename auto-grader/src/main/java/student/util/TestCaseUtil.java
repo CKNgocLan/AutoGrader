@@ -8,8 +8,19 @@ import java.util.stream.Stream;
 
 import student.constant.Constants;
 import student.constant.MethodName;
+import student.model.InvalidMethod;
 
 public class TestCaseUtil {
+//	private static TestCaseUtil instance = null;
+//	
+//	public static TestCaseUtil getInstance() {
+//		if (instance == null) {
+//			instance = new TestCaseUtil();
+//		}
+//		
+//		return instance;
+//	}
+
 	public static boolean checkField(Field field) {
 		return Modifier.isPrivate(field.getModifiers())
 				&& isCamelCase(field.getName());
@@ -21,8 +32,15 @@ public class TestCaseUtil {
 				&& isAllUppercase(field.getName());
 	}
 	
-	public static boolean checkGetter(Class<?> clazz) {
-		return getMissingGetter(clazz).size() < 1;
+	public static boolean checkGetter(Class<?> clazz, InvalidMethod invalid) {
+		List<String> missingGetter = getMissingGetter(clazz);
+		
+		if (missingGetter.size() > 0) {
+			invalid.setName(String.join(", ", missingGetter));
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public static boolean checkSetter(Class<?> clazz) {
@@ -34,14 +52,14 @@ public class TestCaseUtil {
 	public static List<String> getMissingGetter(Class<?> clazz) {
 		return getGettersFromAttributes(clazz).stream()
 				.filter(attrGetter -> !getDeclaredGetterSetter(clazz, MethodName.GET).contains(attrGetter))
-				.toList()
+				.collect(Collectors.toList())
 				;
 	}
 	
 	public static List<String> getMissingSetter(Class<?> clazz) {
 		return getSettersFromAttributes(clazz).stream()
 				.filter(attrGetter -> !getDeclaredGetterSetter(clazz, MethodName.SET).contains(attrGetter))
-				.toList()
+				.collect(Collectors.toList())
 				;
 	}
 	
@@ -64,7 +82,7 @@ public class TestCaseUtil {
 	public static List<String> getDeclaredGetterSetter(Class<?> clazz, String getset) {
 		return Stream.of(clazz.getDeclaredMethods())
 				.map(method -> method.getName()).filter(name -> getset.equals(name.subSequence(0, 3)))
-				.toList();
+				.collect(Collectors.toList());
 	}
 	
 	/* *************************************************************************** */

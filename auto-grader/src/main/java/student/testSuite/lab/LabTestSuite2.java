@@ -1,4 +1,5 @@
 package student.testSuite.lab;
+
 import java.util.*;
 
 import student.constant.ClassName;
@@ -17,17 +18,16 @@ public class LabTestSuite2 extends ALabTestSuite {
 	public List<ITestCase> getAllTests(String question) {
 		switch (question) {
 		case Question.Q1:
-			return Arrays.asList(
-					createClassExistsTest(10)
+			return Arrays.asList(createClassExistsTest(10)
 //					, createNoArgConstructorTest(15)
 //					, createFullConstructorTest(20)
-				);
+			);
 		case Question.Q2:
 			return Arrays.asList(
 //					createClassExistsTest(10)
 					createNoArgConstructorTest(15)
 //					, createFullConstructorTest(20)
-				);
+			);
 		case Question.Q3:
 			return null;
 		case Question.Q4:
@@ -38,7 +38,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 			return null;
 		}
 	}
-	
+
 	public static List<ITestCase> getAllTests() {
 		List<ITestCase> tests = new ArrayList<>();
 

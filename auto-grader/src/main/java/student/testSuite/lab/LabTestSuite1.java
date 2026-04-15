@@ -14,18 +14,20 @@ import student.testSuite.classTestSuite.ClassTest;
  * as per the uploaded Employee.java
  */
 public class LabTestSuite1 extends ALabTestSuite {
+	private ClassTest classTest = ClassTest.getInstance();
+	
 	@Override
 	public List<ITestCase> getAllTests(String question) {
 		switch (question) {
 		case Question.Q0:
 			return Arrays.asList(
-					ClassTest.checkExistence(ClassName.EMPLOYEE, 10)
-					, ClassTest.checkNoArgConstructor(ClassName.EMPLOYEE, 15)
-					, ClassTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 20)
-					, ClassTest.checkAttributes(ClassName.EMPLOYEE, 5)
-					, ClassTest.checkGetters(ClassName.EMPLOYEE, 5)
-					, ClassTest.checkSetters(ClassName.EMPLOYEE, 5)
-					, ClassTest.checkGetterOperation(ClassName.EMPLOYEE, 5)
+					classTest.checkExistence(ClassName.EMPLOYEE, 10)
+					, classTest.checkNoArgConstructor(ClassName.EMPLOYEE, 15)
+					, classTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 20)
+					, classTest.checkAttributes(ClassName.EMPLOYEE, 5)
+					, classTest.checkGetterDeclaration(ClassName.EMPLOYEE, 5)
+					, classTest.checkSetterDeclaration(ClassName.EMPLOYEE, 5)
+					, classTest.checkGetterOperation(ClassName.EMPLOYEE, 5)
 					);
 		case Question.Q1:
 			return null;

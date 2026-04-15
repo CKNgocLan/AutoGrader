@@ -12,18 +12,29 @@ import java.util.stream.Stream;
 import student.checker.GetterChecker;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
-import student.model.Attribute;
+import student.model.InvalidMethod;
 import student.model.ITestCase;
 import student.util.TestCaseUtil;
 
 public class ClassTest {
+	private static ClassTest instance;
+//	private TestCaseUtil testCaseUtil = TestCaseUtil.getInstance();
+	
+	public static ClassTest getInstance() {
+		if (instance == null) {
+			instance = new ClassTest();
+		}
+		
+		return instance;
+	}
+	
 	/**
 	 * Class existence testcase
 	 * 
 	 * @param className
 	 * @return
 	 */
-	public static ITestCase checkExistence(String className) {
+	public ITestCase checkExistence(String className) {
 		return checkExistence(className, 1);
 	}
 
@@ -34,7 +45,7 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public static ITestCase checkExistence(String className, int points) {
+	public ITestCase checkExistence(String className, int points) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -69,7 +80,7 @@ public class ClassTest {
 	 * @param className
 	 * @return
 	 */
-	public static ITestCase checkNoArgConstructor(String className) {
+	public ITestCase checkNoArgConstructor(String className) {
 		return checkNoArgConstructor(className, 1);
 	}
 
@@ -80,7 +91,7 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public static ITestCase checkNoArgConstructor(String className, int points) {
+	public ITestCase checkNoArgConstructor(String className, int points) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -115,7 +126,7 @@ public class ClassTest {
 	 * @param className
 	 * @return
 	 */
-	public static ITestCase checkFullArgsConstructor(String className) {
+	public ITestCase checkFullArgsConstructor(String className) {
 		return checkFullArgsConstructor(className, 1);
 	}
 
@@ -126,7 +137,7 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public static ITestCase checkFullArgsConstructor(String className, int points, Class<?>... parameterTypes) {
+	public ITestCase checkFullArgsConstructor(String className, int points, Class<?>... parameterTypes) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -162,8 +173,9 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public static ITestCase checkAttributes(String className, int points) {
+	public ITestCase checkAttributes(String className, int points) {
 		return new ITestCase() {
+			String invalidAttrName = null;
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_ATTRIBUTE.getName(className);
@@ -180,6 +192,7 @@ public class ClassTest {
 					for(Field field : Class.forName(className).getDeclaredFields()) {
 						if (!TestCaseUtil.checkField(field)
 							|| (Modifier.isStatic(field.getModifiers()) && !TestCaseUtil.checkPrivateStaticField(field))) {
+							invalidAttrName = field.getName();
 							return false;
 						}
 					}
@@ -196,7 +209,7 @@ public class ClassTest {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.ATTRIBUTE_DECLARED_NOT_CORRECT.getContent(className);
+				return Feedback.ATTRIBUTE_DECLARED_NOT_CORRECT.getContent(className, invalidAttrName);
 			}
 		};
 	}
@@ -208,11 +221,12 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public static ITestCase checkGetters(String className, int points) {
+	public ITestCase checkGetterDeclaration(String className, int points) {
 		return new ITestCase() {
+			InvalidMethod invalid = new InvalidMethod();
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CLASS_GETTER.getName(className);
+				return TestcaseType.CHECK_CLASS_GETTER_DECLARATION.getName(className);
 			}
 
 			@Override
@@ -223,7 +237,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					return TestCaseUtil.checkGetter(Class.forName(className));
+					return TestCaseUtil.checkGetter(Class.forName(className), invalid);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -232,7 +246,7 @@ public class ClassTest {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className);
+				return Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className, invalid.getName());
 			}
 		};
 	}
@@ -244,11 +258,11 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public static ITestCase checkSetters(String className, int points) {
+	public ITestCase checkSetterDeclaration(String className, int points) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CLASS_SETTER.getName(className);
+				return TestcaseType.CHECK_CLASS_SETTER_DECLARATION.getName(className);
 			}
 
 			@Override
@@ -280,8 +294,9 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public static ITestCase checkGetterOperation(String className, int points) {
+	public ITestCase checkGetterOperation(String className, int points) {
 		return new ITestCase() {
+			InvalidMethod inFields = new InvalidMethod();
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_GETTER_OPERATION.getName(className);
@@ -296,11 +311,10 @@ public class ClassTest {
 			public boolean runTest() {
 				try {
 					Class<?> clazz = Class.forName(className);
-					if (!TestCaseUtil.checkGetter(clazz)) {
+					if (!TestCaseUtil.checkGetter(clazz, inFields)) {
 						return false;
 					}
 					
-					Field[] fields = clazz.getDeclaredFields();
 					if (!GetterChecker.check()) {
 						return false;
 					}
