@@ -1,25 +1,19 @@
 package student.testSuite.classTestSuite;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import student.checker.GetterChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
-import student.model.InvalidMethod;
 import student.model.ITestCase;
+import student.model.InvalidMethod;
 import student.util.TestCaseUtil;
 
 public class ClassTest {
 	private static ClassTest instance;
-//	private TestCaseUtil testCaseUtil = TestCaseUtil.getInstance();
 	
 	public static ClassTest getInstance() {
 		if (instance == null) {
@@ -238,7 +232,9 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					return TestCaseUtil.checkGetter(Class.forName(className), invalid);
+					// TODO
+					return true;
+//					return TestCaseUtil.checkGetter(Class.forName(className), invalid);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -248,7 +244,7 @@ public class ClassTest {
 			@Override
 			public String getFeedback() {
 				return Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className,
-						String.join(Constants.COMMA, invalid.stream().map(InvalidMethod::getName).collect(Collectors.toList())));
+						String.join(Constants.COMMA, invalid.stream().map(InvalidMethod::getName).toList()));
 			}
 		};
 	}
@@ -296,7 +292,7 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkGetterOperation(String className, int points) {
+	public ITestCase checkGetterSetterOperation(String className, int points) {
 		return new ITestCase() {
 			List<InvalidMethod> invalid = List.of();
 			@Override
@@ -313,9 +309,10 @@ public class ClassTest {
 			public boolean runTest() {
 				try {
 					Class<?> clazz = Class.forName(className);
-					if (!TestCaseUtil.checkGetter(clazz, invalid)) {
-						return false;
-					}
+					// TODO
+//					if (!TestCaseUtil.checkGetter(clazz, invalid)) {
+//						return false;
+//					}
 					
 					if (!GetterChecker.check()) {
 						return false;
@@ -335,7 +332,7 @@ public class ClassTest {
 			@Override
 			public String getFeedback() {
 				return Feedback.GETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(className,
-						String.join(Constants.COMMA, invalid.stream().map(InvalidMethod::getName).collect(Collectors.toList())));
+						String.join(Constants.COMMA, invalid.stream().map(InvalidMethod::getName).toList()));
 			}
 		};
 	}

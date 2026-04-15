@@ -27,7 +27,7 @@ public class LabTestSuite1 extends ALabTestSuite {
 					, classTest.checkAttributes(ClassName.EMPLOYEE, 5)
 					, classTest.checkGetterDeclaration(ClassName.EMPLOYEE, 5)
 					, classTest.checkSetterDeclaration(ClassName.EMPLOYEE, 5)
-					, classTest.checkGetterOperation(ClassName.EMPLOYEE, 5)
+					, classTest.checkGetterSetterOperation(ClassName.EMPLOYEE, 5)
 					);
 		case Question.Q1:
 			return null;

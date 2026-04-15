@@ -1,25 +1,19 @@
 package student.util;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import student.constant.Constants;
 import student.constant.MethodName;
+import student.model.Getter;
 import student.model.InvalidMethod;
+import student.model.Setter;
 
 public class TestCaseUtil {
-//	private static TestCaseUtil instance = null;
-//	
-//	public static TestCaseUtil getInstance() {
-//		if (instance == null) {
-//			instance = new TestCaseUtil();
-//		}
-//		
-//		return instance;
-//	}
 
 	public static boolean checkField(Field field) {
 		return Modifier.isPrivate(field.getModifiers())
@@ -32,11 +26,11 @@ public class TestCaseUtil {
 				&& isAllUppercase(field.getName());
 	}
 	
-	public static boolean checkGetter(Class<?> clazz, List<InvalidMethod> invalid) {
-		List<String> missingGetter = getMissingGetter(clazz);
+	public static boolean checkGetter(Class<?> clazz, List<Getter> invalid) {
+		List<Getter> missingGetter = getMissingGetter(clazz);
 		
 		if (missingGetter.size() > 0) {
-			invalid.addAll(missingGetter.stream().map(InvalidMethod::new).collect(Collectors.toList()));
+			invalid.addAll(missingGetter);
 			return false;
 		}
 		
@@ -49,40 +43,48 @@ public class TestCaseUtil {
 	
 	/* *************************************************************************** */
 	
-	public static List<String> getMissingGetter(Class<?> clazz) {
+	public static List<Getter> getMissingGetter(Class<?> clazz) {
 		return getGettersFromAttributes(clazz).stream()
-				.filter(attrGetter -> !getDeclaredGetterSetter(clazz, MethodName.GET).contains(attrGetter))
-				.collect(Collectors.toList())
-				;
+				.filter(attr -> !getDeclaredGetter(clazz, MethodName.GET).contains(attr)).toList();
 	}
 	
-	public static List<String> getMissingSetter(Class<?> clazz) {
+	public static List<Setter> getMissingSetter(Class<?> clazz) {
 		return getSettersFromAttributes(clazz).stream()
-				.filter(attrGetter -> !getDeclaredGetterSetter(clazz, MethodName.SET).contains(attrGetter))
-				.collect(Collectors.toList())
-				;
+				.filter(attr -> !getDeclaredSetter(clazz, MethodName.SET).contains(attr)).toList();
 	}
 	
 	/* *************************************************************************** */
 	
-	public static List<String> getGettersFromAttributes(Class<?> clazz) {
+	public static List<Getter> getGettersFromAttributes(Class<?> clazz) {
 		return Stream.of(clazz.getDeclaredFields())
 				.filter(field -> !Modifier.isStatic(field.getModifiers()))
-				.map(field -> getGetterName(field.getName()))
-				.collect(Collectors.toList());
+				.map(field -> new Getter(field))
+				.toList();
 	}
 	
-	public static List<String> getSettersFromAttributes(Class<?> clazz) {
+	public static List<Setter> getSettersFromAttributes(Class<?> clazz) {
 		return Stream.of(clazz.getDeclaredFields())
 				.filter(field -> !Modifier.isStatic(field.getModifiers()))
-				.map(field -> getSetterName(field.getName()))
-				.collect(Collectors.toList());
+				.map(field -> new Setter(field))
+				.toList();
 	}
 	
-	public static List<String> getDeclaredGetterSetter(Class<?> clazz, String getset) {
+	public static Stream<Method> getDeclaredGetterSetter(Class<?> clazz, String getset) {
 		return Stream.of(clazz.getDeclaredMethods())
-				.map(method -> method.getName()).filter(name -> getset.equals(name.subSequence(0, 3)))
-				.collect(Collectors.toList());
+				.filter(method -> getset.equals(method.getName().subSequence(0, 3)))
+				;
+	}
+	
+	public static List<Getter> getDeclaredGetter(Class<?> clazz, String getset) {
+		return getDeclaredGetterSetter(clazz, getset)
+				.map(get -> new Getter(get.getName(), get.getReturnType()))
+				.toList();
+	}
+	
+	public static List<Setter> getDeclaredSetter(Class<?> clazz, String getset) {
+		return getDeclaredGetterSetter(clazz, getset)
+				.map(set -> new Setter(set.getName(), set.getReturnType()))
+				.toList();
 	}
 	
 	/* *************************************************************************** */
@@ -92,7 +94,7 @@ public class TestCaseUtil {
 			return false;
 		}
 
-		// Must start with lowercase letter
+		// Mus)t start with lowercase letter
 		if (!Character.isLowerCase(name.charAt(0))) {
 			return false;
 		}
