@@ -23,7 +23,8 @@ public class LabTestSuite1 extends ALabTestSuite {
 			return Arrays.asList(
 					classTest.checkExistence(ClassName.EMPLOYEE, 10)
 					, classTest.checkNoArgConstructor(ClassName.EMPLOYEE, 15)
-					, classTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 20)
+					, classTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 15, String.class, int.class, String.class, String.class)
+					, classTest.checkPartialArgsConstructor(ClassName.EMPLOYEE, 15, String.class, int.class)
 					, classTest.checkAttributes(ClassName.EMPLOYEE, 5)
 					, classTest.checkGetterDeclaration(ClassName.EMPLOYEE, 5)
 					, classTest.checkSetterDeclaration(ClassName.EMPLOYEE, 5)

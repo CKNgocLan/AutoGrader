@@ -14,6 +14,9 @@ import student.model.Setter;
 public class TestCaseUtil {
 
 	public static boolean checkField(Field field) {
+		if (Modifier.isStatic(field.getModifiers())) {
+			return isAllUppercase(field.getName());
+		}
 		return Modifier.isPrivate(field.getModifiers())
 				&& isCamelCase(field.getName());
 	}

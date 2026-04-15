@@ -5,6 +5,15 @@ import java.lang.reflect.InvocationTargetException;
 import student.util.TestCaseUtil;
 
 public class GetterChecker {
+//	private static GetterChecker instance = null;
+//	public static GetterChecker getInstance() {
+//		if (instance == null) {
+//			instance = new GetterChecker();
+//		}
+//
+//		return instance;
+//	}
+		
 	public static boolean checkStringGetter(Class<?> clazz, String fieldName, String testValue) {
 		try {
 			Object instance = clazz.getDeclaredConstructor().newInstance();
