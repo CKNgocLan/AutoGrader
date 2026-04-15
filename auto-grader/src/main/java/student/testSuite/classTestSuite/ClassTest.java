@@ -8,8 +8,10 @@ import student.checker.GetterChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
+import student.model.Getter;
 import student.model.ITestCase;
 import student.model.InvalidMethod;
+import student.model.Setter;
 import student.util.TestCaseUtil;
 
 public class ClassTest {
@@ -218,7 +220,7 @@ public class ClassTest {
 	 */
 	public ITestCase checkGetterDeclaration(String className, int points) {
 		return new ITestCase() {
-			List<InvalidMethod> invalid = List.of();
+			List<Getter> invalid = List.of();
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_GETTER_DECLARATION.getName(className);
@@ -232,9 +234,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					// TODO
-					return true;
-//					return TestCaseUtil.checkGetter(Class.forName(className), invalid);
+					return TestCaseUtil.checkGetter(Class.forName(className), invalid);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -258,6 +258,7 @@ public class ClassTest {
 	 */
 	public ITestCase checkSetterDeclaration(String className, int points) {
 		return new ITestCase() {
+			List<Setter> invalid = List.of();
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_SETTER_DECLARATION.getName(className);
@@ -271,7 +272,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					return TestCaseUtil.checkSetter(Class.forName(className));
+					return TestCaseUtil.checkSetter(Class.forName(className), invalid);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -280,7 +281,8 @@ public class ClassTest {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.SETTER_DECLARED_NOT_CORRECT.getContent(className);
+				return Feedback.SETTER_DECLARED_NOT_CORRECT.getContent(className,
+						String.join(Constants.COMMA, invalid.stream().map(InvalidMethod::getName).toList()));
 			}
 		};
 	}
@@ -294,7 +296,7 @@ public class ClassTest {
 	 */
 	public ITestCase checkGetterSetterOperation(String className, int points) {
 		return new ITestCase() {
-			List<InvalidMethod> invalid = List.of();
+			List<Getter> invalid = List.of();
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_GETTER_OPERATION.getName(className);
@@ -309,10 +311,9 @@ public class ClassTest {
 			public boolean runTest() {
 				try {
 					Class<?> clazz = Class.forName(className);
-					// TODO
-//					if (!TestCaseUtil.checkGetter(clazz, invalid)) {
-//						return false;
-//					}
+					if (!TestCaseUtil.checkGetter(clazz, invalid)) {
+						return false;
+					}
 					
 					if (!GetterChecker.check()) {
 						return false;

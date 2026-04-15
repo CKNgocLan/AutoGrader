@@ -3,14 +3,12 @@ package student.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 import student.constant.Constants;
 import student.constant.MethodName;
 import student.model.Getter;
-import student.model.InvalidMethod;
 import student.model.Setter;
 
 public class TestCaseUtil {
@@ -27,18 +25,24 @@ public class TestCaseUtil {
 	}
 	
 	public static boolean checkGetter(Class<?> clazz, List<Getter> invalid) {
-		List<Getter> missingGetter = getMissingGetter(clazz);
+		List<Getter> missingList = getMissingGetter(clazz);
 		
-		if (missingGetter.size() > 0) {
-			invalid.addAll(missingGetter);
+		if (missingList.size() > 0) {
+			invalid.addAll(missingList);
 			return false;
 		}
 		
 		return true;
 	}
 	
-	public static boolean checkSetter(Class<?> clazz) {
-		return getMissingSetter(clazz).size() < 1;
+	public static boolean checkSetter(Class<?> clazz, List<Setter> invalid) {
+		List<Setter> missingList = getMissingSetter(clazz);
+		if (missingList.size() > 0) {
+			invalid.addAll(missingList);
+			return false;
+		}
+		
+		return true;
 	}
 	
 	/* *************************************************************************** */
