@@ -3,6 +3,7 @@ package student.testSuite.classTestSuite;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import student.checker.GetterChecker;
@@ -14,6 +15,7 @@ import student.model.ITestCase;
 import student.model.InvalidMethod;
 import student.model.Setter;
 import student.util.TestCaseUtil;
+import sun.nio.ch.Streams;
 
 public class ClassTest {
 	private static ClassTest instance;
@@ -195,7 +197,8 @@ public class ClassTest {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CONSTRUCTOR_MISSING_PARTIAL_ARGS.getContent(className);
+				return Feedback.CONSTRUCTOR_MISSING_PARTIAL_ARGS.getContent(className, String.join(Constants.COMMA_WITH_SPACE,
+						List.of(parameterTypes).stream().map(type -> type.getName()).toList()));
 			}
 		};
 	}
