@@ -32,11 +32,11 @@ public class TestCaseUtil {
 				&& isAllUppercase(field.getName());
 	}
 	
-	public static boolean checkGetter(Class<?> clazz, InvalidMethod invalid) {
+	public static boolean checkGetter(Class<?> clazz, List<InvalidMethod> invalid) {
 		List<String> missingGetter = getMissingGetter(clazz);
 		
 		if (missingGetter.size() > 0) {
-			invalid.setName(String.join(", ", missingGetter));
+			invalid.addAll(missingGetter.stream().map(InvalidMethod::new).collect(Collectors.toList()));
 			return false;
 		}
 		

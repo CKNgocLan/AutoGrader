@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import student.checker.GetterChecker;
+import student.constant.Constants;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.InvalidMethod;
@@ -223,7 +224,7 @@ public class ClassTest {
 	 */
 	public ITestCase checkGetterDeclaration(String className, int points) {
 		return new ITestCase() {
-			InvalidMethod invalid = new InvalidMethod();
+			List<InvalidMethod> invalid = List.of();
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_GETTER_DECLARATION.getName(className);
@@ -246,7 +247,8 @@ public class ClassTest {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className, invalid.getName());
+				return Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className,
+						String.join(Constants.COMMA, invalid.stream().map(InvalidMethod::getName).collect(Collectors.toList())));
 			}
 		};
 	}
@@ -296,7 +298,7 @@ public class ClassTest {
 	 */
 	public ITestCase checkGetterOperation(String className, int points) {
 		return new ITestCase() {
-			InvalidMethod inFields = new InvalidMethod();
+			List<InvalidMethod> invalid = List.of();
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_GETTER_OPERATION.getName(className);
@@ -311,7 +313,7 @@ public class ClassTest {
 			public boolean runTest() {
 				try {
 					Class<?> clazz = Class.forName(className);
-					if (!TestCaseUtil.checkGetter(clazz, inFields)) {
+					if (!TestCaseUtil.checkGetter(clazz, invalid)) {
 						return false;
 					}
 					
@@ -332,7 +334,8 @@ public class ClassTest {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.GETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(className);
+				return Feedback.GETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(className,
+						String.join(Constants.COMMA, invalid.stream().map(InvalidMethod::getName).collect(Collectors.toList())));
 			}
 		};
 	}
