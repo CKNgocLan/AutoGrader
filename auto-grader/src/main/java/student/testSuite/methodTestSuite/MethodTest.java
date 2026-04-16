@@ -4,9 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import student.checker.GetterChecker;
 import student.checker.MethodChecker;
-import student.checker.SetterChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
@@ -159,7 +157,7 @@ public class MethodTest {
 						if (String.class.equals(field.getType())) {
 							pass = methodChecker.checkStringGetset(clazz, field.getName(), "Michale Jackson");
 						} else if (int.class.equals(field.getType())) {
-							pass = GetterChecker.checkIntGetter(clazz, field.getName(), 5678);
+							pass = methodChecker.checkIntGetset(clazz, field.getName(), 5678);
 						}
 
 						if (!pass) {

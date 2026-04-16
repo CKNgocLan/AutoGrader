@@ -1,17 +1,12 @@
 package student.testSuite.classTestSuite;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 
-import student.checker.GetterChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
-import student.model.Getter;
 import student.model.ITestCase;
-import student.model.InvalidMethod;
-import student.model.Setter;
 import student.util.TestCaseUtils;
 
 public class ClassTest {

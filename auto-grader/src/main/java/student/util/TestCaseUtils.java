@@ -1,15 +1,9 @@
 package student.util;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.List;
-import java.util.stream.Stream;
 
 import student.constant.Constants;
-import student.constant.MethodName;
-import student.model.Getter;
-import student.model.Setter;
 
 public class TestCaseUtils {
 
@@ -17,24 +11,24 @@ public class TestCaseUtils {
 		if (Modifier.isStatic(field.getModifiers())) {
 			return isAllUppercase(field.getName());
 		}
-		return Modifier.isPrivate(field.getModifiers())
-				&& isCamelCase(field.getName());
+		return Modifier.isPrivate(field.getModifiers()) && isCamelCase(field.getName());
 	}
-	
+
 	public static boolean checkPrivateStaticField(Field field) {
-		return Modifier.isPrivate(field.getModifiers())
-				&& Modifier.isStatic(field.getModifiers())
+		return Modifier.isPrivate(field.getModifiers()) && Modifier.isStatic(field.getModifiers())
 				&& isAllUppercase(field.getName());
 	}
-	
-	/* *************************************************************************** */
+
+	/*
+	 * ***************************************************************************
+	 */
 
 	public static boolean isCamelCase(String name) {
 		if (name == null || name.isEmpty()) {
 			return false;
 		}
 
-		// Mus)t start with lowercase letter
+		// Must start with lowercase letter
 		if (!Character.isLowerCase(name.charAt(0))) {
 			return false;
 		}
@@ -46,7 +40,7 @@ public class TestCaseUtils {
 
 		return true;
 	}
-	
+
 	public static boolean isAllUppercase(String name) {
 		if (name == null || name.isEmpty()) {
 			return false;
@@ -58,10 +52,5 @@ public class TestCaseUtils {
 		}
 		return true;
 	}
-	
-	/* *************************************************************************** */
-	
-
-
 
 }
