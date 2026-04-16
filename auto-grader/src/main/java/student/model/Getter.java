@@ -2,7 +2,7 @@ package student.model;
 
 import java.lang.reflect.Field;
 
-import student.util.TestCaseUtil;
+import student.util.GetterUtils;
 
 public class Getter extends InvalidMethod {
 	public Getter() {
@@ -10,7 +10,7 @@ public class Getter extends InvalidMethod {
 	}
 
 	public Getter(Field field) {
-		super(TestCaseUtil.getGetterName(field.getName()), field.getType());
+		super(GetterUtils.getGetterName(field.getName()), field.getType());
 	}
 	
 	public Getter(String name, Class<?> returnType) {

@@ -8,6 +8,7 @@ import student.constant.Question;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.testSuite.classTestSuite.ClassTest;
+import student.testSuite.methodTestSuite.MethodTest;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
@@ -15,6 +16,7 @@ import student.testSuite.classTestSuite.ClassTest;
  */
 public class LabTestSuite1 extends ALabTestSuite {
 	private ClassTest classTest = ClassTest.getInstance();
+	private MethodTest methodTest = MethodTest.getInstance();
 	
 	@Override
 	public List<ITestCase> getAllTests(String question) {
@@ -26,9 +28,9 @@ public class LabTestSuite1 extends ALabTestSuite {
 					, classTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 15, String.class, int.class, String.class, String.class)
 					, classTest.checkPartialArgsConstructor(ClassName.EMPLOYEE, 15, String.class, int.class)
 					, classTest.checkAttributes(ClassName.EMPLOYEE, 5)
-					, classTest.checkGetterDeclaration(ClassName.EMPLOYEE, 5)
-					, classTest.checkSetterDeclaration(ClassName.EMPLOYEE, 5)
-					, classTest.checkGetterSetterOperation(ClassName.EMPLOYEE, 5)
+					, methodTest.checkGetterDeclaration(ClassName.EMPLOYEE, 5)
+					, methodTest.checkSetterDeclaration(ClassName.EMPLOYEE, 5)
+					, methodTest.checkGetterSetterOperation(ClassName.EMPLOYEE, 5)
 					);
 		case Question.Q1:
 			return null;

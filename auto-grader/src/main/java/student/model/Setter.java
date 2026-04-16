@@ -2,13 +2,13 @@ package student.model;
 
 import java.lang.reflect.Field;
 
-import student.util.TestCaseUtil;
+import student.util.SetterUtils;
 
 public class Setter extends InvalidMethod {
 	private Class<?> paramType;
 
 	public Setter(Field field) {
-		super(TestCaseUtil.getSetterName(field.getName()), void.class);
+		super(SetterUtils.getSetterName(field.getName()), void.class);
 		this.paramType = field.getType();
 	}
 	

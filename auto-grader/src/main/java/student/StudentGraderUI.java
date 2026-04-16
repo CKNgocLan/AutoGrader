@@ -56,7 +56,7 @@ import student.constant.Lab;
 import student.constant.Question;
 import student.model.ITestCase;
 import student.model.LabTestSuiteFactory;
-import student.util.PathUtil;
+import student.util.PathUtils;
 
 public class StudentGraderUI extends JFrame {
 	private static final long serialVersionUID = 3700796113357733984L;
@@ -313,7 +313,7 @@ public class StudentGraderUI extends JFrame {
             List<String> cmd = new ArrayList<>();
             cmd.add("javac");
             cmd.add("-d");
-            cmd.add(PathUtil.targetClasses());
+            cmd.add(PathUtils.targetClasses());
             cmd.addAll(javaFiles);
             pb.command(cmd);
 
