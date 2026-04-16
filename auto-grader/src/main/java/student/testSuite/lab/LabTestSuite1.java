@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import student.constant.ClassName;
+import student.constant.Constants;
 import student.constant.FieldName;
 import student.constant.Question;
 import student.model.ALabTestSuite;
@@ -24,10 +25,14 @@ public class LabTestSuite1 extends ALabTestSuite {
 		switch (question) {
 		case Question.Q0:
 			return Arrays.asList(
-					classTest.checkExistence(ClassName.EMPLOYEE, 10)
-					, classTest.checkNoArgConstructor(ClassName.EMPLOYEE, 15)
-					, classTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 15, String.class, int.class, String.class, String.class)
-					, classTest.checkPartialArgsConstructor(ClassName.EMPLOYEE, 15, String.class, int.class)
+					classTest.checkExistence(ClassName.EMPLOYEE, 5)
+					, classTest.checkNoArgConstructorDeclaration(ClassName.EMPLOYEE, 5)
+					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, FieldName.NAME, String.class, Constants.EMPTY)
+					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, FieldName.DEPARTMENT, String.class, Constants.EMPTY)
+					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, FieldName.POSITION, double.class, (double) 0)
+					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, FieldName.ID_NUMBER, int.class, 0)
+					, classTest.checkFullArgsConstructorDeclaration(ClassName.EMPLOYEE, 15, String.class, int.class, String.class, double.class)
+					, classTest.checkPartialArgsConstructorDeclaration(ClassName.EMPLOYEE, 15, String.class, int.class)
 					, classTest.checkAttributes(ClassName.EMPLOYEE, 5)
 					, methodTest.checkGetterDeclaration(ClassName.EMPLOYEE, 5)
 					, methodTest.checkSetterDeclaration(ClassName.EMPLOYEE, 5)

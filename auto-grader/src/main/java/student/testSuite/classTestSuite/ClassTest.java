@@ -3,14 +3,22 @@ package student.testSuite.classTestSuite;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import student.checker.FieldChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.ITestCase;
-import student.util.TestCaseUtils;
+import student.util.ClassUtils;
+import student.util.GetterUtils;
+import student.util.SetterUtils;
 
 public class ClassTest {
 	private static ClassTest instance;
+	private FieldChecker fieldChecker = FieldChecker.getInstance();
+
+	/*
+	 * ***************************************************************************
+	 */
 	
 	public static ClassTest getInstance() {
 		if (instance == null) {
@@ -19,6 +27,10 @@ public class ClassTest {
 		
 		return instance;
 	}
+
+	/*
+	 * ***************************************************************************
+	 */
 	
 	/**
 	 * Class existence testcase
@@ -67,27 +79,27 @@ public class ClassTest {
 	}
 
 	/**
-	 * No-argument constructor testcase
+	 * No-argument constructor DECLARATION testcase
 	 * 
 	 * @param className
 	 * @return
 	 */
-	public ITestCase checkNoArgConstructor(String className) {
-		return checkNoArgConstructor(className, 1);
+	public ITestCase checkNoArgConstructorDeclaration(String className) {
+		return checkNoArgConstructorDeclaration(className, 1);
 	}
 
 	/**
-	 * No-argument constructor testcase
+	 * No-argument constructor DECLARATION testcase
 	 * 
 	 * @param className
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkNoArgConstructor(String className, int points) {
+	public ITestCase checkNoArgConstructorDeclaration(String className, int points) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CONSTRUCTOR_NO_ARGS.getName(className);
+				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_NO_ARGS.getName(className);
 			}
 
 			@Override
@@ -107,7 +119,48 @@ public class ClassTest {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CONSTRUCTOR_MISSING_NO_ARGS.getContent(className);
+				return Feedback.NO_ARGS_CONSTRUCTOR_DECLARATION_MISSING.getContent(className);
+			}
+		};
+	}
+
+	/**
+	 * No-argument constructor OPERATION testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public ITestCase checkNoArgConstructorOperation(String className, int points, String fieldName, Class<?> fieldType,
+			Object defaultValue) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_NO_ARGS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className);
+
+					Object castValue = (fieldType.isPrimitive() ? ClassUtils.boxing(fieldType) : fieldType)
+							.cast(clazz.getDeclaredMethod(GetterUtils.getGetterName(fieldName))
+									.invoke(clazz.getDeclaredConstructor().newInstance()));
+					return castValue != null ? castValue.equals(defaultValue) : defaultValue == null;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.NO_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(className);
 			}
 		};
 	}
@@ -118,8 +171,8 @@ public class ClassTest {
 	 * @param className
 	 * @return
 	 */
-	public ITestCase checkFullArgsConstructor(String className) {
-		return checkFullArgsConstructor(className, 1);
+	public ITestCase checkFullArgsConstructorDeclaration(String className) {
+		return checkFullArgsConstructorDeclaration(className, 1);
 	}
 
 	/**
@@ -129,11 +182,11 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkFullArgsConstructor(String className, int points, Class<?>... parameterTypes) {
+	public ITestCase checkFullArgsConstructorDeclaration(String className, int points, Class<?>... parameterTypes) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CONSTRUCTOR_FULL_ARGS.getName(className);
+				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_FULL_ARGS.getName(className);
 			}
 
 			@Override
@@ -153,7 +206,7 @@ public class ClassTest {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CONSTRUCTOR_MISSING_FULL_ARGS.getContent(className);
+				return Feedback.FULL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(className);
 			}
 		};
 	}
@@ -165,11 +218,11 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkPartialArgsConstructor(String className, int points, Class<?>... parameterTypes) {
+	public ITestCase checkPartialArgsConstructorDeclaration(String className, int points, Class<?>... parameterTypes) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CONSTRUCTOR_PARTIAL_ARGS.getName(className);
+				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_PARTIAL_ARGS.getName(className);
 			}
 
 			@Override
@@ -189,7 +242,7 @@ public class ClassTest {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CONSTRUCTOR_MISSING_PARTIAL_ARGS.getContent(className, String.join(Constants.COMMA_WITH_SPACE,
+				return Feedback.PARTIAL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(className, String.join(Constants.COMMA_WITH_SPACE,
 						List.of(parameterTypes).stream().map(type -> type.getName()).toList()));
 			}
 		};
@@ -219,7 +272,7 @@ public class ClassTest {
 			public boolean runTest() {
 				try {
 					for(Field field : Class.forName(className).getDeclaredFields()) {
-						if (!TestCaseUtils.checkField(field)) {
+						if (!fieldChecker.checkField(field)) {
 							invalidAttrName = field.getName();
 							return false;
 						}

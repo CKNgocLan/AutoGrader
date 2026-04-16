@@ -5,7 +5,7 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 import java.util.stream.Stream;
 
-import student.constant.Constants;
+import student.constant.FieldName;
 import student.constant.MethodName;
 import student.model.Setter;
 
@@ -52,7 +52,7 @@ public class SetterUtils {
 		}
 
 		// Special handling for common patterns
-		if (attributeName.equalsIgnoreCase(Constants.ID)) {
+		if (attributeName.equalsIgnoreCase(FieldName.ID)) {
 			return MethodName.SET_ID;
 		}
 

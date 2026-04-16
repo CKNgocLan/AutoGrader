@@ -90,7 +90,7 @@ public class LabTestSuite5 extends ALabTestSuite {
 		return new ITestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CONSTRUCTOR_NO_ARGS.getName(ClassName.EMPLOYEE);
+				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_NO_ARGS.getName(ClassName.EMPLOYEE);
 			}
 
 			@Override
@@ -110,7 +110,7 @@ public class LabTestSuite5 extends ALabTestSuite {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CONSTRUCTOR_MISSING_NO_ARGS.getContent(ClassName.EMPLOYEE);
+				return Feedback.NO_ARGS_CONSTRUCTOR_DECLARATION_MISSING.getContent(ClassName.EMPLOYEE);
 			}
 		};
 	}
@@ -122,7 +122,7 @@ public class LabTestSuite5 extends ALabTestSuite {
 		return new ITestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CONSTRUCTOR_FULL_ARGS.getName(ClassName.EMPLOYEE);
+				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_FULL_ARGS.getName(ClassName.EMPLOYEE);
 			}
 
 			@Override
@@ -144,7 +144,7 @@ public class LabTestSuite5 extends ALabTestSuite {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CONSTRUCTOR_MISSING_FULL_ARGS.getContent(ClassName.EMPLOYEE);
+				return Feedback.FULL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(ClassName.EMPLOYEE);
 			}
 		};
 	}

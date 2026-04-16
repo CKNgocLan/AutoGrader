@@ -18,5 +18,5 @@ public class Constants {
 	public static final String COMMA_WITH_SPACE = ", ";
 	public static final char UNDERSCORE_CHAR = '_';
 	
-	public static final String ID = "id";
+	public static final String EMPTY = "";
 }

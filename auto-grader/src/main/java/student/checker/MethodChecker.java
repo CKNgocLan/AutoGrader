@@ -22,8 +22,7 @@ public class MethodChecker {
 	}
 
 	/*
-	 * MISSING GETTER/SETTER
-	 * ***************************************************************************
+	 * ***** MISSING GETTER/SETTER *****
 	 */
 
 	public boolean checkMissingGetter(Class<?> clazz, List<Getter> invalidList) {
