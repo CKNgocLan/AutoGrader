@@ -26,14 +26,24 @@ public class LabTestSuite1 extends ALabTestSuite {
 		case Question.Q0:
 			return Arrays.asList(
 					classTest.checkExistence(ClassName.EMPLOYEE, 5)
+					
+					// no-agrs constructor section
 					, classTest.checkNoArgConstructorDeclaration(ClassName.EMPLOYEE, 5)
 					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, FieldName.NAME, String.class, Constants.EMPTY)
 					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, FieldName.DEPARTMENT, String.class, Constants.EMPTY)
 					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, FieldName.POSITION, double.class, (double) 0)
 					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, FieldName.ID_NUMBER, int.class, 0)
+					
+					// full-agrs constructor section
 					, classTest.checkFullArgsConstructorDeclaration(ClassName.EMPLOYEE, 15, String.class, int.class, String.class, double.class)
+					
+					// partial-args constructor section
 					, classTest.checkPartialArgsConstructorDeclaration(ClassName.EMPLOYEE, 15, String.class, int.class)
+					
+					// attribute section
 					, classTest.checkAttributes(ClassName.EMPLOYEE, 5)
+					
+					// getter setter section
 					, methodTest.checkGetterDeclaration(ClassName.EMPLOYEE, 5)
 					, methodTest.checkSetterDeclaration(ClassName.EMPLOYEE, 5)
 					, methodTest.checkStringGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.NAME, "Susan Meyers")
