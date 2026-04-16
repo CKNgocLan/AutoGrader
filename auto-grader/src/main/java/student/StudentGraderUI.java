@@ -38,24 +38,19 @@ import javax.swing.SwingUtilities;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.ColorScaleFormatting;
-import org.apache.poi.ss.usermodel.ConditionalFormattingRule;
-import org.apache.poi.ss.usermodel.ConditionalFormattingThreshold;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.SheetConditionalFormatting;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.apache.xmlbeans.impl.xb.ltgfmt.TestCase;
 
 import student.constant.Constants;
 import student.constant.Lab;
 import student.constant.Question;
 import student.model.ITestCase;
-import student.model.LabTestSuiteFactory;
 import student.util.PathUtils;
 
 public class StudentGraderUI extends JFrame {
@@ -251,6 +246,7 @@ public class StudentGraderUI extends JFrame {
                 log("Running your test cases...\n");
                 List<Integer> scores = new ArrayList<>();
                 List<Boolean> passedList = new ArrayList<>();
+                List<TestResult> results = new ArrayList<>();
 
                 for (ITestCase test : tests) {
                     log("→ " + test.getName() + " (" + test.getPoints() + " pts) ... ");
@@ -260,11 +256,12 @@ public class StudentGraderUI extends JFrame {
                     passedList.add(passed);
 
                     log(passed ? "PASSED" : "FAILED");
+                    results.add(new TestResult(test.getName(), test.getPoints(), passed ? test.getPoints() : 0, passed, test.getFeedback()));
                 }
                 int totalScore = scores.stream().mapToInt(Integer::intValue).sum();
                 
                 // Generate Excel Report
-                generateExcelReport("student Name", "student ID", "student Email", totalScore, tests, scores, passedList);
+                generateExcelReport(submissionFolder.getName(), selectedLab, selectedQuestion, results);
 
                 // Step 3: Generate report
                 generateStudentReport(submissionFolder.getName(), totalScore, tests, scores, passedList);
@@ -411,132 +408,136 @@ public class StudentGraderUI extends JFrame {
     }
     
 	// ====================== EXCEL REPORT ======================
-	private static void generateExcelReport(String name, String id, String email, int totalScore, List<ITestCase> tests,
-			List<Integer> scores, List<Boolean> passed) {
-		try (Workbook workbook = new XSSFWorkbook()) {
-			Sheet sheet = workbook.createSheet("Lab Result");
+ // Updated generateExcelReport() - Vertical layout with colored cells
+    private void generateExcelReport(String selectedDirectoryName, 
+                                     String selectedLab, 
+                                     String selectedQuestion, 
+                                     List<TestResult> results) {
+        
+        try (Workbook workbook = new XSSFWorkbook()) {
+            Sheet sheet = workbook.createSheet("Test Report");
 
-			// Styles
-			CellStyle headerStyle = createHeaderStyle(workbook);
-			CellStyle fullStyle = createFullPointsStyle(workbook);
-			CellStyle zeroStyle = createZeroPointsStyle(workbook);
+            // Create styles
+            CellStyle headerStyle = createHeaderStyle(workbook);
+            CellStyle passedStyle = createPassedStyle(workbook);   // Green
+            CellStyle failedStyle = createFailedStyle(workbook);   // Red
 
-			// Header Row
-			Row headerRow = sheet.createRow(0);
-			int col = 0;
+            // Header row
+            Row headerRow = sheet.createRow(0);
+            String[] headers = {"No.", "Test Case Name", "Max Points", "Earned Points", "Result", "Feedback"};
+            for (int i = 0; i < headers.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers[i]);
+                cell.setCellStyle(headerStyle);
+            }
 
-			headerRow.createCell(col++).setCellValue("Student Name");
-			headerRow.createCell(col++).setCellValue("Student ID");
-			headerRow.createCell(col++).setCellValue("Email");
-			headerRow.createCell(col++).setCellValue("Total Score");
-			headerRow.createCell(col++).setCellValue("Percentage");
-			headerRow.createCell(col++).setCellValue("Status");
+            // Data rows - one test case per row (vertical)
+            int rowNum = 1;
 
-			for (ITestCase t : tests) {
-				Cell cell = headerRow.createCell(col++);
-				cell.setCellValue(t.getName() + " (" + t.getPoints() + " pts)");
-				cell.setCellStyle(headerStyle);
-			}
+			for (TestResult result : results) {
+				Row row = sheet.createRow(rowNum++);
+				int col = 0;
 
-			// Data Row
-			Row dataRow = sheet.createRow(1);
-			col = 0;
+				// No.
+				row.createCell(col++).setCellValue(results.indexOf(result) + 1);
 
-			dataRow.createCell(col++).setCellValue(name);
-			dataRow.createCell(col++).setCellValue(id);
-			dataRow.createCell(col++).setCellValue(email);
-			dataRow.createCell(col++).setCellValue(totalScore);
-			dataRow.createCell(col++).setCellValue(String.format("%.1f%%", totalScore / 1.0));
-			dataRow.createCell(col++).setCellValue(
-					(totalScore == 100) ? "Excellent" : (totalScore >= 70 ? "Good" : "Needs Improvement"));
+				// Test Case Name
+				row.createCell(col++).setCellValue(result.testName);
 
-			// Per-testcase scores with formatting
-			for (int i = 0; i < tests.size(); i++) {
-				Cell cell = dataRow.createCell(col++);
-				int pts = scores.get(i);
-				cell.setCellValue(pts);
+				// Max Points
+				row.createCell(col++).setCellValue(result.maxPoints);
 
-				if (pts == tests.get(i).getPoints()) {
-					cell.setCellStyle(fullStyle);
-				} else if (pts == 0) {
-					cell.setCellStyle(zeroStyle);
+				// Earned Points
+				row.createCell(col++).setCellValue(result.earnedPoints);
+
+				// Result + Color
+				Cell resultCell = row.createCell(col++);
+				resultCell.setCellValue(result.passed ? "PASSED" : "FAILED");
+
+				// Apply color
+				if (result.passed) {
+					resultCell.setCellStyle(passedStyle);
+				} else {
+					resultCell.setCellStyle(failedStyle);
 				}
+				
+				// Feedback
+				row.createCell(col++).setCellValue(result.feedback);
 			}
 
-			// Auto-size columns
-			for (int i = 0; i < col; i++) {
-				sheet.autoSizeColumn(i);
-			}
+            // Auto-size columns
+            for (int i = 0; i < 5; i++) {
+                sheet.autoSizeColumn(i);
+            }
 
-			// Color scale for Total Score
-			applyColorScale(sheet, 1);
+            // Generate dynamic filename: directory_lab_question_timestamp_report.xlsx
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss"));
+            String safeDir = selectedDirectoryName.replaceAll("[^a-zA-Z0-9._-]", "_");
+            String safeLab = (selectedLab == null || selectedLab.isEmpty()) ? "Lab" : selectedLab.replaceAll("[^a-zA-Z0-9._-]", "_");
+            String safeQ = (selectedQuestion == null || selectedQuestion.isEmpty()) ? "Q" : selectedQuestion.replaceAll("[^a-zA-Z0-9._-]", "_");
 
-			// Save file
-			String fileName = Constants.REPORTS_DIR + "/" + sanitize(name) + "_report.xlsx";
-			try (FileOutputStream fos = new FileOutputStream(fileName)) {
-				workbook.write(fos);
-			}
+            String fileName = "OOP_253-" + safeDir + "-L" + safeLab + "-Q" + safeQ + "_" + timestamp + ".xlsx";
 
-			System.out.println("✅ Excel report generated successfully!");
+            String excelFile = Constants.REPORTS_DIR + "/" + fileName;
 
-		} catch (Exception e) {
-			System.out.println("Warning: Could not generate Excel report: " + e.getMessage());
-		}
-	}
-	
-	private static CellStyle createHeaderStyle(Workbook wb) {
-		CellStyle style = wb.createCellStyle();
-		org.apache.poi.ss.usermodel.Font font = wb.createFont();
-		font.setBold(true);
-		style.setFont(font);
-		style.setAlignment(HorizontalAlignment.CENTER);
-		style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
-		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-		return style;
-	}
+            try (FileOutputStream fos = new FileOutputStream(excelFile)) {
+                workbook.write(fos);
+            }
 
-	private static CellStyle createFullPointsStyle(Workbook wb) {
-		CellStyle style = wb.createCellStyle();
-		style.setFillForegroundColor(IndexedColors.LIGHT_GREEN.getIndex());
-		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-		return style;
-	}
+            System.out.println("Excel report generated: " + fileName);
 
-	private static CellStyle createZeroPointsStyle(Workbook wb) {
-		CellStyle style = wb.createCellStyle();
-		style.setFillForegroundColor(IndexedColors.ROSE.getIndex());
-		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
-		return style;
-	}
-	
-	private static void applyColorScale(Sheet sheet, int row) {
-		SheetConditionalFormatting scf = sheet.getSheetConditionalFormatting();
-		CellRangeAddress range = new CellRangeAddress(row, row, 3, 3); // Total Score column (index 3)
-
-		ConditionalFormattingRule rule = scf.createConditionalFormattingColorScaleRule();
-		ColorScaleFormatting csf = rule.getColorScaleFormatting();
-		csf.setNumControlPoints(3);
-
-		ConditionalFormattingThreshold min = csf.createThreshold();
-		min.setRangeType(ConditionalFormattingThreshold.RangeType.MIN);
-
-		ConditionalFormattingThreshold mid = csf.createThreshold();
-		mid.setRangeType(ConditionalFormattingThreshold.RangeType.NUMBER);
-		mid.setValue(50.0);
-
-		ConditionalFormattingThreshold max = csf.createThreshold();
-		max.setRangeType(ConditionalFormattingThreshold.RangeType.MAX);
-
-//		csf.setColors(new org.apache.poi.ss.usermodel.Color[] { IndexedColors.RED.getIndex(), IndexedColors.YELLOW.getColor(),
-//				IndexedColors.GREEN.getColor() });
-
-		scf.addConditionalFormatting(new CellRangeAddress[] { range }, rule);
-	}
-	
-	private static String sanitize(String str) {
-        return str.replaceAll("[^a-zA-Z0-9._-]", "_");
+        } catch (Exception e) {
+            System.out.println("Error generating Excel report: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
+    // Helper styles
+    private CellStyle createHeaderStyle(Workbook wb) {
+        CellStyle style = wb.createCellStyle();
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        return style;
+    }
+
+    // PASSED Cell Style
+    private CellStyle createPassedStyle(Workbook wb) {
+        CellStyle style = wb.createCellStyle();
+        style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        return style;
+    }
+
+    // FAILED Cell Style
+    private CellStyle createFailedStyle(Workbook wb) {
+        CellStyle style = wb.createCellStyle();
+        style.setFillForegroundColor(IndexedColors.RED.getIndex());   // Light red
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        return style;
+    }
+    // ====================== End of EXCEL REPORT ======================
+	
+	// ==================== Helper Class ====================
+	private static class TestResult {
+		private String testName;
+		private int maxPoints;
+		private int earnedPoints;
+		private boolean passed;
+		private String feedback;
+
+		TestResult(String testName, int maxPoints, int earnedPoints, boolean passed, String feedback) {
+			this.testName = testName;
+			this.maxPoints = maxPoints;
+			this.earnedPoints = earnedPoints;
+			this.passed = passed;
+			this.feedback = feedback;
+		}
+	}
+
+	// ==================== End of Helper Class ====================
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
         	try {
