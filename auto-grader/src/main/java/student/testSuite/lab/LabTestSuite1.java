@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import student.constant.ClassName;
+import student.constant.FieldName;
 import student.constant.Question;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
@@ -30,7 +31,10 @@ public class LabTestSuite1 extends ALabTestSuite {
 					, classTest.checkAttributes(ClassName.EMPLOYEE, 5)
 					, methodTest.checkGetterDeclaration(ClassName.EMPLOYEE, 5)
 					, methodTest.checkSetterDeclaration(ClassName.EMPLOYEE, 5)
-					, methodTest.checkGetterSetterOperation(ClassName.EMPLOYEE, 5)
+					, methodTest.checkStringGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.NAME, "Susan Meyers")
+					, methodTest.checkStringGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.DEPARTMENT, "Accounting")
+					, methodTest.checkStringGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.POSITION, "Vice President")
+					, methodTest.checkIntGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.ID_NUMBER, 47899)
 					);
 		case Question.Q1:
 			return null;

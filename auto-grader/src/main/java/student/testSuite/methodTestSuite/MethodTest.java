@@ -79,7 +79,7 @@ public class MethodTest {
 	}
 
 	/**
-	 * Setter method declaration testcase
+	 * Setter declaration testcase
 	 * 
 	 * @param className
 	 * @param points
@@ -118,7 +118,7 @@ public class MethodTest {
 	}
 
 	/**
-	 * Getter method logic testcase
+	 * Getter/Setter operation testcase
 	 * 
 	 * @param className
 	 * @param points
@@ -148,10 +148,6 @@ public class MethodTest {
 						return false;
 					}
 
-//					TODO if (!GetterChecker.check()) {
-//						return false;
-//					}
-
 					boolean pass = false;
 					for (Field field : clazz.getDeclaredFields()) {
 						if (String.class.equals(field.getType())) {
@@ -180,6 +176,78 @@ public class MethodTest {
 								String.join(Constants.COMMA,
 										invalidGetter.stream().map(InvalidMethod::getName).toList()))
 						: Feedback.GETTER_SETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(invalidField);
+			}
+		};
+	}
+
+	/**
+	 * String Getter/Setter operation testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public ITestCase checkStringGetsetOperation(String className, int points, String fieldName, String testValue) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_SPECIFIC_GETTER_OPERATION.getName(className, fieldName);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return methodChecker.checkStringGetset(Class.forName(className), fieldName, testValue);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.GETTER_SETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(className, fieldName);
+			}
+		};
+	}
+
+	/**
+	 * int Getter/Setter operation testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public ITestCase checkIntGetsetOperation(String className, int points, String fieldName, int testValue) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_SPECIFIC_GETTER_OPERATION.getName(className, fieldName);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return methodChecker.checkIntGetset(Class.forName(className), fieldName, testValue);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.GETTER_SETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(className, fieldName);
 			}
 		};
 	}
