@@ -1,7 +1,6 @@
 package student.testSuite.classTestSuite;
 
 import java.lang.reflect.Field;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -13,8 +12,7 @@ import student.model.ITestCase;
 import student.model.ParameterTest;
 import student.util.ClassUtils;
 import student.util.GetterUtils;
-import student.util.SetterUtils;
-import sun.nio.ch.Streams;
+import student.util.ParameterTestUtils;
 
 public class ClassTest {
 	private static ClassTest instance;
@@ -23,19 +21,19 @@ public class ClassTest {
 	/*
 	 * ***************************************************************************
 	 */
-	
+
 	public static ClassTest getInstance() {
 		if (instance == null) {
 			instance = new ClassTest();
 		}
-		
+
 		return instance;
 	}
 
 	/*
 	 * ***************************************************************************
 	 */
-	
+
 	/**
 	 * Class existence testcase
 	 * 
@@ -135,7 +133,7 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkNoArgConstructorOperation(String className, int points, ParameterTest testField) {
+	public ITestCase checkNoArgConstructorOperation(String className, int points, ParameterTest params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -152,10 +150,8 @@ public class ClassTest {
 				try {
 					Class<?> clazz = Class.forName(className);
 
-					Object castValue = (testField.getType().isPrimitive() ? ClassUtils.boxing(testField.getType()) : testField.getType())
-							.cast(clazz.getDeclaredMethod(GetterUtils.getGetterName(testField.getName()))
-									.invoke(clazz.getDeclaredConstructor().newInstance()));
-					return castValue != null ? castValue.equals(testField.getTestValue()) : testField.getTestValue() == null;
+					return ParameterTestUtils.compareTestValue(clazz, clazz.getDeclaredConstructor().newInstance(),
+							params);
 				} catch (Exception e) {
 					return false;
 				}
@@ -185,8 +181,7 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-//	public ITestCase checkFullArgsConstructorDeclaration(String className, int points, Class<?>... parameterTypes) {
-	public ITestCase checkFullArgsConstructorDeclaration(String className, int points, ParameterTest... parameters) {
+	public ITestCase checkFullArgsConstructorDeclaration(String className, int points, ParameterTest... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -201,8 +196,8 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(className).getDeclaredConstructor(
-							Stream.of(parameters).map(p -> p.getType()).toArray(Class<?>[]::new));
+					Class.forName(className)
+							.getDeclaredConstructor(Stream.of(params).map(p -> p.getType()).toArray(Class<?>[]::new));
 					return true;
 				} catch (Exception e) {
 					return false;
@@ -223,7 +218,7 @@ public class ClassTest {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkFullArgsConstructorOperation(String className, int points, ParameterTest... parameterTest) {
+	public ITestCase checkFullArgsConstructorOperation(String className, int points, ParameterTest... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -240,15 +235,12 @@ public class ClassTest {
 				try {
 					Class<?> clazz = Class.forName(className);
 
-					Class<?>[] types = Stream.of(parameterTest).map(pt -> pt.getType()).toArray(Class<?>[]::new);
-					Object[] testValues = Stream.of(parameterTest).map(pt -> pt.getTestValue()).toArray(Object[]::new);
-					clazz.getDeclaredConstructor(types).newInstance(testValues);
+					Class<?>[] types = Stream.of(params).map(pt -> pt.getType()).toArray(Class<?>[]::new);
+					Object[] testValues = Stream.of(params).map(pt -> pt.getTestValue()).toArray(Object[]::new);
+					Object instance = clazz.getDeclaredConstructor(types).newInstance(testValues);
 
-					for (ParameterTest pt : parameterTest) {
-						Object castValue = (pt.getType().isPrimitive() ? ClassUtils.boxing(pt.getType()) : pt.getType())
-								.cast(clazz.getDeclaredMethod(GetterUtils.getGetterName(pt.getName()))
-										.invoke(clazz.getDeclaredConstructor(types).newInstance(testValues)));
-						if (castValue != null ? !castValue.equals(pt.getTestValue()) : pt.getTestValue() != null) {
+					for (ParameterTest param : params) {
+						if (!ParameterTestUtils.compareTestValue(clazz, instance, param)) {
 							return false;
 						}
 					}
@@ -267,13 +259,13 @@ public class ClassTest {
 	}
 
 	/**
-	 * Partial-argument constructor testcase
+	 * Partial-argument constructor DECLARATION testcase
 	 * 
 	 * @param className
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkPartialArgsConstructorDeclaration(String className, int points, Class<?>... parameterTypes) {
+	public ITestCase checkPartialArgsConstructorDeclaration(String className, int points, ParameterTest... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -288,7 +280,8 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(className).getDeclaredConstructor(parameterTypes);
+					Class.forName(className)
+							.getDeclaredConstructor(Stream.of(params).map(p -> p.getType()).toArray(Class<?>[]::new));
 					return true;
 				} catch (Exception e) {
 					return false;
@@ -297,12 +290,60 @@ public class ClassTest {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.PARTIAL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(className, String.join(Constants.COMMA_WITH_SPACE,
-						List.of(parameterTypes).stream().map(type -> type.getName()).toList()));
+				return Feedback.PARTIAL_ARGS_CONSTRUCTOR_DECLARATION_MISSING.getContent(className, String
+						.join(Constants.COMMA_WITH_SPACE, Stream.of(params).map(param -> param.getName()).toList()));
 			}
 		};
 	}
-	
+
+	/**
+	 * Partial-argument constructor OPERATION testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public ITestCase checkPartialArgsConstructorOperation(String className, int points, ParameterTest... params) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_PARTIAL_ARGS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className);
+
+					Class<?>[] types = Stream.of(params).map(pt -> pt.getType()).toArray(Class<?>[]::new);
+					Object[] testValues = Stream.of(params).map(pt -> pt.getTestValue()).toArray(Object[]::new);
+					Object instance = clazz.getDeclaredConstructor(types).newInstance(testValues);
+
+					for (ParameterTest param : params) {
+						if (!ParameterTestUtils.compareTestValue(clazz, instance, param)) {
+							return false;
+						}
+					}
+
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.PARTIAL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(className, String
+						.join(Constants.COMMA_WITH_SPACE, Stream.of(params).map(param -> param.getName()).toList()));
+			}
+		};
+	}
+
 	/**
 	 * Attribute declaration testcase
 	 * 
@@ -313,6 +354,7 @@ public class ClassTest {
 	public ITestCase checkAttributes(String className, int points) {
 		return new ITestCase() {
 			String invalidAttrName = null;
+
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_ATTRIBUTE.getName(className);
@@ -326,7 +368,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					for(Field field : Class.forName(className).getDeclaredFields()) {
+					for (Field field : Class.forName(className).getDeclaredFields()) {
 						if (!fieldChecker.checkField(field)) {
 							invalidAttrName = field.getName();
 							return false;
