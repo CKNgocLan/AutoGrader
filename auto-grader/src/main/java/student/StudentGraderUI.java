@@ -19,6 +19,7 @@ import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -151,8 +152,9 @@ public class StudentGraderUI extends JFrame {
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
-		for (Field field : Lab.class.getDeclaredFields()) {
-			labQuestionsMap.put(String.valueOf(field.get(field.getName())), Question.getNameList());
+		labQuestionsMap.put(Lab.L1, Arrays.asList(Question.Q0));
+		for (String lab : Lab.getNameList()) {
+			labQuestionsMap.put(lab, Question.getNameList(6));
 		}
 	}
     
@@ -201,14 +203,12 @@ public class StudentGraderUI extends JFrame {
 			JOptionPane.showMessageDialog(this, "Please select a Lab!", "Warning", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		System.out.println("Selected Lab: " + selectedLab);
         
 		String selectedQuestion = (String) questionComboBox.getSelectedItem();
 		if (selectedQuestion == null) {
 			JOptionPane.showMessageDialog(this, "Please select a Question!", "Warning", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
-		System.out.println("Selected Question: " + selectedQuestion);
 		
         logArea.setText(""); // Clear previous log
         log("Starting self-grading for folder: " + submissionFolder.getName());

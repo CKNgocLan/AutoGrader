@@ -1,7 +1,6 @@
 package student.constant;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Lab {
 	public static final String L1 = "1";
@@ -13,12 +12,14 @@ public class Lab {
 	public static final String L7 = "7";
 
 	public static List<String> getNameList() {
-		return Arrays.asList(Lab.class.getDeclaredFields()).stream().map(field -> {
+		return Arrays.asList(Lab.class.getDeclaredFields()).stream()
+				.filter(field -> !field.getName().equals("L1"))
+				.map(field -> {
 			try {
 				return String.valueOf(field.get(field.getName()));
 			} catch (IllegalArgumentException | IllegalAccessException e) {
 				return null;
 			}
-		}).collect(Collectors.toList());
+		}).toList();
 	}
 }

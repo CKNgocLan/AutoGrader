@@ -1,4 +1,5 @@
 package student.constant;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,5 +20,13 @@ public class Question {
 				return null;
 			}
 		}).collect(Collectors.toList());
+	}
+	
+	public static List<String> getNameList(int end) {
+		List<String> result = new ArrayList<>();
+		for (int i = 1; i < end; i++) {
+			result.add(String.valueOf(i));
+		}
+		return result;
 	}
 }
