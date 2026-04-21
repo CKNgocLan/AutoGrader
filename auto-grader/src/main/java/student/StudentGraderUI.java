@@ -223,7 +223,7 @@ public class StudentGraderUI extends JFrame {
 
                 if (!compileSuccess) {
                     log("Compilation failed. Please check your code for errors.");
-                    generateCompilationErrorReport(submissionFolder.getName());
+                    generateCompilationErrorReport(submissionFolder.getName(), selectedLab, selectedQuestion);
                     SwingUtilities.invokeLater(() -> gradeButton.setEnabled(true));
                     return;
                 }
@@ -264,7 +264,7 @@ public class StudentGraderUI extends JFrame {
                 generateExcelReport(submissionFolder.getName(), selectedLab, selectedQuestion, results);
 
                 // Step 3: Generate report
-                generateStudentReport(submissionFolder.getName(), totalScore, tests, scores, passedList);
+                generateStudentReport(submissionFolder.getName(), selectedLab, selectedQuestion, totalScore, tests, scores, passedList);
 
                 log("\n" + "=".repeat(60));
                 log(String.format("FINAL SCORE: %d / 100", totalScore));
@@ -335,19 +335,30 @@ public class StudentGraderUI extends JFrame {
         }
     }
 
-    private void generateCompilationErrorReport(String folderName) {
+    private void generateCompilationErrorReport(String folderName, String selectedLab, String selectedQuestion) {
         try {
             String content = "Student Submission: " + folderName + "\n" +
                             "Date: " + LocalDateTime.now() + "\n\n" +
                             "Compilation Failed!\n" +
                             "Please check your code for syntax or compilation errors.\n";
 
-            String filename = Constants.REPORTS_DIR + "/" + folderName.replaceAll("[^a-zA-Z0-9._-]", "_") + "_report.txt";
-            Files.write(Paths.get(filename), content.getBytes("UTF-8"));
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss"));
+            
+            String safeDir = folderName.replaceAll("[^a-zA-Z0-9._-]", "_");
+            String safeLab = (selectedLab == null || selectedLab.isEmpty()) ? "Lab" : selectedLab.replaceAll("[^a-zA-Z0-9._-]", "_");
+            String safeQ = (selectedQuestion == null || selectedQuestion.isEmpty()) ? "Q" : selectedQuestion.replaceAll("[^a-zA-Z0-9._-]", "_");
+            
+            String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "-L" + safeLab + "-Q" + safeQ + "_" + timestamp + "_report.txt";
+            
+//            String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "_" + timestamp + "_report.txt";
+            Files.write(Paths.get(fileName), content.getBytes("UTF-8"));
         } catch (Exception ignored) {}
     }
 
-    private void generateStudentReport(String folderName, int totalScore, 
+    private void generateStudentReport(String folderName, 
+							           String selectedLab, 
+							           String selectedQuestion,
+							           int totalScore, 
                                        List<ITestCase> tests, 
                                        List<Integer> scores, 
                                        List<Boolean> passed) {
@@ -381,8 +392,16 @@ public class StudentGraderUI extends JFrame {
             sb.append("===========================================\n");
             sb.append("OVERALL RESULT: ").append(totalScore).append("/100\n");
 
-            String filename = Constants.REPORTS_DIR + "/" + folderName.replaceAll("[^a-zA-Z0-9._-]", "_") + "_report.txt";
-            Files.write(Paths.get(filename), sb.toString().getBytes("UTF-8"));
+            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss"));
+            
+            String safeDir = folderName.replaceAll("[^a-zA-Z0-9._-]", "_");
+            String safeLab = (selectedLab == null || selectedLab.isEmpty()) ? "Lab" : selectedLab.replaceAll("[^a-zA-Z0-9._-]", "_");
+            String safeQ = (selectedQuestion == null || selectedQuestion.isEmpty()) ? "Q" : selectedQuestion.replaceAll("[^a-zA-Z0-9._-]", "_");
+            
+            String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "-L" + safeLab + "-Q" + safeQ + "_" + timestamp + ".txt";
+
+//            String fileName = Constants.REPORTS_DIR + "/" + folderName.replaceAll("[^a-zA-Z0-9._-]", "_") + "_report.txt";
+            Files.write(Paths.get(fileName), sb.toString().getBytes("UTF-8"));
 
         } catch (Exception e) {
             log("Failed to save report: " + e.getMessage());
@@ -459,11 +478,27 @@ public class StudentGraderUI extends JFrame {
 					resultCell.setCellStyle(passedStyle);
 				} else {
 					resultCell.setCellStyle(failedStyle);
+
+					// Feedback
+					row.createCell(col++).setCellValue(result.feedback);
 				}
-				
-				// Feedback
-				row.createCell(col++).setCellValue(result.feedback);
 			}
+			
+			// create aggregation row
+			Row aggregationRow = sheet.createRow(rowNum);
+			int colIndex = 0;
+			
+			// No
+			colIndex++;
+			
+			// Test Case Name
+			colIndex++;
+			
+			// Max Points
+			aggregationRow.createCell(colIndex++).setCellValue("Total Point:");
+			
+			// Earned Points
+			aggregationRow.createCell(colIndex++).setCellValue(results.stream().mapToInt(res -> res.earnedPoints).sum());
 
             // Auto-size columns
             for (int i = 0; i < 5; i++) {

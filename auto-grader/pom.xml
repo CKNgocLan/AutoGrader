@@ -38,7 +38,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>GraderUI</mainClass>
+							<mainClass>student/StudentGraderUI.java</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
