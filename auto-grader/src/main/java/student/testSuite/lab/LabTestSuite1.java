@@ -85,22 +85,6 @@ public class LabTestSuite1 extends ALabTestSuite {
 					, methodTest.checkStringGetsetOperation(ClassName.EMPLOYEE, 0, FieldName.POSITION, "Vice President")
 					, methodTest.checkIntGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.ID_NUMBER, 47899)
 					);
-		case Question.Q1:
-			return null;
-//			return Arrays.asList(ClassTest.checkExistence(ClassName.EMPLOYEE, 10),
-//					ClassTest.checkNoArgConstructor(ClassName.EMPLOYEE, 15),
-//					ClassTest.checkFullArgsConstructor(ClassName.EMPLOYEE, 20));
-		case Question.Q2:
-			return null;
-//			return Arrays.asList(ClassTest.checkExistence(ClassName.EMPLOYEE),
-//					ClassTest.checkNoArgConstructor(ClassName.EMPLOYEE),
-//					ClassTest.checkFullArgsConstructor(ClassName.EMPLOYEE));
-		case Question.Q3:
-			return null;
-		case Question.Q4:
-			return null;
-		case Question.Q5:
-			return null;
 		default:
 			return null;
 		}

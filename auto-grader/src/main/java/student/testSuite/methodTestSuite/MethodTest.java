@@ -20,8 +20,7 @@ import student.model.Setter;
 public class MethodTest {
 	private static MethodTest instance = null;
 	private MethodChecker methodChecker = MethodChecker.getInstance();
-//	private GetterChecker getterChecker = GetterChecker.getInstance();
-//	private SetterChecker setterChecker = SetterChecker.getInstance();
+	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 
 	/*
 	 * ***************************************************************************
@@ -63,7 +62,7 @@ public class MethodTest {
 			@Override
 			public boolean runTest() {
 				try {
-					return methodChecker.checkMissingGetter(Class.forName(className), invalid);
+					return methodChecker.checkMissingGetter(Class.forName(className, true, targetClassesLoader), invalid);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -102,7 +101,7 @@ public class MethodTest {
 			@Override
 			public boolean runTest() {
 				try {
-					return methodChecker.checkMissingSetter(Class.forName(className), invalid);
+					return methodChecker.checkMissingSetter(Class.forName(className, true, targetClassesLoader), invalid);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -142,7 +141,7 @@ public class MethodTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class<?> clazz = Class.forName(className);
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 					if (!methodChecker.checkMissingGetter(clazz, invalidGetter)
 							|| !methodChecker.checkMissingSetter(clazz, null)) {
 						return false;
@@ -202,7 +201,7 @@ public class MethodTest {
 			@Override
 			public boolean runTest() {
 				try {
-					return methodChecker.checkStringGetset(Class.forName(className), fieldName, testValue);
+					return methodChecker.checkStringGetset(Class.forName(className, true, targetClassesLoader), fieldName, testValue);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -238,7 +237,7 @@ public class MethodTest {
 			@Override
 			public boolean runTest() {
 				try {
-					return methodChecker.checkIntGetset(Class.forName(className), fieldName, testValue);
+					return methodChecker.checkIntGetset(Class.forName(className, true, targetClassesLoader), fieldName, testValue);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;

@@ -10,10 +10,12 @@ import java.awt.event.ActionEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
@@ -259,6 +261,9 @@ public class StudentGraderUI extends JFrame {
                     results.add(new TestResult(test.getName(), test.getPoints(), passed ? test.getPoints() : 0, passed, test.getFeedback()));
                 }
                 int totalScore = scores.stream().mapToInt(Integer::intValue).sum();
+                
+                // create REPORTS directory
+                createReportDir();
                 
                 // Generate Excel Report
                 generateExcelReport(submissionFolder.getName(), selectedLab, selectedQuestion, results);
@@ -525,6 +530,13 @@ public class StudentGraderUI extends JFrame {
             System.out.println("Error generating Excel report: " + e.getMessage());
             e.printStackTrace();
         }
+    }
+    
+    private void createReportDir() throws IOException {
+    	Path dirPath = Paths.get(System.getProperty(Constants.USER_DIR), Constants.REPORTS_DIR);
+    	if (!Files.exists(dirPath)) {
+    		Files.createDirectories(dirPath);
+    	}
     }
 
     // Helper styles

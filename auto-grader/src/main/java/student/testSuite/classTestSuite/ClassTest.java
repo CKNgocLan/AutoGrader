@@ -1,7 +1,6 @@
 package student.testSuite.classTestSuite;
 
 import java.lang.reflect.Field;
-import java.util.List;
 import java.util.stream.Stream;
 
 import student.checker.FieldChecker;
@@ -10,13 +9,12 @@ import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.ITestCase;
 import student.model.ParameterTest;
-import student.util.ClassUtils;
-import student.util.GetterUtils;
 import student.util.ParameterTestUtils;
 
 public class ClassTest {
 	private static ClassTest instance;
 	private FieldChecker fieldChecker = FieldChecker.getInstance();
+	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 
 	/*
 	 * ***************************************************************************
@@ -66,7 +64,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(className);
+					Class.forName(className, true, targetClassesLoader);
 					return true;
 				} catch (ClassNotFoundException e) {
 					return false;
@@ -112,7 +110,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(className).getDeclaredConstructor().newInstance();
+					Class.forName(className, true, targetClassesLoader).getDeclaredConstructor().newInstance();
 					return true;
 				} catch (Exception e) {
 					return false;
@@ -148,7 +146,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class<?> clazz = Class.forName(className);
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
 					return ParameterTestUtils.compareTestValue(clazz, clazz.getDeclaredConstructor().newInstance(),
 							params);
@@ -196,7 +194,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(className)
+					Class.forName(className, true, targetClassesLoader)
 							.getDeclaredConstructor(Stream.of(params).map(p -> p.getType()).toArray(Class<?>[]::new));
 					return true;
 				} catch (Exception e) {
@@ -233,7 +231,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class<?> clazz = Class.forName(className);
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
 					Class<?>[] types = Stream.of(params).map(pt -> pt.getType()).toArray(Class<?>[]::new);
 					Object[] testValues = Stream.of(params).map(pt -> pt.getTestValue()).toArray(Object[]::new);
@@ -280,7 +278,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(className)
+					Class.forName(className, true, targetClassesLoader)
 							.getDeclaredConstructor(Stream.of(params).map(p -> p.getType()).toArray(Class<?>[]::new));
 					return true;
 				} catch (Exception e) {
@@ -318,7 +316,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class<?> clazz = Class.forName(className);
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
 					Class<?>[] types = Stream.of(params).map(pt -> pt.getType()).toArray(Class<?>[]::new);
 					Object[] testValues = Stream.of(params).map(pt -> pt.getTestValue()).toArray(Object[]::new);
@@ -368,7 +366,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					for (Field field : Class.forName(className).getDeclaredFields()) {
+					for (Field field : Class.forName(className, true, targetClassesLoader).getDeclaredFields()) {
 						if (!fieldChecker.checkField(field)) {
 							invalidAttrName = field.getName();
 							return false;
