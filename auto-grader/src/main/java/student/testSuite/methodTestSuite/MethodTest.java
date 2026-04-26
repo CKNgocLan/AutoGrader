@@ -1,6 +1,7 @@
 package student.testSuite.methodTestSuite;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -247,6 +248,52 @@ public class MethodTest {
 			@Override
 			public String getFeedback() {
 				return Feedback.GETTER_SETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(className, fieldName);
+			}
+		};
+	}
+
+	/**
+	 * Method declaration testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public ITestCase checkExistence(String className, String methodName, int points) {
+		return new ITestCase() {
+			String invalidMethodName = null;
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_ATTRIBUTE.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class.forName(className, true, targetClassesLoader).getDeclaredMethod(methodName);
+					
+					return true;
+				} catch (NoSuchMethodException e) {
+					invalidMethodName = e.getMessage();
+					return false;
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.getMessage());
+					return false;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.ATTRIBUTE_DECLARED_NOT_CORRECT.getContent(className, invalidMethodName);
 			}
 		};
 	}

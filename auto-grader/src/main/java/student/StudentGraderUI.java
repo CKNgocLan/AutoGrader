@@ -310,6 +310,8 @@ public class StudentGraderUI extends JFrame {
                 log("No .java files found in the folder!");
                 return false;
             }
+            
+            // TODO check and remove package statement
 
             ProcessBuilder pb = new ProcessBuilder();
             List<String> cmd = new ArrayList<>();

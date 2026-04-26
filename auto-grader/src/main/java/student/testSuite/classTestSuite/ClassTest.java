@@ -15,6 +15,7 @@ public class ClassTest {
 	private static ClassTest instance;
 	private FieldChecker fieldChecker = FieldChecker.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
+	private String className;
 
 	/*
 	 * ***************************************************************************
@@ -26,6 +27,10 @@ public class ClassTest {
 		}
 
 		return instance;
+	}
+	
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
 	/*
@@ -64,8 +69,7 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(className);
-//					Class.forName(className, true, targetClassesLoader);
+					Class.forName(className, true, targetClassesLoader);
 					return true;
 				} catch (ClassNotFoundException e) {
 					return false;
