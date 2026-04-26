@@ -15,7 +15,6 @@ public class ClassLoader {
 			try {
 				instance = new URLClassLoader(new URL[] {new File(PathUtils.targetClasses()).toURI().toURL()});
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

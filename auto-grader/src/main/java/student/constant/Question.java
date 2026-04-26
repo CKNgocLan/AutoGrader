@@ -11,6 +11,7 @@ public class Question {
 	public static final String Q3 = "3";
 	public static final String Q4 = "4";
 	public static final String Q5 = "5";
+	public static final String Q6 = "6";
 
 	public static List<String> getNameList() {
 		return Arrays.asList(Question.class.getDeclaredFields()).stream().map(field -> {

@@ -64,7 +64,8 @@ public class ClassTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(className, true, targetClassesLoader);
+					Class.forName(className);
+//					Class.forName(className, true, targetClassesLoader);
 					return true;
 				} catch (ClassNotFoundException e) {
 					return false;

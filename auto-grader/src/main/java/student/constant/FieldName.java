@@ -6,4 +6,7 @@ public class FieldName {
 	public static final String DEPARTMENT = "department";
 	public static final String POSITION = "position";
 	public static final String ID_NUMBER = "idNumber";
+
+	public static final String YEAR_MODEL = "yearModel";
+	public static final String MAKE = "make";
 }
