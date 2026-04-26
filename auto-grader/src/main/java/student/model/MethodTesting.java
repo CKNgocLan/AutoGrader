@@ -9,18 +9,18 @@ import student.exception.InvalidConfigurationException;
 
 public class MethodTesting extends Method {
 	private Object testingValue;
+	private Object returnedValue;
 	private Class<?> clazz;
 	private Object instance;
-	
-	public MethodTesting(String name, Class<?> returnedType, Object testingValue) {
+
+	public MethodTesting(String name, Class<?> returnedType) {
 		super(name, returnedType);
-		this.testingValue = testingValue;
 	}
-	
+
 	public MethodTesting(String name, Class<?> returnedType, Object testingValue, Parameter... parameters) {
 		super(Modifier.PUBLIC, returnedType, name, parameters);
 		this.testingValue = testingValue;
-		
+
 	}
 
 	public Object getTestingValue() {
@@ -30,7 +30,15 @@ public class MethodTesting extends Method {
 	public void setTestingValue(Object testingValue) {
 		this.testingValue = testingValue;
 	}
-	
+
+	public Object getReturnedValue() {
+		return returnedValue;
+	}
+
+	public void setReturnedValue(Object returnedValue) {
+		this.returnedValue = returnedValue;
+	}
+
 	public void setClazz(Class<?> clazz) {
 		this.clazz = clazz;
 	}
@@ -39,8 +47,22 @@ public class MethodTesting extends Method {
 		this.instance = instance;
 	}
 
-	public Object returning() throws IllegalAccessException, InvocationTargetException,
-			NoSuchMethodException, SecurityException, InvalidConfigurationException {
+	public Object invokeSetting() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
+			IllegalAccessException, InvocationTargetException {
+		isConfigured();
+
+		return clazz.getDeclaredMethod(super.getName(), super.getParameterTypes()).invoke(instance,
+				getParameterValues());
+	}
+
+	public Object returning() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
+			IllegalAccessException, InvocationTargetException {
+		isConfigured();
+
+		return clazz.getDeclaredMethod(super.getName()).invoke(instance);
+	}
+
+	private boolean isConfigured() throws InvalidConfigurationException {
 		if (clazz == null) {
 			throw new InvalidConfigurationException(
 					ExceptionMessage.PROPERTY_NOT_CONFIGURED.getContent(PropertyName.CLASS));
@@ -50,6 +72,6 @@ public class MethodTesting extends Method {
 					ExceptionMessage.PROPERTY_NOT_CONFIGURED.getContent(PropertyName.INSTANCE));
 		}
 
-		return clazz.getDeclaredMethod(super.getName()).invoke(instance);
+		return true;
 	}
 }

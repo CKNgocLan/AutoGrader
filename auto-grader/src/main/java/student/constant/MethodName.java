@@ -13,4 +13,6 @@ public class MethodName {
 	
 	public static final String SET_FAHRENHEIT = "setFahrenheit";
 	public static final String GET_FAHRENHEIT = "getFahrenheit";
+	public static final String GET_CELSIUS = "getCelsius";
+	public static final String GET_KELVIN = "getKelvin";
 }

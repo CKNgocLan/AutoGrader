@@ -1,6 +1,5 @@
 package student.model;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -63,6 +62,10 @@ public class Method {
 	
 	public Class<?>[] getParameterTypes() {
 		return Stream.of(this.parameters).map(param -> param.getType()).toArray(Class<?>[]::new);
+	}
+	
+	public Object[] getParameterValues() {
+		return Stream.of(parameters).map(param -> param.getValue()).toArray();
 	}
 	
 	public boolean equals(java.lang.reflect.Method reflectMethod) {

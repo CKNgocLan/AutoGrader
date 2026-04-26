@@ -49,6 +49,8 @@ public class LabTestSuite2 extends ALabTestSuite {
 			return Arrays.asList(
 					temperatureTest.checkExistence(5)
 					, temperatureTest.checkSetgetFahrenheit(10, 50)
+					, temperatureTest.checkGetCelsius(15, 50, 10)
+					, temperatureTest.checkGetKelvin(15, 50, 283)
 			);
 		case Question.Q3:
 			return null;

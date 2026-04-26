@@ -12,10 +12,7 @@ import student.model.Parameter;
 import student.model.ParameterTesting;
 import student.testSuite.classTestSuite.ClassTest;
 import student.testSuite.methodTestSuite.MethodTest;
-import student.util.ClassUtils;
-import student.util.GetterUtils;
 import student.util.MethodUtils;
-import student.util.ParameterTestingUtils;
 
 public class TemperatureTest {
 	private static TemperatureTest instance = null;
@@ -65,7 +62,8 @@ public class TemperatureTest {
 
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, MethodName.SET_FAHRENHEIT + " & " + MethodName.GET_FAHRENHEIT);
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(className,
+						MethodName.SET_FAHRENHEIT + " & " + MethodName.GET_FAHRENHEIT);
 			}
 
 			@Override
@@ -77,34 +75,25 @@ public class TemperatureTest {
 			public boolean runTest() {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
-					MethodTesting setFahrenheit = new MethodTesting(MethodName.SET_FAHRENHEIT, void.class, fahrenheit);
 
-					setFahrenheit.setParameter(new Parameter(FieldName.FTEMP, double.class, fahrenheit));
+					MethodTesting setFahrenheit = createSetFahrenheit(fahrenheit);
 					if (!MethodUtils.isMethodDeclared(clazz, setFahrenheit)) {
 						invalidMethodName = setFahrenheit.getName();
 						return false;
 					}
 
-					MethodTesting getFahrenheit = new MethodTesting(MethodName.GET_FAHRENHEIT, double.class, fahrenheit);
+					MethodTesting getFahrenheit = new MethodTesting(MethodName.GET_FAHRENHEIT, double.class,
+							fahrenheit);
 					if (!MethodUtils.isMethodDeclared(clazz, getFahrenheit)) {
 						invalidMethodName = getFahrenheit.getName();
 						return false;
 					}
-					
+
 					getFahrenheit.setClazz(clazz);
 					getFahrenheit.setInstance(clazz.getDeclaredConstructor(double.class).newInstance(fahrenheit));
-					
-					return getFahrenheit
-							.boxingReturnedType()
-							.cast(getFahrenheit.returning())
-							.equals(fahrenheit)
-					;
-				} catch (NoSuchMethodException e) {
-					return false;
+
+					return getFahrenheit.boxingReturnedType().cast(getFahrenheit.returning()).equals(fahrenheit);
 				} catch (InvalidConfigurationException e) {
-					return false;
-				} catch (IllegalArgumentException e) {
-					System.out.println(e.getMessage());
 					return false;
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
@@ -117,5 +106,100 @@ public class TemperatureTest {
 				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, invalidMethodName);
 			}
 		};
+	}
+
+	/*
+	 * getCelsius ***************************************************************************
+	 */
+	public ITestCase checkGetCelsius(int points, double fahrenheit, double celsius) {
+		return new ITestCase() {
+			MethodTesting testedMethod = new MethodTesting(MethodName.GET_CELSIUS, double.class);
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, testedMethod.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+
+					if (!MethodUtils.isMethodDeclared(clazz, testedMethod)) {
+						return false;
+					}
+
+					testedMethod.setClazz(clazz);
+					testedMethod.setInstance(clazz.getDeclaredConstructor(double.class).newInstance(fahrenheit));
+
+					return testedMethod.boxingReturnedType().cast(testedMethod.returning()).equals(celsius);
+				} catch (InvalidConfigurationException e) {
+					return false;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, testedMethod.getName());
+			}
+		};
+	}
+
+	/*
+	 * getKelvin ***************************************************************************
+	 */
+	public ITestCase checkGetKelvin(int points, double fahrenheit, double kelvin) {
+		return new ITestCase() {
+			MethodTesting testedMethod = new MethodTesting(MethodName.GET_KELVIN, double.class);
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, testedMethod.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+
+					if (!MethodUtils.isMethodDeclared(clazz, testedMethod)) {
+						return false;
+					}
+
+					testedMethod.setClazz(clazz);
+					testedMethod.setInstance(clazz.getDeclaredConstructor(double.class).newInstance(fahrenheit));
+
+					return testedMethod.boxingReturnedType().cast(testedMethod.returning()).equals(kelvin);
+				} catch (InvalidConfigurationException e) {
+					return false;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, testedMethod.getName());
+			}
+		};
+	}
+
+	private MethodTesting createSetFahrenheit(double fahrenheit) {
+		return new MethodTesting(MethodName.SET_FAHRENHEIT, void.class, fahrenheit,
+				new Parameter(FieldName.FTEMP, double.class, fahrenheit));
 	}
 }
