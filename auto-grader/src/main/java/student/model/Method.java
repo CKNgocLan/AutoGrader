@@ -3,12 +3,15 @@ package student.model;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.stream.Stream;
+
+import student.util.MethodUtils;
 
 public class Method {
 	private int modifier;
 	private String name;
 	private Class<?> returnedType;
-	private Class<?>[] parameterTypes = {};
+	private Parameter[] parameters = {};
 
 	public Method() {}
 
@@ -18,11 +21,11 @@ public class Method {
 		this.returnedType = returnType;
 	}
 	
-	public Method(int modifier, Class<?> returnedType, String name, Class<?>... parameterTypes) {
+	public Method(int modifier, Class<?> returnedType, String name, Parameter... parameters) {
 		this.modifier = modifier;
 		this.returnedType = returnedType;
 		this.name = name;
-		this.parameterTypes = parameterTypes;
+		this.parameters = parameters;
 	}
 
 	public int getModifier() {
@@ -49,23 +52,23 @@ public class Method {
 		this.returnedType = returnedType;
 	}
 
-	public Class<?>[] getParameterTypes() {
-		return parameterTypes;
+	public Parameter[] getParameters() {
+		return parameters;
 	}
 
-	public void setParameterTypes(Class<?>[] parameterTypes) {
-		this.parameterTypes = parameterTypes;
+	public void setParameter(Parameter... parameters) {
+		this.parameters = parameters;
+	}
+	
+	public Class<?>[] getParameterTypes() {
+		return Stream.of(this.parameters).map(param -> param.getType()).toArray(Class<?>[]::new);
 	}
 	
 	public boolean equals(java.lang.reflect.Method reflectMethod) {
 		return reflectMethod.getModifiers() == this.modifier
 				&& reflectMethod.getName().equals(this.name)
 				&& reflectMethod.getReturnType().equals(this.returnedType)
-				&& Arrays.equals(this.parameterTypes, reflectMethod.getParameters())
+				&& Arrays.equals(this.getParameterTypes(), MethodUtils.getParameterTypes(reflectMethod))
 				;
-	}
-	
-	public void invoke(Class<?> clazz, Object instance) throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		clazz.getDeclaredMethod(this.name).invoke(instance);
 	}
 }

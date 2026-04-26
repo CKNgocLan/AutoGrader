@@ -8,8 +8,9 @@ import student.constant.Question;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
-import student.testSuite.classTestSuite.CarTest;
 import student.testSuite.classTestSuite.ClassTest;
+import student.testSuite.classTestSuite.lab2.CarTest;
+import student.testSuite.classTestSuite.lab2.TemperatureTest;
 import student.testSuite.methodTestSuite.MethodTest;
 import student.util.ParameterTestingUtils;
 
@@ -18,9 +19,8 @@ import student.util.ParameterTestingUtils;
  * as per the uploaded Employee.java
  */
 public class LabTestSuite2 extends ALabTestSuite {
-	private ClassTest classTest = ClassTest.getInstance();
-	private MethodTest methodTest = MethodTest.getInstance();
 	private CarTest carTest = CarTest.getInstance();
+	private TemperatureTest temperatureTest = TemperatureTest.getInstance();
 	
 	@Override
 	public List<ITestCase> getAllTests(String question) {
@@ -47,7 +47,8 @@ public class LabTestSuite2 extends ALabTestSuite {
 			);
 		case Question.Q2:
 			return Arrays.asList(
-					carTest.checkExistence(5)
+					temperatureTest.checkExistence(5)
+					, temperatureTest.checkSetgetFahrenheit(10, 50)
 			);
 		case Question.Q3:
 			return null;

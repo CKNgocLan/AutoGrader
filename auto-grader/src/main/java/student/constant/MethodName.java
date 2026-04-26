@@ -10,4 +10,7 @@ public class MethodName {
 	
 	public static final String ACCELERATE = "accelerate";
 	public static final String BRAKE = "brake";
+	
+	public static final String SET_FAHRENHEIT = "setFahrenheit";
+	public static final String GET_FAHRENHEIT = "getFahrenheit";
 }
