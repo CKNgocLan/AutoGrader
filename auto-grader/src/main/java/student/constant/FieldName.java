@@ -9,4 +9,5 @@ public class FieldName {
 
 	public static final String YEAR_MODEL = "yearModel";
 	public static final String MAKE = "make";
+	public static final String SPEED = "speed";
 }

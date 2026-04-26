@@ -9,10 +9,10 @@ import student.constant.FieldName;
 import student.constant.Question;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
-import student.model.ParameterTest;
+import student.model.ParameterTesting;
 import student.testSuite.classTestSuite.ClassTest;
 import student.testSuite.methodTestSuite.MethodTest;
-import student.util.ParameterTestUtils;
+import student.util.ParameterTestingUtils;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
@@ -31,59 +31,59 @@ public class LabTestSuite1 extends ALabTestSuite {
 					
 					// no-agrs constructor
 					, classTest.checkNoArgConstructorDeclaration(ClassName.EMPLOYEE, 5)
-					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, new ParameterTest(FieldName.NAME, String.class, Constants.EMPTY))
-					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, new ParameterTest(FieldName.DEPARTMENT, String.class, Constants.EMPTY))
-					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, new ParameterTest(FieldName.POSITION, String.class, Constants.EMPTY))
-					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, new ParameterTest(FieldName.ID_NUMBER, int.class, (int) 0))
+					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, new ParameterTesting(FieldName.NAME, String.class, Constants.EMPTY))
+					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, new ParameterTesting(FieldName.DEPARTMENT, String.class, Constants.EMPTY))
+					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, new ParameterTesting(FieldName.POSITION, String.class, Constants.EMPTY))
+					, classTest.checkNoArgConstructorOperation(ClassName.EMPLOYEE, 5, new ParameterTesting(FieldName.ID_NUMBER, int.class, (int) 0))
 					
 					// full-agrs constructor
 					, classTest.checkFullArgsConstructorDeclaration(ClassName.EMPLOYEE, 5,
-							ParameterTestUtils.toArray(String.class, int.class, String.class, String.class))
+							ParameterTestingUtils.toArray(String.class, int.class, String.class, String.class))
 					, classTest.checkFullArgsConstructorOperation(ClassName.EMPLOYEE, 5,
-							new ParameterTest(FieldName.NAME, String.class, "Susan Meyers")
-							, new ParameterTest(FieldName.ID_NUMBER, int.class, 47899)
-							, new ParameterTest(FieldName.DEPARTMENT, String.class, "Accounting")
-							, new ParameterTest(FieldName.POSITION, String.class, "Vice President")
+							new ParameterTesting(FieldName.NAME, String.class, "Susan Meyers")
+							, new ParameterTesting(FieldName.ID_NUMBER, int.class, 47899)
+							, new ParameterTesting(FieldName.DEPARTMENT, String.class, "Accounting")
+							, new ParameterTesting(FieldName.POSITION, String.class, "Vice President")
 					)
 					, classTest.checkFullArgsConstructorOperation(ClassName.EMPLOYEE, 5,
-							new ParameterTest(FieldName.NAME, String.class, "Mark Jones")
-							, new ParameterTest(FieldName.ID_NUMBER, int.class, 39119)
-							, new ParameterTest(FieldName.DEPARTMENT, String.class, "IT")
-							, new ParameterTest(FieldName.POSITION, String.class, "Programmer")
+							new ParameterTesting(FieldName.NAME, String.class, "Mark Jones")
+							, new ParameterTesting(FieldName.ID_NUMBER, int.class, 39119)
+							, new ParameterTesting(FieldName.DEPARTMENT, String.class, "IT")
+							, new ParameterTesting(FieldName.POSITION, String.class, "Programmer")
 					)
 					, classTest.checkFullArgsConstructorOperation(ClassName.EMPLOYEE, 5,
-							new ParameterTest(FieldName.NAME, String.class, "Joy Rogers")
-							, new ParameterTest(FieldName.ID_NUMBER, int.class, 81774)
-							, new ParameterTest(FieldName.DEPARTMENT, String.class, "Manufacturing")
-							, new ParameterTest(FieldName.POSITION, String.class, "Engineer")
+							new ParameterTesting(FieldName.NAME, String.class, "Joy Rogers")
+							, new ParameterTesting(FieldName.ID_NUMBER, int.class, 81774)
+							, new ParameterTesting(FieldName.DEPARTMENT, String.class, "Manufacturing")
+							, new ParameterTesting(FieldName.POSITION, String.class, "Engineer")
 					)
 					
 					// partial-args constructor
 					, classTest.checkPartialArgsConstructorDeclaration(ClassName.EMPLOYEE, 5,
-							ParameterTestUtils.toArray(String.class, int.class))
+							ParameterTestingUtils.toArray(String.class, int.class))
 					, classTest.checkPartialArgsConstructorOperation(ClassName.EMPLOYEE, 5,
-							new ParameterTest(FieldName.NAME, String.class, "Susan Meyers")
-							, new ParameterTest(FieldName.ID_NUMBER, int.class, 47899)
+							new ParameterTesting(FieldName.NAME, String.class, "Susan Meyers")
+							, new ParameterTesting(FieldName.ID_NUMBER, int.class, 47899)
 					)
 					, classTest.checkFullArgsConstructorOperation(ClassName.EMPLOYEE, 5,
-							new ParameterTest(FieldName.NAME, String.class, "Mark Jones")
-							, new ParameterTest(FieldName.ID_NUMBER, int.class, 39119)
+							new ParameterTesting(FieldName.NAME, String.class, "Mark Jones")
+							, new ParameterTesting(FieldName.ID_NUMBER, int.class, 39119)
 					)
 					, classTest.checkFullArgsConstructorOperation(ClassName.EMPLOYEE, 5,
-							new ParameterTest(FieldName.NAME, String.class, "Joy Rogers")
-							, new ParameterTest(FieldName.ID_NUMBER, int.class, 81774)
+							new ParameterTesting(FieldName.NAME, String.class, "Joy Rogers")
+							, new ParameterTesting(FieldName.ID_NUMBER, int.class, 81774)
 					)
 					
 					// attribute
 					, classTest.checkAttributes(ClassName.EMPLOYEE, 5)
 					
 					// getter setter
-					, methodTest.checkGetterDeclaration(ClassName.EMPLOYEE, 5)
-					, methodTest.checkSetterDeclaration(ClassName.EMPLOYEE, 5)
-					, methodTest.checkStringGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.NAME, "Susan Meyers")
-					, methodTest.checkStringGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.DEPARTMENT, "Accounting")
-					, methodTest.checkStringGetsetOperation(ClassName.EMPLOYEE, 0, FieldName.POSITION, "Vice President")
-					, methodTest.checkIntGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.ID_NUMBER, 47899)
+					, methodTest.checkGetterDeclaration(5)
+					, methodTest.checkSetterDeclaration(5)
+					, methodTest.checkStringGetsetOperation(5, FieldName.NAME, "Susan Meyers")
+					, methodTest.checkStringGetsetOperation(5, FieldName.DEPARTMENT, "Accounting")
+					, methodTest.checkStringGetsetOperation(0, FieldName.POSITION, "Vice President")
+					, methodTest.checkIntGetsetOperation(5, FieldName.ID_NUMBER, 47899)
 					);
 		default:
 			return null;

@@ -8,13 +8,16 @@ public enum Feedback {
 	, FULL_ARGS_CONSTRUCTOR_DECLARATION_MISSING("Full-Argument constructor DECLARATION of {0}() is missing or does not set fields correctly.")
 	, FULL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT("Full-Argument constructor DECLARATION of {0}() is NOT CORRECT.")
 	, PARTIAL_ARGS_CONSTRUCTOR_DECLARATION_MISSING("Partial-Argument constructor DECLARATION of {0}({1}) is missing or does not set fields correctly.")
-	, PARTIAL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT("Partial-Argument constructor DECLARATION of {0}({1}) is NOT CORRECT.")
+	, PARTIAL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT("Partial-Argument constructor OPERATION of {0}({1}) is NOT CORRECT.")
 	, ATTRIBUTE_DECLARED_NOT_CORRECT("Attributes of class {0} NOT CORRECT ({1}).")
 	, GETTER_DECLARED_NOT_CORRECT("Getter(s) of class {0} NOT CORRECT or MISSING ({1}).")
 	, SETTER_DECLARED_NOT_CORRECT("Setter(s) of class {0} NOT CORRECT or MISSING ({1}).")
 	, GETTER_OPERATION_WORKING_NOT_PROPERLY("Getter of field {0} WORKING NOT PROPERLY. ({1})")
 	, SETTER_OPERATION_WORKING_NOT_PROPERLY("Setter of field {0} WORKING NOT PROPERLY. ({1})")
 	, GETTER_SETTER_OPERATION_WORKING_NOT_PROPERLY("Getter/Setter of class {0} WORKING NOT PROPERLY. ({1})")
+	
+	, METHOD_DECLARED_NOT_CORRECT("Method {1}() of class {0} NOT CORRECT or MISSING.")
+	, METHOD_OPERATED_NOT_CORRECT("Method {1}() of class {0} OPERATED NOT CORRECTLY.")
 	;
 	
 	private final String value;

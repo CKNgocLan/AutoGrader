@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import student.util.GetterUtils;
 
-public class Getter extends InvalidMethod {
+public class Getter extends Method {
 	public Getter() {
 		super();
 	}
@@ -19,13 +19,13 @@ public class Getter extends InvalidMethod {
 	
 	@Override
 	public String toString() {
-		return "{%s %s() %s}".formatted(this.getModifier(), this.getName(), this.getReturnType());
+		return "{%s %s() %s}".formatted(this.getModifier(), this.getName(), this.getReturnedType());
 	}
 	
 	public boolean equals(Getter getter) {
 		return getter.getModifier() == this.getModifier()
 				&& getter.getName().equals(this.getName())
-				&& getter.getReturnType().equals(this.getReturnType())
+				&& getter.getReturnedType().equals(this.getReturnedType())
 				;
 	}
 	

@@ -17,6 +17,9 @@ public enum TestcaseType {
 	, CHECK_CLASS_GETTER_OPERATION_FOR_FIELD("Check GETTER Operation of Class: {0} for field {1}")
 	, CHECK_CLASS_SETTER_OPERATION_FOR_FIELD("Check SETTER Operation of Class: {0} for field {1}")
 	, CHECK_CLASS_SPECIFIC_GETTER_OPERATION("Check {1} Getter Operation of Class: {0}")
+	
+	, CHECK_METHOD_EXISTENCE("Check Declaration of method {1}() in Class {0}")
+	, CHECK_METHOD_OPERATION("Check Operation of method {1}() in Class {0}")
 	;
 	
 	private final String value;

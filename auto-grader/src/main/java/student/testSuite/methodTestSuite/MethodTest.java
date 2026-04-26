@@ -1,7 +1,6 @@
 package student.testSuite.methodTestSuite;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,8 +10,9 @@ import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.Getter;
 import student.model.ITestCase;
-import student.model.InvalidMethod;
+import student.model.Method;
 import student.model.Setter;
+import student.util.MethodUtils;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
@@ -22,6 +22,7 @@ public class MethodTest {
 	private static MethodTest instance = null;
 	private MethodChecker methodChecker = MethodChecker.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
+	private String className;
 
 	/*
 	 * ***************************************************************************
@@ -33,6 +34,10 @@ public class MethodTest {
 		}
 
 		return instance;
+	}
+	
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
 	/*
@@ -46,7 +51,7 @@ public class MethodTest {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkGetterDeclaration(String className, int points) {
+	public ITestCase checkGetterDeclaration(int points) {
 		return new ITestCase() {
 			List<Getter> invalid = new ArrayList<Getter>();
 
@@ -73,7 +78,7 @@ public class MethodTest {
 			@Override
 			public String getFeedback() {
 				return Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className,
-						String.join(Constants.COMMA, invalid.stream().map(InvalidMethod::getName).toList()));
+						String.join(Constants.COMMA, invalid.stream().map(Method::getName).toList()));
 			}
 		};
 	}
@@ -85,7 +90,7 @@ public class MethodTest {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkSetterDeclaration(String className, int points) {
+	public ITestCase checkSetterDeclaration(int points) {
 		return new ITestCase() {
 			List<Setter> invalid = new ArrayList<Setter>();
 
@@ -112,7 +117,7 @@ public class MethodTest {
 			@Override
 			public String getFeedback() {
 				return Feedback.SETTER_DECLARED_NOT_CORRECT.getContent(className,
-						String.join(Constants.COMMA, invalid.stream().map(InvalidMethod::getName).toList()));
+						String.join(Constants.COMMA, invalid.stream().map(Method::getName).toList()));
 			}
 		};
 	}
@@ -124,7 +129,7 @@ public class MethodTest {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkGetterSetterOperation(String className, int points) {
+	public ITestCase checkGetterSetterOperation(int points) {
 		return new ITestCase() {
 			List<Getter> invalidGetter = new ArrayList<Getter>();
 			String invalidField = "";
@@ -174,7 +179,7 @@ public class MethodTest {
 				return invalidGetter.size() > 0
 						? Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className,
 								String.join(Constants.COMMA,
-										invalidGetter.stream().map(InvalidMethod::getName).toList()))
+										invalidGetter.stream().map(Method::getName).toList()))
 						: Feedback.GETTER_SETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(invalidField);
 			}
 		};
@@ -187,7 +192,7 @@ public class MethodTest {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkStringGetsetOperation(String className, int points, String fieldName, String testValue) {
+	public ITestCase checkStringGetsetOperation(int points, String fieldName, String testValue) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -223,7 +228,7 @@ public class MethodTest {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkIntGetsetOperation(String className, int points, String fieldName, int testValue) {
+	public ITestCase checkIntGetsetOperation(int points, String fieldName, int testValue) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -259,13 +264,12 @@ public class MethodTest {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkExistence(String className, String methodName, int points) {
+	public ITestCase checkExistence(String className, int points, Method method) {
 		return new ITestCase() {
-			String invalidMethodName = null;
 
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CLASS_ATTRIBUTE.getName(className);
+				return TestcaseType.CHECK_METHOD_EXISTENCE.getName(className, method.getName());
 			}
 
 			@Override
@@ -276,11 +280,8 @@ public class MethodTest {
 			@Override
 			public boolean runTest() {
 				try {
-					Class.forName(className, true, targetClassesLoader).getDeclaredMethod(methodName);
-					
-					return true;
+					return MethodUtils.isMethodDeclared(Class.forName(className, true, targetClassesLoader), method);
 				} catch (NoSuchMethodException e) {
-					invalidMethodName = e.getMessage();
 					return false;
 				} catch (IllegalArgumentException e) {
 					System.out.println(e.getMessage());
@@ -293,7 +294,7 @@ public class MethodTest {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.ATTRIBUTE_DECLARED_NOT_CORRECT.getContent(className, invalidMethodName);
+				return Feedback.METHOD_DECLARED_NOT_CORRECT.getContent(className, method.getName());
 			}
 		};
 	}

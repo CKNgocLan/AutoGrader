@@ -3,18 +3,18 @@ package student.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.stream.Stream;
 
-import student.model.ParameterTest;
+import student.model.ParameterTesting;
 
-public class ParameterTestUtils {
-	public static ParameterTest[] toArray(Class<?>... types) {
-		return Stream.of(types).map(ParameterTest::new).toArray(ParameterTest[]::new);
+public class ParameterTestingUtils {
+	public static ParameterTesting[] toArray(Class<?>... types) {
+		return Stream.of(types).map(ParameterTesting::new).toArray(ParameterTesting[]::new);
 	}
 
-	public static boolean compareTestValue(Class<?> clazz, Object instance, ParameterTest paramTest)
+	public static boolean compareTestingValue(Class<?> clazz, Object instance, ParameterTesting paramTest)
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Object castValue = (paramTest.getType().isPrimitive() ? ClassUtils.boxing(paramTest.getType())
 				: paramTest.getType())
 				.cast(clazz.getDeclaredMethod(GetterUtils.getGetterName(paramTest.getName())).invoke(instance));
-		return castValue != null ? castValue.equals(paramTest.getTestValue()) : paramTest.getTestValue() == null;
+		return castValue != null ? castValue.equals(paramTest.getTestingValue()) : paramTest.getTestingValue() == null;
 	}
 }

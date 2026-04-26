@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import student.util.SetterUtils;
 
-public class Setter extends InvalidMethod {
+public class Setter extends Method {
 	private Class<?> paramType;
 
 	public Setter(Field field) {
@@ -33,7 +33,7 @@ public class Setter extends InvalidMethod {
 	public boolean equals(Setter setter) {
 		return setter.getModifier() == this.getModifier()
 				&& setter.getName().equals(this.getName())
-				&& setter.getReturnType().equals(this.getReturnType())
+				&& setter.getReturnedType().equals(this.getReturnedType())
 				;
 	}
 	
