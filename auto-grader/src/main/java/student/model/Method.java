@@ -5,6 +5,7 @@ import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import student.util.ClassUtils;
 import student.util.MethodUtils;
 
 public class Method {
@@ -70,5 +71,9 @@ public class Method {
 				&& reflectMethod.getReturnType().equals(this.returnedType)
 				&& Arrays.equals(this.getParameterTypes(), MethodUtils.getParameterTypes(reflectMethod))
 				;
+	}
+	
+	public Class<?> boxingReturnedType() {
+		return returnedType.isPrimitive() ? ClassUtils.boxing(returnedType): returnedType;
 	}
 }

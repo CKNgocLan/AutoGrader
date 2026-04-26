@@ -5,6 +5,7 @@ import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
+import student.exception.InvalidConfigurationException;
 import student.model.ITestCase;
 import student.model.MethodTesting;
 import student.model.Parameter;
@@ -60,13 +61,11 @@ public class TemperatureTest {
 	 */
 	public ITestCase checkSetgetFahrenheit(int points, double fahrenheit) {
 		return new ITestCase() {
-			MethodTesting setFahrenheit = new MethodTesting(MethodName.SET_FAHRENHEIT, void.class, fahrenheit);
-			MethodTesting getFahrenheit = new MethodTesting(MethodName.GET_FAHRENHEIT, double.class, fahrenheit);
 			String invalidMethodName;
 
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, setFahrenheit.getName() + " & " + getFahrenheit.getName());
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, MethodName.SET_FAHRENHEIT + " & " + MethodName.GET_FAHRENHEIT);
 			}
 
 			@Override
@@ -78,25 +77,31 @@ public class TemperatureTest {
 			public boolean runTest() {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					MethodTesting setFahrenheit = new MethodTesting(MethodName.SET_FAHRENHEIT, void.class, fahrenheit);
 
-					setFahrenheit.setParameter(new Parameter("ftemp", double.class, fahrenheit));
+					setFahrenheit.setParameter(new Parameter(FieldName.FTEMP, double.class, fahrenheit));
 					if (!MethodUtils.isMethodDeclared(clazz, setFahrenheit)) {
 						invalidMethodName = setFahrenheit.getName();
 						return false;
 					}
 
+					MethodTesting getFahrenheit = new MethodTesting(MethodName.GET_FAHRENHEIT, double.class, fahrenheit);
 					if (!MethodUtils.isMethodDeclared(clazz, getFahrenheit)) {
 						invalidMethodName = getFahrenheit.getName();
 						return false;
 					}
 					
-					Object instance = clazz.getDeclaredConstructor(double.class).newInstance(fahrenheit);
+					getFahrenheit.setClazz(clazz);
+					getFahrenheit.setInstance(clazz.getDeclaredConstructor(double.class).newInstance(fahrenheit));
 					
-					Object returnedFahrenheit = (getFahrenheit.getReturnedType().isPrimitive() ? ClassUtils.boxing(getFahrenheit.getReturnedType()): getFahrenheit.getReturnedType())
-							.cast(clazz.getDeclaredMethod(getFahrenheit.getName()).invoke(instance));
-					
-					return returnedFahrenheit.equals(fahrenheit);
+					return getFahrenheit
+							.boxingReturnedType()
+							.cast(getFahrenheit.returning())
+							.equals(fahrenheit)
+					;
 				} catch (NoSuchMethodException e) {
+					return false;
+				} catch (InvalidConfigurationException e) {
 					return false;
 				} catch (IllegalArgumentException e) {
 					System.out.println(e.getMessage());
