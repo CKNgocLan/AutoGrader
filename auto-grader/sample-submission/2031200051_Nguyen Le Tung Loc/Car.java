@@ -1,4 +1,3 @@
-package student.sample;
 
 public class Car {
 

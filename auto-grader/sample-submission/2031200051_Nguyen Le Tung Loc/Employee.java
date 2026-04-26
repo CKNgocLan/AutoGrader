@@ -1,4 +1,3 @@
-package student.sample;
 
 public class Employee {
 	private String name;

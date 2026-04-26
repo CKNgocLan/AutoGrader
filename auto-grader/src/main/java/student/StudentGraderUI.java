@@ -154,7 +154,7 @@ public class StudentGraderUI extends JFrame {
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
-		labQuestionsMap.put(Lab.L1, Arrays.asList(Question.Q0));
+//		labQuestionsMap.put(Lab.L1, Arrays.asList(Question.Q0));
 		for (String lab : Lab.getNameList()) {
 			labQuestionsMap.put(lab, Question.getNameList(6));
 		}
