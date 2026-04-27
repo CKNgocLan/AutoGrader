@@ -14,8 +14,8 @@ import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.MethodUtils;
 import student.util.ParameterTestingUtils;
 
-public class CarTest {
-	private static CarTest instance = null;
+public class CarTester {
+	private static CarTester instance = null;
 	private ClassTestcaseCreator classTest = ClassTestcaseCreator.getInstance();
 	private MethodTestcaseCreator methodTest = MethodTestcaseCreator.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
@@ -25,9 +25,9 @@ public class CarTest {
 	 * instance ***************************************************************************
 	 */
 
-	public static CarTest getInstance() {
+	public static CarTester getInstance() {
 		if (instance == null) {
-			instance = new CarTest();
+			instance = new CarTester();
 		}
 
 		return instance;

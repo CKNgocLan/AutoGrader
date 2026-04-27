@@ -12,11 +12,10 @@ import student.model.Parameter;
 import student.model.ParameterTesting;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
-import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.MethodUtils;
 
-public class TemperatureTest {
-	private static TemperatureTest instance = null;
+public class TemperatureTester {
+	private static TemperatureTester instance = null;
 	private ClassTestcaseCreator classTest = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
@@ -26,9 +25,9 @@ public class TemperatureTest {
 	 * instance ***************************************************************************
 	 */
 
-	public static TemperatureTest getInstance() {
+	public static TemperatureTester getInstance() {
 		if (instance == null) {
-			instance = new TemperatureTest();
+			instance = new TemperatureTester();
 		}
 
 		return instance;
