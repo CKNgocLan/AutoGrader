@@ -78,12 +78,12 @@ public class LabTestSuite1 extends ALabTestSuite {
 					, classTest.checkAttributes(ClassName.EMPLOYEE, 5)
 					
 					// getter setter
-					, methodTest.checkGetterDeclaration(5)
-					, methodTest.checkSetterDeclaration(5)
-					, methodTest.checkStringGetsetOperation(5, FieldName.NAME, "Susan Meyers")
-					, methodTest.checkStringGetsetOperation(5, FieldName.DEPARTMENT, "Accounting")
-					, methodTest.checkStringGetsetOperation(0, FieldName.POSITION, "Vice President")
-					, methodTest.checkIntGetsetOperation(5, FieldName.ID_NUMBER, 47899)
+					, methodTest.checkGetterDeclaration(ClassName.EMPLOYEE, 5)
+					, methodTest.checkSetterDeclaration(ClassName.EMPLOYEE, 5)
+					, methodTest.checkStringGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.NAME, "Susan Meyers")
+					, methodTest.checkStringGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.DEPARTMENT, "Accounting")
+					, methodTest.checkStringGetsetOperation(ClassName.EMPLOYEE, 0, FieldName.POSITION, "Vice President")
+					, methodTest.checkIntGetsetOperation(ClassName.EMPLOYEE, 5, FieldName.ID_NUMBER, 47899)
 					);
 		default:
 			return null;

@@ -22,7 +22,6 @@ public class MethodTest {
 	private static MethodTest instance = null;
 	private MethodChecker methodChecker = MethodChecker.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
-	private String className;
 
 	/*
 	 * ***************************************************************************
@@ -35,23 +34,12 @@ public class MethodTest {
 
 		return instance;
 	}
-	
-	public void setClassName(String className) {
-		this.className = className;
-	}
 
 	/*
 	 * ***************************************************************************
 	 */
 
-	/**
-	 * Getter declaration testcase
-	 * 
-	 * @param className
-	 * @param points
-	 * @return
-	 */
-	public ITestCase checkGetterDeclaration(int points) {
+	public ITestCase checkGetterDeclaration(String className, int points) {
 		return new ITestCase() {
 			List<Getter> invalid = new ArrayList<Getter>();
 
@@ -83,14 +71,11 @@ public class MethodTest {
 		};
 	}
 
-	/**
-	 * Setter declaration testcase
-	 * 
-	 * @param className
-	 * @param points
-	 * @return
+	/*
+	 * ***************************************************************************
 	 */
-	public ITestCase checkSetterDeclaration(int points) {
+
+	public ITestCase checkSetterDeclaration(String className, int points) {
 		return new ITestCase() {
 			List<Setter> invalid = new ArrayList<Setter>();
 
@@ -122,14 +107,11 @@ public class MethodTest {
 		};
 	}
 
-	/**
-	 * Getter/Setter operation testcase
-	 * 
-	 * @param className
-	 * @param points
-	 * @return
+	/*
+	 * ***************************************************************************
 	 */
-	public ITestCase checkGetterSetterOperation(int points) {
+
+	public ITestCase checkGetterSetterOperation(String className, int points) {
 		return new ITestCase() {
 			List<Getter> invalidGetter = new ArrayList<Getter>();
 			String invalidField = "";
@@ -185,14 +167,11 @@ public class MethodTest {
 		};
 	}
 
-	/**
-	 * String Getter/Setter operation testcase
-	 * 
-	 * @param className
-	 * @param points
-	 * @return
+	/*
+	 * ***************************************************************************
 	 */
-	public ITestCase checkStringGetsetOperation(int points, String fieldName, String testValue) {
+
+	public ITestCase checkStringGetsetOperation(String className, int points, String fieldName, String testValue) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -221,14 +200,11 @@ public class MethodTest {
 		};
 	}
 
-	/**
-	 * int Getter/Setter operation testcase
-	 * 
-	 * @param className
-	 * @param points
-	 * @return
+	/*
+	 * ***************************************************************************
 	 */
-	public ITestCase checkIntGetsetOperation(int points, String fieldName, int testValue) {
+
+	public ITestCase checkIntGetsetOperation(String className, int points, String fieldName, int testValue) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -257,13 +233,10 @@ public class MethodTest {
 		};
 	}
 
-	/**
-	 * Method declaration testcase
-	 * 
-	 * @param className
-	 * @param points
-	 * @return
+	/*
+	 * ***************************************************************************
 	 */
+
 	public ITestCase checkExistence(String className, int points, Method method) {
 		return new ITestCase() {
 

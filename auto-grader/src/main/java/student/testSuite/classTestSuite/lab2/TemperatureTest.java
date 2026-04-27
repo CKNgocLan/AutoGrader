@@ -10,6 +10,7 @@ import student.model.ITestCase;
 import student.model.MethodTesting;
 import student.model.Parameter;
 import student.model.ParameterTesting;
+import student.testSuite.FieldTester;
 import student.testSuite.classTestSuite.ClassTest;
 import student.testSuite.methodTestSuite.MethodTest;
 import student.util.MethodUtils;
@@ -17,7 +18,7 @@ import student.util.MethodUtils;
 public class TemperatureTest {
 	private static TemperatureTest instance = null;
 	private ClassTest classTest = ClassTest.getInstance();
-	private MethodTest methodTest = MethodTest.getInstance();
+	private FieldTester fieldTester = FieldTester.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 	private String className = ClassName.TEMPERATURE;
 
@@ -39,6 +40,14 @@ public class TemperatureTest {
 
 	public ITestCase checkExistence(int points) {
 		return classTest.checkExistence(className, points);
+	}
+
+	/*
+	 * Field: ftemp ***************************************************************************
+	 */
+	
+	public ITestCase checkField(int points, String fieldName, Class<?> type) {
+		return fieldTester.checkDeclaration(className, points, fieldName, type);
 	}
 
 	/*

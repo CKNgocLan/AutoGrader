@@ -48,6 +48,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 		case Question.Q2:
 			return Arrays.asList(
 					temperatureTest.checkExistence(5)
+					, temperatureTest.checkField(5, FieldName.FTEMP, double.class)
 					, temperatureTest.checkSetgetFahrenheit(10, 50)
 					, temperatureTest.checkGetCelsius(15, 50, 10)
 					, temperatureTest.checkGetKelvin(15, 50, 283)

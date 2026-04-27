@@ -15,7 +15,6 @@ public class ClassTest {
 	private static ClassTest instance;
 	private FieldChecker fieldChecker = FieldChecker.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
-//	private String className;
 
 	/*
 	 * ***************************************************************************
