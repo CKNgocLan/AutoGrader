@@ -1,5 +1,9 @@
 package student.util;
 
+import java.util.stream.Stream;
+
+import student.model.FieldTesting;
+
 public class ClassUtils {
 	public static Class<?> boxing(Class<?> primitiveType) {
 		if (byte.class.equals(primitiveType)) {
@@ -23,4 +27,7 @@ public class ClassUtils {
 	 * ***************************************************************************
 	 */
 
+	public static boolean containField(Class<?> clazz, FieldTesting testingField) {
+		return Stream.of(clazz.getDeclaredFields()).filter(declaredField -> testingField.equals(declaredField)).toList().size() > 0;
+	}
 }
