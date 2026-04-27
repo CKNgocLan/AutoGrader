@@ -1,4 +1,4 @@
-package student.testSuite.methodTestSuite;
+package student.creator;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -18,8 +18,8 @@ import student.util.MethodUtils;
  * Test suite for the Employee class. Tests constructors, getters, and setters
  * as per the uploaded Employee.java
  */
-public class MethodTest {
-	private static MethodTest instance = null;
+public class MethodTestcaseCreator {
+	private static MethodTestcaseCreator instance = null;
 	private MethodChecker methodChecker = MethodChecker.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 
@@ -27,9 +27,9 @@ public class MethodTest {
 	 * ***************************************************************************
 	 */
 
-	public static MethodTest getInstance() {
+	public static MethodTestcaseCreator getInstance() {
 		if (instance == null) {
-			instance = new MethodTest();
+			instance = new MethodTestcaseCreator();
 		}
 
 		return instance;

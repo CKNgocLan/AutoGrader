@@ -7,11 +7,11 @@ import student.constant.ClassName;
 import student.constant.Constants;
 import student.constant.FieldName;
 import student.constant.Question;
+import student.creator.ClassTestcaseCreator;
+import student.creator.MethodTestcaseCreator;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
-import student.testSuite.classTestSuite.ClassTest;
-import student.testSuite.methodTestSuite.MethodTest;
 import student.util.ParameterTestingUtils;
 
 /**
@@ -19,8 +19,8 @@ import student.util.ParameterTestingUtils;
  * as per the uploaded Employee.java
  */
 public class LabTestSuite1 extends ALabTestSuite {
-	private ClassTest classTest = ClassTest.getInstance();
-	private MethodTest methodTest = MethodTest.getInstance();
+	private ClassTestcaseCreator classTest = ClassTestcaseCreator.getInstance();
+	private MethodTestcaseCreator methodTest = MethodTestcaseCreator.getInstance();
 	
 	@Override
 	public List<ITestCase> getAllTests(String question) {

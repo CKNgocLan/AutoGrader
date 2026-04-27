@@ -5,20 +5,20 @@ import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
+import student.creator.ClassTestcaseCreator;
+import student.creator.FieldTestcaseCreator;
+import student.creator.MethodTestcaseCreator;
 import student.exception.InvalidConfigurationException;
 import student.model.ITestCase;
 import student.model.MethodTesting;
 import student.model.Parameter;
 import student.model.ParameterTesting;
-import student.testSuite.FieldTester;
-import student.testSuite.classTestSuite.ClassTest;
-import student.testSuite.methodTestSuite.MethodTest;
 import student.util.MethodUtils;
 
 public class TemperatureTest {
 	private static TemperatureTest instance = null;
-	private ClassTest classTest = ClassTest.getInstance();
-	private FieldTester fieldTester = FieldTester.getInstance();
+	private ClassTestcaseCreator classTest = ClassTestcaseCreator.getInstance();
+	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 	private String className = ClassName.TEMPERATURE;
 

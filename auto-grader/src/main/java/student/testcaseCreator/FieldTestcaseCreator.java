@@ -1,36 +1,25 @@
-package student.testSuite;
+package student.creator;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import student.constant.Constants;
+import student.checker.FieldChecker;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
-import student.model.FieldTesting;
-import student.model.Getter;
 import student.model.ITestCase;
-import student.model.Method;
-import student.util.FieldUtils;
 
-public class FieldTester {
-	private static FieldTester instance = null;
+public class FieldTestcaseCreator {
+	private static FieldTestcaseCreator instance = null;
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
-	private String className;
+	private FieldChecker fieldChecker = FieldChecker.getInstance();
 
 	/*
 	 * ***************************************************************************
 	 */
 
-	public static FieldTester getInstance() {
+	public static FieldTestcaseCreator getInstance() {
 		if (instance == null) {
-			instance = new FieldTester();
+			instance = new FieldTestcaseCreator();
 		}
 
 		return instance;
-	}
-	
-	public void setClassName(String className) {
-		this.className = className;
 	}
 
 	/*
@@ -52,7 +41,7 @@ public class FieldTester {
 			@Override
 			public boolean runTest() {
 				try {
-					return FieldUtils.checkFieldDeclaration(
+					return fieldChecker.checkDeclaration(
 							Class.forName(className, true, targetClassesLoader).getDeclaredField(fieldName),
 							fieldName,
 							type);

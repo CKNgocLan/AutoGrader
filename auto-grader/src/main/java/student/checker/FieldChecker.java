@@ -31,4 +31,15 @@ public class FieldChecker {
 		return Modifier.isPrivate(field.getModifiers()) && Modifier.isStatic(field.getModifiers())
 				&& StringUtils.isAllUppercase(field.getName());
 	}
+
+	public boolean checkDeclaration(java.lang.reflect.Field reflectField, String name, Class<?> type) {
+		return checkDeclaration(reflectField, Modifier.PRIVATE, name, type);
+	}
+
+	public boolean checkDeclaration(java.lang.reflect.Field reflectField, int modifier, String name,
+			Class<?> type) {
+		return reflectField.getModifiers() == modifier && reflectField.getName().equals(name)
+				&& reflectField.getType().equals(type);
+	}
+
 }

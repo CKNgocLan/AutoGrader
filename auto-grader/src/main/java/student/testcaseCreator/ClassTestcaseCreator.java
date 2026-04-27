@@ -1,4 +1,4 @@
-package student.testSuite.classTestSuite;
+package student.creator;
 
 import java.lang.reflect.Field;
 import java.util.stream.Stream;
@@ -11,8 +11,8 @@ import student.model.ITestCase;
 import student.model.ParameterTesting;
 import student.util.ParameterTestingUtils;
 
-public class ClassTest {
-	private static ClassTest instance;
+public class ClassTestcaseCreator {
+	private static ClassTestcaseCreator instance;
 	private FieldChecker fieldChecker = FieldChecker.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 
@@ -20,9 +20,9 @@ public class ClassTest {
 	 * ***************************************************************************
 	 */
 
-	public static ClassTest getInstance() {
+	public static ClassTestcaseCreator getInstance() {
 		if (instance == null) {
-			instance = new ClassTest();
+			instance = new ClassTestcaseCreator();
 		}
 
 		return instance;
