@@ -1,6 +1,8 @@
 package student.testSuite.lab2.problem3;
 
 import student.constant.ClassName;
+import student.constant.FieldName;
+import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -9,7 +11,6 @@ public class ServiceEstimateTester {
 	private static ServiceEstimateTester instance = null;
 	private ClassTestcaseCreator classTest = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
-	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 	private String className = ClassName.SERVICE_ESTIMATE;
 
 	/*
@@ -30,5 +31,18 @@ public class ServiceEstimateTester {
 
 	public ITestCase checkExistence(int points) {
 		return classTest.checkExistence(className, points);
+	}
+
+	/*
+	 * Fields ***************************************************************************
+	 */
+	
+	public ITestCase checkFields(int points) throws ClassNotFoundException {
+		return fieldTester.checkDeclarations(className, points,
+				new FieldTesting(double.class, FieldName.GROOMING_COST)
+				, new FieldTesting(double.class, FieldName.ADDITIONAL_CARE_COST)
+				, new FieldTesting(double.class, FieldName.TAX)
+				, new FieldTesting(student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PET)
+		);
 	}
 }

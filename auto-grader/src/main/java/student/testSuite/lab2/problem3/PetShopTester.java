@@ -1,6 +1,10 @@
 package student.testSuite.lab2.problem3;
 
+import java.util.List;
+
 import student.constant.ClassName;
+import student.constant.FieldName;
+import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -32,4 +36,16 @@ public class PetShopTester {
 		return classTest.checkExistence(className, points);
 	}
 
+
+	/*
+	 * Fields ***************************************************************************
+	 */
+	
+	public ITestCase checkFields(int points) throws ClassNotFoundException {
+		return fieldTester.checkDeclarations(className, points,
+				new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMERS)
+				, new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PETS)
+				, new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE), FieldName.SERVICE_ESTIMATES)
+		);
+	}
 }

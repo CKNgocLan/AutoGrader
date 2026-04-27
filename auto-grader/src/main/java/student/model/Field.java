@@ -1,15 +1,25 @@
 package student.model;
 
 import java.lang.reflect.Modifier;
+import java.util.Collections;
+import java.util.List;
 
 public class Field {
 	private int modifier;
 	private Class<?> type;
+	private Class<?> typeParameter;
 	private String name;
 
 	public Field(Class<?> type, String name) {
 		this.modifier = Modifier.PRIVATE;
 		this.type = type;
+		this.name = name;
+	}
+	
+	public Field(Class<List> type, Class<?> typeParameter, String name) {
+		this.modifier = Modifier.PRIVATE;
+		this.type = type;
+		this.typeParameter = typeParameter;
 		this.name = name;
 	}
 
@@ -33,6 +43,14 @@ public class Field {
 
 	public void setType(Class<?> type) {
 		this.type = type;
+	}
+
+	public Class<?> getTypeParameter() {
+		return typeParameter;
+	}
+
+	public void setTypeParameter(Class<?> typeParameter) {
+		this.typeParameter = typeParameter;
 	}
 
 	public String getName() {

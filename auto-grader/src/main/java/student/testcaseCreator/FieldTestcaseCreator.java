@@ -1,7 +1,5 @@
 package student.testcaseCreator;
 
-import java.lang.reflect.Field;
-import java.util.List;
 import java.util.stream.Stream;
 
 import student.checker.FieldChecker;
@@ -83,10 +81,8 @@ public class FieldTestcaseCreator {
 			public boolean runTest() {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
-					List<FieldTesting> testingFields = Stream.of(fields).toList();
 					
-					List<Field> reflectFields = Stream.of(clazz.getDeclaredFields()).toList();
-					if (testingFields.size() > reflectFields.size()) {
+					if (fields.length > clazz.getDeclaredFields().length) {
 						return false;
 					}
 					

@@ -21,4 +21,8 @@ public class ClassLoader {
 
 		return instance;
 	}
+	
+	public static Class<?> retrieveClass(String className) throws ClassNotFoundException {
+		return Class.forName(className, true, getInstance());
+	}
 }

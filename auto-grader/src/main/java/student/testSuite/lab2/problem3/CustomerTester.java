@@ -11,7 +11,6 @@ public class CustomerTester {
 	private static CustomerTester instance = null;
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
-	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 	private String className = ClassName.CUSTOMER;
 
 	/*
@@ -37,6 +36,7 @@ public class CustomerTester {
 	/*
 	 * Fields ***************************************************************************
 	 */
+	
 	public ITestCase checkFields(int points) {
 		return fieldTester.checkDeclarations(className, points,
 				new FieldTesting(String.class, FieldName.NAME)

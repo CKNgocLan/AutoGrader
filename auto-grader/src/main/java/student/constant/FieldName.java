@@ -23,4 +23,27 @@ public class FieldName {
 	 * Temperature
 	 */
 	public static final String FTEMP = "ftemp";
+	
+	/*
+	 * Pet
+	 */
+	public static final String BREED = "breed";
+	public static final String AGE = "age";
+	public static final String WEIGHT = "weight";
+	public static final String CUSTOMER = "customer";
+	
+	/*
+	 * Service Estimate
+	 */
+	public static final String GROOMING_COST = "groomingCost";
+	public static final String ADDITIONAL_CARE_COST = "additionalCareCost";
+	public static final String TAX = "tax";
+	public static final String PET = "pet";
+	
+	/*
+	 * Pet Shop
+	 */
+	public static final String CUSTOMERS = "customers";
+	public static final String PETS = "pets";
+	public static final String SERVICE_ESTIMATES = "serviceEstimates";
 }

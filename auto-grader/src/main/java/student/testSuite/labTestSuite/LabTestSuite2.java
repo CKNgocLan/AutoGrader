@@ -63,12 +63,24 @@ public class LabTestSuite2 extends ALabTestSuite {
 			ServiceEstimateTester serviceEstimate = ServiceEstimateTester.getInstance();
 			PetShopTester petShop = PetShopTester.getInstance();
 			
-			return Arrays.asList(
-					customer.checkExistence(5)
-					, pet.checkExistence(5)
-					, serviceEstimate.checkExistence(5)
-					, petShop.checkExistence(5)
-			);
+			try {
+				return Arrays.asList(
+						// existence
+						customer.checkExistence(5)
+						, pet.checkExistence(5)
+						, serviceEstimate.checkExistence(5)
+						, petShop.checkExistence(5)
+						
+						// field declarations
+						, customer.checkFields(15)
+						, pet.checkFields(15)
+						, serviceEstimate.checkFields(15)
+						, petShop.checkFields(15)
+				);
+			} catch (ClassNotFoundException e) {
+				System.out.println("Class Not Found: %s".formatted(e.getMessage()));
+				return List.of();
+			}
 		case Question.Q4:
 			return null;
 		case Question.Q5:
