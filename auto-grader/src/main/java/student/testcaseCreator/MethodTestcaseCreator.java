@@ -1,4 +1,4 @@
-package student.creator;
+package student.testcaseCreator;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

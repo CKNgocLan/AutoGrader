@@ -5,12 +5,12 @@ import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
-import student.creator.ClassTestcaseCreator;
-import student.creator.MethodTestcaseCreator;
 import student.model.ITestCase;
 import student.model.Method;
 import student.model.MethodTesting;
 import student.model.ParameterTesting;
+import student.testcaseCreator.ClassTestcaseCreator;
+import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.MethodUtils;
 import student.util.ParameterTestingUtils;
 

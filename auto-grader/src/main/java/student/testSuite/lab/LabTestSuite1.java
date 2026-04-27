@@ -7,11 +7,11 @@ import student.constant.ClassName;
 import student.constant.Constants;
 import student.constant.FieldName;
 import student.constant.Question;
-import student.creator.ClassTestcaseCreator;
-import student.creator.MethodTestcaseCreator;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
+import student.testcaseCreator.ClassTestcaseCreator;
+import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.ParameterTestingUtils;
 
 /**

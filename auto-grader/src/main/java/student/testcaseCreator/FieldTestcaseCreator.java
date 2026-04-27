@@ -1,4 +1,4 @@
-package student.creator;
+package student.testcaseCreator;
 
 import student.checker.FieldChecker;
 import student.constant.Feedback;
