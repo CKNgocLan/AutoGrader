@@ -1,13 +1,13 @@
 package student.model;
 
 import student.constant.Lab;
-import student.testSuite.lab.LabTestSuite1;
-import student.testSuite.lab.LabTestSuite2;
-import student.testSuite.lab.LabTestSuite3;
-import student.testSuite.lab.LabTestSuite4;
-import student.testSuite.lab.LabTestSuite5;
-import student.testSuite.lab.LabTestSuite6;
-import student.testSuite.lab.LabTestSuite7;
+import student.testSuite.labTestSuite.LabTestSuite1;
+import student.testSuite.labTestSuite.LabTestSuite2;
+import student.testSuite.labTestSuite.LabTestSuite3;
+import student.testSuite.labTestSuite.LabTestSuite4;
+import student.testSuite.labTestSuite.LabTestSuite5;
+import student.testSuite.labTestSuite.LabTestSuite6;
+import student.testSuite.labTestSuite.LabTestSuite7;
 
 public class LabTestSuiteFactory {
 	public ALabTestSuite createSuite(String lab) {

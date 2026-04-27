@@ -1,4 +1,4 @@
-package student.testSuite.lab;
+package student.testSuite.labTestSuite;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,8 +8,8 @@ import student.constant.Question;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
-import student.testSuite.classTestSuite.lab2.CarTest;
-import student.testSuite.classTestSuite.lab2.TemperatureTest;
+import student.testSuite.lab2.problem1.CarTest;
+import student.testSuite.lab2.problem2.TemperatureTest;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.ParameterTestingUtils;

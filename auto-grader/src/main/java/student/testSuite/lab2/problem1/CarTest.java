@@ -1,4 +1,4 @@
-package student.testSuite.classTestSuite.lab2;
+package student.testSuite.lab2.problem1;
 
 import student.constant.ClassName;
 import student.constant.Feedback;

@@ -1,4 +1,4 @@
-package student.testSuite.lab;
+package student.testSuite.labTestSuite;
 import java.lang.reflect.*;
 import java.util.*;
 

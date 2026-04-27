@@ -1,4 +1,4 @@
-package student.testSuite.lab;
+package student.testSuite.labTestSuite;
 import java.lang.reflect.*;
 import java.util.*;
 
@@ -13,7 +13,7 @@ import student.model.ITestCase;
  * Test suite for the Employee class. Tests constructors, getters, and setters
  * as per the uploaded Employee.java
  */
-public class LabTestSuite3 extends ALabTestSuite {
+public class LabTestSuite4 extends ALabTestSuite {
 	@Override
 	public List<ITestCase> getAllTests(String question) {
 		switch (question) {
