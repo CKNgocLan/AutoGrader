@@ -56,10 +56,18 @@ public class CustomerTester {
 	}
 
 	/*
-	 * Constructor ***************************************************************************
+	 * Getter ***************************************************************************
 	 */
 	
-	public ITestCase checkGetterSetter(int points) {
+	public ITestCase checkGetterDeclaration(int points) {
 		return methodTester.checkGetterDeclaration(points, className);
+	}
+
+	/*
+	 * Setter ***************************************************************************
+	 */
+	
+	public ITestCase checkSetterDeclaration(int points) {
+		return methodTester.checkSetterDeclaration(points, className);
 	}
 }

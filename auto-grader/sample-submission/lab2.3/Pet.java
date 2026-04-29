@@ -9,7 +9,7 @@ public class Pet {
         this.customer = customer;
     }
 
-    public Pet(String breed, int age, double weight, Customer customer) {
+    public Pet(Customer customer, String breed, int age, double weight) {
         this.breed = breed;
         this.age = age;
         this.weight = weight;

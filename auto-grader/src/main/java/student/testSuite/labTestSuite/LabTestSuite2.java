@@ -74,7 +74,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, petShop.checkExistence(5)
 						
 						// field declarations
-						, customer.checkFields(15)
+						, customer.checkFields(10)
 						, pet.checkFields(15)
 						, serviceEstimate.checkFields(15)
 						, petShop.checkFields(15)
@@ -94,6 +94,8 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, petShop.checkNoArgsConstructors(5)
 						
 						// getter setter
+						, customer.checkGetterDeclaration(5)
+						, customer.checkGetterDeclaration(5)
 				);
 			} catch (ClassNotFoundException e) {
 				System.out.println("Class Not Found: %s".formatted(e.getMessage()));
