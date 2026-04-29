@@ -11,7 +11,7 @@ import student.testcaseCreator.FieldTestcaseCreator;
 
 public class PetShopTester {
 	private static PetShopTester instance = null;
-	private ClassTestcaseCreator classTest = ClassTestcaseCreator.getInstance();
+	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 	private String className = ClassName.PET_SHOP;
@@ -33,12 +33,12 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkExistence(int points) {
-		return classTest.checkExistence(className, points);
+		return classTester.checkExistence(className, points);
 	}
 
 
 	/*
-	 * Fields ***************************************************************************
+	 * Field ***************************************************************************
 	 */
 	
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
@@ -47,5 +47,13 @@ public class PetShopTester {
 				, new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PETS)
 				, new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE), FieldName.SERVICE_ESTIMATES)
 		);
+	}
+
+	/*
+	 * Constructor ***************************************************************************
+	 */
+	
+	public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
+		return classTester.checkNoArgConstructorDeclaration(className, points);
 	}
 }

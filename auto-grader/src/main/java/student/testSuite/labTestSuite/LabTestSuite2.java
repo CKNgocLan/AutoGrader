@@ -3,9 +3,11 @@ package student.testSuite.labTestSuite;
 import java.util.Arrays;
 import java.util.List;
 
+import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.Question;
 import student.model.ALabTestSuite;
+import student.model.ClassLoader;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
 import student.testSuite.lab2.problem1.CarTester;
@@ -76,6 +78,22 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, pet.checkFields(15)
 						, serviceEstimate.checkFields(15)
 						, petShop.checkFields(15)
+						
+						// constructor
+						, customer.checkNoArgsConstructors(5)
+						, pet.checkPartialArgsConstructors(5,
+								new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER))
+						)
+						, pet.checkPartialArgsConstructors(10
+								, new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER))
+								, new ParameterTesting(String.class)
+								, new ParameterTesting(int.class)
+								, new ParameterTesting(double.class)
+						)
+						, serviceEstimate.checkNoArgsConstructors(5)
+						, petShop.checkNoArgsConstructors(5)
+						
+						// getter setter
 				);
 			} catch (ClassNotFoundException e) {
 				System.out.println("Class Not Found: %s".formatted(e.getMessage()));

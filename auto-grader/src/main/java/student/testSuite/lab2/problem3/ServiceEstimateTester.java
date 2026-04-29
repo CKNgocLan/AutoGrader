@@ -9,7 +9,7 @@ import student.testcaseCreator.FieldTestcaseCreator;
 
 public class ServiceEstimateTester {
 	private static ServiceEstimateTester instance = null;
-	private ClassTestcaseCreator classTest = ClassTestcaseCreator.getInstance();
+	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	private String className = ClassName.SERVICE_ESTIMATE;
 
@@ -30,11 +30,11 @@ public class ServiceEstimateTester {
 	 */
 
 	public ITestCase checkExistence(int points) {
-		return classTest.checkExistence(className, points);
+		return classTester.checkExistence(className, points);
 	}
 
 	/*
-	 * Fields ***************************************************************************
+	 * Field ***************************************************************************
 	 */
 	
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
@@ -44,5 +44,13 @@ public class ServiceEstimateTester {
 				, new FieldTesting(double.class, FieldName.TAX)
 				, new FieldTesting(student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PET)
 		);
+	}
+
+	/*
+	 * Constructor ***************************************************************************
+	 */
+	
+	public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
+		return classTester.checkNoArgConstructorDeclaration(className, points);
 	}
 }

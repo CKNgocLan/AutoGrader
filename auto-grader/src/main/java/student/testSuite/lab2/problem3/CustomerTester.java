@@ -6,11 +6,13 @@ import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
+import student.testcaseCreator.MethodTestcaseCreator;
 
 public class CustomerTester {
 	private static CustomerTester instance = null;
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
+	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private String className = ClassName.CUSTOMER;
 
 	/*
@@ -34,7 +36,7 @@ public class CustomerTester {
 	}
 
 	/*
-	 * Fields ***************************************************************************
+	 * Field ***************************************************************************
 	 */
 	
 	public ITestCase checkFields(int points) {
@@ -43,5 +45,21 @@ public class CustomerTester {
 				, new FieldTesting(String.class, FieldName.ADDRESS)
 				, new FieldTesting(String.class, FieldName.PHONE_NUMBER)
 		);
+	}
+
+	/*
+	 * Constructor ***************************************************************************
+	 */
+	
+	public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
+		return classTester.checkNoArgConstructorDeclaration(className, points);
+	}
+
+	/*
+	 * Constructor ***************************************************************************
+	 */
+	
+	public ITestCase checkGetterSetter(int points) {
+		return methodTester.checkGetterDeclaration(className, points);
 	}
 }
