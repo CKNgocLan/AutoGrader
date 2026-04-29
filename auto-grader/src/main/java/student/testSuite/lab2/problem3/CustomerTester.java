@@ -32,7 +32,7 @@ public class CustomerTester {
 	 */
 
 	public ITestCase checkExistence(int points) {
-		return classTester.checkExistence(className, points);
+		return classTester.checkExistence(points, className);
 	}
 
 	/*
@@ -40,8 +40,8 @@ public class CustomerTester {
 	 */
 	
 	public ITestCase checkFields(int points) {
-		return fieldTester.checkDeclarations(className, points,
-				new FieldTesting(String.class, FieldName.NAME)
+		return fieldTester.checkDeclarations(points, className
+				, new FieldTesting(String.class, FieldName.NAME)
 				, new FieldTesting(String.class, FieldName.ADDRESS)
 				, new FieldTesting(String.class, FieldName.PHONE_NUMBER)
 		);
@@ -52,7 +52,7 @@ public class CustomerTester {
 	 */
 	
 	public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
-		return classTester.checkNoArgConstructorDeclaration(className, points);
+		return classTester.checkNoArgConstructorDeclaration(points, className);
 	}
 
 	/*
@@ -60,6 +60,6 @@ public class CustomerTester {
 	 */
 	
 	public ITestCase checkGetterSetter(int points) {
-		return methodTester.checkGetterDeclaration(className, points);
+		return methodTester.checkGetterDeclaration(points, className);
 	}
 }

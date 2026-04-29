@@ -39,7 +39,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkExistence(String className, int points) {
+	public ITestCase checkExistence(int points, String className) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -75,7 +75,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkNoArgConstructorDeclaration(String className, int points) {
+	public ITestCase checkNoArgConstructorDeclaration(int points, String className) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -111,7 +111,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkNoArgConstructorOperation(String className, int points, ParameterTesting params) {
+	public ITestCase checkNoArgConstructorOperation(int points, String className, ParameterTesting params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -149,7 +149,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkFullArgsConstructorDeclaration(String className, int points, ParameterTesting... params) {
+	public ITestCase checkFullArgsConstructorDeclaration(int points, String className, ParameterTesting... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -186,7 +186,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkFullArgsConstructorOperation(String className, int points, ParameterTesting... params) {
+	public ITestCase checkFullArgsConstructorOperation(int points, String className, ParameterTesting... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -233,7 +233,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkPartialArgsConstructorDeclaration(String className, int points, ParameterTesting... params) {
+	public ITestCase checkPartialArgsConstructorDeclaration(int points, String className, ParameterTesting... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -271,7 +271,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkPartialArgsConstructorOperation(String className, int points, ParameterTesting... params) {
+	public ITestCase checkPartialArgsConstructorOperation(int points, String className, ParameterTesting... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -323,7 +323,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkAttributes(String className, int points) {
+	public ITestCase checkAttributes(int points, String className) {
 		return new ITestCase() {
 			String invalidAttrName = null;
 

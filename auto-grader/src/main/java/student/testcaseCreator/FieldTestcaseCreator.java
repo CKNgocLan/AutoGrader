@@ -31,7 +31,7 @@ public class FieldTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkDeclaration(String className, int points, String fieldName, Class<?> type) {
+	public ITestCase checkDeclaration(int points, String className, String fieldName, Class<?> type) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -63,7 +63,7 @@ public class FieldTestcaseCreator {
 		};
 	}
 	
-	public ITestCase checkDeclarations(String className, int points, FieldTesting... fields) {
+	public ITestCase checkDeclarations(int points, String className, FieldTesting... fields) {
 		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
 		
 		return new ITestCase() {

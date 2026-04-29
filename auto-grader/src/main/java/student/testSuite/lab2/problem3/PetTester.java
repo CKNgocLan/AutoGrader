@@ -32,7 +32,7 @@ public class PetTester {
 	 */
 
 	public ITestCase checkExistence(int points) {
-		return classTester.checkExistence(className, points);
+		return classTester.checkExistence(points, className);
 	}
 
 	/*
@@ -40,8 +40,8 @@ public class PetTester {
 	 */
 	
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
-		return fieldTester.checkDeclarations(className, points,
-				new FieldTesting(String.class, FieldName.BREED)
+		return fieldTester.checkDeclarations(points, className
+				, new FieldTesting(String.class, FieldName.BREED)
 				, new FieldTesting(int.class, FieldName.AGE)
 				, new FieldTesting(double.class, FieldName.WEIGHT)
 				, new FieldTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMER)
@@ -53,6 +53,6 @@ public class PetTester {
 	 */
 	
 	public ITestCase checkPartialArgsConstructors(int points, ParameterTesting... params) throws ClassNotFoundException {
-		return classTester.checkPartialArgsConstructorDeclaration(className, points, params);
+		return classTester.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
 }

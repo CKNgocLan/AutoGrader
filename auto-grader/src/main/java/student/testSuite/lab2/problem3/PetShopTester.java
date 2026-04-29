@@ -33,7 +33,7 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkExistence(int points) {
-		return classTester.checkExistence(className, points);
+		return classTester.checkExistence(points, className);
 	}
 
 
@@ -42,8 +42,8 @@ public class PetShopTester {
 	 */
 	
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
-		return fieldTester.checkDeclarations(className, points,
-				new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMERS)
+		return fieldTester.checkDeclarations(points, className
+				, new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMERS)
 				, new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PETS)
 				, new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE), FieldName.SERVICE_ESTIMATES)
 		);
@@ -54,6 +54,6 @@ public class PetShopTester {
 	 */
 	
 	public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
-		return classTester.checkNoArgConstructorDeclaration(className, points);
+		return classTester.checkNoArgConstructorDeclaration(points, className);
 	}
 }

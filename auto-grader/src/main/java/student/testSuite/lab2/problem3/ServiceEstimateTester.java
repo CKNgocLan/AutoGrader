@@ -30,7 +30,7 @@ public class ServiceEstimateTester {
 	 */
 
 	public ITestCase checkExistence(int points) {
-		return classTester.checkExistence(className, points);
+		return classTester.checkExistence(points, className);
 	}
 
 	/*
@@ -38,8 +38,8 @@ public class ServiceEstimateTester {
 	 */
 	
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
-		return fieldTester.checkDeclarations(className, points,
-				new FieldTesting(double.class, FieldName.GROOMING_COST)
+		return fieldTester.checkDeclarations(points, className
+				, new FieldTesting(double.class, FieldName.GROOMING_COST)
 				, new FieldTesting(double.class, FieldName.ADDITIONAL_CARE_COST)
 				, new FieldTesting(double.class, FieldName.TAX)
 				, new FieldTesting(student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PET)
@@ -51,6 +51,6 @@ public class ServiceEstimateTester {
 	 */
 	
 	public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
-		return classTester.checkNoArgConstructorDeclaration(className, points);
+		return classTester.checkNoArgConstructorDeclaration(points, className);
 	}
 }

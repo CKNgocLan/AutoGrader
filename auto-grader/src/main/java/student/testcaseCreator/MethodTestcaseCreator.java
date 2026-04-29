@@ -39,7 +39,7 @@ public class MethodTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkGetterDeclaration(String className, int points) {
+	public ITestCase checkGetterDeclaration(int points, String className) {
 		return new ITestCase() {
 			List<Getter> invalid = new ArrayList<Getter>();
 
@@ -75,7 +75,7 @@ public class MethodTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkSetterDeclaration(String className, int points) {
+	public ITestCase checkSetterDeclaration(int points, String className) {
 		return new ITestCase() {
 			List<Setter> invalid = new ArrayList<Setter>();
 
@@ -111,7 +111,7 @@ public class MethodTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkGetterSetterOperation(String className, int points) {
+	public ITestCase checkGetterSetterOperation(int points, String className) {
 		return new ITestCase() {
 			List<Getter> invalidGetter = new ArrayList<Getter>();
 			String invalidField = "";
@@ -171,7 +171,7 @@ public class MethodTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkStringGetsetOperation(String className, int points, String fieldName, String testValue) {
+	public ITestCase checkStringGetsetOperation(int points, String className, String fieldName, String testValue) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -204,7 +204,7 @@ public class MethodTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkIntGetsetOperation(String className, int points, String fieldName, int testValue) {
+	public ITestCase checkIntGetsetOperation(int points, String className, String fieldName, int testValue) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -237,7 +237,7 @@ public class MethodTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkExistence(String className, int points, Method method) {
+	public ITestCase checkExistence(int points, String className, Method method) {
 		return new ITestCase() {
 
 			@Override

@@ -38,7 +38,7 @@ public class TemperatureTester {
 	 */
 
 	public ITestCase checkExistence(int points) {
-		return classTest.checkExistence(className, points);
+		return classTest.checkExistence(points, className);
 	}
 
 	/*
@@ -46,7 +46,7 @@ public class TemperatureTester {
 	 */
 	
 	public ITestCase checkField(int points, String fieldName, Class<?> type) {
-		return fieldTester.checkDeclaration(className, points, fieldName, type);
+		return fieldTester.checkDeclaration(points, className, fieldName, type);
 	}
 
 	/*
@@ -54,11 +54,11 @@ public class TemperatureTester {
 	 */
 
 	public ITestCase checkFullArgsConstructorDeclaration(int points, ParameterTesting... params) {
-		return classTest.checkFullArgsConstructorDeclaration(className, points, params);
+		return classTest.checkFullArgsConstructorDeclaration(points, className, params);
 	}
 
 	public ITestCase checkFullArgsConstructorOperation(int points, ParameterTesting... params) {
-		return classTest.checkFullArgsConstructorOperation(className, points, params);
+		return classTest.checkFullArgsConstructorOperation(points, className, params);
 	}
 
 	/*
