@@ -1,5 +1,7 @@
 package student.testSuite.lab2.problem3;
 
+import java.lang.reflect.InvocationTargetException;
+
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.MethodName;
@@ -17,7 +19,8 @@ public class PetTester {
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
-	private String className = ClassName.PET;
+	private static String className = ClassName.PET;
+	private static Class<?> clazz;
 
 	/*
 	 * instance ***************
@@ -29,6 +32,27 @@ public class PetTester {
 		}
 
 		return instance;
+	}
+
+	/*
+	 * Class ***************
+	 */
+	
+	public Class<?> getClazz() throws ClassNotFoundException {
+		if (clazz == null) {
+			clazz = Class.forName(className, true, ClassLoader.getInstance());
+		}
+
+		return clazz;
+	}
+	
+	/*
+	 * initialize
+	 */
+	
+	public static Object initializeInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException {
+		return clazz.getDeclaredConstructor().newInstance();
 	}
 
 	/*

@@ -2,6 +2,7 @@ package student.testSuite.lab2.problem3;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
 
 import student.constant.ClassName;
 import student.constant.Feedback;
@@ -9,6 +10,7 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.InvalidConfigurationException;
+import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.Method;
@@ -23,8 +25,8 @@ public class ServiceEstimateTester {
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
-	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
-	private String className = ClassName.SERVICE_ESTIMATE;
+	private static String className = ClassName.SERVICE_ESTIMATE;
+	private static Class<?> clazz;
 
 	/*
 	 * instance **********
@@ -36,6 +38,27 @@ public class ServiceEstimateTester {
 		}
 
 		return instance;
+	}
+
+	/*
+	 * Class ***************
+	 */
+	
+	public Class<?> getClazz() throws ClassNotFoundException {
+		if (clazz == null) {
+			clazz = Class.forName(className, true, ClassLoader.getInstance());
+		}
+
+		return clazz;
+	}
+	
+	/*
+	 * initialize
+	 */
+	
+	public static Object initializeInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException {
+		return clazz.getDeclaredConstructor().newInstance();
 	}
 
 	/*

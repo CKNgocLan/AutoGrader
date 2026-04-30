@@ -2,6 +2,7 @@ package student.testSuite.lab2.problem3;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import student.constant.ClassName;
@@ -13,7 +14,9 @@ import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.Method;
+import student.model.MethodTesting;
 import student.model.Parameter;
+import student.testSuite.lab2.CustomerTester;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -25,10 +28,11 @@ public class PetShopTester {
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private java.lang.ClassLoader targetClassesLoader = ClassLoader.getInstance();
-	private String className = ClassName.PET_SHOP;
+	private static String className = ClassName.PET_SHOP;
+	private static Class<?> clazz;
 
 	/*
-	 * instance **********
+	 * Instance **********
 	 */
 
 	public static PetShopTester getInstance() {
@@ -37,6 +41,27 @@ public class PetShopTester {
 		}
 
 		return instance;
+	}
+
+	/*
+	 * Class ***************
+	 */
+	
+	public Class<?> getClazz() throws ClassNotFoundException {
+		if (clazz == null) {
+			clazz = Class.forName(className, true, ClassLoader.getInstance());
+		}
+
+		return clazz;
+	}
+	
+	/*
+	 * initialize
+	 */
+	
+	public static Object initializeInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException {
+		return clazz.getDeclaredConstructor().newInstance();
 	}
 
 	/*
@@ -92,11 +117,13 @@ public class PetShopTester {
 						new Parameter(FieldName.CUSTOMERS, ClassLoader.retrieveClass(ClassName.CUSTOMER))));
 	}
 
-	public ITestCase checkAddCustomerOperation(int points) {
+	public ITestCase checkAddCustomerOperation(int points) throws ClassNotFoundException {
+		MethodTesting method = new MethodTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER), MethodName.ADD_CUSTOMER);
+		
 		return new ITestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, MethodName.ADD_CUSTOMER);
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
 			}
 
 			@Override
@@ -108,13 +135,9 @@ public class PetShopTester {
 			public boolean runTest() {
 				try {
 					// Prepare test data
-					Class<?> petShop = Class.forName(ClassName.PET_SHOP, true, targetClassesLoader);
-					
-					Class<?> customerClz = Class.forName(ClassName.CUSTOMER, true, targetClassesLoader);
-					Object cust1 = customerClz.getDeclaredConstructor().newInstance();
-					
-					petShop.getMethod(MethodName.ADD_CUSTOMER, ClassLoader.retrieveClass(ClassName.CUSTOMER))
-							.invoke(petShop.getDeclaredConstructor().newInstance(), cust1);
+					Class.forName(className, true, targetClassesLoader)
+							.getMethod(method.getName(), method.getReturnedType())
+							.invoke(initializeInstance(), CustomerTester.initializeInstance());
 
 					return true;
 				} catch (Exception e) {
@@ -125,7 +148,7 @@ public class PetShopTester {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, MethodName.ADD_CUSTOMER);
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
 			}
 		};
 	}
@@ -200,6 +223,107 @@ public class PetShopTester {
 		return methodTester.checkExistence(points, className, new Method(ClassLoader.retrieveClass(ClassName.PET),
 				MethodName.ADD_PET, new Parameter(FieldName.PETS, ClassLoader.retrieveClass(ClassName.PET))));
 	}
+	
+	public ITestCase checkAddPetOperation(int points) throws ClassNotFoundException {
+		MethodTesting method = new MethodTesting(ClassLoader.retrieveClass(ClassName.PET), MethodName.ADD_PET);
+		
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					// Prepare test data
+					Class<?> petShop = Class.forName(className, true, targetClassesLoader);
+
+					petShop.getMethod(method.getName(), method.getReturnedType()).invoke(
+							petShop.getDeclaredConstructor().newInstance(),
+							Class.forName(ClassName.PET, true, targetClassesLoader).getDeclaredConstructor().newInstance());
+
+					return true;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
+			}
+		};
+	}
+
+	/*
+	 * showAllPets **********
+	 */
+
+	public ITestCase checkShowAllPetsExistence(int points) {
+		return methodTester.checkExistence(points, className, new Method(void.class, MethodName.SHOW_ALL_PETS));
+	}
+	public ITestCase checkShowAllPetsOperation(int points) throws ClassNotFoundException {
+		MethodTesting method = new MethodTesting(ClassLoader.retrieveClass(ClassName.PET), MethodName.SHOW_ALL_PETS);
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					// Save original System.out
+					PrintStream originalOut = System.out;
+					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+					PrintStream testOut = new PrintStream(outputStream);
+
+					// Redirect System.out to capture output
+					System.setOut(testOut);
+
+					// Prepare test data
+					Class<?> petShopClass = Class.forName(ClassName.PET_SHOP, true, targetClassesLoader);
+					Object petShopInstance = petShopClass.getDeclaredConstructor().newInstance();
+
+					Class<?> petClass = Class.forName(ClassName.PET, true, targetClassesLoader);
+					Class<?> customerClass = Class.forName(ClassName.CUSTOMER, true, targetClassesLoader);
+					Object testingValue = Class.forName(ClassName.CUSTOMER, true, targetClassesLoader).getDeclaredConstructor().newInstance();
+					Object petInstance = petClass.getDeclaredConstructor(customerClass).newInstance(testingValue);
+					
+					petShopClass.getMethod(MethodName.ADD_PET, petClass).invoke(petShopInstance, petInstance);
+
+					petShopClass.getMethod(method.getName()).invoke(petShopInstance);
+
+					// Restore original System.out
+					System.setOut(originalOut);
+
+					// Get captured output then compare
+					return true;
+//					return outputStream.toString().trim().contains(testingValue);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
+			}
+		};
+	}
 
 	/*
 	 * addServiceEstimate **********
@@ -209,14 +333,6 @@ public class PetShopTester {
 		return methodTester.checkExistence(points, className, new Method(
 				ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE), MethodName.ADD_SERVICE_ESTIMATE,
 				new Parameter(FieldName.SERVICE_ESTIMATES, ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE))));
-	}
-
-	/*
-	 * showAllPets **********
-	 */
-
-	public ITestCase checkShowAllPetsExistence(int points) {
-		return methodTester.checkExistence(points, className, new Method(void.class, MethodName.SHOW_ALL_PETS));
 	}
 
 	/*

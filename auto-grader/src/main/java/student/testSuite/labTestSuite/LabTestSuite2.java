@@ -97,8 +97,13 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, petShop.checkFields(15)
 						, petShop.checkNoArgsConstructors(5)
 						, petShop.checkAddCustomerOperation(21)
-						, petShop.checkShowAllCustomersExistence(12)
+						, petShop.checkShowAllCustomersExistence(3)
 						, petShop.checkShowAllCustomersOperation(21)
+						
+						, petShop.checkAddPetExistence(3)
+						, petShop.checkAddPetOperation(9)
+						, petShop.checkShowAllPetsExistence(3)
+						, petShop.checkShowAllPetsOperation(9)
 						);
 			case Question.Q4:
 				customer = CustomerTester.getInstance();
