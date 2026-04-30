@@ -2,15 +2,19 @@ package student.testSuite.lab2.problem3;
 
 import student.constant.ClassName;
 import student.constant.FieldName;
+import student.constant.MethodName;
 import student.model.FieldTesting;
 import student.model.ITestCase;
+import student.model.Method;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
+import student.testcaseCreator.MethodTestcaseCreator;
 
 public class ServiceEstimateTester {
 	private static ServiceEstimateTester instance = null;
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
+	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private String className = ClassName.SERVICE_ESTIMATE;
 
 	/*
@@ -52,5 +56,14 @@ public class ServiceEstimateTester {
 	
 	public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
 		return classTester.checkNoArgConstructorDeclaration(points, className);
+	}
+
+	/*
+	 * toString
+	 * ***************************************************************************
+	 */
+
+	public ITestCase checkToStringExistence(int points) {
+		return methodTester.checkExistence(points, className, new Method(String.class, MethodName.TO_STRING));
 	}
 }

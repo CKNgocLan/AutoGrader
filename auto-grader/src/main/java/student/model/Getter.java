@@ -10,11 +10,11 @@ public class Getter extends Method {
 	}
 
 	public Getter(Field field) {
-		super(GetterUtils.getGetterName(field.getName()), field.getType());
+		super(field.getType(), GetterUtils.getGetterName(field.getName()));
 	}
 	
 	public Getter(String name, Class<?> returnType) {
-		super(name, returnType);
+		super(returnType, name);
 	}
 	
 	@Override

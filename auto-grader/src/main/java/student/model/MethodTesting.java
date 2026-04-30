@@ -13,11 +13,11 @@ public class MethodTesting extends Method {
 	private Class<?> clazz;
 	private Object instance;
 
-	public MethodTesting(String name, Class<?> returnedType) {
-		super(name, returnedType);
+	public MethodTesting(Class<?> returnedType, String name) {
+		super(returnedType, name);
 	}
 
-	public MethodTesting(String name, Class<?> returnedType, Object testingValue, Parameter... parameters) {
+	public MethodTesting(Class<?> returnedType, String name, Object testingValue, Parameter... parameters) {
 		super(Modifier.PUBLIC, returnedType, name, parameters);
 		this.testingValue = testingValue;
 

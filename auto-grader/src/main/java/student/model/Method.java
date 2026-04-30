@@ -15,10 +15,17 @@ public class Method {
 
 	public Method() {}
 
-	public Method(String name, Class<?> returnType) {
+	public Method(Class<?> returnType, String name) {
 		this.modifier = Modifier.PUBLIC;
 		this.name = name;
 		this.returnedType = returnType;
+	}
+	
+	public Method(Class<?> returnedType, String name, Parameter... parameters) {
+		this.modifier = Modifier.PUBLIC;
+		this.returnedType = returnedType;
+		this.name = name;
+		this.parameters = parameters;
 	}
 	
 	public Method(int modifier, Class<?> returnedType, String name, Parameter... parameters) {

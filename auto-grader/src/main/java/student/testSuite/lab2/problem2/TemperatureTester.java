@@ -90,8 +90,7 @@ public class TemperatureTester {
 						return false;
 					}
 
-					MethodTesting getFahrenheit = new MethodTesting(MethodName.GET_FAHRENHEIT, double.class,
-							fahrenheit);
+					MethodTesting getFahrenheit = new MethodTesting(double.class, MethodName.GET_FAHRENHEIT, fahrenheit);
 					if (!MethodUtils.isMethodDeclared(clazz, getFahrenheit)) {
 						invalidMethodName = getFahrenheit.getName();
 						return false;
@@ -121,7 +120,7 @@ public class TemperatureTester {
 	 */
 	public ITestCase checkGetCelsius(int points, double fahrenheit, double celsius) {
 		return new ITestCase() {
-			MethodTesting testedMethod = new MethodTesting(MethodName.GET_CELSIUS, double.class);
+			MethodTesting testedMethod = new MethodTesting(double.class, MethodName.GET_CELSIUS);
 
 			@Override
 			public String getName() {
@@ -166,7 +165,7 @@ public class TemperatureTester {
 	 */
 	public ITestCase checkGetKelvin(int points, double fahrenheit, double kelvin) {
 		return new ITestCase() {
-			MethodTesting testedMethod = new MethodTesting(MethodName.GET_KELVIN, double.class);
+			MethodTesting testedMethod = new MethodTesting(double.class, MethodName.GET_KELVIN);
 
 			@Override
 			public String getName() {
@@ -207,7 +206,7 @@ public class TemperatureTester {
 	}
 
 	private MethodTesting createSetFahrenheit(double fahrenheit) {
-		return new MethodTesting(MethodName.SET_FAHRENHEIT, void.class, fahrenheit,
+		return new MethodTesting(void.class, MethodName.SET_FAHRENHEIT, fahrenheit,
 				new Parameter(FieldName.FTEMP, double.class, fahrenheit));
 	}
 }

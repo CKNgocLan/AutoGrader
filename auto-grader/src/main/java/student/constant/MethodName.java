@@ -15,4 +15,13 @@ public class MethodName {
 	public static final String GET_FAHRENHEIT = "getFahrenheit";
 	public static final String GET_CELSIUS = "getCelsius";
 	public static final String GET_KELVIN = "getKelvin";
+
+	public static final String TO_STRING = "toString";
+
+	public static final String ADD_CUSTOMER = "addCustomer";
+	public static final String ADD_PET = "addPet";
+	public static final String ADD_SERVICE_ESTIMATE = "addServiceEstimate";
+	public static final String SHOW_ALL_CUSTOMERS = "showAllCustomers";
+	public static final String SHOW_ALL_PETS = "showAllPets";
+	public static final String SHOW_ALL_SERVICE_ESTIMATES = "showAllServiceEstimates";
 }

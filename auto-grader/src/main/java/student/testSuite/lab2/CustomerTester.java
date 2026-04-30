@@ -2,8 +2,10 @@ package student.testSuite.lab2;
 
 import student.constant.ClassName;
 import student.constant.FieldName;
+import student.constant.MethodName;
 import student.model.FieldTesting;
 import student.model.ITestCase;
+import student.model.Method;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -68,4 +70,12 @@ public class CustomerTester {
     public ITestCase checkSetterDeclaration(int points) {
         return methodTester.checkSetterDeclaration(points, className);
     }
+
+	/*
+	 * toString ***************************************************************************
+	 */
+	
+	public ITestCase checkToStringExistence(int points) {
+		return methodTester.checkExistence(points, className, new Method(String.class, MethodName.TO_STRING));
+	}
 }

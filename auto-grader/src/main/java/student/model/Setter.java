@@ -8,12 +8,12 @@ public class Setter extends Method {
 	private Class<?> paramType;
 
 	public Setter(Field field) {
-		super(SetterUtils.getSetterName(field.getName()), void.class);
+		super(void.class, SetterUtils.getSetterName(field.getName()));
 		this.paramType = field.getType();
 	}
 	
 	public Setter(String name, Class<?> paramType) {
-		super(name, void.class);
+		super(void.class, name);
 		this.paramType = paramType;
 	}
 

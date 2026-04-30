@@ -89,12 +89,12 @@ public class CarTester {
 	 */
 	
 	public ITestCase checkAccelerateDeclaration(int points) {
-		return methodTester.checkExistence(points, ClassName.CAR, new Method(MethodName.ACCELERATE, int.class));
+		return methodTester.checkExistence(points, ClassName.CAR, new Method(int.class, MethodName.ACCELERATE));
 	}
 	
 	public ITestCase checkAccelerateOperation(int points) {
 		return new ITestCase() {
-			MethodTesting methodTesting = new MethodTesting(MethodName.ACCELERATE, int.class, 5);
+			MethodTesting methodTesting = new MethodTesting(int.class, MethodName.ACCELERATE, 5);
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, methodTesting.getName());
@@ -144,12 +144,12 @@ public class CarTester {
 	 */
 	
 	public ITestCase checkBrakeDeclaration(int points) {
-		return methodTester.checkExistence(points, ClassName.CAR, new Method(MethodName.BRAKE, int.class));
+		return methodTester.checkExistence(points, ClassName.CAR, new Method(int.class, MethodName.BRAKE));
 	}
 	
 	public ITestCase checkBrakeOperation(int points) {
 		return new ITestCase() {
-			MethodTesting methodTesting = new MethodTesting(MethodName.BRAKE, int.class, 0);
+			MethodTesting methodTesting = new MethodTesting(int.class, MethodName.BRAKE, 0);
 			
 			@Override
 			public String getName() {

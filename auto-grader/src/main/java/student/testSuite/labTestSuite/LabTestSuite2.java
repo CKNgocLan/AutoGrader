@@ -88,8 +88,11 @@ public class LabTestSuite2 extends ALabTestSuite {
 								new ParameterTesting(double.class)),
 						serviceEstimate.checkNoArgsConstructors(5), petShop.checkNoArgsConstructors(5)
 
-						// getter setter
-						, customer.checkGetterDeclaration(5), customer.checkGetterDeclaration(5));
+						// getter
+						, customer.checkGetterDeclaration(5)
+						
+						// setter
+						, customer.checkGetterDeclaration(5));
 			case Question.Q4:
 				customer = CustomerTester.getInstance();
 				CakeTester cake = CakeTester.getInstance();
