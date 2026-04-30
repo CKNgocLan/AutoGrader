@@ -18,6 +18,7 @@ import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.MethodUtils;
+import student.util.SetterUtils;
 
 public class PetTester {
 	private static PetTester instance = null;
@@ -59,6 +60,17 @@ public class PetTester {
 			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		return getCorrespondingClass().getDeclaredConstructor(CustomerTester.getCorrespondingClass()).newInstance(customer);
 	}
+	
+	public static Object initObject(String breed, int age, double weight, Object customerInstance) throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		Object instance = getCorrespondingClass().getDeclaredConstructor(CustomerTester.getCorrespondingClass())
+				.newInstance(customerInstance);
+		clazz.getMethod(SetterUtils.getSetterName(FieldName.BREED), String.class).invoke(instance, breed);
+		clazz.getMethod(SetterUtils.getSetterName(FieldName.AGE), int.class).invoke(instance, age);
+		clazz.getMethod(SetterUtils.getSetterName(FieldName.WEIGHT), double.class).invoke(instance, weight);
+
+		return instance;
+	}
 
 	/*
 	 * Existence ***************
@@ -99,7 +111,7 @@ public class PetTester {
 		return checkToStringOperation(points, "Alice", "New York", "0123456789");
 	}
 	
-	public ITestCase checkToStringOperation(int points, String name, String address, String phoneNumber) {
+	public ITestCase checkToStringOperation(int points, String breed, int age, double weight, Object customer) {
 		MethodTesting method = MethodUtils.createMethodToString();
 
 		return new ITestCase() {
@@ -119,8 +131,51 @@ public class PetTester {
 					method.setClazz(getCorrespondingClass());
 
 					// Prepare test data
-					Object customer = CustomerTester.initObject(name, address, phoneNumber);
-					String actual = method.invokeToString(initObject(customer));
+					Object petInstance = initObject(customer);
+					
+					method.setInstance(petInstance);
+					String actual = method.invokeToString();
+
+					// Get captured output then compare
+					return actual.contains(breed)
+							&& actual.contains(String.valueOf(age))
+							&& actual.contains(String.valueOf(weight))
+//							&& actual.contains(customer.toString())
+							;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
+			}
+		};
+	}
+
+	public ITestCase checkToStringOperation(int points, String name, String address, String phoneNumber) {
+		MethodTesting method = MethodUtils.createMethodToString();
+
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					method.setClazz(getCorrespondingClass());
+					method.setInstance(initObject(CustomerTester.initObject(name, address, phoneNumber)));
+
+					String actual = method.invokeToString();
 
 					// Get captured output then compare
 					return actual.contains(name) && actual.contains(address) && actual.contains(phoneNumber);

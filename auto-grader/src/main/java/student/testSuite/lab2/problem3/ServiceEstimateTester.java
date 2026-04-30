@@ -2,8 +2,6 @@ package student.testSuite.lab2.problem3;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.logging.log4j.core.util.Assert;
-
 import student.constant.ClassName;
 import student.constant.Feedback;
 import student.constant.FieldName;
@@ -15,7 +13,6 @@ import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.Method;
 import student.model.MethodTesting;
-import student.model.ParameterTesting;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -133,8 +130,8 @@ public class ServiceEstimateTester {
 					method.setClazz(getCorrespondingClass());
 
 					// Prepare test data
-					Object serviceEstimate = initObject();
-					String actual = method.invokeToString(serviceEstimate);
+					method.setInstance(initObject());
+					String actual = method.invokeToString();
 
 					// Get captured output then compare
 					return actual.contains(String.valueOf(groomingCost))

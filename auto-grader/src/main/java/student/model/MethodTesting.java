@@ -61,7 +61,7 @@ public class MethodTesting extends Method {
 		return clazz.getDeclaredMethod(super.getName()).invoke(instance);
 	}
 	
-	public String invokeToString(Object instance)
+	public String invokeToString()
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		return String.valueOf(clazz.getMethod(MethodName.TO_STRING).invoke(instance));
 	}

@@ -149,9 +149,10 @@ public class CustomerTester {
 			public boolean runTest() {
 				try {
 					method.setClazz(getCorrespondingClass());
+					method.setInstance(initObject(name, address, phoneNumber));
 
 					// Prepare test data
-					String actual = method.invokeToString(initObject(name, address, phoneNumber));
+					String actual = method.invokeToString();
 
 					// Get captured output then compare
 					return actual.contains(name) && actual.contains(address) && actual.contains(phoneNumber);
