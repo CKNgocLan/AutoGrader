@@ -18,6 +18,9 @@ public class FieldName {
 	public static final String YEAR_MODEL = "yearModel";
 	public static final String MAKE = "make";
 	public static final String SPEED = "speed";
+	public static final String MODEL = "model";
+	public static final String PERIOD = "period";
+	public static final String MILEAGE_LIMIT = "mileageLimit";
 	
 	/*
 	 * Temperature
@@ -46,4 +49,12 @@ public class FieldName {
 	public static final String CUSTOMERS = "customers";
 	public static final String PETS = "pets";
 	public static final String SERVICE_ESTIMATES = "serviceEstimates";
+	
+	/*
+	 * Agreement
+	 */
+	public static final String PURPOSE = "purpose";
+	public static final String BASE_RENTAL_FEE = "baseRentalFee";
+	public static final String MILEAGE_FEE = "mileageFee";
+	public static final String CAR = "car";
 }

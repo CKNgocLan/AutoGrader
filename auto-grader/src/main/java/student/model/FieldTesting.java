@@ -8,7 +8,7 @@ public class FieldTesting extends Field {
 		super(type, name);
 	}
 	
-	public FieldTesting(Class<List> listClass, Class<?> typeParameter, String name) {
+	public FieldTesting(Class<? extends List> listClass, Class<?> typeParameter, String name) {
 		super(listClass, typeParameter, name);
 	}
 }

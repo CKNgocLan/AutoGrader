@@ -16,7 +16,7 @@ public class Field {
 		this.name = name;
 	}
 	
-	public Field(Class<List> type, Class<?> typeParameter, String name) {
+	public Field(Class<? extends List> type, Class<?> typeParameter, String name) {
 		this.modifier = Modifier.PRIVATE;
 		this.type = type;
 		this.typeParameter = typeParameter;
