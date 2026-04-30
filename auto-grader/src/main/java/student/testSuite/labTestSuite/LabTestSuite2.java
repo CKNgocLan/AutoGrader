@@ -88,11 +88,15 @@ public class LabTestSuite2 extends ALabTestSuite {
 								new ParameterTesting(String.class),
 								new ParameterTesting(int.class),
 								new ParameterTesting(double.class))
+						, pet.checkToStringExistence(5)
+						, pet.checkToStringOperation(5)
 
 						// service estimate
 						, serviceEstimate.checkExistence(5)
 						, serviceEstimate.checkFields(15)
 						, serviceEstimate.checkNoArgsConstructors(5)
+						, serviceEstimate.checkGetTotalCostAfterTaxExistence(5)
+						, serviceEstimate.checkGetTotalCostAfterTaxOperation(5)
 
 						// petShop
 						, petShop.checkExistence(5)

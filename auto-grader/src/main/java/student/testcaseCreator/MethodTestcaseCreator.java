@@ -11,6 +11,7 @@ import student.constant.TestcaseType;
 import student.model.Getter;
 import student.model.ITestCase;
 import student.model.Method;
+import student.model.MethodTesting;
 import student.model.Setter;
 import student.util.MethodUtils;
 
@@ -56,7 +57,8 @@ public class MethodTestcaseCreator {
 			@Override
 			public boolean runTest() {
 				try {
-					return methodChecker.checkMissingGetter(Class.forName(className, true, targetClassesLoader), invalid);
+					return methodChecker.checkMissingGetter(Class.forName(className, true, targetClassesLoader),
+							invalid);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -92,7 +94,8 @@ public class MethodTestcaseCreator {
 			@Override
 			public boolean runTest() {
 				try {
-					return methodChecker.checkMissingSetter(Class.forName(className, true, targetClassesLoader), invalid);
+					return methodChecker.checkMissingSetter(Class.forName(className, true, targetClassesLoader),
+							invalid);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -160,8 +163,7 @@ public class MethodTestcaseCreator {
 			public String getFeedback() {
 				return invalidGetter.size() > 0
 						? Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className,
-								String.join(Constants.COMMA,
-										invalidGetter.stream().map(Method::getName).toList()))
+								String.join(Constants.COMMA, invalidGetter.stream().map(Method::getName).toList()))
 						: Feedback.GETTER_SETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(invalidField);
 			}
 		};
@@ -186,7 +188,8 @@ public class MethodTestcaseCreator {
 			@Override
 			public boolean runTest() {
 				try {
-					return methodChecker.checkStringGetset(Class.forName(className, true, targetClassesLoader), fieldName, testValue);
+					return methodChecker.checkStringGetset(Class.forName(className, true, targetClassesLoader),
+							fieldName, testValue);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -219,7 +222,8 @@ public class MethodTestcaseCreator {
 			@Override
 			public boolean runTest() {
 				try {
-					return methodChecker.checkIntGetset(Class.forName(className, true, targetClassesLoader), fieldName, testValue);
+					return methodChecker.checkIntGetset(Class.forName(className, true, targetClassesLoader), fieldName,
+							testValue);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -271,4 +275,45 @@ public class MethodTestcaseCreator {
 			}
 		};
 	}
+
+	/*
+	 * ***************************************************************************
+	 */
+
+//	public ITestCase checkToString(int points, Class<?> clazz, Object instance) {
+//		MethodTesting method = MethodUtils.createMethodToString();
+//
+//		return new ITestCase() {
+//			@Override
+//			public String getName() {
+//				return TestcaseType.CHECK_METHOD_OPERATION.getName(clazz.getName(), method.getName());
+//			}
+//
+//			@Override
+//			public int getPoints() {
+//				return points;
+//			}
+//
+//			@Override
+//			public boolean runTest() {
+//				try {
+//					method.setClazz(clazz);
+//
+//					// Prepare test data
+//					String actual = method.invokeToString(instance);
+//
+//					// Get captured output then compare
+//					return actual.contains(name) && actual.contains(address) && actual.contains(phoneNumber);
+//				} catch (Exception e) {
+//					System.out.println(e.getMessage());
+//					return false;
+//				}
+//			}
+//
+//			@Override
+//			public String getFeedback() {
+//				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(clazz.getName(), method.getName());
+//			}
+//		};
+//	}
 }
