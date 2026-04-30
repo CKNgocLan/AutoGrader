@@ -251,7 +251,8 @@ public class StudentGraderUI extends JFrame {
                 List<TestResult> results = new ArrayList<>();
 
                 for (ITestCase test : tests) {
-                    log("→ " + test.getName() + " (" + test.getPoints() + " pts) ... ");
+//                    log("→ " + test.getName() + " (" + test.getPoints() + " pts) ... ");
+                    log("→ " + test.getName() + " ... ");
                     boolean passed = test.runTest();
                     int points = passed ? test.getPoints() : 0;
                     scores.add(points);
@@ -271,8 +272,9 @@ public class StudentGraderUI extends JFrame {
                 // Step 3: Generate report
                 generateStudentReport(submissionFolder.getName(), selectedLab, selectedQuestion, totalScore, tests, scores, passedList);
 
-                log("\n" + "=".repeat(60));
-                log(String.format("FINAL SCORE: %d / 100", totalScore));
+                // TODO
+//                log("\n" + "=".repeat(60));
+//                log(String.format("FINAL SCORE: %d / 100", totalScore));
                 log("=".repeat(60));
 
                 if (totalScore == 100) {
@@ -287,7 +289,8 @@ public class StudentGraderUI extends JFrame {
 
                 SwingUtilities.invokeLater(() -> {
                     JOptionPane.showMessageDialog(this, 
-                        "Grading Completed!\n\nYour Score: " + totalScore + "/100\n\nCheck the reports folder for details.", 
+//                        "Grading Completed!\n\nYour Score: " + totalScore + "/100\n\nCheck the reports folder for details.", 
+                        "Grading Completed!\n\nCheck the reports folder for details.", 
                         "Success", JOptionPane.INFORMATION_MESSAGE);
                     gradeButton.setEnabled(true);
                 });
@@ -376,7 +379,7 @@ public class StudentGraderUI extends JFrame {
             sb.append("===========================================\n");
             sb.append("Folder Name   : ").append(folderName).append("\n");
             sb.append("Date          : ").append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).append("\n");
-            sb.append("Final Score   : ").append(totalScore).append("/100\n\n");
+//            sb.append("Final Score   : ").append(totalScore).append("/100\n\n");
 
             sb.append("DETAILED TEST RESULTS:\n");
             sb.append("--------------------------------------------------\n\n");
@@ -386,8 +389,8 @@ public class StudentGraderUI extends JFrame {
                 boolean p = passed.get(i);
                 int score = scores.get(i);
 
-                sb.append(String.format("%-45s %s %3d / %d pts%n",
-                        t.getName(), p ? "PASSED" : "FAILED", score, t.getPoints()));
+                //TODO sb.append(String.format("%-45s %s %3d / %d pts%n", t.getName(), p ? "PASSED" : "FAILED", score, t.getPoints()));
+                sb.append(String.format("%-45s %s%n", t.getName(), p ? "PASSED" : "FAILED"));
 
                 if (!p) {
                     sb.append("   Feedback : ").append(t.getFeedback()).append("\n\n");
@@ -397,7 +400,7 @@ public class StudentGraderUI extends JFrame {
             }
 
             sb.append("===========================================\n");
-            sb.append("OVERALL RESULT: ").append(totalScore).append("/100\n");
+            //TODO sb.append("OVERALL RESULT: ").append(totalScore).append("/100\n");
 
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss"));
             
@@ -450,7 +453,8 @@ public class StudentGraderUI extends JFrame {
 
             // Header row
             Row headerRow = sheet.createRow(0);
-            String[] headers = {"No.", "Test Case Name", "Max Points", "Earned Points", "Result", "Feedback"};
+//            String[] headers = {"No.", "Test Case Name", "Max Points", "Earned Points", "Result", "Feedback"};
+            String[] headers = {"No.", "Test Case Name", "Result", "Feedback"};
             for (int i = 0; i < headers.length; i++) {
                 Cell cell = headerRow.createCell(i);
                 cell.setCellValue(headers[i]);
@@ -471,10 +475,10 @@ public class StudentGraderUI extends JFrame {
 				row.createCell(col++).setCellValue(result.testName);
 
 				// Max Points
-				row.createCell(col++).setCellValue(result.maxPoints);
+				//TODO row.createCell(col++).setCellValue(result.maxPoints);
 
 				// Earned Points
-				row.createCell(col++).setCellValue(result.earnedPoints);
+				//TODO row.createCell(col++).setCellValue(result.earnedPoints);
 
 				// Result + Color
 				Cell resultCell = row.createCell(col++);
@@ -492,20 +496,22 @@ public class StudentGraderUI extends JFrame {
 			}
 			
 			// create aggregation row
-			Row aggregationRow = sheet.createRow(rowNum);
-			int colIndex = 0;
-			
-			// No
-			colIndex++;
-			
-			// Test Case Name
-			colIndex++;
-			
-			// Max Points
-			aggregationRow.createCell(colIndex++).setCellValue("Total Point:");
-			
-			// Earned Points
-			aggregationRow.createCell(colIndex++).setCellValue(results.stream().mapToInt(res -> res.earnedPoints).sum());
+//			{
+//				Row aggregationRow = sheet.createRow(rowNum);
+//				int colIndex = 0;
+//				
+//				// No
+//				colIndex++;
+//				
+//				// Test Case Name
+//				colIndex++;
+//				
+//				// Max Points
+//				aggregationRow.createCell(colIndex++).setCellValue("Total Point:");
+//				
+//				// Earned Points
+//				aggregationRow.createCell(colIndex++).setCellValue(results.stream().mapToInt(res -> res.earnedPoints).sum());
+//			}
 
             // Auto-size columns
             for (int i = 0; i < 5; i++) {

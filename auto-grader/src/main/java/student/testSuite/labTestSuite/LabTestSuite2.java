@@ -81,10 +81,11 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, pet.checkExistence(5)
 						, pet.checkFields(15)
 						, pet.checkPartialArgsConstructors(5,
-								new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER)))
+								new ParameterTesting(CustomerTester.getCorrespondingClass()))
 						, pet.checkPartialArgsConstructors(10,
-								new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER)),
-								new ParameterTesting(String.class), new ParameterTesting(int.class),
+								new ParameterTesting(CustomerTester.getCorrespondingClass()),
+								new ParameterTesting(String.class),
+								new ParameterTesting(int.class),
 								new ParameterTesting(double.class))
 
 						// service estimate

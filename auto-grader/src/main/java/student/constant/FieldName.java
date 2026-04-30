@@ -48,6 +48,7 @@ public class FieldName {
 	 */
 	public static final String CUSTOMERS = "customers";
 	public static final String PETS = "pets";
+	public static final String SERVICE_ESTIMATE = "serviceEstimate";
 	public static final String SERVICE_ESTIMATES = "serviceEstimates";
 	
 	/*

@@ -333,7 +333,8 @@ public class PetShopTester {
 	}
 
 	public ITestCase checkAddServiceEstimateOperation(int points) throws ClassNotFoundException {
-		MethodTesting method = new MethodTesting(void.class, MethodName.ADD_SERVICE_ESTIMATE);
+		Method method = new Method(void.class, MethodName.ADD_SERVICE_ESTIMATE,
+				new Parameter(FieldName.SERVICE_ESTIMATE, ServiceEstimateTester.getCorrespondingClass()));
 
 		return new ITestCase() {
 			@Override
@@ -350,9 +351,7 @@ public class PetShopTester {
 			public boolean runTest() {
 				try {
 					// Prepare test data
-					clazz.getMethod(method.getName(), method.getReturnedType()).invoke(
-							clazz.getDeclaredConstructor().newInstance(),
-							PetTester.initObject(CustomerTester.initObject()));
+					clazz.getMethod(method.getName(), method.getParameterTypes()).invoke(initObject(), ServiceEstimateTester.initObject());
 
 					return true;
 				} catch (Exception e) {
