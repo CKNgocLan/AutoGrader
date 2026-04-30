@@ -20,6 +20,11 @@ import student.testSuite.lab2.problem3.ServiceEstimateTester;
 import student.testSuite.lab2.problem4.CakeTester;
 import student.testSuite.lab2.problem4.EventTester;
 import student.testSuite.lab2.problem4.QuoteTester;
+import student.testSuite.lab2.problem5.AgreementTester;
+import student.testSuite.lab2.problem6.BookTester;
+import student.testSuite.lab2.problem6.BorrowingRecordTester;
+import student.testSuite.lab2.problem6.LibraryManagementTester;
+import student.testSuite.lab2.problem6.UserTester;
 import student.util.ParameterTestingUtils;
 
 /**
@@ -94,32 +99,71 @@ public class LabTestSuite2 extends ALabTestSuite {
 
 				return Arrays.asList(
 						// existence
-						customer.checkExistence(5)
-						, cake.checkExistence(5)
-						, consts.checkExistence(5)
-						, event.checkExistence(5)
-						, quote.checkExistence(5)
-						
+						customer.checkExistence(5), cake.checkExistence(5), consts.checkExistence(5),
+						event.checkExistence(5), quote.checkExistence(5)
+
 						// field
-						, customer.checkFields(5)
-						, cake.checkFields(5)
-						, consts.checkExistence(5)
-						, event.checkFields(5)
-						, quote.checkFields(5)
-						
+						, customer.checkFields(5), cake.checkFields(5), consts.checkExistence(5), event.checkFields(5),
+						quote.checkFields(5)
+
 						// constructor
 						, customer.checkNoArgsConstructors(5)
+
+						// getter
+						, customer.checkGetterDeclaration(2)
+
+						// setter
+						, customer.checkSetterDeclaration(2));
+			case Question.Q5:
+				customer = CustomerTester.getInstance();
+				consts = ConstTester.getInstance();
+				AgreementTester agreement = AgreementTester.getInstance();
+				student.testSuite.lab2.problem5.CarTester car5 = student.testSuite.lab2.problem5.CarTester.getInstance();
+
+				return Arrays.asList(
+						// existence
+						customer.checkExistence(5)
+						, consts.checkExistence(1)
+						, agreement.checkExistence(5)
+						, car5.checkExistence(5)
+						
+						// field
+						, customer.checkFields(2)
+						, consts.checkFields(1)
+						, agreement.checkFields(5)
+						, car5.checkFields(5)
 						
 						// getter
 						, customer.checkGetterDeclaration(2)
-						
+
 						// setter
 						, customer.checkSetterDeclaration(2)
 						);
-			case Question.Q5:
-				return null;
 			case Question.Q6:
-				return null;
+				UserTester user = UserTester.getInstance();
+				BookTester book = BookTester.getInstance();
+				BorrowingRecordTester record = BorrowingRecordTester.getInstance();
+				LibraryManagementTester management = LibraryManagementTester.getInstance();
+
+				return Arrays.asList(
+						// existence
+						user.checkExistence(5)
+						, book.checkExistence(5)
+						, record.checkExistence(5)
+						, management.checkExistence(5)
+						
+						// field
+						, user.checkFields(5)
+						, book.checkFields(2)
+						, record.checkFields(2)
+						, management.checkFields(3)
+						
+						// getter
+						, user.checkGetterDeclaration(2)
+
+						// setter
+						, user.checkSetterDeclaration(2)
+						);
 			default:
 				return null;
 			}
