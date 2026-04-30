@@ -32,7 +32,7 @@ public class CarTester {
 		if (instance == null) {
 			instance = new CarTester();
 		}
-
+		
 		return instance;
 	}
 

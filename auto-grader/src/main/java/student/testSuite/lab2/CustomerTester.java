@@ -16,7 +16,7 @@ public class CustomerTester {
 	private String className = ClassName.CUSTOMER;
 
 	/*
-	 * instance ***************************************************************************
+	 * Instance ***************************************************************************
 	 */
 
 	public static CustomerTester getInstance() {
@@ -54,12 +54,10 @@ public class CustomerTester {
 				, new FieldTesting(String.class, FieldName.PHONE_NUMBER)
 		);
 	}
-	
 
     /*
      * Getter ***************************************************************************
      */
-    
     public ITestCase checkGetterDeclaration(int points) {
         return methodTester.checkGetterDeclaration(points, className);
     }
@@ -67,7 +65,6 @@ public class CustomerTester {
     /*
      * Setter ***************************************************************************
      */
-    
     public ITestCase checkSetterDeclaration(int points) {
         return methodTester.checkSetterDeclaration(points, className);
     }

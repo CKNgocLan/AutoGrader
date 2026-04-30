@@ -6,12 +6,14 @@ import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
+import student.testcaseCreator.MethodTestcaseCreator;
 
 public class LibraryManagementTester {
 	private static LibraryManagementTester instance = null;
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
-	private String className = ClassName.CUSTOMER;
+    private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
+	private String className = ClassName.LIBRARY_MANAGEMENT;
 
 	/*
 	 * instance ***************************************************************************
@@ -44,4 +46,18 @@ public class LibraryManagementTester {
 				, new FieldTesting(String.class, FieldName.PHONE_NUMBER)
 		);
 	}
+
+    /*
+     * Getter ***************************************************************************
+     */
+    public ITestCase checkGetterDeclaration(int points) {
+        return methodTester.checkGetterDeclaration(points, className);
+    }
+
+    /*
+     * Setter ***************************************************************************
+     */
+    public ITestCase checkSetterDeclaration(int points) {
+        return methodTester.checkSetterDeclaration(points, className);
+    }
 }

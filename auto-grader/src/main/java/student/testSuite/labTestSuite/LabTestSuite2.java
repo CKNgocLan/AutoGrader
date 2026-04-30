@@ -10,12 +10,16 @@ import student.model.ALabTestSuite;
 import student.model.ClassLoader;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
+import student.testSuite.lab2.ConstTester;
 import student.testSuite.lab2.CustomerTester;
 import student.testSuite.lab2.problem1.CarTester;
 import student.testSuite.lab2.problem2.TemperatureTester;
 import student.testSuite.lab2.problem3.PetShopTester;
 import student.testSuite.lab2.problem3.PetTester;
 import student.testSuite.lab2.problem3.ServiceEstimateTester;
+import student.testSuite.lab2.problem4.CakeTester;
+import student.testSuite.lab2.problem4.EventTester;
+import student.testSuite.lab2.problem4.QuoteTester;
 import student.util.ParameterTestingUtils;
 
 /**
@@ -23,92 +27,105 @@ import student.util.ParameterTestingUtils;
  * as per the uploaded Employee.java
  */
 public class LabTestSuite2 extends ALabTestSuite {
-	
+
 	@Override
 	public List<ITestCase> getAllTests(String question) {
-		switch (question) {
-		case Question.Q1:
-			CarTester car = CarTester.getInstance();
+		try {
+			switch (question) {
+			case Question.Q1:
+				CarTester car = CarTester.getInstance();
 
-			return Arrays.asList(
-					car.checkExistence(5)
-					
-					// partial-args constructor
-					, car.checkPartialArgsConstructorDeclaration(5, ParameterTestingUtils.toArray(int.class, String.class))
-					, car.checkPartialArgsConstructorOperation(10,
-							new ParameterTesting(FieldName.YEAR_MODEL, int.class, 2025)
-							, new ParameterTesting(FieldName.MAKE, String.class, "Mazda")
-							, new ParameterTesting(FieldName.SPEED, int.class, 0, true)
-					)
+				return Arrays.asList(car.checkExistence(5)
 
-					// accelerate()
-					, car.checkAccelerateDeclaration(25)
-					, car.checkAccelerateOperation(15)
+				// partial-args constructor
+						,
+						car.checkPartialArgsConstructorDeclaration(5,
+								ParameterTestingUtils.toArray(int.class, String.class)),
+						car.checkPartialArgsConstructorOperation(10,
+								new ParameterTesting(FieldName.YEAR_MODEL, int.class, 2025),
+								new ParameterTesting(FieldName.MAKE, String.class, "Mazda"),
+								new ParameterTesting(FieldName.SPEED, int.class, 0, true))
 
-					// brake()
-					, car.checkBrakeDeclaration(25)
-					, car.checkBrakeOperation(15)
-			);
-		case Question.Q2:
-			TemperatureTester temperature = TemperatureTester.getInstance();
+						// accelerate()
+						, car.checkAccelerateDeclaration(25), car.checkAccelerateOperation(15)
 
-			return Arrays.asList(
-					temperature.checkExistence(5)
-					, temperature.checkField(5, FieldName.FTEMP, double.class)
-					, temperature.checkSetgetFahrenheit(10, 50)
-					, temperature.checkGetCelsius(15, 50, 10)
-					, temperature.checkGetKelvin(15, 50, 283)
-			);
-		case Question.Q3:
-			CustomerTester customer = CustomerTester.getInstance();
-			PetTester pet = PetTester.getInstance();
-			ServiceEstimateTester serviceEstimate = ServiceEstimateTester.getInstance();
-			PetShopTester petShop = PetShopTester.getInstance();
-			
-			try {
+						// brake()
+						, car.checkBrakeDeclaration(25), car.checkBrakeOperation(15));
+			case Question.Q2:
+				TemperatureTester temperature = TemperatureTester.getInstance();
+
+				return Arrays.asList(temperature.checkExistence(5),
+						temperature.checkField(5, FieldName.FTEMP, double.class),
+						temperature.checkSetgetFahrenheit(10, 50), temperature.checkGetCelsius(15, 50, 10),
+						temperature.checkGetKelvin(15, 50, 283));
+			case Question.Q3:
+				CustomerTester customer = CustomerTester.getInstance();
+				PetTester pet = PetTester.getInstance();
+				ServiceEstimateTester serviceEstimate = ServiceEstimateTester.getInstance();
+				PetShopTester petShop = PetShopTester.getInstance();
+
+				return Arrays.asList(
+						// existence
+						customer.checkExistence(5), pet.checkExistence(5), serviceEstimate.checkExistence(5),
+						petShop.checkExistence(5)
+
+						// field declarations
+						, customer.checkFields(10), pet.checkFields(15), serviceEstimate.checkFields(15),
+						petShop.checkFields(15)
+
+						// constructor
+						, customer.checkNoArgsConstructors(5),
+						pet.checkPartialArgsConstructors(5,
+								new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER))),
+						pet.checkPartialArgsConstructors(10,
+								new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER)),
+								new ParameterTesting(String.class), new ParameterTesting(int.class),
+								new ParameterTesting(double.class)),
+						serviceEstimate.checkNoArgsConstructors(5), petShop.checkNoArgsConstructors(5)
+
+						// getter setter
+						, customer.checkGetterDeclaration(5), customer.checkGetterDeclaration(5));
+			case Question.Q4:
+				customer = CustomerTester.getInstance();
+				CakeTester cake = CakeTester.getInstance();
+				ConstTester consts = ConstTester.getInstance();
+				EventTester event = EventTester.getInstance();
+				QuoteTester quote = QuoteTester.getInstance();
+
 				return Arrays.asList(
 						// existence
 						customer.checkExistence(5)
-						, pet.checkExistence(5)
-						, serviceEstimate.checkExistence(5)
-						, petShop.checkExistence(5)
+						, cake.checkExistence(5)
+						, consts.checkExistence(5)
+						, event.checkExistence(5)
+						, quote.checkExistence(5)
 						
-						// field declarations
-						, customer.checkFields(10)
-						, pet.checkFields(15)
-						, serviceEstimate.checkFields(15)
-						, petShop.checkFields(15)
+						// field
+						, customer.checkFields(5)
+						, cake.checkFields(5)
+						, consts.checkExistence(5)
+						, event.checkFields(5)
+						, quote.checkFields(5)
 						
 						// constructor
 						, customer.checkNoArgsConstructors(5)
-						, pet.checkPartialArgsConstructors(5,
-								new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER))
-						)
-						, pet.checkPartialArgsConstructors(10
-								, new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER))
-								, new ParameterTesting(String.class)
-								, new ParameterTesting(int.class)
-								, new ParameterTesting(double.class)
-						)
-						, serviceEstimate.checkNoArgsConstructors(5)
-						, petShop.checkNoArgsConstructors(5)
 						
-						// getter setter
-						, customer.checkGetterDeclaration(5)
-						, customer.checkGetterDeclaration(5)
-				);
-			} catch (ClassNotFoundException e) {
-				System.out.println("Class Not Found: %s".formatted(e.getMessage()));
-				return List.of();
+						// getter
+						, customer.checkGetterDeclaration(2)
+						
+						// setter
+						, customer.checkSetterDeclaration(2)
+						);
+			case Question.Q5:
+				return null;
+			case Question.Q6:
+				return null;
+			default:
+				return null;
 			}
-		case Question.Q4:
-			return null;
-		case Question.Q5:
-			return null;
-		case Question.Q6:
-			return null;
-		default:
-			return null;
+		} catch (Exception e) {
+			System.out.println("Class Not Found: %s".formatted(e.getMessage()));
+			return List.of();
 		}
 	}
 }

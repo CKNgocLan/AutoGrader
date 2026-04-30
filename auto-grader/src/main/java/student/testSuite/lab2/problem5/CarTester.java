@@ -20,7 +20,7 @@ public class CarTester {
 	private static CarTester instance = null;
 	private ClassTestcaseCreator classTest = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
-	private MethodTestcaseCreator methodTest = MethodTestcaseCreator.getInstance();
+	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 	private String className = ClassName.CAR;
 
@@ -70,12 +70,26 @@ public class CarTester {
 		return classTest.checkPartialArgsConstructorOperation(points, className, params);
 	}
 
+    /*
+     * Getter ***************************************************************************
+     */
+    public ITestCase checkGetterDeclaration(int points) {
+        return methodTester.checkGetterDeclaration(points, className);
+    }
+
+    /*
+     * Setter ***************************************************************************
+     */
+    public ITestCase checkSetterDeclaration(int points) {
+        return methodTester.checkSetterDeclaration(points, className);
+    }
+
 	/*
 	 * Accelerate ***************************************************************************
 	 */
 	
 	public ITestCase checkAccelerateDeclaration(int points) {
-		return methodTest.checkExistence(points, ClassName.CAR, new Method(MethodName.ACCELERATE, int.class));
+		return methodTester.checkExistence(points, ClassName.CAR, new Method(MethodName.ACCELERATE, int.class));
 	}
 	
 	public ITestCase checkAccelerateOperation(int points) {
@@ -130,7 +144,7 @@ public class CarTester {
 	 */
 	
 	public ITestCase checkBrakeDeclaration(int points) {
-		return methodTest.checkExistence(points, ClassName.CAR, new Method(MethodName.BRAKE, int.class));
+		return methodTester.checkExistence(points, ClassName.CAR, new Method(MethodName.BRAKE, int.class));
 	}
 	
 	public ITestCase checkBrakeOperation(int points) {

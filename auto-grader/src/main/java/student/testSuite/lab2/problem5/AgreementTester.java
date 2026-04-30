@@ -7,11 +7,13 @@ import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
+import student.testcaseCreator.MethodTestcaseCreator;
 
 public class AgreementTester {
 	private static AgreementTester instance = null;
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
+    private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private String className = ClassName.AGREEMENT;
 
 	/*

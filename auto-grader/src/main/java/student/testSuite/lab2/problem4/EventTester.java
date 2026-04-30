@@ -6,15 +6,17 @@ import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
+import student.testcaseCreator.MethodTestcaseCreator;
 
 public class EventTester {
 	private static EventTester instance = null;
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
+    private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private String className = ClassName.EVENT;
 
 	/*
-	 * instance ***************************************************************************
+	 * Instance ***************************************************************************
 	 */
 
 	public static EventTester getInstance() {
@@ -44,4 +46,20 @@ public class EventTester {
 				, new FieldTesting(String.class, FieldName.PHONE_NUMBER)
 		);
 	}
+
+    /*
+     * Getter ***************************************************************************
+     */
+    
+    public ITestCase checkGetterDeclaration(int points) {
+        return methodTester.checkGetterDeclaration(points, className);
+    }
+
+    /*
+     * Setter ***************************************************************************
+     */
+    
+    public ITestCase checkSetterDeclaration(int points) {
+        return methodTester.checkSetterDeclaration(points, className);
+    }
 }

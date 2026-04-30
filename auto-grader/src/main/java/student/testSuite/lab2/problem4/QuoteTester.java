@@ -6,15 +6,17 @@ import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
+import student.testcaseCreator.MethodTestcaseCreator;
 
 public class QuoteTester {
 	private static QuoteTester instance = null;
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
+    private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private String className = ClassName.QUOTE;
 
 	/*
-	 * instance ***************************************************************************
+	 * Instance ***************************************************************************
 	 */
 
 	public static QuoteTester getInstance() {
@@ -44,4 +46,18 @@ public class QuoteTester {
 				, new FieldTesting(String.class, FieldName.PHONE_NUMBER)
 		);
 	}
+
+    /*
+     * Getter ***************************************************************************
+     */
+    public ITestCase checkGetterDeclaration(int points) {
+        return methodTester.checkGetterDeclaration(points, className);
+    }
+
+    /*
+     * Setter ***************************************************************************
+     */
+    public ITestCase checkSetterDeclaration(int points) {
+        return methodTester.checkSetterDeclaration(points, className);
+    }
 }
