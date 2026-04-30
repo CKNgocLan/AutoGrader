@@ -30,7 +30,7 @@ public class BookTester {
 	 */
 
 	public ITestCase checkExistence(int points) {
-		return classTester.checkExistence(className, points);
+		return classTester.checkExistence(points, className);
 	}
 
 	/*
@@ -38,8 +38,8 @@ public class BookTester {
 	 */
 	
 	public ITestCase checkFields(int points) {
-		return fieldTester.checkDeclarations(className, points,
-				new FieldTesting(String.class, FieldName.NAME)
+		return fieldTester.checkDeclarations(points, className
+				, new FieldTesting(String.class, FieldName.NAME)
 				, new FieldTesting(String.class, FieldName.ADDRESS)
 				, new FieldTesting(String.class, FieldName.PHONE_NUMBER)
 		);

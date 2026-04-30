@@ -41,7 +41,7 @@ public class CarTester {
 	 */
 
 	public ITestCase checkExistence(int points) {
-		return classTest.checkExistence(className, points);
+		return classTest.checkExistence(points, className);
 	}
 
 	/*
@@ -49,8 +49,8 @@ public class CarTester {
 	 */
 	
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
-		return fieldTester.checkDeclarations(className, points,
-				new FieldTesting(String.class, FieldName.MAKE)
+		return fieldTester.checkDeclarations(points, className
+				, new FieldTesting(String.class, FieldName.MAKE)
 				, new FieldTesting(String.class, FieldName.MODEL)
 				, new FieldTesting(int.class, FieldName.PERIOD)
 				, new FieldTesting(int.class, FieldName.MILEAGE_LIMIT)
@@ -63,11 +63,11 @@ public class CarTester {
 	 */
 
 	public ITestCase checkPartialArgsConstructorDeclaration(int points, ParameterTesting... params) {
-		return classTest.checkPartialArgsConstructorDeclaration(className, points, params);
+		return classTest.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
 
 	public ITestCase checkPartialArgsConstructorOperation(int points, ParameterTesting... params) {
-		return classTest.checkPartialArgsConstructorOperation(className, points, params);
+		return classTest.checkPartialArgsConstructorOperation(points, className, params);
 	}
 
 	/*
@@ -75,7 +75,7 @@ public class CarTester {
 	 */
 	
 	public ITestCase checkAccelerateDeclaration(int points) {
-		return methodTest.checkExistence(ClassName.CAR, points, new Method(MethodName.ACCELERATE, int.class));
+		return methodTest.checkExistence(points, ClassName.CAR, new Method(MethodName.ACCELERATE, int.class));
 	}
 	
 	public ITestCase checkAccelerateOperation(int points) {
@@ -130,7 +130,7 @@ public class CarTester {
 	 */
 	
 	public ITestCase checkBrakeDeclaration(int points) {
-		return methodTest.checkExistence(ClassName.CAR, points, new Method(MethodName.BRAKE, int.class));
+		return methodTest.checkExistence(points, ClassName.CAR, new Method(MethodName.BRAKE, int.class));
 	}
 	
 	public ITestCase checkBrakeOperation(int points) {

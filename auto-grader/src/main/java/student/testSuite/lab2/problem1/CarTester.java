@@ -49,7 +49,7 @@ public class CarTester {
 	 */
 	
 	public ITestCase checkFields(int points) {
-		return fieldTester.checkDeclarations(className, points,
+		return fieldTester.checkDeclarations(points, className, 
 				new FieldTesting(int.class, FieldName.YEAR_MODEL)
 				, new FieldTesting(String.class, FieldName.MAKE)
 				, new FieldTesting(int.class, FieldName.SPEED)

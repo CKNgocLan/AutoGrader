@@ -31,7 +31,7 @@ public class AgreementTester {
 	 */
 
 	public ITestCase checkExistence(int points) {
-		return classTester.checkExistence(className, points);
+		return classTester.checkExistence(points, className);
 	}
 
 	/*
@@ -39,8 +39,8 @@ public class AgreementTester {
 	 */
 	
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
-		return fieldTester.checkDeclarations(className, points,
-				new FieldTesting(String.class, FieldName.PURPOSE)
+		return fieldTester.checkDeclarations(points, className
+				, new FieldTesting(String.class, FieldName.PURPOSE)
 				, new FieldTesting(double.class, FieldName.BASE_RENTAL_FEE)
 				, new FieldTesting(double.class, FieldName.MILEAGE_FEE)
 				, new FieldTesting(ClassLoader.retrieveClass(ClassName.CAR), FieldName.CAR)
