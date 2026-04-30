@@ -20,8 +20,7 @@ public class PetTester {
 	private String className = ClassName.PET;
 
 	/*
-	 * instance
-	 * ***************************************************************************
+	 * instance ***************
 	 */
 
 	public static PetTester getInstance() {
@@ -33,8 +32,7 @@ public class PetTester {
 	}
 
 	/*
-	 * Existence
-	 * ***************************************************************************
+	 * Existence ***************
 	 */
 
 	public ITestCase checkExistence(int points) {
@@ -42,8 +40,7 @@ public class PetTester {
 	}
 
 	/*
-	 * Fields
-	 * ***************************************************************************
+	 * Fields ***************
 	 */
 
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
@@ -53,8 +50,7 @@ public class PetTester {
 	}
 
 	/*
-	 * Constructor
-	 * ***************************************************************************
+	 * Constructor ***************
 	 */
 
 	public ITestCase checkPartialArgsConstructors(int points, ParameterTesting... params)
@@ -63,8 +59,7 @@ public class PetTester {
 	}
 
 	/*
-	 * toString
-	 * ***************************************************************************
+	 * toString ***************
 	 */
 
 	public ITestCase checkToStringExistence(int points) {

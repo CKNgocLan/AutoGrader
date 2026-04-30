@@ -25,19 +25,19 @@ public class CarTester {
 	private String className = ClassName.CAR;
 
 	/*
-	 * instance ***************************************************************************
+	 * instance **********
 	 */
 
 	public static CarTester getInstance() {
 		if (instance == null) {
 			instance = new CarTester();
 		}
-		
+
 		return instance;
 	}
 
 	/*
-	 * Existence ***************************************************************************
+	 * Existence **********
 	 */
 
 	public ITestCase checkExistence(int points) {
@@ -45,19 +45,16 @@ public class CarTester {
 	}
 
 	/*
-	 * Fields ***************************************************************************
+	 * Fields **********
 	 */
-	
+
 	public ITestCase checkFields(int points) {
-		return fieldTester.checkDeclarations(points, className, 
-				new FieldTesting(int.class, FieldName.YEAR_MODEL)
-				, new FieldTesting(String.class, FieldName.MAKE)
-				, new FieldTesting(int.class, FieldName.SPEED)
-		);
+		return fieldTester.checkDeclarations(points, className, new FieldTesting(int.class, FieldName.YEAR_MODEL),
+				new FieldTesting(String.class, FieldName.MAKE), new FieldTesting(int.class, FieldName.SPEED));
 	}
 
 	/*
-	 * Constructor ***************************************************************************
+	 * Constructor **********
 	 */
 
 	public ITestCase checkPartialArgsConstructorDeclaration(int points, ParameterTesting... params) {
@@ -69,16 +66,17 @@ public class CarTester {
 	}
 
 	/*
-	 * Accelerate ***************************************************************************
+	 * Accelerate **********
 	 */
-	
+
 	public ITestCase checkAccelerateDeclaration(int points) {
 		return methodTest.checkExistence(points, ClassName.CAR, new Method(int.class, MethodName.ACCELERATE));
 	}
-	
+
 	public ITestCase checkAccelerateOperation(int points) {
 		return new ITestCase() {
 			MethodTesting methodTesting = new MethodTesting(int.class, MethodName.ACCELERATE, 5);
+
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, methodTesting.getName());
@@ -97,14 +95,13 @@ public class CarTester {
 					if (!MethodUtils.isMethodDeclared(clazz, methodTesting)) {
 						return false;
 					}
-					
+
 					Object instance = clazz.getDeclaredConstructor(int.class, String.class).newInstance(2025, "Mazda");
-					
+
 					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
-					
-					return ParameterTestingUtils.compareTestingValue(clazz, instance,
-							new ParameterTesting(FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getTestingValue())
-					);
+
+					return ParameterTestingUtils.compareTestingValue(clazz, instance, new ParameterTesting(
+							FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getTestingValue()));
 				} catch (NoSuchMethodException e) {
 					return false;
 				} catch (IllegalArgumentException e) {
@@ -124,17 +121,17 @@ public class CarTester {
 	}
 
 	/*
-	 * Brake ***************************************************************************
+	 * Brake **********
 	 */
-	
+
 	public ITestCase checkBrakeDeclaration(int points) {
 		return methodTest.checkExistence(points, ClassName.CAR, new Method(int.class, MethodName.BRAKE));
 	}
-	
+
 	public ITestCase checkBrakeOperation(int points) {
 		return new ITestCase() {
 			MethodTesting methodTesting = new MethodTesting(int.class, MethodName.BRAKE, 0);
-			
+
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, methodTesting.getName());
@@ -153,16 +150,15 @@ public class CarTester {
 					if (!MethodUtils.isMethodDeclared(clazz, methodTesting)) {
 						return false;
 					}
-					
+
 					Object instance = clazz.getDeclaredConstructor(int.class, String.class).newInstance(2025, "Mazda");
-					
+
 					clazz.getDeclaredMethod(MethodName.ACCELERATE).invoke(instance);
-					
+
 					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
-					
-					return ParameterTestingUtils.compareTestingValue(clazz, instance,
-							new ParameterTesting(FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getTestingValue())
-					);
+
+					return ParameterTestingUtils.compareTestingValue(clazz, instance, new ParameterTesting(
+							FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getTestingValue()));
 				} catch (NoSuchMethodException e) {
 					return false;
 				} catch (IllegalArgumentException e) {

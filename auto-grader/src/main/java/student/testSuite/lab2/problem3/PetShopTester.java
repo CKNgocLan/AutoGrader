@@ -5,11 +5,11 @@ import java.util.List;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.MethodName;
+import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.Method;
 import student.model.Parameter;
-import student.model.ClassLoader;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -23,7 +23,7 @@ public class PetShopTester {
 	private String className = ClassName.PET_SHOP;
 
 	/*
-	 * instance ***************************************************************************
+	 * instance **********
 	 */
 
 	public static PetShopTester getInstance() {
@@ -35,52 +35,52 @@ public class PetShopTester {
 	}
 
 	/*
-	 * Existence ***************************************************************************
+	 * Existence **********
 	 */
 
 	public ITestCase checkExistence(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
-
 	/*
-	 * Field ***************************************************************************
+	 * Field **********
 	 */
-	
+
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
-		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMERS)
-				, new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PETS)
-				, new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE), FieldName.SERVICE_ESTIMATES)
-		);
+		return fieldTester.checkDeclarations(points, className,
+				new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.CUSTOMER),
+						FieldName.CUSTOMERS),
+				new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PETS),
+				new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE),
+						FieldName.SERVICE_ESTIMATES));
 	}
 
 	/*
-	 * Constructor ***************************************************************************
+	 * Constructor **********
 	 */
-	
+
 	public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
 		return classTester.checkNoArgConstructorDeclaration(points, className);
 	}
 
-    /*
-     * Getter ***************************************************************************
-     */
-    public ITestCase checkGetterDeclaration(int points) {
-        return methodTester.checkGetterDeclaration(points, className);
-    }
-
-    /*
-     * Setter ***************************************************************************
-     */
-    public ITestCase checkSetterDeclaration(int points) {
-        return methodTester.checkSetterDeclaration(points, className);
-    }
+	/*
+	 * Getter **********
+	 */
+	public ITestCase checkGetterDeclaration(int points) {
+		return methodTester.checkGetterDeclaration(points, className);
+	}
 
 	/*
-	 * addCustomer ***************************************************************************
+	 * Setter **********
 	 */
-	
+	public ITestCase checkSetterDeclaration(int points) {
+		return methodTester.checkSetterDeclaration(points, className);
+	}
+
+	/*
+	 * addCustomer **********
+	 */
+
 	public ITestCase checkAddCustomerExistence(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className,
 				new Method(ClassLoader.retrieveClass(ClassName.CUSTOMER), MethodName.ADD_CUSTOMER,
@@ -88,46 +88,47 @@ public class PetShopTester {
 	}
 
 	/*
-	 * addPet ***************************************************************************
+	 * addPet **********
 	 */
-	
+
 	public ITestCase checkAddPetExistence(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className, new Method(ClassLoader.retrieveClass(ClassName.PET),
 				MethodName.ADD_PET, new Parameter(FieldName.PETS, ClassLoader.retrieveClass(ClassName.PET))));
 	}
-	
+
 	/*
-	 * addServiceEstimate ***************************************************************************
+	 * addServiceEstimate **********
 	 */
-	
+
 	public ITestCase checkAddServiceEstimateExistence(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className,
-				new Method(ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE), MethodName.ADD_SERVICE_ESTIMATE,
-						new Parameter(FieldName.SERVICE_ESTIMATES, ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE))));
+		return methodTester.checkExistence(points, className, new Method(
+				ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE), MethodName.ADD_SERVICE_ESTIMATE,
+				new Parameter(FieldName.SERVICE_ESTIMATES, ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE))));
 	}
-	
+
 	/*
-	 * showAllCustomers ***************************************************************************
+	 * showAllCustomers **********
 	 */
-	
+
 	public ITestCase checkShowAllCustomersExistence(int points) {
 		return methodTester.checkExistence(points, className, new Method(void.class, MethodName.SHOW_ALL_CUSTOMERS));
 	}
-	
+
 	/*
-	 * showAllPets ***************************************************************************
+	 * showAllPets **********
 	 */
-	
+
 	public ITestCase checkShowAllPetsExistence(int points) {
 		return methodTester.checkExistence(points, className, new Method(void.class, MethodName.SHOW_ALL_PETS));
 	}
-	
+
 	/*
-	 * showAllServiceEstimates ***************************************************************************
+	 * showAllServiceEstimates **********
 	 */
-	
+
 	public ITestCase checkShowAllServiceEstimatesExistence(int points) {
-		return methodTester.checkExistence(points, className, new Method(void.class, MethodName.SHOW_ALL_SERVICE_ESTIMATES));
+		return methodTester.checkExistence(points, className,
+				new Method(void.class, MethodName.SHOW_ALL_SERVICE_ESTIMATES));
 	}
-	
+
 }

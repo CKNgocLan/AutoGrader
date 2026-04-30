@@ -22,7 +22,7 @@ public class TemperatureTester {
 	private String className = ClassName.TEMPERATURE;
 
 	/*
-	 * instance ***************************************************************************
+	 * instance **********
 	 */
 
 	public static TemperatureTester getInstance() {
@@ -34,7 +34,7 @@ public class TemperatureTester {
 	}
 
 	/*
-	 * Existence ***************************************************************************
+	 * Existence **********
 	 */
 
 	public ITestCase checkExistence(int points) {
@@ -42,15 +42,15 @@ public class TemperatureTester {
 	}
 
 	/*
-	 * Field: ftemp ***************************************************************************
+	 * Field: ftemp **********
 	 */
-	
+
 	public ITestCase checkField(int points, String fieldName, Class<?> type) {
 		return fieldTester.checkDeclaration(points, className, fieldName, type);
 	}
 
 	/*
-	 * Constructor ***************************************************************************
+	 * Constructor **********
 	 */
 
 	public ITestCase checkFullArgsConstructorDeclaration(int points, ParameterTesting... params) {
@@ -62,7 +62,7 @@ public class TemperatureTester {
 	}
 
 	/*
-	 * setFahrenheit/ getFahrenheit ***************************************************************************
+	 * setFahrenheit/ getFahrenheit **********
 	 */
 	public ITestCase checkSetgetFahrenheit(int points, double fahrenheit) {
 		return new ITestCase() {
@@ -90,7 +90,8 @@ public class TemperatureTester {
 						return false;
 					}
 
-					MethodTesting getFahrenheit = new MethodTesting(double.class, MethodName.GET_FAHRENHEIT, fahrenheit);
+					MethodTesting getFahrenheit = new MethodTesting(double.class, MethodName.GET_FAHRENHEIT,
+							fahrenheit);
 					if (!MethodUtils.isMethodDeclared(clazz, getFahrenheit)) {
 						invalidMethodName = getFahrenheit.getName();
 						return false;
@@ -116,7 +117,7 @@ public class TemperatureTester {
 	}
 
 	/*
-	 * getCelsius ***************************************************************************
+	 * getCelsius **********
 	 */
 	public ITestCase checkGetCelsius(int points, double fahrenheit, double celsius) {
 		return new ITestCase() {
@@ -161,7 +162,7 @@ public class TemperatureTester {
 	}
 
 	/*
-	 * getKelvin ***************************************************************************
+	 * getKelvin **********
 	 */
 	public ITestCase checkGetKelvin(int points, double fahrenheit, double kelvin) {
 		return new ITestCase() {

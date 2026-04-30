@@ -18,7 +18,7 @@ public class ServiceEstimateTester {
 	private String className = ClassName.SERVICE_ESTIMATE;
 
 	/*
-	 * instance ***************************************************************************
+	 * instance **********
 	 */
 
 	public static ServiceEstimateTester getInstance() {
@@ -30,7 +30,7 @@ public class ServiceEstimateTester {
 	}
 
 	/*
-	 * Existence ***************************************************************************
+	 * Existence **********
 	 */
 
 	public ITestCase checkExistence(int points) {
@@ -38,39 +38,38 @@ public class ServiceEstimateTester {
 	}
 
 	/*
-	 * Field ***************************************************************************
+	 * Field **********
 	 */
-	
+
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
-		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(double.class, FieldName.GROOMING_COST)
-				, new FieldTesting(double.class, FieldName.ADDITIONAL_CARE_COST)
-				, new FieldTesting(double.class, FieldName.TAX)
-				, new FieldTesting(student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PET)
-		);
+		return fieldTester.checkDeclarations(points, className, new FieldTesting(double.class, FieldName.GROOMING_COST),
+				new FieldTesting(double.class, FieldName.ADDITIONAL_CARE_COST),
+				new FieldTesting(double.class, FieldName.TAX),
+				new FieldTesting(student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PET));
 	}
 
 	/*
-	 * Constructor ***************************************************************************
+	 * Constructor **********
 	 */
-	
+
 	public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
 		return classTester.checkNoArgConstructorDeclaration(points, className);
 	}
 
 	/*
-	 * toString ***************************************************************************
+	 * toString **********
 	 */
 
 	public ITestCase checkToStringExistence(int points) {
 		return methodTester.checkExistence(points, className, new Method(String.class, MethodName.TO_STRING));
 	}
-	
+
 	/*
-	 * getTotalCostAfterTax ***************************************************************************
+	 * getTotalCostAfterTax **********
 	 */
-	
+
 	public ITestCase checkShowAllServiceEstimatesExistence(int points) {
-		return methodTester.checkExistence(points, className, new Method(double.class, MethodName.GET_TOTAL_COST_AFTER_TAX));
+		return methodTester.checkExistence(points, className,
+				new Method(double.class, MethodName.GET_TOTAL_COST_AFTER_TAX));
 	}
 }
