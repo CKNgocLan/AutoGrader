@@ -12,6 +12,7 @@ import student.model.Method;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
+import student.util.SetterUtils;
 
 public class CustomerTester {
 	private static CustomerTester instance = null;
@@ -37,7 +38,7 @@ public class CustomerTester {
 	 * Class ***************
 	 */
 	
-	public Class<?> getClazz() throws ClassNotFoundException {
+	public static Class<?> getCorrespondingClass() throws ClassNotFoundException {
 		if (clazz == null) {
 			clazz = Class.forName(className, true, ClassLoader.getInstance());
 		}
@@ -49,9 +50,27 @@ public class CustomerTester {
 	 * initialize
 	 */
 	
-	public static Object initializeInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, NoSuchMethodException, SecurityException {
-		return clazz.getDeclaredConstructor().newInstance();
+	public static Object initObject() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		return getCorrespondingClass().getDeclaredConstructor().newInstance();
+	}
+	
+	public static Object initObject(String name) throws InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		Object instance = clazz.getDeclaredConstructor().newInstance();
+		clazz.getMethod(MethodName.SET_NAME, String.class).invoke(instance, name);
+		
+		return instance;
+	}
+	
+	public static Object initObject(String name, String address, String email) throws InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		Object instance = clazz.getDeclaredConstructor().newInstance();
+		clazz.getMethod(SetterUtils.getSetterName(FieldName.NAME), String.class).invoke(instance, name);
+		clazz.getMethod(SetterUtils.getSetterName(FieldName.ADDRESS), String.class).invoke(instance, address);
+		clazz.getMethod(SetterUtils.getSetterName(FieldName.EMAIL), String.class).invoke(instance, email);
+		
+		return instance;
 	}
 
 	/*

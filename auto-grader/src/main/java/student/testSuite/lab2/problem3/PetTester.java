@@ -10,6 +10,7 @@ import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.Method;
 import student.model.ParameterTesting;
+import student.testSuite.lab2.CustomerTester;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -38,7 +39,7 @@ public class PetTester {
 	 * Class ***************
 	 */
 	
-	public Class<?> getClazz() throws ClassNotFoundException {
+	public static Class<?> getCorrespondingClass() throws ClassNotFoundException {
 		if (clazz == null) {
 			clazz = Class.forName(className, true, ClassLoader.getInstance());
 		}
@@ -50,9 +51,9 @@ public class PetTester {
 	 * initialize
 	 */
 	
-	public static Object initializeInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, NoSuchMethodException, SecurityException {
-		return clazz.getDeclaredConstructor().newInstance();
+	public static Object initObject(Object customer) throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		return getCorrespondingClass().getDeclaredConstructor(CustomerTester.getCorrespondingClass()).newInstance(customer);
 	}
 
 	/*

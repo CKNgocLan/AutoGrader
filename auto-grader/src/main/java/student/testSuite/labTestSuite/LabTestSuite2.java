@@ -72,38 +72,43 @@ public class LabTestSuite2 extends ALabTestSuite {
 				return Arrays.asList(
 						// customer
 						customer.checkExistence(5)
-//						, customer.checkFields(5)
-//						, customer.checkNoArgsConstructors(5)
-//						, customer.checkGetterDeclaration(5)
-//						, customer.checkGetterDeclaration(5)
+						, customer.checkFields(5)
+						, customer.checkNoArgsConstructors(5)
+						, customer.checkGetterDeclaration(5)
+						, customer.checkGetterDeclaration(5)
 
 						// pet
-//						, pet.checkExistence(5)
-//						, pet.checkFields(15)
-//						, pet.checkPartialArgsConstructors(5,
-//								new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER)))
-//						, pet.checkPartialArgsConstructors(10,
-//								new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER)),
-//								new ParameterTesting(String.class), new ParameterTesting(int.class),
-//								new ParameterTesting(double.class))
+						, pet.checkExistence(5)
+						, pet.checkFields(15)
+						, pet.checkPartialArgsConstructors(5,
+								new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER)))
+						, pet.checkPartialArgsConstructors(10,
+								new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER)),
+								new ParameterTesting(String.class), new ParameterTesting(int.class),
+								new ParameterTesting(double.class))
 
 						// service estimate
-//						, serviceEstimate.checkExistence(5)
-//						, serviceEstimate.checkFields(15)
-//						, serviceEstimate.checkNoArgsConstructors(5)
+						, serviceEstimate.checkExistence(5)
+						, serviceEstimate.checkFields(15)
+						, serviceEstimate.checkNoArgsConstructors(5)
 
 						// petShop
 						, petShop.checkExistence(5)
 						, petShop.checkFields(15)
 						, petShop.checkNoArgsConstructors(5)
 						, petShop.checkAddCustomerOperation(21)
-						, petShop.checkShowAllCustomersExistence(3)
+						, petShop.checkShowAllCustomersDeclaration(3)
 						, petShop.checkShowAllCustomersOperation(21)
 						
-						, petShop.checkAddPetExistence(3)
+						, petShop.checkAddPetDeclaration(3)
 						, petShop.checkAddPetOperation(9)
-						, petShop.checkShowAllPetsExistence(3)
+						, petShop.checkShowAllPetsDeclaration(3)
 						, petShop.checkShowAllPetsOperation(9)
+						
+						, petShop.checkAddServiceEstimateDeclaration(3)
+						, petShop.checkAddServiceEstimateOperation(9)
+						, petShop.checkShowAllCustomersDeclaration(3)
+						, petShop.checkShowAllCustomersOperation(9)
 						);
 			case Question.Q4:
 				customer = CustomerTester.getInstance();
@@ -184,6 +189,10 @@ public class LabTestSuite2 extends ALabTestSuite {
 			}
 		} catch (Exception e) {
 			System.out.println("Class Not Found: %s".formatted(e.getMessage()));
+			for (StackTraceElement st : e.getStackTrace()) {
+				System.out.println(st);
+			}
+			
 			return List.of();
 		}
 	}

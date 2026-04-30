@@ -7,6 +7,9 @@ public class MethodName {
 
 	public static final String GET_ID = "getID";
 	public static final String SET_ID = "setID";
+
+	public static final String GET_NAME = "getName";
+	public static final String SET_NAME = "setName";
 	
 	public static final String ACCELERATE = "accelerate";
 	public static final String BRAKE = "brake";

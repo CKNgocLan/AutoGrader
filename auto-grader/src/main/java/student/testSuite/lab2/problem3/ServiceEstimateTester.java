@@ -44,7 +44,7 @@ public class ServiceEstimateTester {
 	 * Class ***************
 	 */
 	
-	public Class<?> getClazz() throws ClassNotFoundException {
+	public static Class<?> getCorrespondingClass() throws ClassNotFoundException {
 		if (clazz == null) {
 			clazz = Class.forName(className, true, ClassLoader.getInstance());
 		}
@@ -56,9 +56,9 @@ public class ServiceEstimateTester {
 	 * initialize
 	 */
 	
-	public static Object initializeInstance() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, NoSuchMethodException, SecurityException {
-		return clazz.getDeclaredConstructor().newInstance();
+	public static Object initObject() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		return getCorrespondingClass().getDeclaredConstructor().newInstance();
 	}
 
 	/*
