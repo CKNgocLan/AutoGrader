@@ -1,7 +1,5 @@
 package student.testSuite.lab2;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
 import student.constant.ClassName;
@@ -14,11 +12,10 @@ import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.Method;
 import student.model.MethodTesting;
-import student.testSuite.lab2.problem3.PetTester;
-import student.testSuite.lab2.problem3.ServiceEstimateTester;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
+import student.util.MethodUtils;
 import student.util.SetterUtils;
 
 public class CustomerTester {
@@ -70,12 +67,12 @@ public class CustomerTester {
 		return instance;
 	}
 	
-	public static Object initObject(String name, String address, String email) throws InstantiationException, IllegalAccessException,
+	public static Object initObject(String name, String address, String phoneNumber) throws InstantiationException, IllegalAccessException,
 			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Object instance = clazz.getDeclaredConstructor().newInstance();
 		clazz.getMethod(SetterUtils.getSetterName(FieldName.NAME), String.class).invoke(instance, name);
 		clazz.getMethod(SetterUtils.getSetterName(FieldName.ADDRESS), String.class).invoke(instance, address);
-		clazz.getMethod(SetterUtils.getSetterName(FieldName.EMAIL), String.class).invoke(instance, email);
+		clazz.getMethod(SetterUtils.getSetterName(FieldName.PHONE_NUMBER), String.class).invoke(instance, phoneNumber);
 		
 		return instance;
 	}
@@ -131,8 +128,11 @@ public class CustomerTester {
 	}
 	
 	public ITestCase checkToStringOperation(int points) throws ClassNotFoundException {
-		MethodTesting method = new MethodTesting(String.class, MethodName.TO_STRING);
-		final String customerName = "Old Man Hac";
+		return checkToStringOperation(points, "Old Man Hac", "Nam Cao", "uncle.golden@gmail.com");
+	}
+	
+	public ITestCase checkToStringOperation(int points, String name, String address, String phoneNumber) throws ClassNotFoundException {
+		MethodTesting method = MethodUtils.createMethodToString();
 
 		return new ITestCase() {
 			@Override
@@ -148,26 +148,13 @@ public class CustomerTester {
 			@Override
 			public boolean runTest() {
 				try {
-					// Save original System.out
-					PrintStream originalOut = System.out;
-					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-					PrintStream testOut = new PrintStream(outputStream);
-
-					// Redirect System.out to capture output
-					System.setOut(testOut);
+					method.setClazz(getCorrespondingClass());
 
 					// Prepare test data
-					Object petShopInstance = initObject();
-
-					clazz.getMethod(MethodName.ADD_SERVICE_ESTIMATE, ServiceEstimateTester.getCorrespondingClass()).invoke(petShopInstance, ServiceEstimateTester.initObject());
-					clazz.getMethod(method.getName()).invoke(petShopInstance);
-
-					// Restore original System.out
-					System.setOut(originalOut);
+					String actual = method.invokeToString(initObject(name, address, phoneNumber));
 
 					// Get captured output then compare
-//					return outputStream.toString().trim().contains(customerName);
-					return true;
+					return actual.contains(name) && actual.contains(address) && actual.contains(phoneNumber);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;

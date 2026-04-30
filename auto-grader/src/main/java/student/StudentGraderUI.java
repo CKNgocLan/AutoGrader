@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -48,7 +47,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.xmlbeans.impl.xb.ltgfmt.TestCase;
 
 import student.constant.Constants;
 import student.constant.Lab;
@@ -155,9 +153,10 @@ public class StudentGraderUI extends JFrame {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
 //		labQuestionsMap.put(Lab.L1, Arrays.asList(Question.Q0));
-		for (String lab : Lab.getNameList()) {
-			labQuestionsMap.put(lab, Question.getNameList(6));
-		}
+		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3));
+//		for (String lab : Lab.getNameList()) {
+//			labQuestionsMap.put(lab, Question.getNameList(6));
+//		}
 	}
     
     private void initializeComboBoxes() {

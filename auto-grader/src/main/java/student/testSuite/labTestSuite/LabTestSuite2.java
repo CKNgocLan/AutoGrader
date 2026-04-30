@@ -76,6 +76,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, customer.checkNoArgsConstructors(5)
 						, customer.checkGetterDeclaration(5)
 						, customer.checkGetterDeclaration(5)
+						, customer.checkToStringOperation(5)
 
 						// pet
 						, pet.checkExistence(5)

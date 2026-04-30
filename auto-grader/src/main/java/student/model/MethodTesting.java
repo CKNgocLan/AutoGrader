@@ -4,6 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 
 import student.constant.ExceptionMessage;
+import student.constant.MethodName;
 import student.constant.PropertyName;
 import student.exception.InvalidConfigurationException;
 
@@ -58,6 +59,11 @@ public class MethodTesting extends Method {
 		isConfigured();
 
 		return clazz.getDeclaredMethod(super.getName()).invoke(instance);
+	}
+	
+	public String invokeToString(Object instance)
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		return String.valueOf(clazz.getMethod(MethodName.TO_STRING).invoke(instance));
 	}
 
 	private boolean isConfigured() throws InvalidConfigurationException {
