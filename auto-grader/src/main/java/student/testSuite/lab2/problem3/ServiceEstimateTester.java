@@ -59,11 +59,18 @@ public class ServiceEstimateTester {
 	}
 
 	/*
-	 * toString
-	 * ***************************************************************************
+	 * toString ***************************************************************************
 	 */
 
 	public ITestCase checkToStringExistence(int points) {
 		return methodTester.checkExistence(points, className, new Method(String.class, MethodName.TO_STRING));
+	}
+	
+	/*
+	 * getTotalCostAfterTax ***************************************************************************
+	 */
+	
+	public ITestCase checkShowAllServiceEstimatesExistence(int points) {
+		return methodTester.checkExistence(points, className, new Method(double.class, MethodName.GET_TOTAL_COST_AFTER_TAX));
 	}
 }

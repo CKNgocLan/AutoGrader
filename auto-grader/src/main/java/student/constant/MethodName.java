@@ -18,6 +18,7 @@ public class MethodName {
 
 	public static final String TO_STRING = "toString";
 
+	public static final String GET_TOTAL_COST_AFTER_TAX = "getTotalCostAfterTax";
 	public static final String ADD_CUSTOMER = "addCustomer";
 	public static final String ADD_PET = "addPet";
 	public static final String ADD_SERVICE_ESTIMATE = "addServiceEstimate";
