@@ -1,20 +1,29 @@
 package student.testSuite.lab2.problem3;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
 import student.constant.ClassName;
+import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
+import student.constant.TestcaseType;
+import student.exception.InvalidConfigurationException;
 import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.Method;
+import student.model.MethodTesting;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
+import student.util.MethodUtils;
 
 public class ServiceEstimateTester {
 	private static ServiceEstimateTester instance = null;
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
+	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 	private String className = ClassName.SERVICE_ESTIMATE;
 
 	/*
