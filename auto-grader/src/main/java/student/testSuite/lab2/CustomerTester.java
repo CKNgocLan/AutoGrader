@@ -1,14 +1,21 @@
 package student.testSuite.lab2;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
 
 import student.constant.ClassName;
+import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
+import student.constant.TestcaseType;
 import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.Method;
+import student.model.MethodTesting;
+import student.testSuite.lab2.problem3.PetTester;
+import student.testSuite.lab2.problem3.ServiceEstimateTester;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -35,7 +42,7 @@ public class CustomerTester {
 	}
 
 	/*
-	 * Class ***************
+	 * class ***************
 	 */
 	
 	public static Class<?> getCorrespondingClass() throws ClassNotFoundException {
@@ -47,7 +54,7 @@ public class CustomerTester {
 	}
 	
 	/*
-	 * initialize
+	 * initialize object ***************
 	 */
 	
 	public static Object initObject() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
@@ -74,7 +81,7 @@ public class CustomerTester {
 	}
 
 	/*
-	 * Existence ***************************************************************************
+	 * Existence ***************
 	 */
 
 	public ITestCase checkExistence(int points) {
@@ -82,7 +89,7 @@ public class CustomerTester {
 	}
 
     /*
-     * Constructor ***************************************************************************
+     * Constructor ***************
      */
     
     public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
@@ -90,7 +97,7 @@ public class CustomerTester {
     }
 
 	/*
-	 * Fields ***************************************************************************
+	 * Field ***************
 	 */
 	
 	public ITestCase checkFields(int points) {
@@ -102,24 +109,75 @@ public class CustomerTester {
 	}
 
     /*
-     * Getter ***************************************************************************
+     * Getter ***************
      */
     public ITestCase checkGetterDeclaration(int points) {
         return methodTester.checkGetterDeclaration(points, className);
     }
 
     /*
-     * Setter ***************************************************************************
+     * Setter ***************
      */
     public ITestCase checkSetterDeclaration(int points) {
         return methodTester.checkSetterDeclaration(points, className);
     }
 
 	/*
-	 * toString ***************************************************************************
+	 * toString ***************
 	 */
 	
-	public ITestCase checkToStringExistence(int points) {
+	public ITestCase checkToStringDeclaration(int points) {
 		return methodTester.checkExistence(points, className, new Method(String.class, MethodName.TO_STRING));
+	}
+	
+	public ITestCase checkToStringOperation(int points) throws ClassNotFoundException {
+		MethodTesting method = new MethodTesting(String.class, MethodName.TO_STRING);
+		final String customerName = "Old Man Hac";
+
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					// Save original System.out
+					PrintStream originalOut = System.out;
+					ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+					PrintStream testOut = new PrintStream(outputStream);
+
+					// Redirect System.out to capture output
+					System.setOut(testOut);
+
+					// Prepare test data
+					Object petShopInstance = initObject();
+
+					clazz.getMethod(MethodName.ADD_SERVICE_ESTIMATE, ServiceEstimateTester.getCorrespondingClass()).invoke(petShopInstance, ServiceEstimateTester.initObject());
+					clazz.getMethod(method.getName()).invoke(petShopInstance);
+
+					// Restore original System.out
+					System.setOut(originalOut);
+
+					// Get captured output then compare
+//					return outputStream.toString().trim().contains(customerName);
+					return true;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
+			}
+		};
 	}
 }

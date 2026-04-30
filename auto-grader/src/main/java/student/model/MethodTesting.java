@@ -17,10 +17,8 @@ public class MethodTesting extends Method {
 		super(returnedType, name);
 	}
 
-	public MethodTesting(Class<?> returnedType, String name, Object testingValue, Parameter... parameters) {
+	public MethodTesting(Class<?> returnedType, String name, Parameter... parameters) {
 		super(Modifier.PUBLIC, returnedType, name, parameters);
-		this.testingValue = testingValue;
-
 	}
 
 	public Object getTestingValue() {

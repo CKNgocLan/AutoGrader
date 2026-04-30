@@ -93,11 +93,12 @@ public class CarTester {
 	}
 	
 	public ITestCase checkAccelerateOperation(int points) {
+		MethodTesting method = new MethodTesting(int.class, MethodName.ACCELERATE);
+
 		return new ITestCase() {
-			MethodTesting methodTesting = new MethodTesting(int.class, MethodName.ACCELERATE, 5);
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, methodTesting.getName());
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
 			}
 
 			@Override
@@ -110,16 +111,16 @@ public class CarTester {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
-					if (!MethodUtils.isMethodDeclared(clazz, methodTesting)) {
+					if (!MethodUtils.isMethodDeclared(clazz, method)) {
 						return false;
 					}
 					
 					Object instance = clazz.getDeclaredConstructor(int.class, String.class).newInstance(2025, "Mazda");
 					
-					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
+					clazz.getDeclaredMethod(method.getName()).invoke(instance);
 					
 					return ParameterTestingUtils.compareTestingValue(clazz, instance,
-							new ParameterTesting(FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getTestingValue())
+							new ParameterTesting(FieldName.SPEED, method.getReturnedType(), method.getTestingValue())
 					);
 				} catch (NoSuchMethodException e) {
 					return false;
@@ -134,7 +135,7 @@ public class CarTester {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, methodTesting.getName());
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
 			}
 		};
 	}
@@ -148,12 +149,13 @@ public class CarTester {
 	}
 	
 	public ITestCase checkBrakeOperation(int points) {
+		MethodTesting method = new MethodTesting(int.class, MethodName.BRAKE);
+		method.setTestingValue(0);
+		
 		return new ITestCase() {
-			MethodTesting methodTesting = new MethodTesting(int.class, MethodName.BRAKE, 0);
-			
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, methodTesting.getName());
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
 			}
 
 			@Override
@@ -166,7 +168,7 @@ public class CarTester {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
-					if (!MethodUtils.isMethodDeclared(clazz, methodTesting)) {
+					if (!MethodUtils.isMethodDeclared(clazz, method)) {
 						return false;
 					}
 					
@@ -174,10 +176,10 @@ public class CarTester {
 					
 					clazz.getDeclaredMethod(MethodName.ACCELERATE).invoke(instance);
 					
-					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
+					clazz.getDeclaredMethod(method.getName()).invoke(instance);
 					
 					return ParameterTestingUtils.compareTestingValue(clazz, instance,
-							new ParameterTesting(FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getTestingValue())
+							new ParameterTesting(FieldName.SPEED, method.getReturnedType(), method.getTestingValue())
 					);
 				} catch (NoSuchMethodException e) {
 					return false;
@@ -192,7 +194,7 @@ public class CarTester {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, methodTesting.getName());
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
 			}
 		};
 	}

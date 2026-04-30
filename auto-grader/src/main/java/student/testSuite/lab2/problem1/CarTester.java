@@ -74,8 +74,9 @@ public class CarTester {
 	}
 
 	public ITestCase checkAccelerateOperation(int points) {
+		MethodTesting methodTesting = new MethodTesting(int.class, MethodName.ACCELERATE);
+		methodTesting.setTestingValue(5);
 		return new ITestCase() {
-			MethodTesting methodTesting = new MethodTesting(int.class, MethodName.ACCELERATE, 5);
 
 			@Override
 			public String getName() {
@@ -129,8 +130,10 @@ public class CarTester {
 	}
 
 	public ITestCase checkBrakeOperation(int points) {
+		MethodTesting methodTesting = new MethodTesting(int.class, MethodName.BRAKE);
+		methodTesting.setTestingValue(0);
+
 		return new ITestCase() {
-			MethodTesting methodTesting = new MethodTesting(int.class, MethodName.BRAKE, 0);
 
 			@Override
 			public String getName() {

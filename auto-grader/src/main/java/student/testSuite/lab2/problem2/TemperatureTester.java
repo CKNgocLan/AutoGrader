@@ -90,8 +90,8 @@ public class TemperatureTester {
 						return false;
 					}
 
-					MethodTesting getFahrenheit = new MethodTesting(double.class, MethodName.GET_FAHRENHEIT,
-							fahrenheit);
+					MethodTesting getFahrenheit = new MethodTesting(double.class, MethodName.GET_FAHRENHEIT);
+					getFahrenheit.setTestingValue(fahrenheit);
 					if (!MethodUtils.isMethodDeclared(clazz, getFahrenheit)) {
 						invalidMethodName = getFahrenheit.getName();
 						return false;
@@ -207,7 +207,9 @@ public class TemperatureTester {
 	}
 
 	private MethodTesting createSetFahrenheit(double fahrenheit) {
-		return new MethodTesting(void.class, MethodName.SET_FAHRENHEIT, fahrenheit,
-				new Parameter(FieldName.FTEMP, double.class, fahrenheit));
+		MethodTesting method = new MethodTesting(void.class, MethodName.SET_FAHRENHEIT, new Parameter(FieldName.FTEMP, double.class, fahrenheit));
+		method.setTestingValue(fahrenheit);
+		
+		return method;
 	}
 }
