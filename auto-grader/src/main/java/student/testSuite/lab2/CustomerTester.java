@@ -60,7 +60,8 @@ public class CustomerTester {
 	}
 	
 	public static Object initObject(String name) throws InstantiationException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+			IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		getCorrespondingClass();
 		Object instance = clazz.getDeclaredConstructor().newInstance();
 		clazz.getMethod(MethodName.SET_NAME, String.class).invoke(instance, name);
 		

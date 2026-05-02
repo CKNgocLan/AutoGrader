@@ -131,7 +131,7 @@ public class PetTester {
 					method.setClazz(getCorrespondingClass());
 
 					// Prepare test data
-					Object petInstance = initObject(customer);
+					Object petInstance = initObject(breed, age, weight, customer);
 					
 					method.setInstance(petInstance);
 					String actual = method.invokeToString();
@@ -140,7 +140,7 @@ public class PetTester {
 					return actual.contains(breed)
 							&& actual.contains(String.valueOf(age))
 							&& actual.contains(String.valueOf(weight))
-//							&& actual.contains(customer.toString())
+							&& actual.contains(customer.toString())
 							;
 				} catch (Exception e) {
 					System.out.println(e.getMessage());

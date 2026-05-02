@@ -90,6 +90,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 								new ParameterTesting(double.class))
 						, pet.checkToStringExistence(5)
 						, pet.checkToStringOperation(5)
+						, pet.checkToStringOperation(5, "H'Mong Coc", 24, 15, CustomerTester.initObject("Lao Hac"))
 
 						// service estimate
 						, serviceEstimate.checkExistence(5)
