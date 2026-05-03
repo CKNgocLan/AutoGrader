@@ -28,4 +28,6 @@ public class MethodName {
 	public static final String SHOW_ALL_CUSTOMERS = "showAllCustomers";
 	public static final String SHOW_ALL_PETS = "showAllPets";
 	public static final String SHOW_ALL_SERVICE_ESTIMATES = "showAllServiceEstimates";
+
+	public static final String GET_PRICE_AFTER_TAX = "getPriceAfterTax";
 }

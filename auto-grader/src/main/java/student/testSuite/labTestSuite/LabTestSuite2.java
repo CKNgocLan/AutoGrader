@@ -123,40 +123,61 @@ public class LabTestSuite2 extends ALabTestSuite {
 				ConstTester consts = ConstTester.getInstance();
 				EventTester event = EventTester.getInstance();
 				QuoteTester quote = QuoteTester.getInstance();
+				
+				List<String> ingredient = Arrays.asList("Egg", "Flour");
+				double laborCharge = 2.5;
+				double deliveryFee = 1.555;
+				Object customerInstance = CustomerTester.initObject("Lao Hac");
+				Object eventInstance = EventTester.initObject(0);
+				int tierNumber = 2;
+				double price = 2.567;
+				Object cakeInstance = CakeTester.initObject(customerInstance, eventInstance, tierNumber, price);
+				double priceAfterTax = 4.3794;
 
 				return Arrays.asList(
 						// customer
 						customer.checkExistence(5)
-//						, customer.checkFields(5)
-//						, customer.checkNoArgsConstructors(5)
-//						, customer.checkGetterDeclaration(2)
-//						, customer.checkSetterDeclaration(2)
-//						, customer.checkToStringOperation(5)
-//						
-//						// const
-//						, consts.checkDeclaration(5)
-//						, consts.checkFields(5)
-//						
-//						// event
-//						, event.checkDeclaration(5)
-//						, event.checkFields(5)
+						, customer.checkFields(5)
+						, customer.checkNoArgsConstructors(5)
+						, customer.checkGetterDeclaration(2)
+						, customer.checkSetterDeclaration(2)
+						, customer.checkToStringOperation(5)
+						
+						// const
+						, consts.checkDeclaration(5)
+						, consts.checkFields(5)
+						
+						// event
+						, event.checkDeclaration(5)
+						, event.checkFields(5)
 
-//						// cake
-//						, cake.checkExistence(5)
-//						, cake.checkPartialArgsConstructors(5,
-//								new ParameterTesting(CustomerTester.getCorrespondingClass()),
-//								new ParameterTesting(EventTester.getCorrespondingClass()),
-//								new ParameterTesting(int.class),
-//								new ParameterTesting(double.class)
-//						)
-//						, cake.checkFields(5)
-//						, cake.checkGetterDeclaration(5)
-//						, cake.checkSetterDeclaration(5)
-//						, cake.checkToStringDeclaration(5)
-//						
-//						// quote
-//						, quote.checkExistence(5)
-//						, quote.checkFields(5)
+						// cake
+						, cake.checkExistence(5)
+						, cake.checkPartialArgsConstructors(5,
+								new ParameterTesting(CustomerTester.getCorrespondingClass()),
+								new ParameterTesting(EventTester.getCorrespondingClass()),
+								new ParameterTesting(int.class),
+								new ParameterTesting(double.class)
+						)
+						, cake.checkFields(5)
+						, cake.checkGetterDeclaration(5)
+						, cake.checkSetterDeclaration(5)
+						, cake.checkToStringDeclaration(5)
+						
+						// quote
+						, quote.checkExistence(5)
+						, quote.checkFields(5)
+						, quote.checkPartialArgsConstructorDeclaration(5,
+								new ParameterTesting(CakeTester.getCorrespondingClass()),
+								new ParameterTesting(double.class),
+								new ParameterTesting(double.class)
+						)
+						, quote.checkGetterDeclaration(5)
+						, quote.checkSetterDeclaration(5)
+						, quote.checkToStringDeclaration(5)
+						, quote.checkToStringOperation(5, ingredient, laborCharge, deliveryFee, cakeInstance)
+						, quote.checkGetPriceAfterTaxDeclaration(5)
+						, quote.checkGetPriceAfterTaxOperation(5, laborCharge, deliveryFee, priceAfterTax)
 				);
 			case Question.Q5:
 				customer = CustomerTester.getInstance();

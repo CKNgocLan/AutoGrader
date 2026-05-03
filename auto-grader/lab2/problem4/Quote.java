@@ -1,27 +1,33 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Quote {
-    private double labourCharge;
+    private List<String> ingredient;
+    private double laborCharge;
     private double deliveryFee;
-    private double ingredientCost;
+    private Cake cake;
 
-    public Quote(double deliveryFee, double ingredientCost, double labourCharge) {
+    public Quote(Cake cake, double laborCharge, double deliveryFee) {
+        this.cake = cake;
+        this.laborCharge = laborCharge;
         this.deliveryFee = deliveryFee;
-        this.ingredientCost = ingredientCost;
-        this.labourCharge = labourCharge;
+        this.ingredient = new ArrayList<>();
     }
 
-    public Quote() {
-        this.deliveryFee = 0;
-        this.ingredientCost = 0;
-        this.labourCharge = 0;
+    public List<String> getIngredient() {
+        return ingredient;
     }
 
-    public double getLabourCharge() {
-        return labourCharge;
+    public void setIngredient(List<String> ingredient) {
+        this.ingredient = ingredient;
     }
 
-    public void setLabourCharge(double labourCharge) {
-        this.labourCharge = labourCharge;
+    public double getLaborCharge() {
+        return laborCharge;
+    }
+
+    public void setLaborCharge(double laborCharge) {
+        this.laborCharge = laborCharge;
     }
 
     public double getDeliveryFee() {
@@ -32,19 +38,20 @@ public class Quote {
         this.deliveryFee = deliveryFee;
     }
 
-    public double getIngredientCost() {
-        return ingredientCost;
+    public Cake getCake() {
+        return cake;
     }
 
-    public void setIngredientCost(double ingredientCost) {
-        this.ingredientCost = ingredientCost;
+    public void setCake(Cake cake) {
+        this.cake = cake;
     }
 
-    public double getTotal() {
-        return labourCharge + ingredientCost + deliveryFee;
+    public double getPriceAfterTax() {
+        return (laborCharge + deliveryFee) * (1 + Const.TAX);
     }
 
-    public double getTotalAfterTax(double tax) {
-        return getTotal() * (1 + tax / 100);
+    @Override
+    public String toString() {
+        return "Ingredient: %s - Labor Charge: %s - Delivery Fee: %s - Cake: %s".formatted(ingredient, laborCharge, deliveryFee, cake);
     }
 }

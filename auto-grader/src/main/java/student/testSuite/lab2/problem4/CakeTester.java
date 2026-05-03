@@ -55,10 +55,10 @@ public class CakeTester {
 	 * initialize object ***************
 	 */
 	
-	public static Object initObject() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
-		return getCorrespondingClass().getDeclaredConstructor().newInstance();
-	}
+//	public static Object initObject() throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+//			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+//		return getCorrespondingClass().getDeclaredConstructor().newInstance();
+//	}
 	
 	public static Object initObject(Object customer, Object event, int tierNumber, double price) throws InstantiationException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
