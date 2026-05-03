@@ -1,7 +1,10 @@
 package student.testSuite.lab2.problem4;
 
+import java.lang.reflect.InvocationTargetException;
+
 import student.constant.ClassName;
 import student.constant.FieldName;
+import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
@@ -13,7 +16,8 @@ public class EventTester {
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
     private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
-	private String className = ClassName.EVENT;
+	private static String className = ClassName.EVENT;
+	private static Class<?> clazz;
 
 	/*
 	 * Instance ***************************************************************************
@@ -25,6 +29,27 @@ public class EventTester {
 		}
 
 		return instance;
+	}
+
+	/*
+	 * Class ***************
+	 */
+	
+	public static Class<?> getCorrespondingClass() throws ClassNotFoundException {
+		if (clazz == null) {
+			clazz = Class.forName(className, true, ClassLoader.getInstance());
+		}
+
+		return clazz;
+	}
+	
+	/*
+	 * initialize object ***************
+	 */
+	
+	public static Object initObject(int idx) throws InstantiationException, IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		return getCorrespondingClass().getEnumConstants()[idx];
 	}
 
 	/*

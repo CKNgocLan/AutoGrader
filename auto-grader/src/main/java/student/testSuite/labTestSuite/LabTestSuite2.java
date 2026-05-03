@@ -132,18 +132,27 @@ public class LabTestSuite2 extends ALabTestSuite {
 //						, customer.checkGetterDeclaration(2)
 //						, customer.checkSetterDeclaration(2)
 //						, customer.checkToStringOperation(5)
-						
-						// const
+//						
+//						// const
 //						, consts.checkDeclaration(5)
 //						, consts.checkFields(5)
-						
-						// event
-						, event.checkDeclaration(5)
-						, event.checkFields(5)
+//						
+//						// event
+//						, event.checkDeclaration(5)
+//						, event.checkFields(5)
 
 //						// cake
 //						, cake.checkExistence(5)
+//						, cake.checkPartialArgsConstructors(5,
+//								new ParameterTesting(CustomerTester.getCorrespondingClass()),
+//								new ParameterTesting(EventTester.getCorrespondingClass()),
+//								new ParameterTesting(int.class),
+//								new ParameterTesting(double.class)
+//						)
 //						, cake.checkFields(5)
+//						, cake.checkGetterDeclaration(5)
+//						, cake.checkSetterDeclaration(5)
+//						, cake.checkToStringDeclaration(5)
 //						
 //						// quote
 //						, quote.checkExistence(5)

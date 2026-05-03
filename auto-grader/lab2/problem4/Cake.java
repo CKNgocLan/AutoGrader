@@ -1,9 +1,9 @@
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class Cake {
     private int tierNumber;
-    private LocalDateTime eventDate;
+    private LocalDate eventDate;
     private double price;
     private Event type;
     private Customer customer;
@@ -23,11 +23,11 @@ public class Cake {
         this.tierNumber = tierNumber;
     }
 
-    public LocalDateTime getEventDate() {
+    public LocalDate getEventDate() {
         return eventDate;
     }
 
-    public void setEventDate(LocalDateTime eventDate) {
+    public void setEventDate(LocalDate eventDate) {
         this.eventDate = eventDate;
     }
 
