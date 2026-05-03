@@ -39,11 +39,10 @@ public class EventTester {
 	 * Fields ***************************************************************************
 	 */
 	
-	public ITestCase checkFields(int points) {
-		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(String.class, FieldName.NAME)
-				, new FieldTesting(String.class, FieldName.ADDRESS)
-				, new FieldTesting(String.class, FieldName.PHONE_NUMBER)
+	public ITestCase checkFields(int points) throws ClassNotFoundException {
+		return fieldTester.checkDeclarationsAsPublicStaticFinal(points, className
+				, new FieldTesting(student.model.ClassLoader.retrieveClass(ClassName.EVENT), FieldName.UPPERCASE_WEDDING)
+				, new FieldTesting(student.model.ClassLoader.retrieveClass(ClassName.EVENT), FieldName.UPPERCASE_BIRTHDAY)
 		);
 	}
 

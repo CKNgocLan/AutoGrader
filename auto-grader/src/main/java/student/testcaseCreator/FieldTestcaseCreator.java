@@ -87,6 +87,52 @@ public class FieldTestcaseCreator {
 					}
 					
 					for (FieldTesting testingField : fields) {
+						if (!ClassUtils.containField(clazz, testingField)) {
+							return false;
+						}
+					}
+					return true;
+					
+				} catch (ClassNotFoundException e) {
+					for (StackTraceElement st : e.getStackTrace()) {
+						System.out.println(st);
+					}
+
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.FIELD_DECLARED_NOT_CORRECT.getContent(className, fieldNames);
+			}
+		};
+	}
+	
+	public ITestCase checkDeclarationsAsPublicStaticFinal(int points, String className, FieldTesting... fields) {
+		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
+		
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_FIELD.getName(className, fieldNames);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					
+					if (fields.length > clazz.getDeclaredFields().length) {
+						return false;
+					}
+					
+					for (FieldTesting testingField : fields) {
 						if (!fieldChecker.checkPublicStaticFinalField(clazz, clazz.getField(testingField.getName()))) {
 							return false;
 						}

@@ -38,7 +38,7 @@ public class ConstTester {
 	 */
 	
 	public ITestCase checkFields(int points) {
-		return fieldTester.checkDeclarations(points, className
+		return fieldTester.checkDeclarationsAsPublicStaticFinal(points, className
 				, new FieldTesting(double.class, FieldName.UPPERCASE_TAX)
 		);
 	}

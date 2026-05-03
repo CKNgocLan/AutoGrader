@@ -134,13 +134,13 @@ public class LabTestSuite2 extends ALabTestSuite {
 //						, customer.checkToStringOperation(5)
 						
 						// const
-						, consts.checkDeclaration(5)
-						, consts.checkFields(5)
+//						, consts.checkDeclaration(5)
+//						, consts.checkFields(5)
 						
-//						// event
-//						, event.checkDeclaration(5)
-//						, event.checkFields(5)
-//						
+						// event
+						, event.checkDeclaration(5)
+						, event.checkFields(5)
+
 //						// cake
 //						, cake.checkExistence(5)
 //						, cake.checkFields(5)

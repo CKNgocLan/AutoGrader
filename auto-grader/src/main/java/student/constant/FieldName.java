@@ -67,6 +67,8 @@ public class FieldName {
 	public static final String EVENT_DATE = "eventDate";
 	public static final String PRICE = "price";
 	public static final String TYPE = "type";
+	public static final String UPPERCASE_WEDDING = "WEDDING";
+	public static final String UPPERCASE_BIRTHDAY = "BIRTHDAY";
 	
 	/*
 	 * Quote
