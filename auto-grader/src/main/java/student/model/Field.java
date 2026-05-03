@@ -85,4 +85,9 @@ public class Field {
 				&& getName().equals(reflectField.getName())
 				;
 	}
+	
+	public boolean equalsButModifiers(java.lang.reflect.Field reflectField) {
+		return getType().equals(reflectField.getType())
+				&& getName().equals(reflectField.getName());
+	}
 }

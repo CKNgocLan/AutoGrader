@@ -31,8 +31,8 @@ public class EventTester {
 	 * Existence ***************************************************************************
 	 */
 
-	public ITestCase checkExistence(int points) {
-		return classTester.checkExistence(points, className);
+	public ITestCase checkDeclaration(int points) {
+		return classTester.checkExistenceAsEnum(points, className);
 	}
 
 	/*

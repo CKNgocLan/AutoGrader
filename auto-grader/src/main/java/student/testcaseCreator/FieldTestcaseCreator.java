@@ -87,13 +87,13 @@ public class FieldTestcaseCreator {
 					}
 					
 					for (FieldTesting testingField : fields) {
-						if (!ClassUtils.containField(clazz, testingField)) {
+						if (!fieldChecker.checkPublicStaticFinalField(clazz, clazz.getField(testingField.getName()))) {
 							return false;
 						}
 					}
 					return true;
 					
-				} catch (ClassNotFoundException e) {
+				} catch (ClassNotFoundException | NoSuchFieldException | SecurityException e) {
 					for (StackTraceElement st : e.getStackTrace()) {
 						System.out.println(st);
 					}

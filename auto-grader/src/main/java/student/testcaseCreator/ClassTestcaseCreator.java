@@ -69,6 +69,41 @@ public class ClassTestcaseCreator {
 	}
 
 	/**
+	 * Class existence testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public ITestCase checkExistenceAsEnum(int points, String className) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Class.forName(className, true, targetClassesLoader).isEnum();
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_FOUND.getContent(className);
+			}
+		};
+	}
+
+	/**
 	 * No-argument constructor DECLARATION testcase
 	 * 
 	 * @param className

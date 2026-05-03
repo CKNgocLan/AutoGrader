@@ -41,6 +41,7 @@ public class FieldName {
 	public static final String GROOMING_COST = "groomingCost";
 	public static final String ADDITIONAL_CARE_COST = "additionalCareCost";
 	public static final String TAX = "tax";
+	public static final String UPPERCASE_TAX = "TAX";
 	public static final String PET = "pet";
 	
 	/*

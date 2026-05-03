@@ -3,6 +3,8 @@ package student.checker;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
+import student.model.FieldTesting;
+import student.util.ClassUtils;
 import student.util.StringUtils;
 
 public class FieldChecker {
@@ -34,6 +36,15 @@ public class FieldChecker {
 
 	public boolean checkDeclaration(java.lang.reflect.Field reflectField, String name, Class<?> type) {
 		return checkDeclaration(reflectField, Modifier.PRIVATE, name, type);
+	}
+	
+	public boolean checkPublicStaticFinalField(Class<?> clazz, Field field) {
+		return ClassUtils.containFieldButModifiers(clazz, new FieldTesting(field.getType(), field.getName()))
+				&& Modifier.isPublic(field.getModifiers())
+				&& Modifier.isStatic(field.getModifiers())
+				&& Modifier.isFinal(field.getModifiers())
+				&& StringUtils.isAllUppercase(field.getName())
+				;
 	}
 
 	public boolean checkDeclaration(java.lang.reflect.Field reflectField, int modifier, String name,

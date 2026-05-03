@@ -14,7 +14,7 @@ public class ConstTester {
 	private String className = ClassName.CONST;
 
 	/*
-	 * instance ***************************************************************************
+	 * instance ***************
 	 */
 
 	public static ConstTester getInstance() {
@@ -26,22 +26,24 @@ public class ConstTester {
 	}
 
 	/*
-	 * Existence ***************************************************************************
+	 * declaration ***************
 	 */
 
-	public ITestCase checkExistence(int points) {
+	public ITestCase checkDeclaration(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
 	/*
-	 * Fields ***************************************************************************
+	 * Fields ***************
 	 */
 	
 	public ITestCase checkFields(int points) {
 		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(String.class, FieldName.NAME)
-				, new FieldTesting(String.class, FieldName.ADDRESS)
-				, new FieldTesting(String.class, FieldName.PHONE_NUMBER)
+				, new FieldTesting(double.class, FieldName.UPPERCASE_TAX)
 		);
 	}
+	
+	/*
+	 * Class
+	 */
 }

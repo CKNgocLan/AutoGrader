@@ -30,4 +30,8 @@ public class ClassUtils {
 	public static boolean containField(Class<?> clazz, FieldTesting testingField) {
 		return Stream.of(clazz.getDeclaredFields()).filter(declaredField -> testingField.equals(declaredField)).toList().size() > 0;
 	}
+
+	public static boolean containFieldButModifiers(Class<?> clazz, FieldTesting testingField) {
+		return Stream.of(clazz.getDeclaredFields()).filter(declaredField -> testingField.equalsButModifiers(declaredField)).toList().size() > 0;
+	}
 }

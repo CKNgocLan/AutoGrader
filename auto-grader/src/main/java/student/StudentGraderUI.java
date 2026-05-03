@@ -153,7 +153,7 @@ public class StudentGraderUI extends JFrame {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
 //		labQuestionsMap.put(Lab.L1, Arrays.asList(Question.Q0));
-		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3));
+		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4));
 //		for (String lab : Lab.getNameList()) {
 //			labQuestionsMap.put(lab, Question.getNameList(6));
 //		}
