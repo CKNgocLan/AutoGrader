@@ -1,10 +1,13 @@
 package student.testSuite.lab2.problem5;
 
+import java.lang.reflect.InvocationTargetException;
+
 import student.constant.ClassName;
 import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
+import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.Method;
@@ -15,25 +18,51 @@ import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.MethodUtils;
 import student.util.ParameterTestingUtils;
+import student.util.SetterUtils;
 
-public class CarTester {
-	private static CarTester instance = null;
+public class CarRentalTester {
+	private static CarRentalTester instance = null;
 	private ClassTestcaseCreator classTest = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
-	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
-	private String className = ClassName.CAR;
+	private static String className = ClassName.CAR;
+	private static Class<?> clazz;
 
 	/*
 	 * instance ***************************************************************************
 	 */
 
-	public static CarTester getInstance() {
+	public static CarRentalTester getInstance() {
 		if (instance == null) {
-			instance = new CarTester();
+			instance = new CarRentalTester();
 		}
 
 		return instance;
+	}
+
+	/*
+	 * class ***************
+	 */
+	
+	public static Class<?> getCorrespondingClass() throws ClassNotFoundException {
+		if (clazz == null) {
+			clazz = Class.forName(className, true, ClassLoader.getInstance());
+		}
+
+		return clazz;
+	}
+	
+	/*
+	 * initialize object ***************
+	 */
+	// String make, String model, int period, int mileageLimit, Customer customer
+	public static Object initObject(String make, String model, int period, int mileageLimit, Object customer)
+			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+			NoSuchMethodException, SecurityException, ClassNotFoundException {
+		return getCorrespondingClass()
+				.getDeclaredConstructor(String.class, String.class, int.class, int.class,
+						CarRentalCustomerTester.getCorrespondingClass())
+				.newInstance(make, model, period, mileageLimit, customer);
 	}
 
 	/*
@@ -54,7 +83,7 @@ public class CarTester {
 				, new FieldTesting(String.class, FieldName.MODEL)
 				, new FieldTesting(int.class, FieldName.PERIOD)
 				, new FieldTesting(int.class, FieldName.MILEAGE_LIMIT)
-				, new FieldTesting(student.model.ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMER)
+				, new FieldTesting(CarRentalCustomerTester.getCorrespondingClass(), FieldName.CUSTOMER)
 		);
 	}
 
@@ -85,15 +114,11 @@ public class CarTester {
     }
 
 	/*
-	 * Accelerate ***************************************************************************
+	 * toString ***************
 	 */
 	
-	public ITestCase checkAccelerateDeclaration(int points) {
-		return methodTester.checkExistence(points, ClassName.CAR, new Method(int.class, MethodName.ACCELERATE));
-	}
-	
-	public ITestCase checkAccelerateOperation(int points) {
-		MethodTesting method = new MethodTesting(int.class, MethodName.ACCELERATE);
+	public ITestCase checkToStringOperation(int points, String make, String model, int period, int mileageLimit, Object customer) throws ClassNotFoundException {
+		MethodTesting method = MethodUtils.createMethodToString();
 
 		return new ITestCase() {
 			@Override
@@ -109,83 +134,19 @@ public class CarTester {
 			@Override
 			public boolean runTest() {
 				try {
-					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					method.setClazz(getCorrespondingClass());
+					method.setInstance(initObject(make, model, period, mileageLimit, customer));
 
-					if (!MethodUtils.isMethodDeclared(clazz, method)) {
-						return false;
-					}
-					
-					Object instance = clazz.getDeclaredConstructor(int.class, String.class).newInstance(2025, "Mazda");
-					
-					clazz.getDeclaredMethod(method.getName()).invoke(instance);
-					
-					return ParameterTestingUtils.compareTestingValue(clazz, instance,
-							new ParameterTesting(FieldName.SPEED, method.getReturnedType(), method.getTestingValue())
-					);
-				} catch (NoSuchMethodException e) {
-					return false;
-				} catch (IllegalArgumentException e) {
-					System.out.println(e.getMessage());
-					return false;
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-					return false;
-				}
-			}
+					// Prepare test data
+					String actual = method.invokeToString();
 
-			@Override
-			public String getFeedback() {
-				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
-			}
-		};
-	}
-
-	/*
-	 * Brake ***************************************************************************
-	 */
-	
-	public ITestCase checkBrakeDeclaration(int points) {
-		return methodTester.checkExistence(points, ClassName.CAR, new Method(int.class, MethodName.BRAKE));
-	}
-	
-	public ITestCase checkBrakeOperation(int points) {
-		MethodTesting method = new MethodTesting(int.class, MethodName.BRAKE);
-		method.setTestingValue(0);
-		
-		return new ITestCase() {
-			@Override
-			public String getName() {
-				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
-			}
-
-			@Override
-			public int getPoints() {
-				return points;
-			}
-
-			@Override
-			public boolean runTest() {
-				try {
-					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
-
-					if (!MethodUtils.isMethodDeclared(clazz, method)) {
-						return false;
-					}
-					
-					Object instance = clazz.getDeclaredConstructor(int.class, String.class).newInstance(2025, "Mazda");
-					
-					clazz.getDeclaredMethod(MethodName.ACCELERATE).invoke(instance);
-					
-					clazz.getDeclaredMethod(method.getName()).invoke(instance);
-					
-					return ParameterTestingUtils.compareTestingValue(clazz, instance,
-							new ParameterTesting(FieldName.SPEED, method.getReturnedType(), method.getTestingValue())
-					);
-				} catch (NoSuchMethodException e) {
-					return false;
-				} catch (IllegalArgumentException e) {
-					System.out.println(e.getMessage());
-					return false;
+					// Get captured output then compare
+					return actual.contains(make)
+							&& actual.contains(model)
+							&& actual.contains(String.valueOf(period))
+							&& actual.contains(String.valueOf(mileageLimit))
+							&& actual.contains(String.valueOf(customer))
+							;
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;

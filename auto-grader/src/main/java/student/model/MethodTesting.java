@@ -46,7 +46,7 @@ public class MethodTesting extends Method {
 		this.instance = instance;
 	}
 
-	public Object invokeSetting() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
+	public Object invokeSetter() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
 			IllegalAccessException, InvocationTargetException {
 		isConfigured();
 
@@ -54,13 +54,6 @@ public class MethodTesting extends Method {
 				getParameterValues());
 	}
 
-	public Object returning() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
-			IllegalAccessException, InvocationTargetException {
-		isConfigured();
-
-		return clazz.getDeclaredMethod(super.getName()).invoke(instance);
-	}
-	
 	public String invokeToString()
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		return String.valueOf(clazz.getMethod(MethodName.TO_STRING).invoke(instance));
@@ -77,5 +70,24 @@ public class MethodTesting extends Method {
 		}
 
 		return true;
+	}
+
+	public MethodTesting config(Class<?> clazz, Object instance) {
+		this.clazz = clazz;
+		this.instance = instance;
+
+		return this;
+	}
+
+	public Object returning() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
+			IllegalAccessException, InvocationTargetException {
+		isConfigured();
+
+		return clazz.getDeclaredMethod(super.getName()).invoke(instance);
+	}
+
+	public boolean assertExpectedValue(Object expected) throws NoSuchMethodException, SecurityException,
+			IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
+		return super.boxingReturnedType().cast(returning()).equals(expected);
 	}
 }

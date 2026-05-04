@@ -3,11 +3,9 @@ package student.testSuite.labTestSuite;
 import java.util.Arrays;
 import java.util.List;
 
-import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.Question;
 import student.model.ALabTestSuite;
-import student.model.ClassLoader;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
 import student.testSuite.lab2.ConstTester;
@@ -21,6 +19,8 @@ import student.testSuite.lab2.problem4.CakeTester;
 import student.testSuite.lab2.problem4.EventTester;
 import student.testSuite.lab2.problem4.QuoteTester;
 import student.testSuite.lab2.problem5.AgreementTester;
+import student.testSuite.lab2.problem5.CarRentalCustomerTester;
+import student.testSuite.lab2.problem5.CarRentalTester;
 import student.testSuite.lab2.problem6.BookTester;
 import student.testSuite.lab2.problem6.BorrowingRecordTester;
 import student.testSuite.lab2.problem6.LibraryManagementTester;
@@ -180,29 +180,55 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, quote.checkGetPriceAfterTaxOperation(5, laborCharge, deliveryFee, priceAfterTax)
 				);
 			case Question.Q5:
-				customer = CustomerTester.getInstance();
 				consts = ConstTester.getInstance();
+				CarRentalCustomerTester rentalCustomer = CarRentalCustomerTester.getInstance();
 				AgreementTester agreement = AgreementTester.getInstance();
-				student.testSuite.lab2.problem5.CarTester car5 = student.testSuite.lab2.problem5.CarTester.getInstance();
+				CarRentalTester rentalCar = CarRentalTester.getInstance();
+				
+				String name = "Lao Hac";
+				String address = "Vu Dai village";
+				String license = "a3122232";
+				
+				String make = "Mazda";
+				String model = "MX-5";
+				int period = 5;
+				int mileageLimit = 90;
+				Object customerObj = CarRentalCustomerTester.initObject(name);
+				Object carObj = CarRentalTester.initObject(make, model, period, mileageLimit, customerObj);
+				
+				String purpose = "travel";
+				double baseRentalFee = 50;
+				double mileageFee = 15;
+				double rentalCostAfterTax = 70.2;
 
 				return Arrays.asList(
-						// existence
-						customer.checkExistence(5)
-						, consts.checkDeclaration(1)
-						, agreement.checkExistence(5)
-						, car5.checkExistence(5)
-						
-						// field
-						, customer.checkFields(2)
-						, consts.checkFields(1)
-						, agreement.checkFields(5)
-						, car5.checkFields(5)
-						
-						// getter
-						, customer.checkGetterDeclaration(2)
+						// customer
+						rentalCustomer.checkExistence(5)
+						, rentalCustomer.checkFields(2)
+						, rentalCustomer.checkGetterDeclaration(2)
+						, rentalCustomer.checkSetterDeclaration(2)
+						, rentalCustomer.checkPartialArgsConstructors(5, new ParameterTesting(String.class))
+						, rentalCustomer.checkToStringOperation(5, name, address, license)
 
-						// setter
-						, customer.checkSetterDeclaration(2)
+						// const
+						, consts.checkDeclaration(5)
+						, consts.checkFields(5)
+						
+						// rental car
+						, rentalCar.checkExistence(5)
+						, rentalCar.checkFields(5)
+						, rentalCar.checkPartialArgsConstructorDeclaration(5
+								, new ParameterTesting(String.class)
+								, new ParameterTesting(String.class)
+								, new ParameterTesting(int.class)
+								, new ParameterTesting(int.class)
+								, new ParameterTesting(CarRentalCustomerTester.getCorrespondingClass())
+						)
+						
+						// agreement
+						, agreement.checkExistence(5)
+						, agreement.checkFields(5)
+						, agreement.checkGetRentalCostAfterTaxOperation(mileageLimit, carObj, purpose, baseRentalFee, mileageFee, rentalCostAfterTax)
 						);
 			case Question.Q6:
 				UserTester user = UserTester.getInstance();

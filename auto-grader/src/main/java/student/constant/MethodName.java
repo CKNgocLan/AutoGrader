@@ -30,4 +30,5 @@ public class MethodName {
 	public static final String SHOW_ALL_SERVICE_ESTIMATES = "showAllServiceEstimates";
 
 	public static final String GET_PRICE_AFTER_TAX = "getPriceAfterTax";
+	public static final String GET_RENTAL_COST_AFTER_TAX = "getRentalCostAfterTax";
 }
