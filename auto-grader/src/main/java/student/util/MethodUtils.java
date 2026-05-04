@@ -22,4 +22,8 @@ public class MethodUtils {
 	public static MethodTesting createMethodToString() {
 		return new MethodTesting(String.class, MethodName.TO_STRING);
 	}
+	
+	public static MethodTesting createMethodEquals(String paramName, Class<?> paramType) {
+		return new MethodTesting(boolean.class, MethodName.EQUALS, new student.model.Parameter(paramName, paramType));
+	}
 }

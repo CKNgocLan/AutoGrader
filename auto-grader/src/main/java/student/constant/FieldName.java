@@ -96,6 +96,7 @@ public class FieldName {
 	public static final String USER = "user";
 	public static final String BOOK = "book";
 	public static final String BORROWING_DATE = "borrowingDate";
+	public static final String BORROWING_RECORD= "borrowingRecord";
 	public static final String DUE_DATE = "dueDate";
 
 	/*

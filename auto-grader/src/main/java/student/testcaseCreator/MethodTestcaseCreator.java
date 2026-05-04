@@ -1,6 +1,7 @@
 package student.testcaseCreator;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -275,45 +276,4 @@ public class MethodTestcaseCreator {
 			}
 		};
 	}
-
-	/*
-	 * ***************************************************************************
-	 */
-
-//	public ITestCase checkToString(int points, Class<?> clazz, Object instance) {
-//		MethodTesting method = MethodUtils.createMethodToString();
-//
-//		return new ITestCase() {
-//			@Override
-//			public String getName() {
-//				return TestcaseType.CHECK_METHOD_OPERATION.getName(clazz.getName(), method.getName());
-//			}
-//
-//			@Override
-//			public int getPoints() {
-//				return points;
-//			}
-//
-//			@Override
-//			public boolean runTest() {
-//				try {
-//					method.setClazz(clazz);
-//
-//					// Prepare test data
-//					String actual = method.invokeToString(instance);
-//
-//					// Get captured output then compare
-//					return actual.contains(name) && actual.contains(address) && actual.contains(phoneNumber);
-//				} catch (Exception e) {
-//					System.out.println(e.getMessage());
-//					return false;
-//				}
-//			}
-//
-//			@Override
-//			public String getFeedback() {
-//				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(clazz.getName(), method.getName());
-//			}
-//		};
-//	}
 }

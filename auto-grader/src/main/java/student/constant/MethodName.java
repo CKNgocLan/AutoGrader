@@ -20,6 +20,7 @@ public class MethodName {
 	public static final String GET_KELVIN = "getKelvin";
 
 	public static final String TO_STRING = "toString";
+	public static final String EQUALS = "equals";
 
 	public static final String GET_TOTAL_COST_AFTER_TAX = "getTotalCostAfterTax";
 	public static final String ADD_CUSTOMER = "addCustomer";
@@ -31,4 +32,14 @@ public class MethodName {
 
 	public static final String GET_PRICE_AFTER_TAX = "getPriceAfterTax";
 	public static final String GET_RENTAL_COST_AFTER_TAX = "getRentalCostAfterTax";
+
+	public static final String ADD_USER = "addUser";
+	public static final String ADD_BOOK = "addBook";
+	public static final String ADD_BORROWING_RECORD = "addBorrowingRecord";
+	public static final String GET_BORROWING_BOOKS = "getBorrowingBooks";
+	public static final String IS_VALID_USER = "isValidUser";
+	public static final String IS_USER_ELIGIBLE_TO_BORROW = "isUserEligibleToBorrow";
+	public static final String SHOW_ALL_USERS = "showAllUsers";
+	public static final String SHOW_ALL_BOOKS = "showAllBooks";
+	public static final String SHOW_ALL_BORROWING_RECORDS = "showAllBorrowingRecords";
 }

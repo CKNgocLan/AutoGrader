@@ -1,5 +1,6 @@
 package student.testSuite.labTestSuite;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,6 +37,8 @@ public class LabTestSuite2 extends ALabTestSuite {
 	@Override
 	public List<ITestCase> getAllTests(String question) {
 		try {
+			int defaultPoints = 5;
+
 			switch (question) {
 			case Question.Q1:
 				CarTester car = CarTester.getInstance();
@@ -237,23 +240,52 @@ public class LabTestSuite2 extends ALabTestSuite {
 				LibraryManagementTester management = LibraryManagementTester.getInstance();
 
 				return Arrays.asList(
-						// existence
-						user.checkExistence(5)
+						// user
+						user.checkExistence(defaultPoints)
+						, user.checkFields(defaultPoints)
+						, user.checkPartialArgsConstructorDeclaration(defaultPoints
+								, new ParameterTesting(String.class)
+								, new ParameterTesting(String.class)
+						)
+						, user.checkGetterDeclaration(defaultPoints)
+						, user.checkSetterDeclaration(defaultPoints)
+						, user.checkEqualsDeclaration(defaultPoints)
+						
+						// book
 						, book.checkExistence(5)
-						, record.checkExistence(5)
-						, management.checkExistence(5)
-						
-						// field
-						, user.checkFields(5)
 						, book.checkFields(2)
-						, record.checkFields(2)
-						, management.checkFields(3)
+						, book.checkFullArgsConstructorDeclaration(defaultPoints
+								, new ParameterTesting(String.class)
+								, new ParameterTesting(String.class)
+						)
+						, book.checkGetterDeclaration(defaultPoints)
+						, book.checkSetterDeclaration(defaultPoints)
+						, book.checkEqualsDeclaration(defaultPoints)
 						
-						// getter
-						, user.checkGetterDeclaration(2)
-
-						// setter
-						, user.checkSetterDeclaration(2)
+						// borrowing record
+						, record.checkExistence(5)
+						, record.checkFields(2)
+						, record.checkPartialArgsConstructorDeclaration(defaultPoints
+								, new ParameterTesting(UserTester.getCorrespondingClass())
+								, new ParameterTesting(BookTester.getCorrespondingClass())
+								, new ParameterTesting(LocalDate.class)
+						)
+						, record.checkGetterDeclaration(defaultPoints)
+						, record.checkSetterDeclaration(defaultPoints)
+						, record.checkEqualsDeclaration(defaultPoints)
+						
+						// library management
+						, management.checkExistence(5)
+						, management.checkFields(3)
+						, management.addUserDeclaration(defaultPoints)
+						, management.addBookDeclaration(defaultPoints)
+						, management.addBorrowingRecordDeclaration(defaultPoints)
+						, management.getBorrowingBooksDeclaration(defaultPoints)
+						, management.isValidUserDeclaration(defaultPoints)
+						, management.isUserEligibleToBorrowDeclaration(defaultPoints)
+						, management.showAllUsersDeclaration(defaultPoints)
+						, management.showAllBooksDeclaration(defaultPoints)
+						, management.showAllBorrowingRecordsDeclaration(defaultPoints)
 						);
 			default:
 				return null;
