@@ -231,10 +231,18 @@ public class StudentGraderUI extends JFrame {
                 // Step 2: Run tests
                 // TODO retrieve test suite based on selected lab & question 
                 List<ITestCase> tests = testSuiteRouter.invokeAllTests(selectedLab, selectedQuestion);
-                if (tests == null || tests.size() == 0) {
+                if (tests == null) {
                 	SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, 
-                        		MessageFormat.format("TEST SUITE IS UNDER CONSTRUCTION!\n({0} - {1})", selectedLab, selectedQuestion), 
+                        		"ERROR! CHECK TERMINAL FOR ERROR STACK TRACE!", 
+                            "ATTENTION", JOptionPane.WARNING_MESSAGE);
+                        gradeButton.setEnabled(true);
+                    });
+                	return;
+                } else if (tests.size() == 0) {
+                	SwingUtilities.invokeLater(() -> {
+                        JOptionPane.showMessageDialog(this, 
+                        		MessageFormat.format("TEST SUITE IS UNDER CONSTRUCTION!\n(Lab {0} - Problem {1})", selectedLab, selectedQuestion), 
                             "ATTENTION", JOptionPane.WARNING_MESSAGE);
                         gradeButton.setEnabled(true);
                     });

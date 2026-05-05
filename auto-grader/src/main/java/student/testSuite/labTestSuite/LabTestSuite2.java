@@ -296,7 +296,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 				System.out.println(st);
 			}
 			
-			return List.of();
+			return null;
 		}
 	}
 }

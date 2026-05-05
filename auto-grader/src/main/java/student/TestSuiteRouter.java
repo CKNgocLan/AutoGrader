@@ -11,7 +11,7 @@ public class TestSuiteRouter {
 			return new LabTestSuiteFactory().createSuite(lab).getAllTests(question);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return List.of();
+			return null;
 		}
 	}
 }
