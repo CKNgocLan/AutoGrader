@@ -47,12 +47,16 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, retailItemTester.checkFields(defaultPoints)
 						, retailItemTester.checkConstructorDeclaration(defaultPoints)
 						, retailItemTester.checkConstructorOperation(defaultPoints, retailItemArgs)
+						, retailItemTester.checkGetterDeclaration(defaultPoints)
+						, retailItemTester.checkSetterDeclaration(defaultPoints)
 
 						// cash register
 						, cashRegisterTester.checkExistence(defaultPoints)
 						, cashRegisterTester.checkFields(defaultPoints)
 						, cashRegisterTester.checkConstructorDeclaration(defaultPoints)
 						, cashRegisterTester.checkConstructorOperation(defaultPoints, cashRegisterArgs)
+						, cashRegisterTester.checkGetterDeclaration(defaultPoints)
+						, cashRegisterTester.checkSetterDeclaration(defaultPoints)
 						);
 			case Question.Q2:
 				return Arrays.asList();
