@@ -152,8 +152,8 @@ public class StudentGraderUI extends JFrame {
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
-//		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
-		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q6));
+		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5, Question.Q6));
+//		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q6));
 	}
     
     private void initializeComboBoxes() {
@@ -460,6 +460,7 @@ public class StudentGraderUI extends JFrame {
             // Data rows - one test case per row (vertical)
             int rowNum = 1;
 
+            int passedCounter = 0;
 			for (TestResult result : results) {
 				Row row = sheet.createRow(rowNum++);
 				int col = 0;
@@ -478,12 +479,18 @@ public class StudentGraderUI extends JFrame {
 
 				// Result + Color
 				Cell resultCell = row.createCell(col++);
-				resultCell.setCellValue(result.passed ? "PASSED" : "FAILED");
-
-				// Apply color
 				if (result.passed) {
+					passedCounter++;
+					
+					// Result
+					resultCell.setCellValue("PASSED");
+
+					// Apply color
 					resultCell.setCellStyle(passedStyle);
 				} else {
+					// Result
+					resultCell.setCellValue("FAILED");
+					
 					resultCell.setCellStyle(failedStyle);
 
 					// Feedback
@@ -492,22 +499,20 @@ public class StudentGraderUI extends JFrame {
 			}
 			
 			// create aggregation row
-//			{
-//				Row aggregationRow = sheet.createRow(rowNum);
-//				int colIndex = 0;
-//				
-//				// No
-//				colIndex++;
-//				
-//				// Test Case Name
-//				colIndex++;
-//				
-//				// Max Points
-//				aggregationRow.createCell(colIndex++).setCellValue("Total Point:");
-//				
-//				// Earned Points
-//				aggregationRow.createCell(colIndex++).setCellValue(results.stream().mapToInt(res -> res.earnedPoints).sum());
-//			}
+			Row aggregationRow = sheet.createRow(rowNum);
+			int colIndex = 0;
+			
+			// No
+			colIndex++;
+			
+			// Test Case Name
+			colIndex++;
+			
+			// Result
+			aggregationRow.createCell(colIndex++).setCellValue(passedCounter);
+			
+			// Feedback
+			aggregationRow.createCell(colIndex).setCellValue("/%s testcases".formatted(results.size()));
 
             // Auto-size columns
             for (int i = 0; i < 5; i++) {
