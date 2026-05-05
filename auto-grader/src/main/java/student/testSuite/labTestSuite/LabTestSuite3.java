@@ -6,10 +6,8 @@ import java.util.List;
 import student.constant.FieldName;
 import student.constant.Question;
 import student.model.ALabTestSuite;
-import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
-import student.testSuite.BaseTester;
 import student.testSuite.lab3.problem1.CashRegisterTester;
 import student.testSuite.lab3.problem1.RetailItemTester;
 
@@ -22,8 +20,8 @@ public class LabTestSuite3 extends ALabTestSuite {
 
 			switch (question) {
 			case Question.Q1:
-				BaseTester retailItemTester = new RetailItemTester().getInstance();
-				BaseTester cashRegisterTester = new CashRegisterTester().getInstance();
+				RetailItemTester retailItemTester = new RetailItemTester();
+				CashRegisterTester cashRegisterTester = new CashRegisterTester(retailItemTester);
 				
 				String description = "DESCRIPTION";
 				int unitsOnHand = 15;
@@ -36,33 +34,25 @@ public class LabTestSuite3 extends ALabTestSuite {
 				};
 				
 				int quantity = 3;
+				
+				ParameterTesting[] cashRegisterArgs = {
+						new ParameterTesting(FieldName.RETAIL_ITEM, retailItemTester.getCorrespondingClass(),
+								retailItemTester.instantiateWithAgrs(retailItemArgs)),
+						new ParameterTesting(FieldName.QUANTITY, int.class, quantity)
+				};
 
 				return Arrays.asList(
 						// retail item
 						retailItemTester.checkExistence(defaultPoints)
-						, retailItemTester.checkFields(defaultPoints,
-								new FieldTesting(String.class, FieldName.DESCRIPTION),
-								new FieldTesting(int.class, FieldName.UNITS_ON_HAND),
-								new FieldTesting(double.class, FieldName.PRICE)
-								)
-						, retailItemTester.checkConstructorWithArgs(defaultPoints, String.class, int.class, double.class)
+						, retailItemTester.checkFields(defaultPoints)
+						, retailItemTester.checkConstructorDeclaration(defaultPoints)
 						, retailItemTester.checkConstructorOperation(defaultPoints, retailItemArgs)
 
 						// cash register
 						, cashRegisterTester.checkExistence(defaultPoints)
-						, cashRegisterTester.checkFieldsAsSpecialModifiers(defaultPoints,
-								new FieldTesting(retailItemTester.getCorrespondingClass(), FieldName.RETAIL_ITEM)
-								, new FieldTesting(int.class, FieldName.QUANTITY)
-								, new FieldTesting(double.class, FieldName.UPPERCASE_TAX_RATE).asStatic().asFinal()
-								)
-						, cashRegisterTester.checkConstructorWithArgs(defaultPoints,
-								retailItemTester.getCorrespondingClass(), int.class
-								)
-						, cashRegisterTester.checkConstructorOperation(defaultPoints,
-								new ParameterTesting(FieldName.RETAIL_ITEM, retailItemTester.getCorrespondingClass(),
-										retailItemTester.instantiateWithAgrs(retailItemArgs)) 
-								, new ParameterTesting(FieldName.QUANTITY, int.class, quantity)
-								)
+						, cashRegisterTester.checkFields(defaultPoints)
+						, cashRegisterTester.checkConstructorDeclaration(defaultPoints)
+						, cashRegisterTester.checkConstructorOperation(defaultPoints, cashRegisterArgs)
 						);
 			case Question.Q2:
 				return Arrays.asList();

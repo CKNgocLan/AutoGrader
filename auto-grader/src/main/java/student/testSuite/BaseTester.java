@@ -22,17 +22,10 @@ import student.util.StringUtils;
 
 public abstract class BaseTester {
 	protected String className;
-	protected BaseTester instance = null;
 	private Class<?> clazz;
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
-
-	/*
-	 * instance ***************
-	 */
-
-	public abstract BaseTester getInstance() throws ClassNotFoundException, TesterGotNoClassNameException;
 
 	/*
 	 * class ***************
@@ -80,15 +73,15 @@ public abstract class BaseTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase checkConstructor(int points) throws ClassNotFoundException {
+	protected ITestCase checkConstructor(int points) throws ClassNotFoundException {
 		return classTester.checkNoArgConstructorDeclaration(points, className);
 	}
 	
-	public ITestCase checkConstructorWithArgs(int points, Class<?>... paramTypes) throws ClassNotFoundException {
+	protected ITestCase checkConstructorDeclaration(int points, Class<?>... paramTypes) throws ClassNotFoundException {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, paramTypes);
 	}
 
-	public ITestCase checkConstructorOperation(int points, ParameterTesting... params) throws ClassNotFoundException {
+	protected ITestCase checkConstructorOperation(int points, ParameterTesting... params) throws ClassNotFoundException {
 		return classTester.checkPartialArgsConstructorOperation(points, className, params);
 	}
 
@@ -96,7 +89,7 @@ public abstract class BaseTester {
 	 * field ***************
 	 */
 
-	public ITestCase checkFields(int points, FieldTesting... fieldTestings) {
+	protected ITestCase checkFields(int points, FieldTesting... fieldTestings) {
 		return fieldTester.checkDeclarations(points, className, fieldTestings);
 	}
 	
