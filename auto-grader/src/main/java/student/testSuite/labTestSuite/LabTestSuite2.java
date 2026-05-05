@@ -28,10 +28,6 @@ import student.testSuite.lab2.problem6.LibraryManagementTester;
 import student.testSuite.lab2.problem6.UserTester;
 import student.util.ParameterTestingUtils;
 
-/**
- * Test suite for the Employee class. Tests constructors, getters, and setters
- * as per the uploaded Employee.java
- */
 public class LabTestSuite2 extends ALabTestSuite {
 
 	@Override

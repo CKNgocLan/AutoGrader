@@ -39,4 +39,8 @@ public class StringUtils {
 
 		return true;
 	}
+	
+	public static boolean isNullOrEmpty(String value) {
+		return value == null || value.isEmpty();
+	}
 }

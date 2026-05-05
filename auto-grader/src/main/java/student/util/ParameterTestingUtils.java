@@ -17,4 +17,12 @@ public class ParameterTestingUtils {
 				.cast(clazz.getDeclaredMethod(GetterUtils.getGetterName(paramTest.getName())).invoke(instance));
 		return castValue != null ? castValue.equals(paramTest.getTestingValue()) : paramTest.getTestingValue() == null;
 	}
+	
+	public static Class<?>[] mapToType(ParameterTesting...parameterTestings) {
+		return Stream.of(parameterTestings).map(param -> param.getType()).toArray(Class<?>[]::new);
+	}
+	
+	public static Object[] mapToTestingValue(ParameterTesting...parameterTestings) {
+		return Stream.of(parameterTestings).map(param -> param.getTestingValue()).toArray(Object[]::new);
+	}
 }

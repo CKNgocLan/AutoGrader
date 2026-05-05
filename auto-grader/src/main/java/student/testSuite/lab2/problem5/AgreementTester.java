@@ -110,7 +110,7 @@ public class AgreementTester {
 				} catch (IllegalArgumentException e) {
 					System.out.println(e.getMessage());
 					return false;
-				} catch (Exception | InvalidConfigurationException e) {
+				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
 				}

@@ -205,7 +205,7 @@ public class QuoteTester {
 					method.setInstance(initObject(cake, laborCharge, deliveryFee));
 					
 					return method.boxingReturnedType().cast(method.returning()).equals(priceAfterTax);
-				} catch (Exception | InvalidConfigurationException e) {
+				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
 				}

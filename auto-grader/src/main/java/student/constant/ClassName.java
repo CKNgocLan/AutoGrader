@@ -30,4 +30,11 @@ public class ClassName {
 	public static final String USER = "User";
 	public static final String BOOK = "Book";
 	public static final String LIBRARY_MANAGEMENT = "LibraryManagement";
+	
+	/*
+	 * lab 3
+	 */
+	/* problem 1 */
+	public static final String RETAIL_ITEM = "RetailItem";
+	public static final String CASH_REGISTER = "CashRegister";
 }
