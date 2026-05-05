@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 import student.model.ParameterTesting;
 
 public class ParameterTestingUtils {
-	public static ParameterTesting[] toArray(Class<?>... types) {
+	public static ParameterTesting[] mapFromTypes(Class<?>... types) {
 		return Stream.of(types).map(ParameterTesting::new).toArray(ParameterTesting[]::new);
 	}
 

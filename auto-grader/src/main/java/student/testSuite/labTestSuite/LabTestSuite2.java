@@ -44,7 +44,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 				// partial-args constructor
 						,
 						car.checkPartialArgsConstructorDeclaration(5,
-								ParameterTestingUtils.toArray(int.class, String.class)),
+								ParameterTestingUtils.mapFromTypes(int.class, String.class)),
 						car.checkPartialArgsConstructorOperation(10,
 								new ParameterTesting(FieldName.YEAR_MODEL, int.class, 2025),
 								new ParameterTesting(FieldName.MAKE, String.class, "Mazda"),

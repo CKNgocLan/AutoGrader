@@ -260,6 +260,11 @@ public class ClassTestcaseCreator {
 			}
 		};
 	}
+	
+	
+	public ITestCase checkPartialArgsConstructorDeclaration(int points, String className, Class<?>... paramTypes) {
+		return checkPartialArgsConstructorDeclaration(points, className, ParameterTestingUtils.mapFromTypes(paramTypes));
+	}
 
 	/**
 	 * Partial-argument constructor DECLARATION testcase

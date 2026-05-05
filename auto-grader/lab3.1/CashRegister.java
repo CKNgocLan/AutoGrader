@@ -2,7 +2,8 @@
 public class CashRegister {
     private RetailItem retailItem;
     private int quantity;
-    private static final double TAX_RATE = 0.06;
+//    private static final double TAX_RATE = 0.06;
+    private double TAX_RATE = 0.06;
 
     public CashRegister(RetailItem item, int quantity) {
         this.retailItem = item;

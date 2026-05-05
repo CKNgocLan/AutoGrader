@@ -105,4 +105,18 @@ public class FieldName {
 	public static final String USERS = "users";
 	public static final String BOOKS = "books";
 	public static final String BORROWING_RECORDS = "borrowingRecords";
+	
+	/*
+	 * RetailItem
+	 */
+	public static final String DESCRIPTION = "description";
+	public static final String UNITS_ON_HAND = "unitsOnHand";
+	
+	/*
+	 * CashRegister
+	 */
+	public static final String RETAIL_ITEM = "retailItem";
+	public static final String QUANTITY = "quantity";
+	public static final String UPPERCASE_TAX_RATE = "TAX_RATE";
+	
 }

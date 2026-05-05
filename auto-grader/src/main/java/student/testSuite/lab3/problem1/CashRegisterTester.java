@@ -18,7 +18,7 @@ public class CashRegisterTester extends BaseTester{
 	@Override
 	public BaseTester getInstance() throws ClassNotFoundException, TesterGotNoClassNameException {
 		if (instance == null) {
-			instance = new RetailItemTester();
+			instance = new CashRegisterTester();
 		}
 
 		return instance;

@@ -38,7 +38,7 @@ public class LabTestSuite1 extends ALabTestSuite {
 					
 					// full-agrs constructor
 					, classTest.checkFullArgsConstructorDeclaration(5, ClassName.EMPLOYEE,
-							ParameterTestingUtils.toArray(String.class, int.class, String.class, String.class))
+							ParameterTestingUtils.mapFromTypes(String.class, int.class, String.class, String.class))
 					, classTest.checkFullArgsConstructorOperation(5, ClassName.EMPLOYEE
 							, new ParameterTesting(FieldName.NAME, String.class, "Susan Meyers")
 							, new ParameterTesting(FieldName.ID_NUMBER, int.class, 47899)
@@ -60,7 +60,7 @@ public class LabTestSuite1 extends ALabTestSuite {
 					
 					// partial-args constructor
 					, classTest.checkPartialArgsConstructorDeclaration(5, ClassName.EMPLOYEE
-							, ParameterTestingUtils.toArray(String.class, int.class))
+							, ParameterTestingUtils.mapFromTypes(String.class, int.class))
 					, classTest.checkPartialArgsConstructorOperation(5, ClassName.EMPLOYEE
 							, new ParameterTesting(FieldName.NAME, String.class, "Susan Meyers")
 							, new ParameterTesting(FieldName.ID_NUMBER, int.class, 47899)
