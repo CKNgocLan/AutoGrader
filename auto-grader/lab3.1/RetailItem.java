@@ -32,4 +32,9 @@ public class RetailItem {
     public void setPrice(double price) {
         this.price = price;
     }
+    
+    @Override
+    public String toString() {
+    	return "Description: %s - Units On Hand: %s - Price: %s".formatted(description, unitsOnHand, price);
+    }
 }

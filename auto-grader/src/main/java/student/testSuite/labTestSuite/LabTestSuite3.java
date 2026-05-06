@@ -23,23 +23,11 @@ public class LabTestSuite3 extends ALabTestSuite {
 				RetailItemTester retailItemTester = new RetailItemTester();
 				CashRegisterTester cashRegisterTester = new CashRegisterTester(retailItemTester);
 				
-				String description = "DESCRIPTION";
-				int unitsOnHand = 15;
-				double price = 25.9;
+				ParameterTesting[] retailItemArgs = retailItemTester
+						.createArgs("DESCRIPTION", 15, 25.9);
 				
-				ParameterTesting[] retailItemArgs = {
-						new ParameterTesting(FieldName.DESCRIPTION, String.class, description)
-						, new ParameterTesting(FieldName.UNITS_ON_HAND, int.class, unitsOnHand)
-						, new ParameterTesting(FieldName.PRICE, double.class, price)
-				};
-				
-				int quantity = 3;
-				
-				ParameterTesting[] cashRegisterArgs = {
-						new ParameterTesting(FieldName.RETAIL_ITEM, retailItemTester.getCorrespondingClass(),
-								retailItemTester.instantiateWithAgrs(retailItemArgs)),
-						new ParameterTesting(FieldName.QUANTITY, int.class, quantity)
-				};
+				ParameterTesting[] cashRegisterArgs = cashRegisterTester
+						.createArgs(retailItemTester.instantiateWithArgs(retailItemArgs), 3);
 
 				return Arrays.asList(
 						// retail item
@@ -57,6 +45,8 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, cashRegisterTester.checkConstructorOperation(defaultPoints, cashRegisterArgs)
 						, cashRegisterTester.checkGetterDeclaration(defaultPoints)
 						, cashRegisterTester.checkSetterDeclaration(defaultPoints)
+						, cashRegisterTester.declareGetSubtotal(defaultPoints)
+						, cashRegisterTester.operateGetSubtotal(defaultPoints, 77.7, cashRegisterArgs)
 						);
 			case Question.Q2:
 				return Arrays.asList();

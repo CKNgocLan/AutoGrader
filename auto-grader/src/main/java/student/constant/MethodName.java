@@ -42,4 +42,8 @@ public class MethodName {
 	public static final String SHOW_ALL_USERS = "showAllUsers";
 	public static final String SHOW_ALL_BOOKS = "showAllBooks";
 	public static final String SHOW_ALL_BORROWING_RECORDS = "showAllBorrowingRecords";
+	
+	public static final String GET_SUBTOTAL = "getSubtotal";
+	public static final String GET_TAX = "getTax";
+	public static final String GET_TOTAL = "getTotal";
 }

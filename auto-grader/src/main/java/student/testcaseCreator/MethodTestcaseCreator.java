@@ -239,7 +239,7 @@ public class MethodTestcaseCreator {
 	}
 
 	/*
-	 * ***************************************************************************
+	 * existence ***************
 	 */
 
 	public ITestCase checkExistence(int points, String className, Method method) {
@@ -273,6 +273,45 @@ public class MethodTestcaseCreator {
 			@Override
 			public String getFeedback() {
 				return Feedback.METHOD_DECLARED_NOT_CORRECT.getContent(className, method.getName());
+			}
+		};
+	}
+
+	/*
+	 * operate ***************
+	 */
+
+	public ITestCase checkOperationAsNumberic(int points, Object expected, MethodTesting method) {
+		return new ITestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_EXISTENCE.getName(method.getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return method.returnNumbericAbs(expected) < Constants.ERROR_BOUND;
+				} catch (NoSuchMethodException e) {
+					return false;
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.getMessage());
+					return false;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_DECLARED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
 			}
 		};
 	}

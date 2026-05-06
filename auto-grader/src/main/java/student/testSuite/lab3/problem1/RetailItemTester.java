@@ -18,6 +18,17 @@ public class RetailItemTester extends BaseTester {
 		super.className = ClassName.RETAIL_ITEM;
 		super.getCorrespondingClass();
 	}
+	
+	/*
+	 * argument
+	 */
+	
+	public ParameterTesting[] createArgs(String description, int unitsOnHand, double price) {
+		return new ParameterTesting[] {
+				new ParameterTesting(FieldName.DESCRIPTION, String.class, description),
+				new ParameterTesting(FieldName.UNITS_ON_HAND, int.class, unitsOnHand),
+				new ParameterTesting(FieldName.PRICE, double.class, price) };
+	}
 
 	/*
 	 * field ***************

@@ -19,4 +19,6 @@ public class Constants {
 	public static final char UNDERSCORE_CHAR = '_';
 	
 	public static final String EMPTY = "";
+	
+	public static final double ERROR_BOUND = Math.pow(10, -3);
 }

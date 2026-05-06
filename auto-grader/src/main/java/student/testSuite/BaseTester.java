@@ -22,10 +22,10 @@ import student.util.StringUtils;
 
 public abstract class BaseTester {
 	protected String className;
+	protected ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
+	protected FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
+	protected MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private Class<?> clazz;
-	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
-	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
-	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 
 	/*
 	 * class ***************
@@ -54,7 +54,7 @@ public abstract class BaseTester {
 		return getCorrespondingClass().getDeclaredConstructor().newInstance();
 	}
 
-	public Object instantiateWithAgrs(ParameterTesting... args)
+	public Object instantiateWithArgs(ParameterTesting... args)
 			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
 		return getCorrespondingClass().getDeclaredConstructor(ParameterTestingUtils.mapToType(args))
@@ -138,7 +138,7 @@ public abstract class BaseTester {
 			public boolean runTest() {
 				try {
 					method.setClazz(getCorrespondingClass());
-					method.setInstance(instantiate());
+					method.setInstance(instantiateWithArgs(args));
 
 					// Prepare test data
 					String actual = method.invokeToString();

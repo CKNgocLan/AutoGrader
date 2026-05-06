@@ -49,6 +49,10 @@ public class MethodTesting extends Method {
 	public void setInstance(Object instance) {
 		this.instance = instance;
 	}
+	
+	public String getCorrespondingClassName() {
+		return this.clazz.getSimpleName();
+	}
 
 	public Object invokeSetter() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
 			IllegalAccessException, InvocationTargetException {
@@ -88,6 +92,12 @@ public class MethodTesting extends Method {
 		isConfigured();
 
 		return clazz.getDeclaredMethod(super.getName()).invoke(instance);
+	}
+	
+	public Double returnNumbericAbs(Object expected) throws NumberFormatException, NoSuchMethodException,
+			SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
+		return Math.abs(Double.valueOf(String.valueOf(boxingReturnedType().cast(returning())))
+				- Double.valueOf(String.valueOf(expected)));
 	}
 
 	public boolean assertExpectedValue(Object expected) throws NoSuchMethodException, SecurityException,
