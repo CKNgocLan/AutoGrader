@@ -23,12 +23,19 @@ public class LabTestSuite3 extends ALabTestSuite {
 				RetailItemTester retailItemTester = new RetailItemTester();
 				CashRegisterTester cashRegisterTester = new CashRegisterTester(retailItemTester);
 				
+				double price = 25.9;
 				ParameterTesting[] retailItemArgs = retailItemTester
-						.createArgs("DESCRIPTION", 15, 25.9);
+						.createArgs("DESCRIPTION", 15, price);
 				
+				int quantity = 3;
 				ParameterTesting[] cashRegisterArgs = cashRegisterTester
-						.createArgs(retailItemTester.instantiateWithArgs(retailItemArgs), 3);
+						.createArgs(retailItemTester.instantiateWithArgs(retailItemArgs), quantity);
 
+				double tax_rate = 0.06;
+				
+				double subtotal = price * quantity;
+				double totalTax = subtotal * tax_rate;
+				double total = subtotal + totalTax;
 				return Arrays.asList(
 						// retail item
 						retailItemTester.checkExistence(defaultPoints)
@@ -46,7 +53,11 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, cashRegisterTester.checkGetterDeclaration(defaultPoints)
 						, cashRegisterTester.checkSetterDeclaration(defaultPoints)
 						, cashRegisterTester.declareGetSubtotal(defaultPoints)
-						, cashRegisterTester.operateGetSubtotal(defaultPoints, 77.7, cashRegisterArgs)
+						, cashRegisterTester.operateGetSubtotal(defaultPoints, subtotal, cashRegisterArgs)
+						, cashRegisterTester.declareGetTax(defaultPoints)
+						, cashRegisterTester.operateGetTax(defaultPoints, totalTax, cashRegisterArgs)
+						, cashRegisterTester.declareGetTotal(defaultPoints)
+						, cashRegisterTester.operateGetTotal(defaultPoints, total, cashRegisterArgs)
 						);
 			case Question.Q2:
 				return Arrays.asList();

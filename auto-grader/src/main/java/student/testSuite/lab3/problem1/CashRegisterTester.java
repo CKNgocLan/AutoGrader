@@ -78,4 +78,36 @@ public class CashRegisterTester extends BaseTester {
 				new MethodTesting(double.class, MethodName.GET_SUBTOTAL)
 						.config(getCorrespondingClass(), instantiateWithArgs(args)));
 	}
+	
+	/*
+	 * getTax
+	 */
+	
+	public ITestCase declareGetTax(int points) {
+		return super.methodTester.checkExistence(points, className, new Method(double.class, MethodName.GET_TAX));
+	}
+	
+	public ITestCase operateGetTax(int points, double expected, ParameterTesting[] args) throws ClassNotFoundException,
+			TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException {
+		return super.methodTester.checkOperationAsNumberic(points, expected,
+				new MethodTesting(double.class, MethodName.GET_TAX).config(getCorrespondingClass(),
+						instantiateWithArgs(args)));
+	}
+	
+	/*
+	 * getTotal
+	 */
+	
+	public ITestCase declareGetTotal(int points) {
+		return super.methodTester.checkExistence(points, className, new Method(double.class, MethodName.GET_TOTAL));
+	}
+	
+	public ITestCase operateGetTotal(int points, double expected, ParameterTesting[] args) throws ClassNotFoundException,
+			TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException, NoSuchMethodException, SecurityException {
+		return super.methodTester.checkOperationAsNumberic(points, expected,
+				new MethodTesting(double.class, MethodName.GET_TOTAL).config(getCorrespondingClass(),
+						instantiateWithArgs(args)));
+	}
 }
