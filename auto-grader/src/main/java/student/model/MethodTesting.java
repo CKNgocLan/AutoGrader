@@ -7,31 +7,28 @@ import student.constant.ExceptionMessage;
 import student.constant.MethodName;
 import student.constant.PropertyName;
 import student.exception.InvalidConfigurationException;
+import student.util.NumbericUtils;
+import student.util.ParameterTestingUtils;
 
 public class MethodTesting extends Method {
-	private Object testingValue;
+	private Object expectedValue;
 	private Object returnedValue;
 	private Class<?> clazz;
 	private Object instance;
+	private boolean isStatic;
+	private boolean isFinal;
+	private boolean isPublic;
 
 	public MethodTesting(Class<?> returnedType, String name) {
 		super(returnedType, name);
 	}
 
-	public MethodTesting(Class<?> returnedType, String name, Parameter... parameters) {
+	public MethodTesting(Class<?> returnedType, String name, ParameterTesting... parameters) {
 		super(Modifier.PUBLIC, returnedType, name, parameters);
 	}
 
-	public MethodTesting(int modifier, Class<?> returnedType, String name, Parameter... parameters) {
+	public MethodTesting(int modifier, Class<?> returnedType, String name, ParameterTesting... parameters) {
 		super(modifier, returnedType, name, parameters);
-	}
-
-	public Object getTestingValue() {
-		return testingValue;
-	}
-
-	public void setTestingValue(Object testingValue) {
-		this.testingValue = testingValue;
 	}
 
 	public Object getReturnedValue() {
@@ -52,6 +49,42 @@ public class MethodTesting extends Method {
 	
 	public String getCorrespondingClassName() {
 		return this.clazz.getSimpleName();
+	}
+	
+	public MethodTesting expectedValue(Object expectedValue) {
+		this.expectedValue = expectedValue;
+		return this;
+	}
+	
+	public Object getExpectedValue() {
+		return this.expectedValue;
+	}
+	
+	public MethodTesting asStatic() {
+		this.isStatic = true;
+		return this;
+	}
+	
+	public boolean isStatic() {
+		return this.isStatic;
+	}
+	
+	public MethodTesting asFinal() {
+		this.isFinal = true;
+		return this;
+	}
+	
+	public boolean isFinal() {
+		return this.isFinal;
+	}
+	
+	public MethodTesting asPublic() {
+		this.isPublic = true;
+		return this;
+	}
+	
+	public boolean isPublic() {
+		return this.isPublic;
 	}
 
 	public Object invokeSetter() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
@@ -91,13 +124,13 @@ public class MethodTesting extends Method {
 			IllegalAccessException, InvocationTargetException {
 		isConfigured();
 
-		return clazz.getDeclaredMethod(super.getName()).invoke(instance);
+		return clazz.getDeclaredMethod(super.getName(), getParameterTypes()).invoke(instance);
 	}
 	
-	public Double returnNumbericAbs(Object expected) throws NumberFormatException, NoSuchMethodException,
+	public Double returnNumbericAbs() throws NumberFormatException, NoSuchMethodException,
 			SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
-		return Math.abs(Double.valueOf(String.valueOf(boxingReturnedType().cast(returning())))
-				- Double.valueOf(String.valueOf(expected)));
+		return Math.abs(NumbericUtils.toDouble(boxingReturnedType().cast(returning())))
+				- NumbericUtils.toDouble(expectedValue);
 	}
 
 	public boolean assertExpectedValue(Object expected) throws NoSuchMethodException, SecurityException,

@@ -1,9 +1,12 @@
 package student.checker;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.List;
 
 import student.model.Getter;
+import student.model.MethodTesting;
 import student.model.Setter;
 import student.util.GetterUtils;
 import student.util.SetterUtils;
@@ -34,8 +37,7 @@ public class MethodChecker {
 	}
 
 	/*
-	 * STRING OPERATION
-	 * ***************************************************************************
+	 * STRING OPERATION ***************
 	 */
 
 	public boolean checkStringGetset(Class<?> clazz, String fieldName, String testValue) throws InstantiationException,
@@ -48,8 +50,7 @@ public class MethodChecker {
 	}
 
 	/*
-	 * BYTE OPERATION
-	 * ***************************************************************************
+	 * BYTE OPERATION ***************
 	 */
 
 	public boolean checkBytetGetset(Class<?> clazz, String fieldName, Byte testValue) throws InstantiationException,
@@ -69,8 +70,7 @@ public class MethodChecker {
 	}
 
 	/*
-	 * SHORT OPERATION
-	 * ***************************************************************************
+	 * SHORT OPERATION ***************
 	 */
 
 	public boolean checkShortGetset(Class<?> clazz, String fieldName, Short testValue) throws IllegalAccessException,
@@ -90,8 +90,7 @@ public class MethodChecker {
 	}
 
 	/*
-	 * INTEGER OPERATION
-	 * ***************************************************************************
+	 * INTEGER OPERATION ***************
 	 */
 
 	public boolean checkIntegerGetset(Class<?> clazz, String fieldName, Integer testValue)
@@ -112,8 +111,7 @@ public class MethodChecker {
 	}
 
 	/*
-	 * LONG OPERATION
-	 * ***************************************************************************
+	 * LONG OPERATION ***************
 	 */
 
 	public boolean checkLongGetset(Class<?> clazz, String fieldName, Long testValue) throws InstantiationException,
@@ -133,8 +131,7 @@ public class MethodChecker {
 	}
 
 	/*
-	 * FLOAT OPERATION
-	 * ***************************************************************************
+	 * FLOAT OPERATION ***************
 	 */
 
 	public boolean checkFloatGetset(Class<?> clazz, String fieldName, Float testValue)
@@ -156,8 +153,7 @@ public class MethodChecker {
 	}
 
 	/*
-	 * DOUBLE OPERATION
-	 * ***************************************************************************
+	 * DOUBLE OPERATION ***************
 	 */
 
 	public boolean checkDoubleGetset(Class<?> clazz, String fieldName, Double testValue)
@@ -176,5 +172,19 @@ public class MethodChecker {
 		return testValue == Double
 				.valueOf(clazz.getDeclaredMethod(GetterUtils.getGetterName(fieldName)).invoke(instance).toString())
 				.doubleValue();
+	}
+	
+	/*
+	 * DECLARATION ***************
+	 */
+
+	public boolean isMethodDeclared(Class<?> clazz, MethodTesting method) throws NoSuchMethodException, SecurityException {
+		return method.equals(clazz.getDeclaredMethod(method.getName(), method.getParameterTypes()));
+	}
+	
+	public boolean isMethodDeclaredAsStatic(Class<?> clazz, MethodTesting method) throws NoSuchMethodException, SecurityException {
+		Method reflectMethod = clazz.getDeclaredMethod(method.getName(), method.getParameterTypes());
+		return method.equalsButModifiers(reflectMethod)
+				&& (method.isStatic() && Modifier.isStatic(reflectMethod.getModifiers()));
 	}
 }

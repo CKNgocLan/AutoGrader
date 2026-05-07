@@ -76,8 +76,11 @@ public class Method {
 	}
 	
 	public boolean equals(java.lang.reflect.Method reflectMethod) {
-		return reflectMethod.getModifiers() == this.modifier
-				&& reflectMethod.getName().equals(this.name)
+		return reflectMethod.getModifiers() == this.modifier && equals(reflectMethod);
+	}
+	
+	public boolean equalsButModifiers(java.lang.reflect.Method reflectMethod) {
+		return reflectMethod.getName().equals(this.name)
 				&& reflectMethod.getReturnType().equals(this.returnedType)
 				&& Arrays.equals(this.getParameterTypes(), MethodUtils.getParameterTypes(reflectMethod))
 				;

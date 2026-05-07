@@ -40,7 +40,11 @@ public class StringUtils {
 		return true;
 	}
 	
-	public static boolean isNullOrEmpty(String value) {
-		return value == null || value.isEmpty();
+	public static boolean isNullOrEmpty(Object value) {
+		return value == null || String.valueOf(value).isEmpty();
+	}
+	
+	public static String toString(Object value) {
+		return isNullOrEmpty(value) ? Constants.EMPTY_STRING : String.valueOf(value);
 	}
 }

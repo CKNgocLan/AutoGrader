@@ -31,9 +31,9 @@ public class LabTestSuite1 extends ALabTestSuite {
 					
 					// no-agrs constructor
 					, classTest.checkNoArgConstructorDeclaration(5, ClassName.EMPLOYEE)
-					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new ParameterTesting(FieldName.NAME, String.class, Constants.EMPTY))
-					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new ParameterTesting(FieldName.DEPARTMENT, String.class, Constants.EMPTY))
-					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new ParameterTesting(FieldName.POSITION, String.class, Constants.EMPTY))
+					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new ParameterTesting(FieldName.NAME, String.class, Constants.EMPTY_STRING))
+					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new ParameterTesting(FieldName.DEPARTMENT, String.class, Constants.EMPTY_STRING))
+					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new ParameterTesting(FieldName.POSITION, String.class, Constants.EMPTY_STRING))
 					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new ParameterTesting(FieldName.ID_NUMBER, int.class, (int) 0))
 					
 					// full-agrs constructor

@@ -3,6 +3,7 @@ package student.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.stream.Stream;
 
+import student.model.Parameter;
 import student.model.ParameterTesting;
 
 public class ParameterTestingUtils {
@@ -18,7 +19,7 @@ public class ParameterTestingUtils {
 		return castValue != null ? castValue.equals(paramTest.getTestingValue()) : paramTest.getTestingValue() == null;
 	}
 	
-	public static Class<?>[] mapToType(ParameterTesting...parameterTestings) {
+	public static Class<?>[] mapToType(Parameter...parameterTestings) {
 		return Stream.of(parameterTestings).map(param -> param.getType()).toArray(Class<?>[]::new);
 	}
 	

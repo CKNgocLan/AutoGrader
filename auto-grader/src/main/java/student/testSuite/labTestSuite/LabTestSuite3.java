@@ -10,6 +10,7 @@ import student.model.ITestCase;
 import student.model.ParameterTesting;
 import student.testSuite.lab3.problem1.CashRegisterTester;
 import student.testSuite.lab3.problem1.RetailItemTester;
+import student.testSuite.lab3.problem2.ShapeClassTester;
 
 public class LabTestSuite3 extends ALabTestSuite {
 
@@ -20,47 +21,67 @@ public class LabTestSuite3 extends ALabTestSuite {
 
 			switch (question) {
 			case Question.Q1:
-				RetailItemTester retailItemTester = new RetailItemTester();
-				CashRegisterTester cashRegisterTester = new CashRegisterTester(retailItemTester);
-				
-				double price = 25.9;
-				ParameterTesting[] retailItemArgs = retailItemTester
-						.createArgs("DESCRIPTION", 15, price);
-				
-				int quantity = 3;
-				ParameterTesting[] cashRegisterArgs = cashRegisterTester
-						.createArgs(retailItemTester.instantiateWithArgs(retailItemArgs), quantity);
+				{
+					RetailItemTester retailItemTester = new RetailItemTester();
+					CashRegisterTester cashRegisterTester = new CashRegisterTester(retailItemTester);
+					
+					double price = 25.9;
+					ParameterTesting[] retailItemArgs = retailItemTester
+							.createArgs("DESCRIPTION", 15, price);
+					
+					int quantity = 3;
+					ParameterTesting[] cashRegisterArgs = cashRegisterTester
+							.createArgs(retailItemTester.instantiateWithArgs(retailItemArgs), quantity);
 
-				double tax_rate = 0.06;
-				
-				double subtotal = price * quantity;
-				double totalTax = subtotal * tax_rate;
-				double total = subtotal + totalTax;
-				return Arrays.asList(
-						// retail item
-						retailItemTester.checkExistence(defaultPoints)
-						, retailItemTester.checkFields(defaultPoints)
-						, retailItemTester.checkConstructorDeclaration(defaultPoints)
-						, retailItemTester.checkConstructorOperation(defaultPoints, retailItemArgs)
-						, retailItemTester.checkGetterDeclaration(defaultPoints)
-						, retailItemTester.checkSetterDeclaration(defaultPoints)
+					double tax_rate = 0.06;
+					
+					double subtotal = price * quantity;
+					double totalTax = subtotal * tax_rate;
+					double total = subtotal + totalTax;
 
-						// cash register
-						, cashRegisterTester.checkExistence(defaultPoints)
-						, cashRegisterTester.checkFields(defaultPoints)
-						, cashRegisterTester.checkConstructorDeclaration(defaultPoints)
-						, cashRegisterTester.checkConstructorOperation(defaultPoints, cashRegisterArgs)
-						, cashRegisterTester.checkGetterDeclaration(defaultPoints)
-						, cashRegisterTester.checkSetterDeclaration(defaultPoints)
-						, cashRegisterTester.declareGetSubtotal(defaultPoints)
-						, cashRegisterTester.operateGetSubtotal(defaultPoints, subtotal, cashRegisterArgs)
-						, cashRegisterTester.declareGetTax(defaultPoints)
-						, cashRegisterTester.operateGetTax(defaultPoints, totalTax, cashRegisterArgs)
-						, cashRegisterTester.declareGetTotal(defaultPoints)
-						, cashRegisterTester.operateGetTotal(defaultPoints, total, cashRegisterArgs)
-						);
+					return Arrays.asList(
+							// retail item
+							retailItemTester.checkExistence(defaultPoints)
+							, retailItemTester.checkFields(defaultPoints)
+							, retailItemTester.checkConstructorDeclaration(defaultPoints)
+							, retailItemTester.checkConstructorOperation(defaultPoints, retailItemArgs)
+							, retailItemTester.checkGetterDeclaration(defaultPoints)
+							, retailItemTester.checkSetterDeclaration(defaultPoints)
+
+							// cash register
+							, cashRegisterTester.checkExistence(defaultPoints)
+							, cashRegisterTester.checkFields(defaultPoints)
+							, cashRegisterTester.checkConstructorDeclaration(defaultPoints)
+							, cashRegisterTester.checkConstructorOperation(defaultPoints, cashRegisterArgs)
+							, cashRegisterTester.checkGetterDeclaration(defaultPoints)
+							, cashRegisterTester.checkSetterDeclaration(defaultPoints)
+							, cashRegisterTester.declareGetSubtotal(defaultPoints)
+							, cashRegisterTester.operateGetSubtotal(defaultPoints, subtotal, cashRegisterArgs)
+							, cashRegisterTester.declareGetTax(defaultPoints)
+							, cashRegisterTester.operateGetTax(defaultPoints, totalTax, cashRegisterArgs)
+							, cashRegisterTester.declareGetTotal(defaultPoints)
+							, cashRegisterTester.operateGetTotal(defaultPoints, total, cashRegisterArgs)
+							);
+				}
 			case Question.Q2:
-				return Arrays.asList();
+				{
+					ShapeClassTester shapeClassTester = new ShapeClassTester();
+					double radius = 5;
+					long width = 5;
+					long length = 5;
+					double height = 9;
+
+					return Arrays.asList(
+//							shapeClassTester.checkExistence(defaultPoints)
+//							, shapeClassTester.declareAreaCircle(defaultPoints)
+//							, 
+							shapeClassTester.operateAreaCircle(defaultPoints, radius, Math.PI * Math.pow(radius, 2))
+//							, shapeClassTester.declareAreaRectangle(defaultPoints)
+//							, shapeClassTester.operateAreaRectangle(defaultPoints, width, length, width * length)
+//							, shapeClassTester.declareAreaCylinder(defaultPoints)
+//							, shapeClassTester.operateAreaCylinder(defaultPoints, radius, height, Math.PI * Math.pow(radius, 2) * height)
+							);
+				}
 			case Question.Q3:
 
 				return Arrays.asList();

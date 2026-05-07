@@ -37,4 +37,5 @@ public class ClassName {
 	/* problem 1 */
 	public static final String RETAIL_ITEM = "RetailItem";
 	public static final String CASH_REGISTER = "CashRegister";
+	public static final String SHAPE = "Shape";
 }

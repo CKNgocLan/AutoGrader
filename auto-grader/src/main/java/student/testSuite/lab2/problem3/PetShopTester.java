@@ -113,7 +113,7 @@ public class PetShopTester {
 
 	public ITestCase checkAddCustomerDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className,
-				new Method(ClassLoader.retrieveClass(ClassName.CUSTOMER), MethodName.ADD_CUSTOMER,
+				new MethodTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER), MethodName.ADD_CUSTOMER,
 						new Parameter(FieldName.CUSTOMERS, ClassLoader.retrieveClass(ClassName.CUSTOMER))));
 	}
 
@@ -158,7 +158,7 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkShowAllCustomersDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new Method(void.class, MethodName.SHOW_ALL_CUSTOMERS));
+		return methodTester.checkExistence(points, className, new MethodTesting(void.class, MethodName.SHOW_ALL_CUSTOMERS));
 	}
 
 	public ITestCase checkShowAllCustomersOperation(int points) {
@@ -221,7 +221,7 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkAddPetDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new Method(void.class,
+		return methodTester.checkExistence(points, className, new MethodTesting(void.class,
 				MethodName.ADD_PET, new Parameter(FieldName.PETS, PetTester.getCorrespondingClass())));
 	}
 
@@ -268,7 +268,7 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkShowAllPetsDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new Method(void.class, MethodName.SHOW_ALL_PETS));
+		return methodTester.checkExistence(points, className, new MethodTesting(void.class, MethodName.SHOW_ALL_PETS));
 	}
 
 	public ITestCase checkShowAllPetsOperation(int points) throws ClassNotFoundException {
@@ -328,12 +328,12 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkAddServiceEstimateDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new Method(void.class, MethodName.ADD_SERVICE_ESTIMATE,
+		return methodTester.checkExistence(points, className, new MethodTesting(void.class, MethodName.ADD_SERVICE_ESTIMATE,
 				new Parameter(FieldName.SERVICE_ESTIMATES, ServiceEstimateTester.getCorrespondingClass())));
 	}
 
 	public ITestCase checkAddServiceEstimateOperation(int points) throws ClassNotFoundException {
-		Method method = new Method(void.class, MethodName.ADD_SERVICE_ESTIMATE,
+		Method method = new MethodTesting(void.class, MethodName.ADD_SERVICE_ESTIMATE,
 				new Parameter(FieldName.SERVICE_ESTIMATE, ServiceEstimateTester.getCorrespondingClass()));
 
 		return new ITestCase() {
@@ -373,7 +373,7 @@ public class PetShopTester {
 
 	public ITestCase checkShowAllServiceEstimatesDeclaration(int points) {
 		return methodTester.checkExistence(points, className,
-				new Method(void.class, MethodName.SHOW_ALL_SERVICE_ESTIMATES));
+				new MethodTesting(void.class, MethodName.SHOW_ALL_SERVICE_ESTIMATES));
 	}
 
 	public ITestCase checkShowAllServiceEstimatesOperation(int points) throws ClassNotFoundException {

@@ -7,20 +7,18 @@ import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.FieldTesting;
 import student.model.ITestCase;
-import student.model.Method;
 import student.model.MethodTesting;
 import student.model.ParameterTesting;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
-import student.util.MethodUtils;
 import student.util.ParameterTestingUtils;
 
 public class CarTester {
 	private static CarTester instance = null;
 	private ClassTestcaseCreator classTest = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
-	private MethodTestcaseCreator methodTest = MethodTestcaseCreator.getInstance();
+	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 	private String className = ClassName.CAR;
 
@@ -49,8 +47,10 @@ public class CarTester {
 	 */
 
 	public ITestCase checkFields(int points) {
-		return fieldTester.checkDeclarations(points, className, new FieldTesting(int.class, FieldName.YEAR_MODEL),
-				new FieldTesting(String.class, FieldName.MAKE), new FieldTesting(int.class, FieldName.SPEED));
+		return fieldTester.checkDeclarations(points, className,
+				new FieldTesting(int.class, FieldName.YEAR_MODEL),
+				new FieldTesting(String.class, FieldName.MAKE), new FieldTesting(int.class, FieldName.SPEED)
+				);
 	}
 
 	/*
@@ -70,12 +70,12 @@ public class CarTester {
 	 */
 
 	public ITestCase checkAccelerateDeclaration(int points) {
-		return methodTest.checkExistence(points, ClassName.CAR, new Method(int.class, MethodName.ACCELERATE));
+		return methodTester.checkExistence(points, ClassName.CAR, new MethodTesting(int.class, MethodName.ACCELERATE));
 	}
 
 	public ITestCase checkAccelerateOperation(int points) {
-		MethodTesting methodTesting = new MethodTesting(int.class, MethodName.ACCELERATE);
-		methodTesting.setTestingValue(5);
+		MethodTesting methodTesting = new MethodTesting(int.class, MethodName.ACCELERATE).expectedValue(5);
+
 		return new ITestCase() {
 
 			@Override
@@ -93,7 +93,7 @@ public class CarTester {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
-					if (!MethodUtils.isMethodDeclared(clazz, methodTesting)) {
+					if (!methodTester.getMethodChecker().isMethodDeclared(clazz, methodTesting)) {
 						return false;
 					}
 
@@ -102,7 +102,7 @@ public class CarTester {
 					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
 
 					return ParameterTestingUtils.compareTestingValue(clazz, instance, new ParameterTesting(
-							FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getTestingValue()));
+							FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getExpectedValue()));
 				} catch (NoSuchMethodException e) {
 					return false;
 				} catch (IllegalArgumentException e) {
@@ -126,12 +126,11 @@ public class CarTester {
 	 */
 
 	public ITestCase checkBrakeDeclaration(int points) {
-		return methodTest.checkExistence(points, ClassName.CAR, new Method(int.class, MethodName.BRAKE));
+		return methodTester.checkExistence(points, ClassName.CAR, new MethodTesting(int.class, MethodName.BRAKE));
 	}
 
 	public ITestCase checkBrakeOperation(int points) {
-		MethodTesting methodTesting = new MethodTesting(int.class, MethodName.BRAKE);
-		methodTesting.setTestingValue(0);
+		MethodTesting methodTesting = new MethodTesting(int.class, MethodName.BRAKE).expectedValue(0);
 
 		return new ITestCase() {
 
@@ -150,7 +149,7 @@ public class CarTester {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
-					if (!MethodUtils.isMethodDeclared(clazz, methodTesting)) {
+					if (!methodTester.getMethodChecker().isMethodDeclared(clazz, methodTesting)) {
 						return false;
 					}
 
@@ -161,7 +160,7 @@ public class CarTester {
 					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
 
 					return ParameterTestingUtils.compareTestingValue(clazz, instance, new ParameterTesting(
-							FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getTestingValue()));
+							FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getExpectedValue()));
 				} catch (NoSuchMethodException e) {
 					return false;
 				} catch (IllegalArgumentException e) {

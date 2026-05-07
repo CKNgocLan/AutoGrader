@@ -1,7 +1,6 @@
 package student.testcaseCreator;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import student.model.ITestCase;
 import student.model.Method;
 import student.model.MethodTesting;
 import student.model.Setter;
-import student.util.MethodUtils;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
@@ -22,8 +20,8 @@ import student.util.MethodUtils;
  */
 public class MethodTestcaseCreator {
 	private static MethodTestcaseCreator instance = null;
-	private MethodChecker methodChecker = MethodChecker.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
+	private MethodChecker methodChecker = MethodChecker.getInstance();
 
 	/*
 	 * ***************************************************************************
@@ -35,6 +33,10 @@ public class MethodTestcaseCreator {
 		}
 
 		return instance;
+	}
+	
+	public MethodChecker getMethodChecker() {
+		return this.methodChecker;
 	}
 
 	/*
@@ -242,7 +244,7 @@ public class MethodTestcaseCreator {
 	 * existence ***************
 	 */
 
-	public ITestCase checkExistence(int points, String className, Method method) {
+	public ITestCase checkExistence(int points, String className, MethodTesting method) {
 		return new ITestCase() {
 
 			@Override
@@ -258,15 +260,20 @@ public class MethodTestcaseCreator {
 			@Override
 			public boolean runTest() {
 				try {
-					return MethodUtils.isMethodDeclared(Class.forName(className, true, targetClassesLoader), method);
-				} catch (NoSuchMethodException e) {
-					return false;
-				} catch (IllegalArgumentException e) {
+					if (method.isStatic()) {
+						return methodChecker.isMethodDeclaredAsStatic(Class.forName(className, true, targetClassesLoader), method);
+					}
+					
+					return methodChecker.isMethodDeclared(Class.forName(className, true, targetClassesLoader), method);
+				} catch (NoSuchMethodException | IllegalArgumentException e) {
+					System.out.println("NoSuchMethodException | IllegalArgumentException e");
 					System.out.println(e.getMessage());
 					return false;
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
+				} finally {
+					
 				}
 			}
 
@@ -281,7 +288,7 @@ public class MethodTestcaseCreator {
 	 * operate ***************
 	 */
 
-	public ITestCase checkOperationAsNumberic(int points, Object expected, MethodTesting method) {
+	public ITestCase checkOperationAsNumberic(int points, MethodTesting method) {
 		return new ITestCase() {
 
 			@Override
@@ -297,7 +304,7 @@ public class MethodTestcaseCreator {
 			@Override
 			public boolean runTest() {
 				try {
-					return method.returnNumbericAbs(expected) < Constants.ERROR_BOUND;
+					return method.returnNumbericAbs() < Constants.ERROR_BOUND;
 				} catch (NoSuchMethodException e) {
 					return false;
 				} catch (IllegalArgumentException e) {

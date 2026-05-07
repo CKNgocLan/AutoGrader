@@ -12,12 +12,13 @@ import student.model.Parameter;
 import student.model.ParameterTesting;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
-import student.util.MethodUtils;
+import student.testcaseCreator.MethodTestcaseCreator;
 
 public class TemperatureTester {
 	private static TemperatureTester instance = null;
 	private ClassTestcaseCreator classTest = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
+	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 	private String className = ClassName.TEMPERATURE;
 
@@ -85,14 +86,13 @@ public class TemperatureTester {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
 					MethodTesting setFahrenheit = createSetFahrenheit(fahrenheit);
-					if (!MethodUtils.isMethodDeclared(clazz, setFahrenheit)) {
+					if (!methodTester.getMethodChecker().isMethodDeclared(clazz, setFahrenheit)) {
 						invalidMethodName = setFahrenheit.getName();
 						return false;
 					}
 
-					MethodTesting getFahrenheit = new MethodTesting(double.class, MethodName.GET_FAHRENHEIT);
-					getFahrenheit.setTestingValue(fahrenheit);
-					if (!MethodUtils.isMethodDeclared(clazz, getFahrenheit)) {
+					MethodTesting getFahrenheit = new MethodTesting(double.class, MethodName.GET_FAHRENHEIT).expectedValue(fahrenheit);
+					if (!methodTester.getMethodChecker().isMethodDeclared(clazz, getFahrenheit)) {
 						invalidMethodName = getFahrenheit.getName();
 						return false;
 					}
@@ -138,7 +138,7 @@ public class TemperatureTester {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
-					if (!MethodUtils.isMethodDeclared(clazz, testedMethod)) {
+					if (!methodTester.getMethodChecker().isMethodDeclared(clazz, testedMethod)) {
 						return false;
 					}
 
@@ -183,7 +183,7 @@ public class TemperatureTester {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
-					if (!MethodUtils.isMethodDeclared(clazz, testedMethod)) {
+					if (!methodTester.getMethodChecker().isMethodDeclared(clazz, testedMethod)) {
 						return false;
 					}
 
@@ -207,9 +207,8 @@ public class TemperatureTester {
 	}
 
 	private MethodTesting createSetFahrenheit(double fahrenheit) {
-		MethodTesting method = new MethodTesting(void.class, MethodName.SET_FAHRENHEIT, new Parameter(FieldName.FTEMP, double.class, fahrenheit));
-		method.setTestingValue(fahrenheit);
-		
-		return method;
+		return new MethodTesting(void.class, MethodName.SET_FAHRENHEIT,
+				new ParameterTesting(FieldName.FTEMP, double.class, fahrenheit)
+			).expectedValue(fahrenheit);
 	}
 }

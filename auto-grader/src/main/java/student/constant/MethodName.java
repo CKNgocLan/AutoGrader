@@ -46,4 +46,6 @@ public class MethodName {
 	public static final String GET_SUBTOTAL = "getSubtotal";
 	public static final String GET_TAX = "getTax";
 	public static final String GET_TOTAL = "getTotal";
+
+	public static final String AREA = "area";
 }

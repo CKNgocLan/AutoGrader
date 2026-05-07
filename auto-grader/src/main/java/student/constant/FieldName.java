@@ -119,4 +119,12 @@ public class FieldName {
 	public static final String QUANTITY = "quantity";
 	public static final String UPPERCASE_TAX_RATE = "TAX_RATE";
 	
+	/*
+	 * Shape Class
+	 */
+	public static final String RADIUS = "radius";
+	public static final String WIDTH = "width";
+	public static final String LENGTH = "length";
+	public static final String HEIGHT = "height";
+	
 }

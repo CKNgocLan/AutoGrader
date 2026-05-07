@@ -117,7 +117,7 @@ public abstract class BaseTester {
 	 */
 
 	public ITestCase checkToStringDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new Method(String.class, MethodName.TO_STRING));
+		return methodTester.checkExistence(points, className, new MethodTesting(String.class, MethodName.TO_STRING));
 	}
 
 	public ITestCase checkToStringOperation(int points, ParameterTesting... args) throws ClassNotFoundException {

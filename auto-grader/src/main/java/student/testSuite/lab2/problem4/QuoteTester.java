@@ -125,7 +125,7 @@ public class QuoteTester {
 	 */
 
 	public ITestCase checkToStringDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new Method(String.class, MethodName.TO_STRING));
+		return methodTester.checkExistence(points, className, new MethodTesting(String.class, MethodName.TO_STRING));
 	}
 	
 	public ITestCase checkToStringOperation(int points, List<String> ingredient, double laborCharge, double deliveryFee, Object cake) {
@@ -179,7 +179,7 @@ public class QuoteTester {
 
 	public ITestCase checkGetPriceAfterTaxDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className,
-				new Method(double.class, MethodName.GET_PRICE_AFTER_TAX));
+				new MethodTesting(double.class, MethodName.GET_PRICE_AFTER_TAX));
 	}
 
 	public ITestCase checkGetPriceAfterTaxOperation(int points, double laborCharge, double deliveryFee, double priceAfterTax) throws ClassNotFoundException {
