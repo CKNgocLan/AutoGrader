@@ -8,7 +8,6 @@ import student.constant.TestcaseType;
 import student.exception.InvalidConfigurationException;
 import student.model.ITestCase;
 import student.model.MethodTesting;
-import student.model.Parameter;
 import student.model.ParameterTesting;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -208,7 +207,7 @@ public class TemperatureTester {
 
 	private MethodTesting createSetFahrenheit(double fahrenheit) {
 		return new MethodTesting(void.class, MethodName.SET_FAHRENHEIT,
-				new ParameterTesting(FieldName.FTEMP, double.class, fahrenheit)
+				new ParameterTesting(double.class, FieldName.FTEMP, fahrenheit)
 			).expectedValue(fahrenheit);
 	}
 }

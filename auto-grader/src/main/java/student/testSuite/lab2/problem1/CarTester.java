@@ -102,7 +102,7 @@ public class CarTester {
 					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
 
 					return ParameterTestingUtils.compareTestingValue(clazz, instance, new ParameterTesting(
-							FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getExpectedValue()));
+							methodTesting.getReturnedType(), FieldName.SPEED, methodTesting.getExpectedValue()));
 				} catch (NoSuchMethodException e) {
 					return false;
 				} catch (IllegalArgumentException e) {
@@ -160,7 +160,7 @@ public class CarTester {
 					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
 
 					return ParameterTestingUtils.compareTestingValue(clazz, instance, new ParameterTesting(
-							FieldName.SPEED, methodTesting.getReturnedType(), methodTesting.getExpectedValue()));
+							methodTesting.getReturnedType(), FieldName.SPEED, methodTesting.getExpectedValue()));
 				} catch (NoSuchMethodException e) {
 					return false;
 				} catch (IllegalArgumentException e) {

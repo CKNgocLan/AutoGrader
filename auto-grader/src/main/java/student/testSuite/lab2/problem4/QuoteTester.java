@@ -1,7 +1,6 @@
 package student.testSuite.lab2.problem4;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.List;
 
 import student.constant.ClassName;
@@ -9,13 +8,10 @@ import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
-import student.exception.InvalidConfigurationException;
 import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
-import student.model.Method;
 import student.model.MethodTesting;
-import student.model.Parameter;
 import student.model.ParameterTesting;
 import student.testSuite.lab2.CustomerTester;
 import student.testcaseCreator.ClassTestcaseCreator;

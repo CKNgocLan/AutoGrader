@@ -10,7 +10,6 @@ import student.constant.TestcaseType;
 import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
-import student.model.Method;
 import student.model.MethodTesting;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;

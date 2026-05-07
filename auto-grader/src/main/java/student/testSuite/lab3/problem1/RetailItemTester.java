@@ -25,9 +25,9 @@ public class RetailItemTester extends BaseTester {
 	
 	public ParameterTesting[] createArgs(String description, int unitsOnHand, double price) {
 		return new ParameterTesting[] {
-				new ParameterTesting(FieldName.DESCRIPTION, String.class, description),
-				new ParameterTesting(FieldName.UNITS_ON_HAND, int.class, unitsOnHand),
-				new ParameterTesting(FieldName.PRICE, double.class, price) };
+				new ParameterTesting(String.class, FieldName.DESCRIPTION, description),
+				new ParameterTesting(int.class, FieldName.UNITS_ON_HAND, unitsOnHand),
+				new ParameterTesting(double.class, FieldName.PRICE, price) };
 	}
 
 	/*

@@ -10,7 +10,6 @@ import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.Getter;
 import student.model.ITestCase;
-import student.model.Method;
 import student.model.MethodTesting;
 import student.model.Setter;
 
@@ -71,7 +70,7 @@ public class MethodTestcaseCreator {
 			@Override
 			public String getFeedback() {
 				return Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className,
-						String.join(Constants.COMMA, invalid.stream().map(Method::getName).toList()));
+						String.join(Constants.COMMA, invalid.stream().map(MethodTesting::getName).toList()));
 			}
 		};
 	}
@@ -108,7 +107,7 @@ public class MethodTestcaseCreator {
 			@Override
 			public String getFeedback() {
 				return Feedback.SETTER_DECLARED_NOT_CORRECT.getContent(className,
-						String.join(Constants.COMMA, invalid.stream().map(Method::getName).toList()));
+						String.join(Constants.COMMA, invalid.stream().map(MethodTesting::getName).toList()));
 			}
 		};
 	}
@@ -166,7 +165,7 @@ public class MethodTestcaseCreator {
 			public String getFeedback() {
 				return invalidGetter.size() > 0
 						? Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className,
-								String.join(Constants.COMMA, invalidGetter.stream().map(Method::getName).toList()))
+								String.join(Constants.COMMA, invalidGetter.stream().map(MethodTesting::getName).toList()))
 						: Feedback.GETTER_SETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(invalidField);
 			}
 		};

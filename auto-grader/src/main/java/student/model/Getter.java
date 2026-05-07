@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import student.util.GetterUtils;
 
-public class Getter extends Method {
+public class Getter extends MethodTesting {
 	public Getter() {
 		super();
 	}

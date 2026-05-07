@@ -13,9 +13,8 @@ import student.constant.TestcaseType;
 import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
-import student.model.Method;
 import student.model.MethodTesting;
-import student.model.Parameter;
+import student.model.ParameterTesting;
 import student.testSuite.lab2.CustomerTester;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -27,7 +26,6 @@ public class PetShopTester {
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
-	private java.lang.ClassLoader targetClassesLoader = ClassLoader.getInstance();
 	private static String className = ClassName.PET_SHOP;
 	private static Class<?> clazz;
 
@@ -114,7 +112,7 @@ public class PetShopTester {
 	public ITestCase checkAddCustomerDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className,
 				new MethodTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER), MethodName.ADD_CUSTOMER,
-						new Parameter(FieldName.CUSTOMERS, ClassLoader.retrieveClass(ClassName.CUSTOMER))));
+						new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMERS)));
 	}
 
 	public ITestCase checkAddCustomerOperation(int points) throws ClassNotFoundException {
@@ -222,7 +220,7 @@ public class PetShopTester {
 
 	public ITestCase checkAddPetDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className, new MethodTesting(void.class,
-				MethodName.ADD_PET, new Parameter(FieldName.PETS, PetTester.getCorrespondingClass())));
+				MethodName.ADD_PET, new ParameterTesting(PetTester.getCorrespondingClass(), FieldName.PETS)));
 	}
 
 	public ITestCase checkAddPetOperation(int points) throws ClassNotFoundException {
@@ -329,12 +327,12 @@ public class PetShopTester {
 
 	public ITestCase checkAddServiceEstimateDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className, new MethodTesting(void.class, MethodName.ADD_SERVICE_ESTIMATE,
-				new Parameter(FieldName.SERVICE_ESTIMATES, ServiceEstimateTester.getCorrespondingClass())));
+				new ParameterTesting(ServiceEstimateTester.getCorrespondingClass(), FieldName.SERVICE_ESTIMATES)));
 	}
 
 	public ITestCase checkAddServiceEstimateOperation(int points) throws ClassNotFoundException {
-		Method method = new MethodTesting(void.class, MethodName.ADD_SERVICE_ESTIMATE,
-				new Parameter(FieldName.SERVICE_ESTIMATE, ServiceEstimateTester.getCorrespondingClass()));
+		MethodTesting method = new MethodTesting(void.class, MethodName.ADD_SERVICE_ESTIMATE,
+				new ParameterTesting(ServiceEstimateTester.getCorrespondingClass(), FieldName.SERVICE_ESTIMATE));
 
 		return new ITestCase() {
 			@Override

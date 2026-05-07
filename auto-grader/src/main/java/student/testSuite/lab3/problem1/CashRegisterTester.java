@@ -8,7 +8,6 @@ import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.FieldTesting;
 import student.model.ITestCase;
-import student.model.Method;
 import student.model.MethodTesting;
 import student.model.ParameterTesting;
 import student.testSuite.BaseTester;
@@ -35,8 +34,8 @@ public class CashRegisterTester extends BaseTester {
 	public ParameterTesting[] createArgs(Object retailItemInstance, int quantity)
 			throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new ParameterTesting[] {
-				new ParameterTesting(FieldName.RETAIL_ITEM, retailItemTester.getCorrespondingClass(), retailItemInstance),
-				new ParameterTesting(FieldName.QUANTITY, int.class, quantity) };
+				new ParameterTesting(retailItemTester.getCorrespondingClass(), FieldName.RETAIL_ITEM, retailItemInstance),
+				new ParameterTesting(int.class, FieldName.QUANTITY, quantity) };
 	}
 
 	/*

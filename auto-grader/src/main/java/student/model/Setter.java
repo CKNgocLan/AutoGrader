@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 
 import student.util.SetterUtils;
 
-public class Setter extends Method {
+public class Setter extends MethodTesting {
 	private Class<?> paramType;
 
 	public Setter(Field field) {

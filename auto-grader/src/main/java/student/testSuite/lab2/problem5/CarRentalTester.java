@@ -5,20 +5,16 @@ import java.lang.reflect.InvocationTargetException;
 import student.constant.ClassName;
 import student.constant.Feedback;
 import student.constant.FieldName;
-import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
-import student.model.Method;
 import student.model.MethodTesting;
 import student.model.ParameterTesting;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.MethodUtils;
-import student.util.ParameterTestingUtils;
-import student.util.SetterUtils;
 
 public class CarRentalTester {
 	private static CarRentalTester instance = null;

@@ -3,15 +3,10 @@ package student.testSuite.lab2.problem6;
 import java.lang.reflect.InvocationTargetException;
 
 import student.constant.ClassName;
-import student.constant.Feedback;
 import student.constant.FieldName;
-import student.constant.MethodName;
-import student.constant.TestcaseType;
 import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.Parameter;
 import student.model.ParameterTesting;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;

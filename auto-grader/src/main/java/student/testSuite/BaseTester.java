@@ -10,7 +10,6 @@ import student.exception.TesterGotNoClassNameException;
 import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
-import student.model.Method;
 import student.model.MethodTesting;
 import student.model.ParameterTesting;
 import student.testcaseCreator.ClassTestcaseCreator;

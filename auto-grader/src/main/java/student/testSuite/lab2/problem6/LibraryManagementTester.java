@@ -2,6 +2,7 @@ package student.testSuite.lab2.problem6;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
+import java.lang.reflect.Parameter;
 import java.util.List;
 
 import student.constant.ClassName;
@@ -11,11 +12,10 @@ import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.MethodTesting;
-import student.model.Parameter;
+import student.model.ParameterTesting;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
-import student.util.MethodUtils;
 
 public class LibraryManagementTester {
 	private static LibraryManagementTester instance = null;
@@ -98,7 +98,7 @@ public class LibraryManagementTester {
 
 	public ITestCase addUserDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className, new MethodTesting(void.class, MethodName.ADD_USER,
-				new Parameter(FieldName.USER, UserTester.getCorrespondingClass())));
+				new ParameterTesting(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
 
     /*
@@ -107,7 +107,7 @@ public class LibraryManagementTester {
 
 	public ITestCase addBookDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className, new MethodTesting(void.class, MethodName.ADD_BOOK,
-				new Parameter(FieldName.BOOK, BookTester.getCorrespondingClass())));
+				new ParameterTesting(BookTester.getCorrespondingClass(), FieldName.BOOK)));
 	}
     
     /*
@@ -116,7 +116,7 @@ public class LibraryManagementTester {
 
 	public ITestCase addBorrowingRecordDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className, new MethodTesting(void.class, MethodName.ADD_BORROWING_RECORD,
-				new Parameter(FieldName.BORROWING_RECORD, BorrowingRecordTester.getCorrespondingClass())));
+				new ParameterTesting(BorrowingRecordTester.getCorrespondingClass(), FieldName.BORROWING_RECORD)));
 	}
     
     /*
@@ -125,7 +125,7 @@ public class LibraryManagementTester {
 
 	public ITestCase getBorrowingBooksDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className, new MethodTesting(List.class, MethodName.GET_BORROWING_BOOKS,
-				new Parameter(FieldName.USER, UserTester.getCorrespondingClass())));
+				new ParameterTesting(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
     
     /*
@@ -134,7 +134,7 @@ public class LibraryManagementTester {
 
 	public ITestCase isValidUserDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className, new MethodTesting(Modifier.PRIVATE, boolean.class, MethodName.IS_VALID_USER,
-				new Parameter(FieldName.USER, UserTester.getCorrespondingClass())));
+				new ParameterTesting(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
     
     /*
@@ -143,7 +143,7 @@ public class LibraryManagementTester {
 
 	public ITestCase isUserEligibleToBorrowDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className, new MethodTesting(Modifier.PRIVATE, boolean.class, MethodName.IS_USER_ELIGIBLE_TO_BORROW,
-				new Parameter(FieldName.USER, UserTester.getCorrespondingClass())));
+				new ParameterTesting(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
     
     /*

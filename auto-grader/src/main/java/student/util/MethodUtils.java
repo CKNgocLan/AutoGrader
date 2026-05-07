@@ -4,7 +4,6 @@ import java.lang.reflect.Parameter;
 import java.util.stream.Stream;
 
 import student.constant.MethodName;
-import student.model.Method;
 import student.model.MethodTesting;
 
 public class MethodUtils {
@@ -20,6 +19,6 @@ public class MethodUtils {
 	}
 	
 	public static MethodTesting createMethodEquals(String paramName, Class<?> paramType) {
-		return new MethodTesting(boolean.class, MethodName.EQUALS, new student.model.Parameter(paramName, paramType));
+		return new MethodTesting(boolean.class, MethodName.EQUALS, new student.model.ParameterTesting(paramType, paramName));
 	}
 }

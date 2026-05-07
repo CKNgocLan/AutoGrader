@@ -7,7 +7,6 @@ import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
-import student.exception.InvalidConfigurationException;
 import student.model.ClassLoader;
 import student.model.FieldTesting;
 import student.model.ITestCase;
