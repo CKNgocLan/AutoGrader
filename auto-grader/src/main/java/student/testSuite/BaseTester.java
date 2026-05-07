@@ -144,7 +144,7 @@ public abstract class BaseTester {
 
 					// Get captured output then compare
 					for (ParameterTesting arg : args) {
-						if (!actual.contains(String.valueOf(arg.getTestingValue()))) {
+						if (!actual.contains(String.valueOf(arg.getValue()))) {
 							return false;
 						}
 					}

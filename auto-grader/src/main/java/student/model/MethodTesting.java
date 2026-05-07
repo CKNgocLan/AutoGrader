@@ -198,7 +198,7 @@ public class MethodTesting {
 			IllegalAccessException, InvocationTargetException {
 		isConfigured();
 
-		return clazz.getDeclaredMethod(name, getParameterTypes()).invoke(instance);
+		return clazz.getDeclaredMethod(name, getParameterTypes()).invoke(instance, getParameterValues());
 	}
 	
 	public Double returnNumbericAbs() throws NumberFormatException, NoSuchMethodException,

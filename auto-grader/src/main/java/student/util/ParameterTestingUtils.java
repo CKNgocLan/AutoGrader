@@ -15,7 +15,7 @@ public class ParameterTestingUtils {
 		Object castValue = (paramTest.getType().isPrimitive() ? ClassUtils.boxing(paramTest.getType())
 				: paramTest.getType())
 				.cast(clazz.getDeclaredMethod(GetterUtils.getGetterName(paramTest.getName())).invoke(instance));
-		return castValue != null ? castValue.equals(paramTest.getTestingValue()) : paramTest.getTestingValue() == null;
+		return castValue != null ? castValue.equals(paramTest.getValue()) : paramTest.getValue() == null;
 	}
 	
 	public static Class<?>[] mapToType(ParameterTesting... parameterTestings) {
@@ -23,6 +23,6 @@ public class ParameterTestingUtils {
 	}
 	
 	public static Object[] mapToTestingValue(ParameterTesting...parameterTestings) {
-		return Stream.of(parameterTestings).map(param -> param.getTestingValue()).toArray(Object[]::new);
+		return Stream.of(parameterTestings).map(param -> param.getValue()).toArray(Object[]::new);
 	}
 }

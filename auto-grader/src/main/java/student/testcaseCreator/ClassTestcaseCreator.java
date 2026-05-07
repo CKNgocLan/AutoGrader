@@ -239,7 +239,7 @@ public class ClassTestcaseCreator {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
 					Class<?>[] types = Stream.of(params).map(pt -> pt.getType()).toArray(Class<?>[]::new);
-					Object[] testValues = Stream.of(params).map(pt -> pt.getTestingValue()).toArray(Object[]::new);
+					Object[] testValues = Stream.of(params).map(pt -> pt.getValue()).toArray(Object[]::new);
 					Object instance = clazz.getDeclaredConstructor(types).newInstance(testValues);
 
 					for (ParameterTesting param : params) {
@@ -333,7 +333,7 @@ public class ClassTestcaseCreator {
 							.map(pt -> pt.getType()).toArray(Class<?>[]::new);
 					Object[] testValues = Stream.of(params)
 							.filter(param -> !param.isSkipConstruction())
-							.map(pt -> pt.getTestingValue()).toArray(Object[]::new);
+							.map(pt -> pt.getValue()).toArray(Object[]::new);
 					Object instance = clazz.getDeclaredConstructor(types).newInstance(testValues);
 
 					for (ParameterTesting param : params) {

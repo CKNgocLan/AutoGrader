@@ -4,7 +4,7 @@ public class ParameterTesting {
 	private String name;
 	private Class<?> type;
 	private Object value;
-	private Object testingValue;
+//	private Object testingValue;
 	private boolean skipConstruction;
 
 	public ParameterTesting(Class<?> type) {
@@ -16,16 +16,16 @@ public class ParameterTesting {
 		this.name = name;
 	}
 
-	public ParameterTesting(Class<?> type, String name, Object testingValue) {
+	public ParameterTesting(Class<?> type, String name, Object value) {
 		this.type = type;
 		this.name = name;
-		this.testingValue = testingValue;
+		this.value = value;
 	}
 
-	public ParameterTesting(Class<?> type, String name, Object testingValue, boolean skipConstruction) {
+	public ParameterTesting(Class<?> type, String name, Object value, boolean skipConstruction) {
 		this.type = type;
 		this.name = name;
-		this.testingValue = testingValue;
+		this.value = value;
 		this.skipConstruction = skipConstruction;
 	}
 
@@ -59,13 +59,5 @@ public class ParameterTesting {
 
 	public void setSkipConstruction(boolean skipConstruction) {
 		this.skipConstruction = skipConstruction;
-	}
-
-	public Object getTestingValue() {
-		return testingValue;
-	}
-
-	public void setTestingValue(Object testingValue) {
-		this.testingValue = testingValue;
 	}
 }

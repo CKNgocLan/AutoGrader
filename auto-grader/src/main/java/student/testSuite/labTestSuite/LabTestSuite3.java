@@ -72,14 +72,13 @@ public class LabTestSuite3 extends ALabTestSuite {
 					double height = 9;
 
 					return Arrays.asList(
-//							shapeClassTester.checkExistence(defaultPoints)
-//							, shapeClassTester.declareAreaCircle(defaultPoints)
-//							, 
-							shapeClassTester.operateAreaCircle(defaultPoints, radius, Math.PI * Math.pow(radius, 2))
-//							, shapeClassTester.declareAreaRectangle(defaultPoints)
-//							, shapeClassTester.operateAreaRectangle(defaultPoints, width, length, width * length)
-//							, shapeClassTester.declareAreaCylinder(defaultPoints)
-//							, shapeClassTester.operateAreaCylinder(defaultPoints, radius, height, Math.PI * Math.pow(radius, 2) * height)
+							shapeClassTester.checkExistence(defaultPoints)
+							, shapeClassTester.declareAreaCircle(defaultPoints)
+							, shapeClassTester.operateAreaCircle(defaultPoints, radius, Math.PI * Math.pow(radius, 2))
+							, shapeClassTester.declareAreaRectangle(defaultPoints)
+							, shapeClassTester.operateAreaRectangle(defaultPoints, width, length, width * length)
+							, shapeClassTester.declareAreaCylinder(defaultPoints)
+							, shapeClassTester.operateAreaCylinder(defaultPoints, radius, height, Math.PI * Math.pow(radius, 2) * height)
 							);
 				}
 			case Question.Q3:
