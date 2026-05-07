@@ -292,7 +292,7 @@ public class MethodTestcaseCreator {
 
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_METHOD_EXISTENCE.getName(method.getCorrespondingClassName(), method.getName());
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
 			}
 
 			@Override
@@ -303,7 +303,8 @@ public class MethodTestcaseCreator {
 			@Override
 			public boolean runTest() {
 				try {
-					return method.returnNumbericAbs() < Constants.ERROR_BOUND;
+					Double abs = method.returnNumbericAbs();
+					return Double.isNaN(abs) || abs < Constants.ERROR_BOUND;
 				} catch (NoSuchMethodException e) {
 					return false;
 				} catch (IllegalArgumentException e) {
@@ -317,7 +318,7 @@ public class MethodTestcaseCreator {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.METHOD_DECLARED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
 			}
 		};
 	}

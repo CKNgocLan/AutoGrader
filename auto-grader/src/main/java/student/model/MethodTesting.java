@@ -203,8 +203,8 @@ public class MethodTesting {
 	
 	public Double returnNumbericAbs() throws NumberFormatException, NoSuchMethodException,
 			SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
-		return Math.abs(NumbericUtils.toDouble(boxingReturnedType().cast(returning())))
-				- NumbericUtils.toDouble(expectedValue);
+		return Math.abs(NumbericUtils.toDouble(boxingReturnedType().cast(returning()))
+				- NumbericUtils.toDouble(expectedValue));
 	}
 
 	public boolean assertExpectedValue(Object expected) throws NoSuchMethodException, SecurityException,

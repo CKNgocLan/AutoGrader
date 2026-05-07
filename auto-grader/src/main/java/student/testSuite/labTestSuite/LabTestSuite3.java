@@ -75,10 +75,13 @@ public class LabTestSuite3 extends ALabTestSuite {
 							shapeClassTester.checkExistence(defaultPoints)
 							, shapeClassTester.declareAreaCircle(defaultPoints)
 							, shapeClassTester.operateAreaCircle(defaultPoints, radius, Math.PI * Math.pow(radius, 2))
+							, shapeClassTester.operateAreaCircle(defaultPoints, Double.MAX_VALUE, Math.PI * Math.pow(Double.MAX_VALUE, 2))
 							, shapeClassTester.declareAreaRectangle(defaultPoints)
 							, shapeClassTester.operateAreaRectangle(defaultPoints, width, length, width * length)
+							, shapeClassTester.operateAreaRectangle(defaultPoints, Long.MAX_VALUE, Long.MAX_VALUE, Long.MAX_VALUE * Long.MAX_VALUE)
 							, shapeClassTester.declareAreaCylinder(defaultPoints)
 							, shapeClassTester.operateAreaCylinder(defaultPoints, radius, height, Math.PI * Math.pow(radius, 2) * height)
+							, shapeClassTester.operateAreaCylinder(defaultPoints, Double.MAX_VALUE, Double.MAX_VALUE, Math.PI * Math.pow(Double.MAX_VALUE, 2) * Double.MAX_VALUE)
 							);
 				}
 			case Question.Q3:
