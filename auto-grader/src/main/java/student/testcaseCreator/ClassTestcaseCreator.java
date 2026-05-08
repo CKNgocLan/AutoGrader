@@ -138,6 +138,40 @@ public class ClassTestcaseCreator {
 			}
 		};
 	}
+	
+	public ITestCase checkImplementingInterface(int points, String className, String interfaceName) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_INTERFACE_IMPLEMENTED_BY_CLASS.getName(className, interfaceName);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					for (Class<?> clazz : Class.forName(className, true, targetClassesLoader).getInterfaces()) {
+						if (clazz.getName().contains(interfaceName)) {
+							return true;
+						}
+					}
+					
+					return false;
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_IMPLEMENTING_INTERFACE.getContent(className, interfaceName);
+			}
+		};
+	}
 
 	/**
 	 * No-argument constructor DECLARATION testcase

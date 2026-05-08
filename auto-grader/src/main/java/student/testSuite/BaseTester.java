@@ -61,7 +61,7 @@ public abstract class BaseTester {
 	}
 
 	/*
-	 * existence ***************
+	 * declare ***************
 	 */
 
 	public ITestCase declare(int points) {
@@ -71,7 +71,6 @@ public abstract class BaseTester {
 	public ITestCase declareAsInterface(int points) {
 		return classTester.declareAsInterface(points, className);
 	}
-	
 
 	/*
 	 * constructor ***************

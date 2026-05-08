@@ -33,6 +33,14 @@ public class CylinderTester extends BaseTester {
 				, new ParameterTesting(double.class, FieldName.HEIGHT, height)
 				};
 	}
+	
+	/*
+	 * declare
+	 */
+	
+	public ITestCase implementShape(int points) {
+		return super.classTester.checkImplementingInterface(points, className, ClassName.SHAPE);
+	}
 
 	/*
 	 * field ***************
@@ -49,7 +57,7 @@ public class CylinderTester extends BaseTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase checkConstructorDeclaration(int points) throws ClassNotFoundException {
+	public ITestCase constructor(int points) throws ClassNotFoundException {
 		return super.checkConstructorDeclaration(points, double.class, double.class);
 	}
 	

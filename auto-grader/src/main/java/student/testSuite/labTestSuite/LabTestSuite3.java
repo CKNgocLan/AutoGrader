@@ -104,16 +104,22 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, shapeInterfaceTester.declareArea(defaultPoints)
 
 						, circleTester.declare(defaultPoints)
+						, circleTester.implementShape(defaultPoints)
+						, circleTester.constructor(defaultPoints)
 						, circleTester.checkFields(defaultPoints)
 						, circleTester.declareArea(defaultPoints)
 						, circleTester.operateArea(defaultPoints, radius, Math.PI * Math.pow(radius, 2))
 
 						, rectangleTester.declare(defaultPoints)
+						, rectangleTester.implementShape(defaultPoints)
+						, rectangleTester.constructor(defaultPoints)
 						, rectangleTester.checkFields(defaultPoints)
 						, rectangleTester.declareArea(defaultPoints)
 						, rectangleTester.operateArea(defaultPoints, width, length, width * length)
 
 						, cylinderTester.declare(defaultPoints)
+						, cylinderTester.implementShape(defaultPoints)
+						, cylinderTester.constructor(defaultPoints)
 						, cylinderTester.checkFields(defaultPoints)
 						, cylinderTester.declareArea(defaultPoints)
 						, cylinderTester.operateArea(defaultPoints, radius, height, Math.PI * Math.pow(radius, 2) * height)

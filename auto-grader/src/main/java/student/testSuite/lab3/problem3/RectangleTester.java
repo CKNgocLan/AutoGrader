@@ -33,6 +33,14 @@ public class RectangleTester extends BaseTester {
 				, new ParameterTesting(long.class, FieldName.LENGTH, length)
 				};
 	}
+	
+	/*
+	 * declare
+	 */
+	
+	public ITestCase implementShape(int points) {
+		return super.classTester.checkImplementingInterface(points, className, ClassName.SHAPE);
+	}
 
 	/*
 	 * field ***************
@@ -49,7 +57,7 @@ public class RectangleTester extends BaseTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase checkConstructorDeclaration(int points) throws ClassNotFoundException {
+	public ITestCase constructor(int points) throws ClassNotFoundException {
 		return super.checkConstructorDeclaration(points, long.class, long.class);
 	}
 	

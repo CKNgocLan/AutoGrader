@@ -36,7 +36,7 @@ public class ShapeInterfaceTester extends BaseTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase checkDeclaration(int points) throws ClassNotFoundException {
+	public ITestCase constructor(int points) throws ClassNotFoundException {
 		return super.checkConstructorDeclaration(points, String.class, int.class, double.class);
 	}
 	

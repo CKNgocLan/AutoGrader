@@ -7,9 +7,6 @@ public class Rectangle implements Shape {
         this.length = length;
     }
 
-    /*
-     * Area = width * length
-     */
     @Override
     public double area() {
         return width * length;

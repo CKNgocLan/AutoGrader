@@ -30,6 +30,14 @@ public class CircleTester extends BaseTester {
 	public ParameterTesting[] createArgs(double radius) {
 		return new ParameterTesting[] { new ParameterTesting(double.class, FieldName.RADIUS, radius) };
 	}
+	
+	/*
+	 * declare
+	 */
+	
+	public ITestCase implementShape(int points) {
+		return super.classTester.checkImplementingInterface(points, className, ClassName.SHAPE);
+	}
 
 	/*
 	 * field ***************
@@ -43,7 +51,7 @@ public class CircleTester extends BaseTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase checkConstructorDeclaration(int points) throws ClassNotFoundException {
+	public ITestCase constructor(int points) throws ClassNotFoundException {
 		return super.checkConstructorDeclaration(points, double.class);
 	}
 	

@@ -2,8 +2,9 @@ package student.constant;
 import java.text.MessageFormat;
 
 public enum Feedback {
-	CLASS_NOT_FOUND("Class '{0}' was not found. Make sure {0}.java is in the submission folder.")
-	, INTERFACE_NOT_FOUND("Interface '{0}' was not found. Make sure {0}.java is in the submission folder.")
+	CLASS_NOT_FOUND("Class \"{0}\" was not found. Make sure {0}.java is in the submission folder.")
+	, CLASS_NOT_IMPLEMENTING_INTERFACE("Class \"{0}\" was NOT IMPLEMENTING INTERFACE \"{1}\".")
+	, INTERFACE_NOT_FOUND("Interface \"{0}\" was not found. Make sure {0}.java is in the submission folder.")
 	, NO_ARGS_CONSTRUCTOR_DECLARATION_MISSING("No-Argument constructor DECLARATION of {0}() is missing or does not initialize fields to default values.")
 	, NO_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT("No-Argument constructor OPERATION of {0}() is NOT CORRECT.")
 	, FULL_ARGS_CONSTRUCTOR_DECLARATION_MISSING("Full-Argument constructor DECLARATION of {0}() is missing or does not set fields correctly.")
