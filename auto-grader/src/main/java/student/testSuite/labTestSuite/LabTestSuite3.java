@@ -15,6 +15,9 @@ import student.testSuite.lab3.problem3.CircleTester;
 import student.testSuite.lab3.problem3.CylinderTester;
 import student.testSuite.lab3.problem3.RectangleTester;
 import student.testSuite.lab3.problem3.ShapeInterfaceTester;
+import student.testSuite.lab3.problem4.ConstTester;
+import student.testSuite.lab3.problem4.FuelGaugeTester;
+import student.testSuite.lab3.problem4.OdometerTester;
 
 public class LabTestSuite3 extends ALabTestSuite {
 
@@ -89,6 +92,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 							);
 				}
 			case Question.Q3:
+			{
 				ShapeInterfaceTester shapeInterfaceTester = new ShapeInterfaceTester();
 				CircleTester circleTester = new CircleTester();
 				RectangleTester rectangleTester = new RectangleTester();
@@ -100,9 +104,11 @@ public class LabTestSuite3 extends ALabTestSuite {
 				double height = 10;
 
 				return Arrays.asList(
+						// shape
 						shapeInterfaceTester.declare(defaultPoints)
 						, shapeInterfaceTester.declareArea(defaultPoints)
 
+						// circle
 						, circleTester.declare(defaultPoints)
 						, circleTester.implementShape(defaultPoints)
 						, circleTester.constructor(defaultPoints)
@@ -110,6 +116,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, circleTester.declareArea(defaultPoints)
 						, circleTester.operateArea(defaultPoints, radius, Math.PI * Math.pow(radius, 2))
 
+						// rectangle
 						, rectangleTester.declare(defaultPoints)
 						, rectangleTester.implementShape(defaultPoints)
 						, rectangleTester.constructor(defaultPoints)
@@ -117,6 +124,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, rectangleTester.declareArea(defaultPoints)
 						, rectangleTester.operateArea(defaultPoints, width, length, width * length)
 
+						// cylinder
 						, cylinderTester.declare(defaultPoints)
 						, cylinderTester.implementShape(defaultPoints)
 						, cylinderTester.constructor(defaultPoints)
@@ -124,8 +132,35 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, cylinderTester.declareArea(defaultPoints)
 						, cylinderTester.operateArea(defaultPoints, radius, height, Math.PI * Math.pow(radius, 2) * height)
 						);
+			}
 			case Question.Q4:
-				return Arrays.asList();
+			{
+				ConstTester constTester = new ConstTester();
+				FuelGaugeTester fuelGaugeTester = new FuelGaugeTester();
+				OdometerTester odometerTester = new OdometerTester(fuelGaugeTester);
+				
+				int gallon = 9;
+				
+				Object fuelGaugeInstance = fuelGaugeTester.instantiate(gallon); 
+
+				return Arrays.asList(
+						// const
+						constTester.declare(defaultPoints)
+						, constTester.fields(defaultPoints)
+
+						//fuelGauge
+						, fuelGaugeTester.declare(defaultPoints)
+						, fuelGaugeTester.fields(defaultPoints)
+						, fuelGaugeTester.declareConstructor(defaultPoints)
+						, fuelGaugeTester.operateConstructor(defaultPoints, gallon)
+
+						// odometer
+						, odometerTester.declare(defaultPoints)
+						, odometerTester.fields(defaultPoints)
+						, odometerTester.declareConstructor(defaultPoints)
+						, odometerTester.operateConstructor(defaultPoints, fuelGaugeInstance)
+						);
+			}
 			case Question.Q5:
 
 				return Arrays.asList();

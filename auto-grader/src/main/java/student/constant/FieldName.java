@@ -127,4 +127,21 @@ public class FieldName {
 	public static final String LENGTH = "length";
 	public static final String HEIGHT = "height";
 	
+	/*
+	 * Const - Fuel Gauge
+	 */
+	public static final String UPPERCASE_CAR_MAX_GALLON = "CAR_MAX_GALLON";
+	public static final String UPPERCASE_ODOMETER_MAXIMUM_MILEAGE_MILES = "ODOMETER_MAXIMUM_MILEAGE_MILES";
+	public static final String UPPERCASE_MILES_PER_ONE_GALLON = "MILES_PER_ONE_GALLON";
+
+	/*
+	 * Fuel Gauge
+	 */
+	public static final String GALLON = "gallon";
+	
+	/*
+	 * Odometer
+	 */
+	public static final String MILEAGE = "mileage";
+	public static final String FUEL_GAUGE = "fuelGauge";
 }

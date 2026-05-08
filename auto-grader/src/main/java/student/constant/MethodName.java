@@ -48,4 +48,9 @@ public class MethodName {
 	public static final String GET_TOTAL = "getTotal";
 
 	public static final String AREA = "area";
+	public static final String GET_GALLON = "getGallon";
+	public static final String INCREASE_GALLON = "increaseGallon";
+	public static final String DECREMENT_GALLON = "decrementGallon";
+	public static final String INCREMENT_MILEAGE = "incrementMileage";
+	public static final String GET_MILEAGE = "getMileage";
 }

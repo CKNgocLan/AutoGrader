@@ -43,4 +43,8 @@ public class ClassName {
 	public static final String CIRCLE = "Circle";
 	public static final String RECTANGLE = "Rectangle";
 	public static final String CYLINDER = "Cylinder";
+	
+	/* problem 4 */
+	public static final String FUEL_GAUGE = "FuelGauge";
+	public static final String ODOMETER = "Odometer";
 }
