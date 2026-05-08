@@ -26,7 +26,7 @@ public class ShapeInterfaceTester extends BaseTester {
 	 * define area
 	 */
 	private MethodTesting defineArea() {
-		return new MethodTesting(double.class, MethodName.AREA);
+		return new MethodTesting(double.class, MethodName.AREA).asAbstract();
 	}
 	
 	/*
@@ -49,6 +49,6 @@ public class ShapeInterfaceTester extends BaseTester {
 	 */
 	
 	public ITestCase declareArea(int points) {
-		return super.methodTester.checkExistence(points, className, defineArea());
+		return super.methodTester.declaredAsSpecialModifers(points, className, defineArea());
 	}
 }

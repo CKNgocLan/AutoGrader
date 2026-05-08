@@ -124,7 +124,7 @@ public class MethodTesting {
 	public boolean isStatic() {
 		return this.isStatic;
 	}
-	
+
 	public MethodTesting asFinal() {
 		this.isFinal = true;
 		return this;

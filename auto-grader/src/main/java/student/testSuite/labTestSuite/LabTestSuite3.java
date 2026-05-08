@@ -90,6 +90,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 
 				return Arrays.asList(
 						shapeInterfaceTester.declare(defaultPoints)
+						, shapeInterfaceTester.declareArea(defaultPoints)
 						);
 			case Question.Q4:
 				return Arrays.asList();
