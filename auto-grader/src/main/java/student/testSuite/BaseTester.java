@@ -64,9 +64,14 @@ public abstract class BaseTester {
 	 * existence ***************
 	 */
 
-	public ITestCase checkExistence(int points) {
+	public ITestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
+	
+	public ITestCase declareAsInterface(int points) {
+		return classTester.declareAsInterface(points, className);
+	}
+	
 
 	/*
 	 * constructor ***************

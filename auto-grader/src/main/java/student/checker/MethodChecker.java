@@ -181,10 +181,28 @@ public class MethodChecker {
 	public boolean isMethodDeclared(Class<?> clazz, MethodTesting method) throws NoSuchMethodException, SecurityException {
 		return method.equals(clazz.getDeclaredMethod(method.getName(), method.getParameterTypes()));
 	}
+
+//	public boolean isMethodDeclaredAsStatic(Class<?> clazz, MethodTesting method) throws NoSuchMethodException, SecurityException {
+//		Method reflectMethod = clazz.getDeclaredMethod(method.getName(), method.getParameterTypes());
+//		return method.equalsButModifiers(reflectMethod)
+//				&& (method.isStatic() && Modifier.isStatic(reflectMethod.getModifiers()));
+//	}
 	
-	public boolean isMethodDeclaredAsStatic(Class<?> clazz, MethodTesting method) throws NoSuchMethodException, SecurityException {
+	public boolean isDeclaredAsSpecialModifers(Class<?> clazz, MethodTesting method) throws NoSuchMethodException, SecurityException {
 		Method reflectMethod = clazz.getDeclaredMethod(method.getName(), method.getParameterTypes());
-		return method.equalsButModifiers(reflectMethod)
-				&& (method.isStatic() && Modifier.isStatic(reflectMethod.getModifiers()));
+		
+		if (!method.equalsButModifiers(reflectMethod)) {
+			return false;
+		}
+		
+		if (method.isStatic() && !Modifier.isStatic(reflectMethod.getModifiers())) {
+			return false;
+		}
+		
+		if (method.isAbstract() && !Modifier.isAbstract(reflectMethod.getModifiers())) {
+			return false;
+		}
+		
+		return true;
 	}
 }

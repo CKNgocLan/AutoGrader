@@ -39,6 +39,75 @@ public class MethodTestcaseCreator {
 	}
 
 	/*
+	 * existence ***************
+	 */
+
+	public ITestCase checkExistence(int points, String className, MethodTesting method) {
+		return new ITestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_EXISTENCE.getName(className, method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return methodChecker.isMethodDeclared(Class.forName(className, true, targetClassesLoader), method);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				} finally {
+					
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_DECLARED_NOT_CORRECT.getContent(className, method.getName());
+			}
+		};
+	}
+	
+
+	public ITestCase declaredAsSpecialModifers(int points, String className, MethodTesting method) {
+		return new ITestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_EXISTENCE.getName(className, method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return methodChecker.isDeclaredAsSpecialModifers(Class.forName(className, true, targetClassesLoader), method);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				} finally {
+					
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_DECLARED_NOT_CORRECT.getContent(className, method.getName());
+			}
+		};
+	}
+
+	/*
 	 * ***************************************************************************
 	 */
 
@@ -235,50 +304,6 @@ public class MethodTestcaseCreator {
 			@Override
 			public String getFeedback() {
 				return Feedback.GETTER_SETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(className, fieldName);
-			}
-		};
-	}
-
-	/*
-	 * existence ***************
-	 */
-
-	public ITestCase checkExistence(int points, String className, MethodTesting method) {
-		return new ITestCase() {
-
-			@Override
-			public String getName() {
-				return TestcaseType.CHECK_METHOD_EXISTENCE.getName(className, method.getName());
-			}
-
-			@Override
-			public int getPoints() {
-				return points;
-			}
-
-			@Override
-			public boolean runTest() {
-				try {
-					if (method.isStatic()) {
-						return methodChecker.isMethodDeclaredAsStatic(Class.forName(className, true, targetClassesLoader), method);
-					}
-					
-					return methodChecker.isMethodDeclared(Class.forName(className, true, targetClassesLoader), method);
-				} catch (NoSuchMethodException | IllegalArgumentException e) {
-					System.out.println("NoSuchMethodException | IllegalArgumentException e");
-					System.out.println(e.getMessage());
-					return false;
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-					return false;
-				} finally {
-					
-				}
-			}
-
-			@Override
-			public String getFeedback() {
-				return Feedback.METHOD_DECLARED_NOT_CORRECT.getContent(className, method.getName());
 			}
 		};
 	}

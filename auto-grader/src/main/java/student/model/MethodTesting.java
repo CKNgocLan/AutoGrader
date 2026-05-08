@@ -25,6 +25,7 @@ public class MethodTesting {
 	private boolean isStatic;
 	private boolean isFinal;
 	private boolean isPublic;
+	private boolean isAbstract;
 	
 	public MethodTesting() {
 		
@@ -140,6 +141,15 @@ public class MethodTesting {
 	
 	public boolean isPublic() {
 		return this.isPublic;
+	}
+	
+	public MethodTesting asAbstract() {
+		this.isAbstract = true;
+		return this;
+	}
+	
+	public boolean isAbstract() {
+		return this.isAbstract;
 	}
 
 	public String invokeToString()

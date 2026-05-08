@@ -3,6 +3,7 @@ import java.text.MessageFormat;
 
 public enum TestcaseType {
 	CHECK_CLASS_EXISTENCE("Check Class Existence: {0}")
+	, CHECK_INTERFACE_EXISTENCE("Check INTERFACE Existence: {0}")
 	, CHECK_DECLARATION_OF_CONSTRUCTOR_NO_ARGS("Check No-Argument Constructor DECLARATION of Class: {0}")
 	, CHECK_DECLARATION_OF_CONSTRUCTOR_FULL_ARGS("Check Full-Argument Constructor DECLARATION of Class: {0}")
 	, CHECK_DECLARATION_OF_CONSTRUCTOR_PARTIAL_ARGS("Check Partial-Argument Constructor DECLARATION of Class: {0}")

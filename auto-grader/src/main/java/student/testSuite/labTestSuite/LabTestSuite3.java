@@ -11,6 +11,7 @@ import student.model.ParameterTesting;
 import student.testSuite.lab3.problem1.CashRegisterTester;
 import student.testSuite.lab3.problem1.RetailItemTester;
 import student.testSuite.lab3.problem2.ShapeClassTester;
+import student.testSuite.lab3.problem3.ShapeInterfaceTester;
 
 public class LabTestSuite3 extends ALabTestSuite {
 
@@ -41,7 +42,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 
 					return Arrays.asList(
 							// retail item
-							retailItemTester.checkExistence(defaultPoints)
+							retailItemTester.declare(defaultPoints)
 							, retailItemTester.checkFields(defaultPoints)
 							, retailItemTester.checkConstructorDeclaration(defaultPoints)
 							, retailItemTester.checkConstructorOperation(defaultPoints, retailItemArgs)
@@ -49,7 +50,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 							, retailItemTester.checkSetterDeclaration(defaultPoints)
 
 							// cash register
-							, cashRegisterTester.checkExistence(defaultPoints)
+							, cashRegisterTester.declare(defaultPoints)
 							, cashRegisterTester.checkFields(defaultPoints)
 							, cashRegisterTester.checkConstructorDeclaration(defaultPoints)
 							, cashRegisterTester.checkConstructorOperation(defaultPoints, cashRegisterArgs)
@@ -72,7 +73,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 					double height = 9;
 
 					return Arrays.asList(
-							shapeClassTester.checkExistence(defaultPoints)
+							shapeClassTester.declare(defaultPoints)
 							, shapeClassTester.declareAreaCircle(defaultPoints)
 							, shapeClassTester.operateAreaCircle(defaultPoints, radius, Math.PI * Math.pow(radius, 2))
 							, shapeClassTester.operateAreaCircle(defaultPoints, Double.MAX_VALUE, Math.PI * Math.pow(Double.MAX_VALUE, 2))
@@ -85,8 +86,11 @@ public class LabTestSuite3 extends ALabTestSuite {
 							);
 				}
 			case Question.Q3:
+				ShapeInterfaceTester shapeInterfaceTester = new ShapeInterfaceTester();
 
-				return Arrays.asList();
+				return Arrays.asList(
+						shapeInterfaceTester.declare(defaultPoints)
+						);
 			case Question.Q4:
 				return Arrays.asList();
 			case Question.Q5:
