@@ -6,7 +6,7 @@ public class Circle implements Shape {
     }
 
     /*
-     * Area = π * r²
+     * Area = πr²
      */
     @Override
     public double area() {

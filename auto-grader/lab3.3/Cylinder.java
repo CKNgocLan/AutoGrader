@@ -7,12 +7,9 @@ public class Cylinder implements Shape {
         this.height = height;
     }
 
-    /*
-     * Surface Area = 2πr² + 2πrh = 2πr(r + h)
-     * */
     @Override
     public double area() {
-        return 2 * Math.PI * radius * (radius + height);
+        return Math.PI * Math.pow(radius, 2) * height;
     }
 
     public double getRadius() {

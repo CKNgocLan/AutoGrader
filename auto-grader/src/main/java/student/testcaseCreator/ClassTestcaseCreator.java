@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import student.checker.FieldChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
+import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
@@ -326,6 +327,8 @@ public class ClassTestcaseCreator {
 					Class.forName(className, true, targetClassesLoader)
 							.getDeclaredConstructor(Stream.of(params).map(p -> p.getType()).toArray(Class<?>[]::new));
 					return true;
+				} catch (ClassNotFoundException e) {
+					return false;
 				} catch (Exception e) {
 					return false;
 				}

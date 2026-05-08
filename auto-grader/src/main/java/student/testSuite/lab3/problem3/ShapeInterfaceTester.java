@@ -1,14 +1,10 @@
 package student.testSuite.lab3.problem3;
 
-import java.lang.reflect.InvocationTargetException;
-
 import student.constant.ClassName;
-import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ITestCase;
 import student.model.MethodTesting;
-import student.model.ParameterTesting;
 import student.testSuite.BaseTester;
 
 public class ShapeInterfaceTester extends BaseTester {

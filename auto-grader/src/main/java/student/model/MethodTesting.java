@@ -174,7 +174,7 @@ public class MethodTesting {
 	}
 	
 	public boolean equals(java.lang.reflect.Method reflectMethod) {
-		return reflectMethod.getModifiers() == this.modifier && equals(reflectMethod);
+		return reflectMethod.getModifiers() == this.modifier && equalsButModifiers(reflectMethod);
 	}
 	
 	public boolean equalsButModifiers(java.lang.reflect.Method reflectMethod) {

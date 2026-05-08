@@ -38,4 +38,9 @@ public class ClassName {
 	public static final String RETAIL_ITEM = "RetailItem";
 	public static final String CASH_REGISTER = "CashRegister";
 	public static final String SHAPE = "Shape";
+	
+	/* problem 3 */
+	public static final String CIRCLE = "Circle";
+	public static final String RECTANGLE = "Rectangle";
+	public static final String CYLINDER = "Cylinder";
 }

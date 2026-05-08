@@ -11,6 +11,9 @@ import student.model.ParameterTesting;
 import student.testSuite.lab3.problem1.CashRegisterTester;
 import student.testSuite.lab3.problem1.RetailItemTester;
 import student.testSuite.lab3.problem2.ShapeClassTester;
+import student.testSuite.lab3.problem3.CircleTester;
+import student.testSuite.lab3.problem3.CylinderTester;
+import student.testSuite.lab3.problem3.RectangleTester;
 import student.testSuite.lab3.problem3.ShapeInterfaceTester;
 
 public class LabTestSuite3 extends ALabTestSuite {
@@ -87,10 +90,33 @@ public class LabTestSuite3 extends ALabTestSuite {
 				}
 			case Question.Q3:
 				ShapeInterfaceTester shapeInterfaceTester = new ShapeInterfaceTester();
+				CircleTester circleTester = new CircleTester();
+				RectangleTester rectangleTester = new RectangleTester();
+				CylinderTester cylinderTester = new CylinderTester();
+				
+				double radius = 5;
+				long width = 4;
+				long length = 5;
+				double height = 10;
 
 				return Arrays.asList(
 						shapeInterfaceTester.declare(defaultPoints)
 						, shapeInterfaceTester.declareArea(defaultPoints)
+
+						, circleTester.declare(defaultPoints)
+						, circleTester.checkFields(defaultPoints)
+						, circleTester.declareArea(defaultPoints)
+						, circleTester.operateArea(defaultPoints, radius, Math.PI * Math.pow(radius, 2))
+
+						, rectangleTester.declare(defaultPoints)
+						, rectangleTester.checkFields(defaultPoints)
+						, rectangleTester.declareArea(defaultPoints)
+						, rectangleTester.operateArea(defaultPoints, width, length, width * length)
+
+						, cylinderTester.declare(defaultPoints)
+						, cylinderTester.checkFields(defaultPoints)
+						, cylinderTester.declareArea(defaultPoints)
+						, cylinderTester.operateArea(defaultPoints, radius, height, Math.PI * Math.pow(radius, 2) * height)
 						);
 			case Question.Q4:
 				return Arrays.asList();

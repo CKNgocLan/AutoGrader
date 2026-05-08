@@ -1,8 +1,8 @@
 public class Rectangle implements Shape {
-    private double width;
-    private double length;
+    private long width;
+    private long length;
 
-    public Rectangle(double width, double length) {
+    public Rectangle(long width, long length) {
         this.width = width;
         this.length = length;
     }
@@ -15,19 +15,19 @@ public class Rectangle implements Shape {
         return width * length;
     }
 
-    public double getWidth() {
+    public long getWidth() {
         return width;
     }
 
-    public void setWidth(double width) {
+    public void setWidth(long width) {
         this.width = width;
     }
 
-    public double getLength() {
+    public long getLength() {
         return length;
     }
 
-    public void setLength(double length) {
+    public void setLength(long length) {
         this.length = length;
     }
 }
