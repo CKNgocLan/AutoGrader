@@ -21,6 +21,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,8 +68,11 @@ public class StudentGraderUI extends JFrame {
     private TestSuiteRouter testSuiteRouter;
     
     private Map<String, List<String>> labQuestionsMap = new LinkedHashMap<>();
+    private Map<String, ThemeColor> THEMES = new HashMap<String, ThemeColor>();
 
     public StudentGraderUI() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
+    	initThemeColor();
+    	
         setTitle("Student Self-Grader - Java Lab");
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,6 +83,12 @@ public class StudentGraderUI extends JFrame {
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
 
+        // TODO background color
+//        Color backgroundColor = new Color(239, 246, 255);
+        Color backgroundColor = new Color(252, 253, 255);
+        Color lightBlue = new Color(239, 246, 255);
+        getContentPane().setBackground(backgroundColor);
+
         // ==================== TOP PANEL ====================
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 15));
         topPanel.setBorder(BorderFactory.createTitledBorder("Your Submission Folder"));
@@ -87,14 +97,23 @@ public class StudentGraderUI extends JFrame {
         folderPathField.setText(System.getProperty(Constants.USER_DIR)); // default hint
 
         browseButton = new JButton("Browse Folder...");
+        browseButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        browseButton.setBackground(new Color(21, 128, 61));
+        browseButton.setForeground(Color.WHITE);
+        
         gradeButton = new JButton("Start Grading");
         gradeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        gradeButton.setBackground(new Color(0, 150, 0));
+        gradeButton.setBackground(new Color(185, 28, 28));
         gradeButton.setForeground(Color.WHITE);
         
         // Lab and Question drop down
         labComboBox = new JComboBox<>();
+        labComboBox.setBackground(Color.WHITE);
+        labComboBox.setForeground(Color.BLACK);
+        
         questionComboBox = new JComboBox<>();
+        questionComboBox.setBackground(Color.WHITE);
+        questionComboBox.setForeground(Color.BLACK);
 
         topPanel.add(new JLabel("Submission Folder:"));
         topPanel.add(folderPathField);
@@ -113,12 +132,14 @@ public class StudentGraderUI extends JFrame {
         logArea.setEditable(false);
         logArea.setFont(new Font("Consolas", Font.PLAIN, 14));
         logArea.setMargin(new Insets(10, 10, 10, 10));
+        logArea.setBackground(Color.WHITE);
 
         JScrollPane logScroll = new JScrollPane(logArea);
         logScroll.setBorder(BorderFactory.createTitledBorder("Grading Progress & Results"));
 
         // ==================== BOTTOM PANEL ====================
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
+        
         openReportsButton = new JButton("📁 Open Reports Folder");
         clearLogButton = new JButton("Clear Log");
         bottomPanel.add(openReportsButton);
@@ -147,6 +168,10 @@ public class StudentGraderUI extends JFrame {
         log("3. Select that folder using Browse");
         log("4. Click \"Start Grading\"");
         log("5. Check the detailed report in reports/ folder\n");
+        
+        topPanel.setBackground(lightBlue);
+        logScroll.setBackground(lightBlue);
+        bottomPanel.setBackground(lightBlue);
     }
     
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
@@ -163,6 +188,21 @@ public class StudentGraderUI extends JFrame {
         // Trigger first update
         updateQuestionComboBox();
     }
+    
+	private void initThemeColor() {
+		THEMES.put("RED", new ThemeColor(new Color(254, 242, 242), new Color(254, 226, 226), new Color(239, 68, 68),
+				new Color(220, 38, 38), new Color(185, 28, 28)));
+		THEMES.put("GREEN", new ThemeColor(new Color(240, 253, 244), new Color(220, 252, 231), new Color(34, 197, 94),
+				new Color(22, 163, 74), new Color(21, 128, 61)));
+		THEMES.put("YELLOW", new ThemeColor(new Color(254, 252, 232), new Color(254, 249, 195), new Color(234, 179, 8),
+				new Color(202, 138, 4), new Color(161, 98, 7)));
+		THEMES.put("WHITE", new ThemeColor(new Color(248, 250, 252), new Color(241, 245, 249), new Color(100, 116, 139),
+				new Color(71, 85, 105), new Color(51, 65, 85)));
+		THEMES.put("GREY", new ThemeColor(new Color(243, 244, 246), new Color(229, 231, 235), new Color(107, 114, 128),
+				new Color(75, 85, 99), new Color(55, 65, 81)));
+		THEMES.put("BLUE", new ThemeColor(new Color(239, 246, 255), new Color(219, 234, 254), new Color(59, 130, 246),
+				new Color(37, 99, 235), new Color(29, 78, 216)));
+	}
     
 	private void updateQuestionComboBox() {
 		String selectedLab = (String) labComboBox.getSelectedItem();
