@@ -2,6 +2,18 @@ package student.constant;
 
 public class ClassName {
 	/*
+	 * midterm 253
+	 */
+	public static final String PEN_TYPE = "PenType";
+	public static final String COUNTRY = "Country";
+	public static final String TAX = "Tax";
+	public static final String BRAND = "Brand";
+	public static final String DISCOUNT = "Discount";
+	public static final String PEN = "Pen";
+	public static final String FOUNTAIN_PEN = "FountainPen";
+	public static final String BALLPOINT_PEN = "BallpointPen";
+
+	/*
 	 * lab 1
 	 */
 	public static final String EMPLOYEE = "Employee";

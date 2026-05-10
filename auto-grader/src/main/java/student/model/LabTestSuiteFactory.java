@@ -1,14 +1,18 @@
 package student.model;
 
 import student.constant.Lab;
+import student.constant.Midterm;
 import student.testSuite.labTestSuite.LabTestSuite1;
 import student.testSuite.labTestSuite.LabTestSuite2;
 import student.testSuite.labTestSuite.LabTestSuite3;
+import student.testSuite.midterm.MidtermTestSuite253;
 
 public class LabTestSuiteFactory {
 	public ALabTestSuite createSuite(String lab) {
 
 		switch (lab) {
+		case Midterm.M253:
+			return new MidtermTestSuite253();
 		case Lab.L1:
 			return new LabTestSuite1();
 		case Lab.L2:

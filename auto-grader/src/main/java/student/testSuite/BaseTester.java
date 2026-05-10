@@ -31,16 +31,20 @@ public abstract class BaseTester {
 	 */
 
 	public Class<?> getCorrespondingClass() throws ClassNotFoundException, TesterGotNoClassNameException {
-		if (StringUtils.isNullOrEmpty(className)) {
-			throw new TesterGotNoClassNameException(
-					ExceptionMessage.TESTER_GOT_NO_CLASS_NAME.getContent(this.getClass().getSimpleName()));
-		}
+		try {
+			if (StringUtils.isNullOrEmpty(className)) {
+				throw new TesterGotNoClassNameException(
+						ExceptionMessage.TESTER_GOT_NO_CLASS_NAME.getContent(this.getClass().getSimpleName()));
+			}
 
-		if (clazz == null) {
-			clazz = Class.forName(className, true, ClassLoader.getInstance());
-		}
+			if (clazz == null) {
+				clazz = Class.forName(className, true, ClassLoader.getInstance());
+			}
 
-		return clazz;
+			return clazz;
+		} catch (ClassNotFoundException e) {
+			return null;
+		}
 	}
 
 	/*
@@ -70,6 +74,10 @@ public abstract class BaseTester {
 	
 	public ITestCase declareAsInterface(int points) {
 		return classTester.declareAsInterface(points, className);
+	}
+	
+	public ITestCase declareAsEnum(int points) {
+		return classTester.declareAsEnum(points, className);
 	}
 
 	/*

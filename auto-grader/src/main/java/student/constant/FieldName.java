@@ -144,4 +144,16 @@ public class FieldName {
 	 */
 	public static final String MILEAGE = "mileage";
 	public static final String FUEL_GAUGE = "fuelGauge";
+	
+	/*
+	 * Pen Type
+	 */
+	public static final String UPPERCASE_BALLPOINT = "BALLPOINT";
+	public static final String UPPERCASE_FOUNTAIN = "FOUNTAIN";
+	
+	/*
+	 * Country
+	 */
+	public static final String UPPERCASE_JAPAN = "JAPAN";
+	public static final String UPPERCASE_VIETNAM = "VIETNAM";
 }

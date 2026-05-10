@@ -51,6 +51,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import student.constant.Constants;
 import student.constant.Lab;
+import student.constant.Midterm;
 import student.constant.Question;
 import student.model.ITestCase;
 import student.util.PathUtils;
@@ -109,17 +110,21 @@ public class StudentGraderUI extends JFrame {
         // Lab and Question drop down
         labComboBox = new JComboBox<>();
         labComboBox.setBackground(Color.WHITE);
-        labComboBox.setForeground(Color.BLACK);
+        labComboBox.setForeground(Color.DARK_GRAY);
         
         questionComboBox = new JComboBox<>();
         questionComboBox.setBackground(Color.WHITE);
-        questionComboBox.setForeground(Color.BLACK);
+        questionComboBox.setForeground(Color.DARK_GRAY);
 
         topPanel.add(new JLabel("Submission Folder:"));
         topPanel.add(folderPathField);
         topPanel.add(browseButton);
         // LAB drop down
-        topPanel.add(new JLabel("     Lab:"));
+        JLabel labLabel = new JLabel("     Lab:");
+//        labLabel.setOpaque(true);
+//        labLabel.setBackground(Color.RED);
+        topPanel.add(labLabel);
+
         topPanel.add(labComboBox);
         // QUESTION drop down
         topPanel.add(new JLabel("     Question:"));
@@ -141,7 +146,13 @@ public class StudentGraderUI extends JFrame {
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         
         openReportsButton = new JButton("📁 Open Reports Folder");
+        openReportsButton.setBackground(new Color(232, 17, 35));
+        openReportsButton.setForeground(Color.WHITE);
+        
         clearLogButton = new JButton("Clear Log");
+        clearLogButton.setBackground(new Color(232, 17, 35));
+        clearLogButton.setForeground(Color.WHITE);
+        
         bottomPanel.add(openReportsButton);
         bottomPanel.add(clearLogButton);
 
@@ -178,7 +189,8 @@ public class StudentGraderUI extends JFrame {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
 //		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
-		labQuestionsMap.put(Lab.L3, Arrays.asList(Question.Q3, Question.Q2, Question.Q1));
+//		labQuestionsMap.put(Lab.L3, Arrays.asList(Question.Q3, Question.Q2, Question.Q1));
+		labQuestionsMap.put(Midterm.M253, Arrays.asList(Question.Q1));
 	}
     
     private void initializeComboBoxes() {
