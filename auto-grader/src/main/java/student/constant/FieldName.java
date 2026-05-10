@@ -174,4 +174,10 @@ public class FieldName {
 	public static final String PERCENT = "percent";
 	public static final String START_DATE = "startDate";
 	public static final String END_DATE = "endDate";
+	
+	/*
+	 * pen
+	 */
+	public static final String BRAND = "brand";
+	public static final String DISCOUNT = "discount";
 }

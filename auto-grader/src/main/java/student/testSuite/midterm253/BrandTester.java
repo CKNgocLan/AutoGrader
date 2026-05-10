@@ -1,5 +1,6 @@
 package student.testSuite.midterm253;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
 import student.constant.ClassName;
@@ -7,6 +8,7 @@ import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.FieldTesting;
 import student.model.ITestCase;
+import student.model.ParameterTesting;
 import student.testSuite.BaseTester;
 
 public class BrandTester extends BaseTester {
@@ -19,10 +21,25 @@ public class BrandTester extends BaseTester {
 		super.className = ClassName.BRAND;
 		super.getCorrespondingClass();
 	}
+	
+	public Object instantiate(String name, String country) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
+		return super.instantiateWithArgs(argument(name, country));
+	}
+	
+	/*
+	 * argument
+	 */
+	
+	private ParameterTesting[] argument(String name, String country) throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new ParameterTesting[] {
+				new ParameterTesting(String.class, FieldName.NAME, name),
+				new ParameterTesting(String.class, FieldName.COUNTRY, country) };
+	}
 
 	/*
-	 * 
+	 * field declared
 	 */
+	
 	public FieldTesting[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new FieldTesting[] { new FieldTesting(UUID.class, FieldName.ID),
 				new FieldTesting(String.class, FieldName.NAME), new FieldTesting(String.class, FieldName.COUNTRY) };

@@ -217,6 +217,7 @@ public class MethodTesting {
 				- NumbericUtils.toDouble(expectedValue));
 	}
 
+	@Deprecated
 	public boolean assertExpectedValue(Object expected) throws NoSuchMethodException, SecurityException,
 			IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
 		return this.boxingReturnedType().cast(returning()).equals(expected);

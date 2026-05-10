@@ -1,5 +1,6 @@
 package student.testSuite.midterm253;
 
+import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.UUID;
 
@@ -8,6 +9,7 @@ import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.FieldTesting;
 import student.model.ITestCase;
+import student.model.ParameterTesting;
 import student.testSuite.BaseTester;
 
 public class DiscountTester extends BaseTester {
@@ -20,10 +22,25 @@ public class DiscountTester extends BaseTester {
 		super.className = ClassName.DISCOUNT;
 		super.getCorrespondingClass();
 	}
+	
+	public Object instantiate(double percent, LocalDate endDate) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
+		return super.instantiateWithArgs(argument(percent, endDate));
+	}
+	
+	/*
+	 * argument
+	 */
+	
+	private ParameterTesting[] argument(double percent, LocalDate endDate) throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new ParameterTesting[] {
+				new ParameterTesting(double.class, FieldName.PERCENT, percent),
+				new ParameterTesting(LocalDate.class, FieldName.END_DATE, endDate) };
+	}
 
 	/*
-	 * 
+	 * field declared
 	 */
+	
 	public FieldTesting[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new FieldTesting[] { new FieldTesting(UUID.class, FieldName.ID),
 				new FieldTesting(double.class, FieldName.PERCENT),

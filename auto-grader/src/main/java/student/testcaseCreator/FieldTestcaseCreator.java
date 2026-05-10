@@ -110,6 +110,45 @@ public class FieldTestcaseCreator {
 		};
 	}
 	
+	public ITestCase noField(int points, String className) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_NO_FIELD.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					
+					if (clazz.getDeclaredFields().length > 0) {
+						return false;
+					}
+					
+					return true;
+					
+				} catch (ClassNotFoundException e) {
+					for (StackTraceElement st : e.getStackTrace()) {
+						System.out.println(st);
+					}
+
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.FIELD_MUST_NOT_BE_DECLARED.getContent(className);
+			}
+		};
+	}
+	
 	public ITestCase checkDeclarationsAsSpecialModifiers(int points, String className, FieldTesting... fields) {
 		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
 		

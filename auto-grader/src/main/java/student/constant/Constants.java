@@ -7,18 +7,19 @@ public class Constants {
 	public static final String TEST = "test";
 	public static final String TARGET = "target";
 	public static final String CLASSES = "classes";
-	
+
 	public static final String USER_DIR = "user.dir";
 	public static final String REPORTS_DIR = "reports";
 
 	public static final String SUBMISSIONS = "submissions";
-	
+
 	public static final String UNDERSCORE = "_";
 	public static final String COMMA = ",";
 	public static final String COMMA_WITH_SPACE = ", ";
 	public static final char UNDERSCORE_CHAR = '_';
-	
+
 	public static final String EMPTY_STRING = "";
-	
+
 	public static final double ERROR_BOUND = Math.pow(10, -3);
+
 }

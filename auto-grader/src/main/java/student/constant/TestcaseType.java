@@ -22,6 +22,7 @@ public enum TestcaseType {
 	, CHECK_CLASS_SPECIFIC_GETTER_OPERATION("Check {1} Getter Operation of Class: {0}")
 	
 	, CHECK_FIELD("Check Field(s) of Class {0}: {1}")
+	, CHECK_NO_FIELD("Check If No Field Declared in Class {0}")
 
 	, CHECK_METHOD_EXISTENCE("Check Declaration of method {1}() in Class {0}")
 	, CHECK_METHOD_OPERATION("Check Operation of method {1}() in Class {0}")

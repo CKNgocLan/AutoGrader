@@ -23,11 +23,11 @@ public abstract class Pen {
         this.discount = discount;
     }
 
-    public UUID getId() {
+    public UUID getID() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setID(UUID id) {
         this.id = id;
     }
 
@@ -72,7 +72,7 @@ public abstract class Pen {
     }
 
     private boolean isDiscounted() {
-        return this.discount != null && this.discount.getId() != null;
+        return this.discount != null && this.discount.getID() != null;
     }
 
     public double getDiscountPrice() {
