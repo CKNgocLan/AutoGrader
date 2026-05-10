@@ -8,6 +8,7 @@ import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.testSuite.midterm253.BrandTester;
 import student.testSuite.midterm253.CountryTester;
+import student.testSuite.midterm253.DiscountTester;
 import student.testSuite.midterm253.PenTypeTester;
 import student.testSuite.midterm253.TaxTester;
 
@@ -23,6 +24,7 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 					CountryTester countryTester = new CountryTester();
 					TaxTester taxTester = new TaxTester();
 					BrandTester brandTester = new BrandTester();
+					DiscountTester discountTester = new DiscountTester();
 					
 					return Arrays.asList(
 							// pen type enum
@@ -40,9 +42,17 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 							// brand
 							, brandTester.declare(defaultPoints)
 							, brandTester.declareFields(defaultPoints)
+							, brandTester.declareConstructor(defaultPoints)
 							, brandTester.declareGetters(defaultPoints)
 							, brandTester.declareSetters(defaultPoints)
 							, brandTester.checkToStringDeclaration(defaultPoints)
+							
+							// discount
+							, discountTester.declare(defaultPoints)
+							, discountTester.declareFields(defaultPoints)
+							, discountTester.declareConstructor(defaultPoints)
+							, discountTester.declareGetters(defaultPoints)
+							, discountTester.declareSetters(defaultPoints)
 							);
 				default:
 					return null;

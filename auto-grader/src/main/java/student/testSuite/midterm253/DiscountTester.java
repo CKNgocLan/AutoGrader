@@ -1,5 +1,6 @@
 package student.testSuite.midterm253;
 
+import java.time.LocalDate;
 import java.util.UUID;
 
 import student.constant.ClassName;
@@ -9,14 +10,14 @@ import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.testSuite.BaseTester;
 
-public class BrandTester extends BaseTester {
+public class DiscountTester extends BaseTester {
 
 	/*
 	 * instantiate ***************
 	 */
 
-	public BrandTester() throws ClassNotFoundException, TesterGotNoClassNameException {
-		super.className = ClassName.BRAND;
+	public DiscountTester() throws ClassNotFoundException, TesterGotNoClassNameException {
+		super.className = ClassName.DISCOUNT;
 		super.getCorrespondingClass();
 	}
 
@@ -25,7 +26,9 @@ public class BrandTester extends BaseTester {
 	 */
 	public FieldTesting[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new FieldTesting[] { new FieldTesting(UUID.class, FieldName.ID),
-				new FieldTesting(String.class, FieldName.NAME), new FieldTesting(String.class, FieldName.COUNTRY) };
+				new FieldTesting(double.class, FieldName.PERCENT),
+				new FieldTesting(LocalDate.class, FieldName.START_DATE),
+				new FieldTesting(LocalDate.class, FieldName.END_DATE) };
 	}
 
 	/*
@@ -48,7 +51,7 @@ public class BrandTester extends BaseTester {
 	 */
 
 	public ITestCase declareConstructor(int points) throws ClassNotFoundException {
-		return super.checkConstructorDeclaration(points, String.class, String.class);
+		return super.checkConstructorDeclaration(points, double.class, LocalDate.class);
 	}
 
 	/*

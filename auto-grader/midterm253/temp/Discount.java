@@ -15,11 +15,11 @@ public class Discount {
         this.endDate = endDate;
     }
 
-    public UUID getId() {
+    public UUID getID() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setID(UUID id) {
         this.id = id;
     }
 
