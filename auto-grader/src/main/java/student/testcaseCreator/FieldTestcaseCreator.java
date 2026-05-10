@@ -189,6 +189,10 @@ public class FieldTestcaseCreator {
 						if (!fieldChecker.checkPublicStaticFinalField(clazz, clazz.getField(testingField.getName()))) {
 							return false;
 						}
+						
+						if (!clazz.getField(testingField.getName()).getType().equals(testingField.getType())) {
+							return false;
+						}
 					}
 					return true;
 					

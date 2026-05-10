@@ -7,14 +7,14 @@ import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.testSuite.BaseTester;
 
-public class CountryTester extends BaseTester {
+public class TaxTester extends BaseTester {
 
 	/*
 	 * instantiate ***************
 	 */
 
-	public CountryTester() throws ClassNotFoundException, TesterGotNoClassNameException {
-		super.className = ClassName.COUNTRY;
+	public TaxTester() throws ClassNotFoundException, TesterGotNoClassNameException {
+		super.className = ClassName.TAX;
 		super.getCorrespondingClass();
 	}
 	
@@ -23,8 +23,8 @@ public class CountryTester extends BaseTester {
 	 */
 	public FieldTesting[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new FieldTesting[] {
-				new FieldTesting(String.class, FieldName.UPPERCASE_JAPAN)
-				, new FieldTesting(String.class, FieldName.UPPERCASE_VIETNAM)
+				new FieldTesting(double.class, FieldName.UNDERSCORE_8)
+				, new FieldTesting(double.class, FieldName.UNDERSCORE_10)
 		};
 	}
 	

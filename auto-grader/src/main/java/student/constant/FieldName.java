@@ -156,4 +156,10 @@ public class FieldName {
 	 */
 	public static final String UPPERCASE_JAPAN = "JAPAN";
 	public static final String UPPERCASE_VIETNAM = "VIETNAM";
+	
+	/*
+	 * Tax
+	 */
+	public static final String UNDERSCORE_8 = "_8";
+	public static final String UNDERSCORE_10 = "_10";
 }

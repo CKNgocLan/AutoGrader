@@ -15,7 +15,7 @@ public class StringUtils {
 			return false;
 		}
 		for (char c : name.toCharArray()) {
-			if (!Character.isUpperCase(c) && c != Constants.UNDERSCORE_CHAR) {
+			if (!Character.isUpperCase(c) && c != Constants.UNDERSCORE_CHAR && !Character.isDigit(c)) {
 				return false;
 			}
 		}

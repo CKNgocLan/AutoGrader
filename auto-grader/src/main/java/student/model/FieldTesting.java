@@ -7,7 +7,7 @@ public class FieldTesting {
 	private int modifier;
 	private Class<?> type;
 	private String name;
-	private Class<?> typeParameter;
+	private Class<?> typeParameter; // type parameter of Collection 
 	private boolean isStatic;
 	private boolean isFinal;
 	private boolean isPublic;

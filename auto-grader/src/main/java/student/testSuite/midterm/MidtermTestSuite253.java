@@ -8,6 +8,7 @@ import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.testSuite.midterm253.CountryTester;
 import student.testSuite.midterm253.PenTypeTester;
+import student.testSuite.midterm253.TaxTester;
 
 public class MidtermTestSuite253 extends ALabTestSuite {
 	@Override
@@ -19,15 +20,21 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 				case Question.Q1:
 					PenTypeTester penTypeTester = new PenTypeTester();
 					CountryTester countryTester = new CountryTester();
+					TaxTester taxTester = new TaxTester();
 					
 					return Arrays.asList(
 							// pen type enum
-							penTypeTester.declare(defaultPoints)
-							, penTypeTester.declareFields(defaultPoints)
-							
-							// country enum
-							, countryTester.declare(defaultPoints)
-							, countryTester.declareFields(defaultPoints)
+//							penTypeTester.declare(defaultPoints)
+//							, penTypeTester.declareFields(defaultPoints)
+//							
+//							// country
+//							, countryTester.declare(defaultPoints)
+//							, countryTester.declareFields(defaultPoints)
+//							
+//							// tax
+//							, taxTester.declare(defaultPoints)
+//							, 
+							taxTester.declareFields(defaultPoints)
 							);
 				default:
 					return null;
