@@ -6,6 +6,7 @@ import java.util.List;
 import student.constant.Question;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
+import student.testSuite.midterm253.BrandTester;
 import student.testSuite.midterm253.CountryTester;
 import student.testSuite.midterm253.PenTypeTester;
 import student.testSuite.midterm253.TaxTester;
@@ -21,20 +22,27 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 					PenTypeTester penTypeTester = new PenTypeTester();
 					CountryTester countryTester = new CountryTester();
 					TaxTester taxTester = new TaxTester();
+					BrandTester brandTester = new BrandTester();
 					
 					return Arrays.asList(
 							// pen type enum
-//							penTypeTester.declare(defaultPoints)
-//							, penTypeTester.declareFields(defaultPoints)
-//							
-//							// country
-//							, countryTester.declare(defaultPoints)
-//							, countryTester.declareFields(defaultPoints)
-//							
-//							// tax
-//							, taxTester.declare(defaultPoints)
-//							, 
-							taxTester.declareFields(defaultPoints)
+							penTypeTester.declare(defaultPoints)
+							, penTypeTester.declareFields(defaultPoints)
+							
+							// country
+							, countryTester.declare(defaultPoints)
+							, countryTester.declareFields(defaultPoints)
+							
+							// tax
+							, taxTester.declare(defaultPoints)
+							, taxTester.declareFields(defaultPoints)
+							
+							// brand
+							, brandTester.declare(defaultPoints)
+							, brandTester.declareFields(defaultPoints)
+							, brandTester.declareGetters(defaultPoints)
+							, brandTester.declareSetters(defaultPoints)
+							, brandTester.checkToStringDeclaration(defaultPoints)
 							);
 				default:
 					return null;

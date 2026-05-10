@@ -162,4 +162,9 @@ public class FieldName {
 	 */
 	public static final String UNDERSCORE_8 = "_8";
 	public static final String UNDERSCORE_10 = "_10";
+	
+	/*
+	 * Brand
+	 */
+	public static final String COUNTRY = "country";
 }
