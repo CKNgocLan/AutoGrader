@@ -1,5 +1,6 @@
 package student.testSuite.midterm;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -65,6 +66,17 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 							, ballpointPenTester.declareFields(defaultPoints)
 							, ballpointPenTester.declareConstructorWithDiscount(defaultPoints)
 							, ballpointPenTester.declareConstructorWithoutDiscount(defaultPoints)
+//							, ballpointPenTester.operateConstructorWithoutDiscount(defaultPoints
+//									, Pen.SHIKIORI
+//									, brandTester.instantiate(BrandName.SAILOR, Country.JAPAN)
+//									, 51.61
+//							)
+//							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
+//									, Pen.SHIKIORI
+//									, brandTester.instantiate(BrandName.SAILOR, Country.JAPAN)
+//									, 51.61
+//									, discountTester.instantiate(0.25, LocalDate.now())
+//							)
 							, ballpointPenTester.declareGetTax(defaultPoints)
 							, ballpointPenTester.operateGetTax(defaultPoints
 									, Pen.SHIKIORI
