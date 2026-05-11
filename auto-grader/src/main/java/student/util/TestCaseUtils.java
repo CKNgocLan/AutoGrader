@@ -5,7 +5,7 @@ import student.constant.TestcaseType;
 import student.model.ITestCase;
 
 public class TestCaseUtils {
-	public static ITestCase errorTestcase(int points, String className, String message) {
+	public static ITestCase errorTestcase(int points, String className, Exception e) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -24,7 +24,7 @@ public class TestCaseUtils {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.FAILED_TESTCASE_DUE_TO_ERROR.getContent(message);
+				return Feedback.FAILED_TESTCASE_DUE_TO_ERROR.getContent(e.getMessage());
 			}
 		};
 	}

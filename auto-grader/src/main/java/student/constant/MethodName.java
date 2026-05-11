@@ -53,4 +53,7 @@ public class MethodName {
 	public static final String DECREMENT_GALLON = "decrementGallon";
 	public static final String INCREMENT_MILEAGE = "incrementMileage";
 	public static final String GET_MILEAGE = "getMileage";
+
+	public static final String IS_DISCOUNTED = "isDiscounted";
+	public static final String GET_DISCOUNT_PRICE = "getDiscountPrice";
 }

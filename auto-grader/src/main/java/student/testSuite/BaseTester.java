@@ -84,6 +84,10 @@ public abstract class BaseTester {
 		return classTester.declareAsEnum(points, className);
 	}
 	
+	protected ITestCase declareAsAbstract(int points) {
+		return classTester.declareAsAbstract(points, className);
+	}
+	
 	/*
 	 * super class
 	 */

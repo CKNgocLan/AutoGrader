@@ -33,11 +33,9 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 					TaxTester taxTester = new TaxTester();
 					BrandTester brandTester = new BrandTester();
 					DiscountTester discountTester = new DiscountTester();
-					PenTester penTester = new PenTester(brandTester, discountTester);
-					BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester, brandTester, discountTester)
-							.setPenTypeTester(penTypeTester);
-					FountainPenTester fountainPenTester = new FountainPenTester(penTester, brandTester)
-							.setPenTypeTester(penTypeTester);
+					PenTester penTester = new PenTester(brandTester, discountTester).setPenTypeTester(penTypeTester);
+					BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester, brandTester, discountTester).setPenTypeTester(penTypeTester);
+					FountainPenTester fountainPenTester = new FountainPenTester(penTester, brandTester).setPenTypeTester(penTypeTester);
 					
 					Object sailorBrand = brandTester.instantiate(BrandName.SAILOR, Country.JAPAN);
 					Object concopensBrand = brandTester.instantiate(BrandName.CONCOPENS, Country.VIETNAM);
@@ -116,6 +114,17 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 									, PenName.GOLDEN_LOTUS
 									, concopensBrand
 									, 645.27)
+							
+							// pen
+							, penTester.declare(defaultPoints)
+							, penTester.declareFields(defaultPoints)
+							, penTester.declareConstructorWithoutDiscount(defaultPoints)
+							, penTester.declareConstructorWithDiscount(defaultPoints)
+							, penTester.declareFields(defaultPoints)
+							, penTester.declareIsDiscounted(defaultPoints)
+							, penTester.declareGetDiscountPrice(defaultPoints)
+							, penTester.declareGetPriceAfterTax(defaultPoints)
+							, penTester.declareGetTax(defaultPoints)
 							);
 				default:
 					return null;

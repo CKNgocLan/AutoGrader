@@ -1,6 +1,7 @@
 package student.testcaseCreator;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -131,6 +132,34 @@ public class ClassTestcaseCreator {
 			@Override
 			public String getFeedback() {
 				return Feedback.ENUM_NOT_FOUND.getContent(className);
+			}
+		};
+	}
+	
+	public ITestCase declareAsAbstract(int points, String className) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_ABSTRACT_CLASS_DECLARATION.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Modifier.isAbstract(Class.forName(className, true, targetClassesLoader).getModifiers());
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_ABSTRACT.getContent(className);
 			}
 		};
 	}

@@ -58,7 +58,7 @@ public class MethodTestcaseCreator {
 			@Override
 			public boolean runTest() {
 				try {
-					return methodChecker.isMethodDeclared(Class.forName(className, true, targetClassesLoader), method);
+					return methodChecker.isDeclaredAsSpecialModifers(Class.forName(className, true, targetClassesLoader), method);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;

@@ -5,6 +5,7 @@ public enum Feedback {
 	CLASS_NOT_FOUND("Class \"{0}\" was not found. Make sure {0}.java is in the submission folder.")
 	, ENUM_NOT_FOUND("ENUM \"{0}\" was not found. Make sure {0}.java is in the submission folder.")
 	, CLASS_NOT_EXTENDING_SUPERCLASS("Class \"{0}\" was NOT EXTENDING SUPER CLASS \"{1}\".")
+	, CLASS_NOT_ABSTRACT("Class \"{0}\" was NOT ABSTRACT.")
 	, CLASS_NOT_IMPLEMENTING_INTERFACE("Class \"{0}\" was NOT IMPLEMENTING INTERFACE \"{1}\".")
 	, INTERFACE_NOT_FOUND("Interface \"{0}\" was not found. Make sure {0}.java is in the submission folder.")
 	, NO_ARGS_CONSTRUCTOR_DECLARATION_MISSING("No-Argument constructor DECLARATION of {0}() is missing or does not initialize fields to default values.")
@@ -19,7 +20,7 @@ public enum Feedback {
 	, GETTER_OPERATION_WORKING_NOT_PROPERLY("Getter of field {0} WORKING NOT PROPERLY. ({1})")
 	, SETTER_OPERATION_WORKING_NOT_PROPERLY("Setter of field {0} WORKING NOT PROPERLY. ({1})")
 	, GETTER_SETTER_OPERATION_WORKING_NOT_PROPERLY("Getter/Setter of class {0} WORKING NOT PROPERLY. ({1})")
-	, ARGS_CONSTRUCTOR_AMONG_SUPERCLASS_OPERATION_NOT_CORRECT("Argument constructor OPERATION among SUPERCLASS of {0} is NOT CORRECT.")
+	, ARGS_CONSTRUCTOR_AMONG_SUPERCLASS_OPERATION_NOT_CORRECT("Argument Constructor OPERATION with SUPERCLASS {1} is NOT CORRECT ({0}).")
 	
 	, FIELD_MUST_NOT_BE_DECLARED("Class {0} MUST NOT HAVE FIELD.")
 	, FIELD_DECLARED_NOT_CORRECT("Field(s) of class {0} NOT CORRECT or MISSING: {1}.")
