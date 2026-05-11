@@ -14,7 +14,9 @@ import student.testSuite.midterm253.BrandTester;
 import student.testSuite.midterm253.Country;
 import student.testSuite.midterm253.CountryTester;
 import student.testSuite.midterm253.DiscountTester;
-import student.testSuite.midterm253.Pen;
+import student.testSuite.midterm253.FountainPenTester;
+import student.testSuite.midterm253.PenName;
+import student.testSuite.midterm253.PenTester;
 import student.testSuite.midterm253.PenTypeTester;
 import student.testSuite.midterm253.TaxTester;
 
@@ -31,58 +33,79 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 					TaxTester taxTester = new TaxTester();
 					BrandTester brandTester = new BrandTester();
 					DiscountTester discountTester = new DiscountTester();
-					BallpointPenTester ballpointPenTester = new BallpointPenTester(brandTester, discountTester);
+					PenTester penTester = new PenTester(brandTester, discountTester);
+					BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester, brandTester, discountTester)
+							.setPenTypeTester(penTypeTester);
+					FountainPenTester fountainPenTester = new FountainPenTester(penTester, brandTester)
+							.setPenTypeTester(penTypeTester);
 					
 					return Arrays.asList(
 							// pen type enum
 							penTypeTester.declare(defaultPoints)
-							, penTypeTester.declareFields(defaultPoints)
-							
-							// country
-							, countryTester.declare(defaultPoints)
-							, countryTester.declareFields(defaultPoints)
-							
-							// tax
-							, taxTester.declare(defaultPoints)
-							, taxTester.declareFields(defaultPoints)
-							
-							// brand
-							, brandTester.declare(defaultPoints)
-							, brandTester.declareFields(defaultPoints)
-							, brandTester.declareConstructor(defaultPoints)
-							, brandTester.declareGetters(defaultPoints)
-							, brandTester.declareSetters(defaultPoints)
-							, brandTester.checkToStringDeclaration(defaultPoints)
-							
-							// discount
-							, discountTester.declare(defaultPoints)
-							, discountTester.declareFields(defaultPoints)
-							, discountTester.declareConstructor(defaultPoints)
-							, discountTester.declareGetters(defaultPoints)
-							, discountTester.declareSetters(defaultPoints)
-							
-							// ballpoint pen
-							, ballpointPenTester.declare(defaultPoints)
-							, ballpointPenTester.declareFields(defaultPoints)
-							, ballpointPenTester.declareConstructorWithDiscount(defaultPoints)
-							, ballpointPenTester.declareConstructorWithoutDiscount(defaultPoints)
-//							, ballpointPenTester.operateConstructorWithoutDiscount(defaultPoints
-//									, Pen.SHIKIORI
-//									, brandTester.instantiate(BrandName.SAILOR, Country.JAPAN)
-//									, 51.61
-//							)
+//							, penTypeTester.declareFields(defaultPoints)
+//							
+//							// country
+//							, countryTester.declare(defaultPoints)
+//							, countryTester.declareFields(defaultPoints)
+//							
+//							// tax
+//							, taxTester.declare(defaultPoints)
+//							, taxTester.declareFields(defaultPoints)
+//							
+//							// brand
+//							, brandTester.declare(defaultPoints)
+//							, brandTester.declareFields(defaultPoints)
+//							, brandTester.declareConstructor(defaultPoints)
+//							, brandTester.declareGetters(defaultPoints)
+//							, brandTester.declareSetters(defaultPoints)
+//							, brandTester.checkToStringDeclaration(defaultPoints)
+//							
+//							// discount
+//							, discountTester.declare(defaultPoints)
+//							, discountTester.declareFields(defaultPoints)
+//							, discountTester.declareConstructor(defaultPoints)
+//							, discountTester.operateConstructor(defaultPoints, 0.19, LocalDate.now().plusMonths(1))
+//							, discountTester.declareGetters(defaultPoints)
+//							, discountTester.declareSetters(defaultPoints)
+//							
+//							// ballpoint pen
+//							, ballpointPenTester.declare(defaultPoints)
+//							, ballpointPenTester.declareFields(defaultPoints)
+//							, ballpointPenTester.declareConstructorWithDiscount(defaultPoints)
+//							, ballpointPenTester.declareConstructorWithoutDiscount(defaultPoints)
+//							, ballpointPenTester.declareSuperClass(defaultPoints)
+							, ballpointPenTester.operateConstructorWithoutDiscount(defaultPoints
+									, PenName.SHIKIORI
+									, brandTester.instantiate(BrandName.SAILOR, Country.JAPAN)
+									, 51.61
+							)
 //							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
-//									, Pen.SHIKIORI
+//									, PenName.SHIKIORI
 //									, brandTester.instantiate(BrandName.SAILOR, Country.JAPAN)
 //									, 51.61
 //									, discountTester.instantiate(0.25, LocalDate.now())
 //							)
-							, ballpointPenTester.declareGetTax(defaultPoints)
-							, ballpointPenTester.operateGetTax(defaultPoints
-									, Pen.SHIKIORI
-									, brandTester.instantiate(BrandName.SAILOR, Country.JAPAN)
-									, 51.61
-									)
+//							, ballpointPenTester.declareGetTax(defaultPoints)
+//							, ballpointPenTester.operateGetTax(defaultPoints
+//									, PenName.SHIKIORI
+//									, brandTester.instantiate(BrandName.SAILOR, Country.JAPAN)
+//									, 51.61)
+//							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
+//									, PenName.FRIXION
+//									, brandTester.instantiate(BrandName.PILOT, Country.JAPAN)
+//									, 13.82
+//									, discountTester.instantiate(0.19, LocalDate.now().plusMonths(1)))
+							
+//							// fountain pen
+//							, fountainPenTester.declare(defaultPoints)
+//							, fountainPenTester.declareFields(defaultPoints)
+//							, fountainPenTester.declareConstructor(defaultPoints)
+//							, fountainPenTester.declareSuperClass(defaultPoints)
+//							, fountainPenTester.operateConstructor(defaultPoints
+//									, PenName.GOLDEN_LOTUS
+//									, brandTester.instantiate(BrandName.CONCOPENS, Country.VIETNAM)
+//									, 645.27)
+//							, fountainPenTester.declareSuperClass(defaultPoints)
 							);
 				default:
 					return null;

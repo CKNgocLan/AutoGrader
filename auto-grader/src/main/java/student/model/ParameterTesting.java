@@ -1,10 +1,12 @@
 package student.model;
 
+import java.util.NoSuchElementException;
+import java.util.stream.Stream;
+
 public class ParameterTesting {
 	private String name;
 	private Class<?> type;
 	private Object value;
-//	private Object testingValue;
 	private boolean skipConstruction;
 
 	public ParameterTesting(Class<?> type) {
@@ -59,5 +61,19 @@ public class ParameterTesting {
 
 	public void setSkipConstruction(boolean skipConstruction) {
 		this.skipConstruction = skipConstruction;
+	}
+
+	public boolean equalsEnumConstant(Class<? extends Enum<?>> enumClass, Object enumValue) {
+		if (!this.type.isEnum()) {
+			return false;
+		}
+		
+		try {
+			Stream.of(enumClass.getEnumConstants()).filter(e -> e.name().equals(enumValue)).findFirst().get();
+		} catch (NoSuchElementException e) {
+			return false;
+		}
+
+		return true;
 	}
 }

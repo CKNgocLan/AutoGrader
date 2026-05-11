@@ -46,6 +46,10 @@ public abstract class BaseTester {
 			return null;
 		}
 	}
+	
+	protected String getCorrespondingClassName() {
+		return this.className;
+	}
 
 	/*
 	 * instantiate ***************
@@ -79,6 +83,14 @@ public abstract class BaseTester {
 	public ITestCase declareAsEnum(int points) {
 		return classTester.declareAsEnum(points, className);
 	}
+	
+	/*
+	 * super class
+	 */
+	
+	public ITestCase declareSuperClass(int points, Class<?> superclass) {
+		return classTester.declareSuperclass(points, className, superclass);
+	}
 
 	/*
 	 * constructor ***************
@@ -94,6 +106,10 @@ public abstract class BaseTester {
 
 	protected ITestCase checkConstructorOperation(int points, ParameterTesting... params) throws ClassNotFoundException {
 		return classTester.checkPartialArgsConstructorOperation(points, className, params);
+	}
+	
+	protected ITestCase operateConstructorViaSuper(int points, ParameterTesting... params) {
+		return classTester.operateConstructorViaSuper(points, className, params);
 	}
 
 	/*

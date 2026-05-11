@@ -1,15 +1,18 @@
 package student.testcaseCreator;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import student.checker.FieldChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
-import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
+import student.testSuite.midterm253.Country;
 import student.util.ParameterTestingUtils;
 
 public class ClassTestcaseCreator {
@@ -200,6 +203,99 @@ public class ClassTestcaseCreator {
 			}
 		};
 	}
+	
+	public ITestCase declareSuperclass(int points, String className, Class<?> superclass) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_SUPERCLASS_EXTENDED_BY_CLASS.getName(className, superclass.getSimpleName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Class.forName(className, true, targetClassesLoader).getSuperclass().equals(superclass);
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_EXTENDING_SUPERCLASS.getContent(className, superclass.getSimpleName());
+			}
+		};
+	}
+	
+	public ITestCase operateConstructorViaSuper(int points, String className, ParameterTesting... args) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_HAVING_SUPERCLASS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					Class<?> superclazz = clazz.getSuperclass();
+					
+					Object instance = clazz
+							.getDeclaredConstructor(ParameterTestingUtils.mapToConstructorType(args))
+							.newInstance(ParameterTestingUtils.mapToConstructorValue(args));
+					
+					for (java.lang.reflect.Field actualField : superclazz.getDeclaredFields()) {
+						if (!actualField.canAccess(instance)) {
+							actualField.setAccessible(true);
+						}
+						
+						Optional<ParameterTesting> paramTestingOptional = Arrays.stream(args)
+								.filter(arg -> arg.getName()
+								.equals(actualField.getName()))
+								.findFirst();
+						if (paramTestingOptional.isEmpty()) {
+							System.out.println("Element is not present: %s".formatted(actualField.getName()));
+							continue;
+						}
+						
+						if (actualField.getType().isEnum() && !paramTestingOptional.get().equalsEnumConstant((Class<? extends Enum<?>>) paramTestingOptional.get().getType().asSubclass(Enum.class), actualField.get(instance))) {
+							return false;
+						}
+						
+						if (!paramTestingOptional.get().getValue().equals(actualField.get(instance))) {
+							return false;
+						}
+					}
+					
+					return true;
+				} catch (NoSuchElementException e) {
+					System.out.println("INVALID FIELDS: %s".formatted(e.getMessage()));
+					return false;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.ARGS_CONSTRUCTOR_AMONG_SUPERCLASS_OPERATION_NOT_CORRECT.getContent(className);
+			}
+		};
+	}
+	
+	/*
+	 * constructor ***************
+	 */
 
 	/**
 	 * No-argument constructor DECLARATION testcase
@@ -261,7 +357,7 @@ public class ClassTestcaseCreator {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
-					return ParameterTestingUtils.compareTestingValue(clazz, clazz.getDeclaredConstructor().newInstance(),
+					return ParameterTestingUtils.compareTestingValueViaGetter(clazz, clazz.getDeclaredConstructor().newInstance(),
 							params);
 				} catch (Exception e) {
 					return false;
@@ -341,7 +437,7 @@ public class ClassTestcaseCreator {
 					Object instance = clazz.getDeclaredConstructor(types).newInstance(testValues);
 
 					for (ParameterTesting param : params) {
-						if (!ParameterTestingUtils.compareTestingValue(clazz, instance, param)) {
+						if (!ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, param)) {
 							return false;
 						}
 					}
@@ -427,17 +523,12 @@ public class ClassTestcaseCreator {
 			public boolean runTest() {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
-
-					Class<?>[] types = Stream.of(params)
-							.filter(param -> !param.isSkipConstruction())
-							.map(pt -> pt.getType()).toArray(Class<?>[]::new);
-					Object[] testValues = Stream.of(params)
-							.filter(param -> !param.isSkipConstruction())
-							.map(pt -> pt.getValue()).toArray(Object[]::new);
-					Object instance = clazz.getDeclaredConstructor(types).newInstance(testValues);
+					Object instance = clazz
+							.getDeclaredConstructor(ParameterTestingUtils.mapToType(params))
+							.newInstance(ParameterTestingUtils.mapToTestingValue(params));
 
 					for (ParameterTesting param : params) {
-						if (!ParameterTestingUtils.compareTestingValue(clazz, instance, param)) {
+						if (!ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, param)) {
 							return false;
 						}
 					}
@@ -455,6 +546,52 @@ public class ClassTestcaseCreator {
 			}
 		};
 	}
+	
+	// TODO operateConstructorHavingSuperclass
+	@Deprecated
+	public ITestCase operateConstructorHavingSuperclass(int points, String className, String superclassName, ParameterTesting... params) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_HAVING_SUPERCLASS.getName(className, superclassName);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					Class<?> superclazz = Class.forName(superclassName, true, targetClassesLoader);
+					Object instance = clazz
+							.getDeclaredConstructor(ParameterTestingUtils.mapToType(params))
+							.newInstance(ParameterTestingUtils.mapToTestingValue(params));
+
+					for (ParameterTesting param : params) {
+						if (!ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, param)) {
+							return false;
+						}
+					}
+
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.ARGS_CONSTRUCTOR_AMONG_SUPERCLASS_OPERATION_NOT_CORRECT.getContent(className, superclassName);
+			}
+		};
+	}
+	
+	/*
+	 * attribute ***************
+	 */
 
 	/**
 	 * Attribute declaration testcase

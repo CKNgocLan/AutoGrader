@@ -10,7 +10,7 @@ public class ParameterTestingUtils {
 		return Stream.of(types).map(ParameterTesting::new).toArray(ParameterTesting[]::new);
 	}
 
-	public static boolean compareTestingValue(Class<?> clazz, Object instance, ParameterTesting paramTest)
+	public static boolean compareTestingValueViaGetter(Class<?> clazz, Object instance, ParameterTesting paramTest)
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Object castValue = (paramTest.getType().isPrimitive() ? ClassUtils.boxing(paramTest.getType())
 				: paramTest.getType())
@@ -22,7 +22,21 @@ public class ParameterTestingUtils {
 		return Stream.of(parameterTestings).map(param -> param.getType()).toArray(Class<?>[]::new);
 	}
 	
+	public static Class<?>[] mapToConstructorType(ParameterTesting... parameterTestings) {
+		return Stream.of(parameterTestings)
+				.filter(param -> !param.isSkipConstruction())
+				.map(param -> param.getType())
+				.toArray(Class<?>[]::new);
+	}
+	
 	public static Object[] mapToTestingValue(ParameterTesting...parameterTestings) {
 		return Stream.of(parameterTestings).map(param -> param.getValue()).toArray(Object[]::new);
+	}
+	
+	public static Object[] mapToConstructorValue(ParameterTesting...parameterTestings) {
+		return Stream.of(parameterTestings)
+				.filter(param -> !param.isSkipConstruction())
+				.map(param -> param.getValue())
+				.toArray(Object[]::new);
 	}
 }

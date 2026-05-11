@@ -5,6 +5,7 @@ public enum TestcaseType {
 	CHECK_CLASS_EXISTENCE("Check Class Existence: {0}")
 	, CHECK_INTERFACE_EXISTENCE("Check INTERFACE Existence: {0}")
 	, CHECK_ENUM_EXISTENCE("Check ENUM Existence: {0}")
+	, CHECK_SUPERCLASS_EXTENDED_BY_CLASS("Check Super Class {1} EXTENDED by Class {0}")
 	, CHECK_INTERFACE_IMPLEMENTED_BY_CLASS("Check INTERFACE {1} Implemented by Class {0}")
 	, CHECK_DECLARATION_OF_CONSTRUCTOR_NO_ARGS("Check No-Argument Constructor DECLARATION of Class: {0}")
 	, CHECK_DECLARATION_OF_CONSTRUCTOR_FULL_ARGS("Check Full-Argument Constructor DECLARATION of Class: {0}")
@@ -20,6 +21,7 @@ public enum TestcaseType {
 	, CHECK_CLASS_GETTER_OPERATION_FOR_FIELD("Check GETTER Operation of Class: {0} for field {1}")
 	, CHECK_CLASS_SETTER_OPERATION_FOR_FIELD("Check SETTER Operation of Class: {0} for field {1}")
 	, CHECK_CLASS_SPECIFIC_GETTER_OPERATION("Check {1} Getter Operation of Class: {0}")
+	, CHECK_OPERATION_OF_CONSTRUCTOR_HAVING_SUPERCLASS("Check Argument Constructor OPERATION including SUPERCLASS of Class: {0}")
 	
 	, CHECK_FIELD("Check Field(s) of Class {0}: {1}")
 	, CHECK_NO_FIELD("Check If No Field Declared in Class {0}")
