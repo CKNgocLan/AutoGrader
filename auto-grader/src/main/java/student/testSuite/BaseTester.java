@@ -64,8 +64,8 @@ public abstract class BaseTester {
 	public Object instantiateWithArgs(ParameterTesting... args)
 			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
-		return getCorrespondingClass().getDeclaredConstructor(ParameterTestingUtils.mapToType(args))
-				.newInstance(ParameterTestingUtils.mapToTestingValue(args));
+		return getCorrespondingClass().getDeclaredConstructor(ParameterTestingUtils.mapToConstructorType(args))
+				.newInstance(ParameterTestingUtils.mapToConstructorValue(args));
 	}
 
 	/*

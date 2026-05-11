@@ -25,6 +25,8 @@ public enum Feedback {
 	, FIELD_DECLARED_NOT_CORRECT("Field(s) of class {0} NOT CORRECT or MISSING: {1}.")
 	, METHOD_DECLARED_NOT_CORRECT("Method {1}() of class {0} NOT CORRECT or MISSING.")
 	, METHOD_OPERATED_NOT_CORRECT("Method {1}() of class {0} OPERATED NOT CORRECTLY.")
+	
+	, FAILED_TESTCASE_DUE_TO_ERROR("TESTCASE FAILED with message: {0}")
 	;
 	
 	private final String value;

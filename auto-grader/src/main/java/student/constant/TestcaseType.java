@@ -28,6 +28,8 @@ public enum TestcaseType {
 
 	, CHECK_METHOD_EXISTENCE("Check Declaration of method {1}() in Class {0}")
 	, CHECK_METHOD_OPERATION("Check Operation of method {1}() in Class {0}")
+	
+	, ERROR_TESTCASE("Failed Testcase while checking Class {0}.")
 	;
 	
 	private final String value;

@@ -39,73 +39,83 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 					FountainPenTester fountainPenTester = new FountainPenTester(penTester, brandTester)
 							.setPenTypeTester(penTypeTester);
 					
+					Object sailorBrand = brandTester.instantiate(BrandName.SAILOR, Country.JAPAN);
+					Object concopensBrand = brandTester.instantiate(BrandName.CONCOPENS, Country.VIETNAM);
+					Object discount = discountTester.instantiate(0.25, LocalDate.now().plusMonths(1));
+					
 					return Arrays.asList(
 							// pen type enum
 							penTypeTester.declare(defaultPoints)
-//							, penTypeTester.declareFields(defaultPoints)
-//							
-//							// country
-//							, countryTester.declare(defaultPoints)
-//							, countryTester.declareFields(defaultPoints)
-//							
-//							// tax
-//							, taxTester.declare(defaultPoints)
-//							, taxTester.declareFields(defaultPoints)
-//							
-//							// brand
-//							, brandTester.declare(defaultPoints)
-//							, brandTester.declareFields(defaultPoints)
-//							, brandTester.declareConstructor(defaultPoints)
-//							, brandTester.declareGetters(defaultPoints)
-//							, brandTester.declareSetters(defaultPoints)
-//							, brandTester.checkToStringDeclaration(defaultPoints)
-//							
-//							// discount
-//							, discountTester.declare(defaultPoints)
-//							, discountTester.declareFields(defaultPoints)
-//							, discountTester.declareConstructor(defaultPoints)
-//							, discountTester.operateConstructor(defaultPoints, 0.19, LocalDate.now().plusMonths(1))
-//							, discountTester.declareGetters(defaultPoints)
-//							, discountTester.declareSetters(defaultPoints)
-//							
-//							// ballpoint pen
-//							, ballpointPenTester.declare(defaultPoints)
-//							, ballpointPenTester.declareFields(defaultPoints)
-//							, ballpointPenTester.declareConstructorWithDiscount(defaultPoints)
-//							, ballpointPenTester.declareConstructorWithoutDiscount(defaultPoints)
-//							, ballpointPenTester.declareSuperClass(defaultPoints)
+							, penTypeTester.declareFields(defaultPoints)
+							
+							// country
+							, countryTester.declare(defaultPoints)
+							, countryTester.declareFields(defaultPoints)
+							
+							// tax
+							, taxTester.declare(defaultPoints)
+							, taxTester.declareFields(defaultPoints)
+							
+							// brand
+							, brandTester.declare(defaultPoints)
+							, brandTester.declareFields(defaultPoints)
+							, brandTester.declareConstructor(defaultPoints)
+							, brandTester.declareGetters(defaultPoints)
+							, brandTester.declareSetters(defaultPoints)
+							, brandTester.checkToStringDeclaration(defaultPoints)
+							
+							// discount
+							, discountTester.declare(defaultPoints)
+							, discountTester.declareFields(defaultPoints)
+							, discountTester.declareConstructor(defaultPoints)
+							, discountTester.operateConstructor(defaultPoints, 0.19, LocalDate.now().plusMonths(1))
+							, discountTester.declareGetters(defaultPoints)
+							, discountTester.declareSetters(defaultPoints)
+							
+							// ballpoint pen
+							, ballpointPenTester.declare(defaultPoints)
+							, ballpointPenTester.declareFields(defaultPoints)
+							, ballpointPenTester.declareConstructorWithDiscount(defaultPoints)
+							, ballpointPenTester.declareConstructorWithoutDiscount(defaultPoints)
+							, ballpointPenTester.declareSuperClass(defaultPoints)
 							, ballpointPenTester.operateConstructorWithoutDiscount(defaultPoints
 									, PenName.SHIKIORI
-									, brandTester.instantiate(BrandName.SAILOR, Country.JAPAN)
+									, sailorBrand
 									, 51.61
 							)
-//							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
-//									, PenName.SHIKIORI
-//									, brandTester.instantiate(BrandName.SAILOR, Country.JAPAN)
-//									, 51.61
-//									, discountTester.instantiate(0.25, LocalDate.now())
-//							)
-//							, ballpointPenTester.declareGetTax(defaultPoints)
-//							, ballpointPenTester.operateGetTax(defaultPoints
-//									, PenName.SHIKIORI
-//									, brandTester.instantiate(BrandName.SAILOR, Country.JAPAN)
-//									, 51.61)
-//							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
-//									, PenName.FRIXION
-//									, brandTester.instantiate(BrandName.PILOT, Country.JAPAN)
-//									, 13.82
-//									, discountTester.instantiate(0.19, LocalDate.now().plusMonths(1)))
+							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
+									, PenName.SHIKIORI
+									, sailorBrand
+									, 51.61
+									, discount
+							)
+							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
+									, PenName.FRIXION
+									, sailorBrand
+									, 13.82
+									, discount
+							)
+							, ballpointPenTester.declareGetTax(defaultPoints)
+							, ballpointPenTester.operateGetTax(defaultPoints
+									, PenName.SHIKIORI
+									, sailorBrand
+									, 51.61)
 							
-//							// fountain pen
-//							, fountainPenTester.declare(defaultPoints)
-//							, fountainPenTester.declareFields(defaultPoints)
-//							, fountainPenTester.declareConstructor(defaultPoints)
-//							, fountainPenTester.declareSuperClass(defaultPoints)
-//							, fountainPenTester.operateConstructor(defaultPoints
-//									, PenName.GOLDEN_LOTUS
-//									, brandTester.instantiate(BrandName.CONCOPENS, Country.VIETNAM)
-//									, 645.27)
-//							, fountainPenTester.declareSuperClass(defaultPoints)
+							// fountain pen
+							, fountainPenTester.declare(defaultPoints)
+							, fountainPenTester.declareFields(defaultPoints)
+							, fountainPenTester.declareConstructor(defaultPoints)
+							, fountainPenTester.declareSuperClass(defaultPoints)
+							, fountainPenTester.operateConstructor(defaultPoints
+									, PenName.GOLDEN_LOTUS
+									, concopensBrand
+									, 645.27)
+							, fountainPenTester.declareSuperClass(defaultPoints)
+							, fountainPenTester.declareGetTax(defaultPoints)
+							, fountainPenTester.operateGetTax(defaultPoints
+									, PenName.GOLDEN_LOTUS
+									, concopensBrand
+									, 645.27)
 							);
 				default:
 					return null;
