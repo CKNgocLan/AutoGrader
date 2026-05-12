@@ -53,6 +53,7 @@ import student.constant.Constants;
 import student.constant.Lab;
 import student.constant.Midterm;
 import student.constant.Question;
+import student.constant.TestCaseResult;
 import student.model.ITestCase;
 import student.util.PathUtils;
 
@@ -121,8 +122,6 @@ public class StudentGraderUI extends JFrame {
         topPanel.add(browseButton);
         // LAB drop down
         JLabel labLabel = new JLabel("     Lab:");
-//        labLabel.setOpaque(true);
-//        labLabel.setBackground(Color.RED);
         topPanel.add(labLabel);
 
         topPanel.add(labComboBox);
@@ -314,7 +313,7 @@ public class StudentGraderUI extends JFrame {
                     scores.add(points);
                     passedList.add(passed);
 
-                    log(passed ? "PASSED" : "FAILED");
+                    log(passed ? TestCaseResult.PASSED : TestCaseResult.FAILED);
                     results.add(new TestResult(test.getName(), test.getPoints(), passed ? test.getPoints() : 0, passed, test.getFeedback()));
                 }
                 int totalScore = scores.stream().mapToInt(Integer::intValue).sum();
@@ -325,27 +324,22 @@ public class StudentGraderUI extends JFrame {
                 // Generate Excel Report
                 generateExcelReport(submissionFolder.getName(), selectedLab, selectedQuestion, results);
 
-                // Step 3: Generate report
-                generateStudentReport(submissionFolder.getName(), selectedLab, selectedQuestion, totalScore, tests, scores, passedList);
+                // TODO Step 3: Generate report
+                // generateStudentReport(submissionFolder.getName(), selectedLab, selectedQuestion, totalScore, tests, scores, passedList);
 
                 // TODO
-//                log("\n" + "=".repeat(60));
-//                log(String.format("FINAL SCORE: %d / 100", totalScore));
                 log("=".repeat(60));
 
-                if (totalScore == 100) {
+                if (totalScore/5 == tests.size()) {
                     log("Excellent! All tests passed.");
-                } else if (totalScore >= 70) {
-                    log("Good work! Review the failed tests below.");
                 } else {
-                    log("Please review the failed tests and try again.");
+                    log("Good work! Review the failed tests below.");
                 }
 
                 log("\nDetailed report saved in reports/ folder.");
 
                 SwingUtilities.invokeLater(() -> {
                     JOptionPane.showMessageDialog(this, 
-//                        "Grading Completed!\n\nYour Score: " + totalScore + "/100\n\nCheck the reports folder for details.", 
                         "Grading Completed!\n\nCheck the reports folder for details.", 
                         "Success", JOptionPane.INFORMATION_MESSAGE);
                     gradeButton.setEnabled(true);
@@ -421,6 +415,7 @@ public class StudentGraderUI extends JFrame {
         } catch (Exception ignored) {}
     }
 
+    @Deprecated
     private void generateStudentReport(String folderName, 
 							           String selectedLab, 
 							           String selectedQuestion,
@@ -435,7 +430,6 @@ public class StudentGraderUI extends JFrame {
             sb.append("===========================================\n");
             sb.append("Folder Name   : ").append(folderName).append("\n");
             sb.append("Date          : ").append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).append("\n");
-//            sb.append("Final Score   : ").append(totalScore).append("/100\n\n");
 
             sb.append("DETAILED TEST RESULTS:\n");
             sb.append("--------------------------------------------------\n\n");
@@ -456,7 +450,7 @@ public class StudentGraderUI extends JFrame {
             }
 
             sb.append("===========================================\n");
-            //TODO sb.append("OVERALL RESULT: ").append(totalScore).append("/100\n");
+            sb.append("OVERALL RESULT: ").append(totalScore).append("/100\n");
 
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss"));
             
@@ -466,7 +460,6 @@ public class StudentGraderUI extends JFrame {
             
             String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "-L" + safeLab + "-Q" + safeQ + "_" + timestamp + ".txt";
 
-//            String fileName = Constants.REPORTS_DIR + "/" + folderName.replaceAll("[^a-zA-Z0-9._-]", "_") + "_report.txt";
             Files.write(Paths.get(fileName), sb.toString().getBytes("UTF-8"));
 
         } catch (Exception e) {
@@ -543,13 +536,13 @@ public class StudentGraderUI extends JFrame {
 					passedCounter++;
 					
 					// Result
-					resultCell.setCellValue("PASSED");
+					resultCell.setCellValue(TestCaseResult.PASSED);
 
 					// Apply color
 					resultCell.setCellStyle(passedStyle);
 				} else {
 					// Result
-					resultCell.setCellValue("FAILED");
+					resultCell.setCellValue(TestCaseResult.FAILED);
 					
 					resultCell.setCellStyle(failedStyle);
 
@@ -559,20 +552,39 @@ public class StudentGraderUI extends JFrame {
 			}
 			
 			// create aggregation row
-			Row aggregationRow = sheet.createRow(rowNum);
-			int colIndex = 0;
-			
-			// No
-			colIndex++;
-			
-			// Test Case Name
-			colIndex++;
-			
-			// Result
-			aggregationRow.createCell(colIndex++).setCellValue(passedCounter);
-			
-			// Feedback
-			aggregationRow.createCell(colIndex).setCellValue("/%s testcases".formatted(results.size()));
+			{
+				Row aggregationRow = sheet.createRow(rowNum);
+				int colIndex = 0;
+				
+				// aggregation row style
+				org.apache.poi.ss.usermodel.Font resultFont = workbook.createFont();
+				resultFont.setBold(true);
+				resultFont.setItalic(true);
+				resultFont.setColor(IndexedColors.WHITE.getIndex());
+				
+				CellStyle resultStyle = workbook.createCellStyle();
+				resultStyle.setAlignment(HorizontalAlignment.CENTER);
+				resultStyle.setFillForegroundColor(IndexedColors.DARK_GREEN.getIndex());
+				resultStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+				resultStyle.setFont(resultFont);
+				
+				// No
+				colIndex++;
+				
+				// Test Case Name
+//				colIndex++;
+				org.apache.poi.ss.usermodel.Cell testcaseCell = aggregationRow.createCell(colIndex++);
+				testcaseCell.setCellValue(MessageFormat.format("{0}/{1} testcases", passedCounter, results.size()));
+				testcaseCell.setCellStyle(resultStyle);
+				
+				// Result
+				org.apache.poi.ss.usermodel.Cell resultCell = aggregationRow.createCell(colIndex++);
+				resultCell.setCellValue(MessageFormat.format("{0}%", String.valueOf((passedCounter/results.size())*100)));
+				resultCell.setCellStyle(resultStyle);
+				
+				// Feedback
+				colIndex++;
+			}
 
             // Auto-size columns
             for (int i = 0; i < 5; i++) {

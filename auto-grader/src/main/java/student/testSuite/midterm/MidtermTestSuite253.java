@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import student.constant.Constants;
 import student.constant.Question;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
@@ -44,60 +43,60 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 					return Arrays.asList(
 							// pen type enum
 							penTypeTester.declare(defaultPoints)
-//							, penTypeTester.declareFields(defaultPoints)
-//							
-//							// country
-//							, countryTester.declare(defaultPoints)
-//							, countryTester.declareFields(defaultPoints)
-//							
-//							// tax
-//							, taxTester.declare(defaultPoints)
-//							, taxTester.declareFields(defaultPoints)
-//							
-//							// brand
-//							, brandTester.declare(defaultPoints)
-//							, brandTester.declareFields(defaultPoints)
-//							, brandTester.declareConstructor(defaultPoints)
-//							, brandTester.declareGetters(defaultPoints)
-//							, brandTester.declareSetters(defaultPoints)
-//							, brandTester.checkToStringDeclaration(defaultPoints)
-//							
-//							// discount
-//							, discountTester.declare(defaultPoints)
-//							, discountTester.declareFields(defaultPoints)
-//							, discountTester.declareConstructor(defaultPoints)
-//							, discountTester.operateConstructor(defaultPoints, 0.19, LocalDate.now().plusMonths(1))
-//							, discountTester.declareGetters(defaultPoints)
-//							, discountTester.declareSetters(defaultPoints)
-//							
-//							// ballpoint pen
-//							, ballpointPenTester.declare(defaultPoints)
-//							, ballpointPenTester.declareFields(defaultPoints)
-//							, ballpointPenTester.declareConstructorWithDiscount(defaultPoints)
-//							, ballpointPenTester.declareConstructorWithoutDiscount(defaultPoints)
-//							, ballpointPenTester.declareSuperClass(defaultPoints)
-//							, ballpointPenTester.operateConstructorWithoutDiscount(defaultPoints
-//									, PenName.SHIKIORI
-//									, sailorBrand
-//									, 51.61
-//							)
-//							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
-//									, PenName.SHIKIORI
-//									, sailorBrand
-//									, 51.61
-//									, discount
-//							)
-//							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
-//									, PenName.FRIXION
-//									, sailorBrand
-//									, 13.82
-//									, discount
-//							)
-//							, ballpointPenTester.declareGetTax(defaultPoints)
-//							, ballpointPenTester.operateGetTax(defaultPoints
-//									, PenName.SHIKIORI
-//									, sailorBrand
-//									, 51.61)
+							, penTypeTester.declareFields(defaultPoints)
+							
+							// country
+							, countryTester.declare(defaultPoints)
+							, countryTester.declareFields(defaultPoints)
+							
+							// tax
+							, taxTester.declare(defaultPoints)
+							, taxTester.declareFields(defaultPoints)
+							
+							// brand
+							, brandTester.declare(defaultPoints)
+							, brandTester.declareFields(defaultPoints)
+							, brandTester.declareConstructor(defaultPoints)
+							, brandTester.declareGetters(defaultPoints)
+							, brandTester.declareSetters(defaultPoints)
+							, brandTester.checkToStringDeclaration(defaultPoints)
+							
+							// discount
+							, discountTester.declare(defaultPoints)
+							, discountTester.declareFields(defaultPoints)
+							, discountTester.declareConstructor(defaultPoints)
+							, discountTester.operateConstructor(defaultPoints, 0.19, LocalDate.now().plusMonths(1))
+							, discountTester.declareGetters(defaultPoints)
+							, discountTester.declareSetters(defaultPoints)
+							
+							// ballpoint pen
+							, ballpointPenTester.declare(defaultPoints)
+							, ballpointPenTester.declareFields(defaultPoints)
+							, ballpointPenTester.declareConstructorWithDiscount(defaultPoints)
+							, ballpointPenTester.declareConstructorWithoutDiscount(defaultPoints)
+							, ballpointPenTester.declareSuperClass(defaultPoints)
+							, ballpointPenTester.operateConstructorWithoutDiscount(defaultPoints
+									, PenName.SHIKIORI
+									, sailorBrand
+									, 51.61
+							)
+							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
+									, PenName.SHIKIORI
+									, sailorBrand
+									, 51.61
+									, discount
+							)
+							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
+									, PenName.FRIXION
+									, sailorBrand
+									, 13.82
+									, discount
+							)
+							, ballpointPenTester.declareGetTax(defaultPoints)
+							, ballpointPenTester.operateGetTax(defaultPoints
+									, PenName.SHIKIORI
+									, sailorBrand
+									, 51.61)
 							, ballpointPenTester.getDiscountPrice(defaultPoints
 									, PenName.SHIKIORI
 									, sailorBrand
@@ -108,32 +107,32 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 									, 51.61
 									, 0.19)
 							
-//							// fountain pen
-//							, fountainPenTester.declare(defaultPoints)
-//							, fountainPenTester.declareFields(defaultPoints)
-//							, fountainPenTester.declareConstructor(defaultPoints)
-//							, fountainPenTester.declareSuperClass(defaultPoints)
-//							, fountainPenTester.operateConstructor(defaultPoints
-//									, PenName.GOLDEN_LOTUS
-//									, concopensBrand
-//									, 645.27)
-//							, fountainPenTester.declareSuperClass(defaultPoints)
-//							, fountainPenTester.declareGetTax(defaultPoints)
-//							, fountainPenTester.operateGetTax(defaultPoints
-//									, PenName.GOLDEN_LOTUS
-//									, concopensBrand
-//									, 645.27)
-//							
-//							// pen
-//							, penTester.declare(defaultPoints)
-//							, penTester.declareFields(defaultPoints)
-//							, penTester.declareConstructorWithoutDiscount(defaultPoints)
-//							, penTester.declareConstructorWithDiscount(defaultPoints)
-//							, penTester.declareFields(defaultPoints)
-//							, penTester.declareIsDiscounted(defaultPoints)
-//							, penTester.declareGetDiscountPrice(defaultPoints)
-//							, penTester.declareGetPriceAfterTax(defaultPoints)
-//							, penTester.declareGetTax(defaultPoints)
+							// fountain pen
+							, fountainPenTester.declare(defaultPoints)
+							, fountainPenTester.declareFields(defaultPoints)
+							, fountainPenTester.declareConstructor(defaultPoints)
+							, fountainPenTester.declareSuperClass(defaultPoints)
+							, fountainPenTester.operateConstructor(defaultPoints
+									, PenName.GOLDEN_LOTUS
+									, concopensBrand
+									, 645.27)
+							, fountainPenTester.declareSuperClass(defaultPoints)
+							, fountainPenTester.declareGetTax(defaultPoints)
+							, fountainPenTester.operateGetTax(defaultPoints
+									, PenName.GOLDEN_LOTUS
+									, concopensBrand
+									, 645.27)
+							
+							// pen
+							, penTester.declare(defaultPoints)
+							, penTester.declareFields(defaultPoints)
+							, penTester.declareConstructorWithoutDiscount(defaultPoints)
+							, penTester.declareConstructorWithDiscount(defaultPoints)
+							, penTester.declareFields(defaultPoints)
+							, penTester.declareIsDiscounted(defaultPoints)
+							, penTester.declareGetDiscountPrice(defaultPoints)
+							, penTester.declareGetPriceAfterTax(defaultPoints)
+							, penTester.declareGetTax(defaultPoints)
 							);
 				default:
 					return null;
