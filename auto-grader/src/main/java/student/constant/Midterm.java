@@ -1,5 +1,5 @@
 package student.constant;
 
 public class Midterm {
-	public static final String M253 = "Midterm253";
+	public static final String MIDTERM_253 = "Midterm 253";
 }

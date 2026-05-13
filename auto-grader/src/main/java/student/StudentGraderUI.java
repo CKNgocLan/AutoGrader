@@ -75,7 +75,7 @@ public class StudentGraderUI extends JFrame {
     public StudentGraderUI() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
     	initThemeColor();
     	
-        setTitle("Student Self-Grader - Java Lab");
+        setTitle("Midterm Grader - 253");
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -86,10 +86,18 @@ public class StudentGraderUI extends JFrame {
         setLayout(new BorderLayout(10, 10));
 
         // TODO background color
-//        Color backgroundColor = new Color(239, 246, 255);
-        Color backgroundColor = new Color(252, 253, 255);
-        Color lightBlue = new Color(239, 246, 255);
-        getContentPane().setBackground(backgroundColor);
+        Color panelBackgroundColor = new Color(239, 246, 255); // light blue
+        panelBackgroundColor = new Color(255,239,239); // light red
+
+        Color primaryBackgroundColor = new Color(252, 253, 255);
+		primaryBackgroundColor = new Color(255, 239, 239);
+        getContentPane().setBackground(primaryBackgroundColor);
+        
+		Color clearLogButtonBackgroundColor = new Color(208, 18, 18);
+		Color clearLogButtonForegroundColor = Color.WHITE;// new Color(255, 129, 0);
+		
+		Color openReportsButtonBackgroundColor = new Color(0, 103, 26);
+		Color openReportsButtonForegroundColor = Color.WHITE;// new Color(0, 103, 26);
 
         // ==================== TOP PANEL ====================
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 15));
@@ -105,7 +113,7 @@ public class StudentGraderUI extends JFrame {
         
         gradeButton = new JButton("Start Grading");
         gradeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        gradeButton.setBackground(new Color(185, 28, 28));
+        gradeButton.setBackground(new Color(208, 18, 18));
         gradeButton.setForeground(Color.WHITE);
         
         // Lab and Question drop down
@@ -145,12 +153,12 @@ public class StudentGraderUI extends JFrame {
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         
         openReportsButton = new JButton("📁 Open Reports Folder");
-        openReportsButton.setBackground(new Color(232, 17, 35));
-        openReportsButton.setForeground(Color.WHITE);
+        openReportsButton.setBackground(openReportsButtonBackgroundColor);
+        openReportsButton.setForeground(openReportsButtonForegroundColor);
         
         clearLogButton = new JButton("Clear Log");
-        clearLogButton.setBackground(new Color(232, 17, 35));
-        clearLogButton.setForeground(Color.WHITE);
+        clearLogButton.setBackground(clearLogButtonBackgroundColor);
+        clearLogButton.setForeground(clearLogButtonForegroundColor);
         
         bottomPanel.add(openReportsButton);
         bottomPanel.add(clearLogButton);
@@ -179,9 +187,9 @@ public class StudentGraderUI extends JFrame {
         log("4. Click \"Start Grading\"");
         log("5. Check the detailed report in reports/ folder\n");
         
-        topPanel.setBackground(lightBlue);
-        logScroll.setBackground(lightBlue);
-        bottomPanel.setBackground(lightBlue);
+        topPanel.setBackground(panelBackgroundColor);
+        logScroll.setBackground(panelBackgroundColor);
+        bottomPanel.setBackground(panelBackgroundColor);
     }
     
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
@@ -189,7 +197,7 @@ public class StudentGraderUI extends JFrame {
 		// Format: Lab Name -> List of Questions
 //		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
 //		labQuestionsMap.put(Lab.L3, Arrays.asList(Question.Q3, Question.Q2, Question.Q1));
-		labQuestionsMap.put(Midterm.M253, Arrays.asList(Question.Q1));
+		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Question.Q1));
 	}
     
     private void initializeComboBoxes() {

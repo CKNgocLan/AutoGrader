@@ -11,7 +11,7 @@ public class LabTestSuiteFactory {
 	public ALabTestSuite createSuite(String lab) {
 
 		switch (lab) {
-		case Midterm.M253:
+		case Midterm.MIDTERM_253:
 			return new MidtermTestSuite253();
 		case Lab.L1:
 			return new LabTestSuite1();
