@@ -33,12 +33,20 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 					BrandTester brandTester = new BrandTester();
 					DiscountTester discountTester = new DiscountTester();
 					PenTester penTester = new PenTester(brandTester, discountTester).setPenTypeTester(penTypeTester);
-					BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester, brandTester, discountTester).setPenTypeTester(penTypeTester);
-					FountainPenTester fountainPenTester = new FountainPenTester(penTester, brandTester).setPenTypeTester(penTypeTester);
+					BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester, brandTester, discountTester)
+							.setPenTypeTester(penTypeTester);
+					FountainPenTester fountainPenTester = new FountainPenTester(penTester, brandTester)
+							.setPenTypeTester(penTypeTester)
+							.setDiscountTester(discountTester);
 					
 					Object sailorBrand = brandTester.instantiate(BrandName.SAILOR, Country.JAPAN);
 					Object concopensBrand = brandTester.instantiate(BrandName.CONCOPENS, Country.VIETNAM);
 					Object discount = discountTester.instantiate(0.19, LocalDate.now().plusMonths(1));
+					
+//					List<ITestCase> testcases = penTypeTester.getAllTestcases();
+//					testcases.addAll(countryTester.getAllTestcases());
+//					testcases.addAll(taxTester.getAllTestcases());
+//					testcases.addAll(brandTester.getAllTestcases());
 					
 					return Arrays.asList(
 							// pen type enum
@@ -106,6 +114,16 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 									, sailorBrand
 									, 51.61
 									, 0.19)
+							, ballpointPenTester.declareIsDiscounted(defaultPoints)
+							, ballpointPenTester.operateIsDiscounted(defaultPoints
+									, PenName.SHIKIORI
+									, sailorBrand
+									, 51.61)
+							, ballpointPenTester.operateIsDiscounted(defaultPoints
+									, PenName.SHIKIORI
+									, sailorBrand
+									, 51.61
+									, 0.19)
 							
 							// fountain pen
 							, fountainPenTester.declare(defaultPoints)
@@ -122,7 +140,17 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 									, PenName.GOLDEN_LOTUS
 									, concopensBrand
 									, 645.27)
-							
+							, fountainPenTester.declareIsDiscounted(defaultPoints)
+							, fountainPenTester.operateIsDiscounted(defaultPoints
+									, PenName.GOLDEN_LOTUS
+									, concopensBrand
+									, 645.27)
+							, fountainPenTester.operateIsDiscounted(defaultPoints
+									, PenName.GOLDEN_LOTUS
+									, concopensBrand
+									, 645.27
+									, 0.19)
+
 							// pen
 							, penTester.declare(defaultPoints)
 							, penTester.declareFields(defaultPoints)

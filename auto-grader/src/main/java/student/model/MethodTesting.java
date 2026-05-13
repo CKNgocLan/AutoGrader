@@ -12,6 +12,7 @@ import student.exception.InvalidConfigurationException;
 import student.util.ClassUtils;
 import student.util.MethodUtils;
 import student.util.NumbericUtils;
+import student.util.StringUtils;
 
 public class MethodTesting {
 	private int modifier;
@@ -211,10 +212,27 @@ public class MethodTesting {
 		return clazz.getDeclaredMethod(name, getParameterTypes()).invoke(instance, getParameterValues());
 	}
 	
+	public Object returningInPrivate() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
+			IllegalAccessException, InvocationTargetException {
+		isConfigured();
+
+		java.lang.reflect.Method method = clazz.getDeclaredMethod(name, getParameterTypes());
+		method.setAccessible(true);
+		return method.invoke(instance, getParameterValues());
+	}
+	
 	public Double returnNumbericAbs() throws NumberFormatException, NoSuchMethodException,
 			SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
 		return Math.abs(NumbericUtils.toDouble(boxingReturnedType().cast(returning()))
 				- NumbericUtils.toDouble(expectedValue));
+	}
+	
+	public Boolean returnBooleanInPrivate() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
+		return Boolean.valueOf(StringUtils.toString(returningInPrivate()));
+	}
+	
+	public boolean assertExpectedBoolean() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
+		return returnBooleanInPrivate().equals(expectedValue);
 	}
 
 	@Deprecated

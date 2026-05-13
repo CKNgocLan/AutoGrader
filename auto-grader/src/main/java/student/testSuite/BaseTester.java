@@ -25,6 +25,7 @@ public abstract class BaseTester {
 	protected FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
 	protected MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private Class<?> clazz;
+	protected int defaultPoints = 1;
 
 	/*
 	 * class ***************

@@ -2,6 +2,8 @@ package student.testSuite.midterm253;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import student.constant.ClassName;
@@ -11,8 +13,20 @@ import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
 import student.testSuite.BaseTester;
+import student.util.TestCaseUtils;
 
 public class DiscountTester extends BaseTester {
+	public List<ITestCase> getAllTestcases() {
+		return Arrays.asList(
+				declare(defaultPoints)
+				, declareFields(defaultPoints)
+				, declareConstructor(defaultPoints)
+//				, operateConstructor(int points, double percent, LocalDate endDate)
+				, declareGetters(defaultPoints)
+				, declareSetters(defaultPoints)
+				, declareToString(defaultPoints)
+				);
+	}
 
 	/*
 	 * instantiate ***************
@@ -59,16 +73,26 @@ public class DiscountTester extends BaseTester {
 	 * field ***************
 	 */
 
-	public ITestCase declareFields(int points) throws ClassNotFoundException, TesterGotNoClassNameException {
-		return super.fieldTester.checkDeclarations(points, className, fields());
+	public ITestCase declareFields(int points) {
+		try {
+			return super.fieldTester.checkDeclarations(points, className, fields());
+		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(points, className, e);
+		}
 	}
 
 	/*
 	 * constructor
 	 */
 
-	public ITestCase declareConstructor(int points) throws ClassNotFoundException {
-		return super.checkConstructorDeclaration(points, double.class, LocalDate.class);
+	public ITestCase declareConstructor(int points) {
+		try {
+			return super.checkConstructorDeclaration(points, double.class, LocalDate.class);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(points, className, e);
+		}
 	}
 
 	public ITestCase operateConstructor(int points, double percent, LocalDate endDate)

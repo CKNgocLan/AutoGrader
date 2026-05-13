@@ -347,4 +347,39 @@ public class MethodTestcaseCreator {
 			}
 		};
 	}
+
+	public ITestCase operationAsBooleanInPrivate(int points, MethodTesting method) {
+		return new ITestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return method.assertExpectedBoolean();
+				} catch (NoSuchMethodException e) {
+					return false;
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.getMessage());
+					return false;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+			}
+		};
+	}
 }
