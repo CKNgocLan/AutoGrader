@@ -26,7 +26,7 @@ public class OdometerTester extends BaseTester {
 	
 	public ParameterTesting[] constructorArgs(Object fuelGauge) throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new ParameterTesting[] {
-			new ParameterTesting(fuelGaugeTester.getCorrespondingClass(), FieldName.GALLON, fuelGauge)	
+			new ParameterTesting(fuelGaugeTester.getCorrespondingClass(), FieldName.FUEL_GAUGE, fuelGauge)	
 		};
 	}
 	
@@ -59,7 +59,7 @@ public class OdometerTester extends BaseTester {
 	
 	public ITestCase fields(int points) throws ClassNotFoundException
 			, TesterGotNoClassNameException {
-		return fieldTester.checkDeclarationsAsPublicStaticFinal(points, className
+		return fieldTester.checkDeclarations(points, className
 				, new FieldTesting(int.class, FieldName.MILEAGE)
 				, new FieldTesting(fuelGaugeTester.getCorrespondingClass(), FieldName.FUEL_GAUGE)
 		);

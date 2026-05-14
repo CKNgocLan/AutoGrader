@@ -55,7 +55,7 @@ public class FuelGaugeTester extends BaseTester {
 	 */
 	
 	public ITestCase fields(int points) {
-		return fieldTester.checkDeclarationsAsPublicStaticFinal(points, className
+		return fieldTester.checkDeclarations(points, className
 				, new FieldTesting(int.class, FieldName.GALLON)
 		);
 	}

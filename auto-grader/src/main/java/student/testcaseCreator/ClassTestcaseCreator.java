@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import student.checker.FieldChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
+import student.constant.FieldName;
 import student.constant.TestcaseType;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
@@ -552,6 +553,8 @@ public class ClassTestcaseCreator {
 			public boolean runTest() {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					
+					// TODO compare field as Object without using getter/setter
 					Object instance = clazz
 							.getDeclaredConstructor(ParameterTestingUtils.mapToType(params))
 							.newInstance(ParameterTestingUtils.mapToTestingValue(params));
