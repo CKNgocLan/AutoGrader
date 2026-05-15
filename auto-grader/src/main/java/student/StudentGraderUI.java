@@ -197,7 +197,7 @@ public class StudentGraderUI extends JFrame {
 		// Format: Lab Name -> List of Questions
 //		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
 		labQuestionsMap.put(Lab.L3, Arrays.asList(Question.Q4, Question.Q3, Question.Q2, Question.Q1));
-//		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Question.Q1));
+		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Question.Q1));
 	}
     
     private void initializeComboBoxes() {
@@ -319,7 +319,9 @@ public class StudentGraderUI extends JFrame {
                     boolean passed = test.runTest();
                     int points = passed ? test.getPoints() : 0;
                     scores.add(points);
-                    passedList.add(passed);
+                    if (passed) {
+                    	passedList.add(passed);
+                    }
 
                     log(passed ? TestCaseResult.PASSED : TestCaseResult.FAILED);
                     results.add(new TestResult(test.getName(), test.getPoints(), passed ? test.getPoints() : 0, passed, test.getFeedback()));
@@ -347,8 +349,8 @@ public class StudentGraderUI extends JFrame {
                 log("\nDetailed report saved in reports/ folder.");
 
                 SwingUtilities.invokeLater(() -> {
-                    JOptionPane.showMessageDialog(this, 
-                        "Grading Completed!\n\nCheck the reports folder for details.", 
+                    JOptionPane.showMessageDialog(this,
+                        MessageFormat.format("Grading Completed!\nYou have passed {0}/{1} testcase.", passedList.size(), tests.size()), 
                         "Success", JOptionPane.INFORMATION_MESSAGE);
                     gradeButton.setEnabled(true);
                 });

@@ -8,5 +8,4 @@ public class FountainPen extends Pen {
     public double getTax() {
         return Tax._10;
     }
-
 }

@@ -83,6 +83,7 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 							, ballpointPenTester.declareConstructorWithDiscount(defaultPoints)
 							, ballpointPenTester.declareConstructorWithoutDiscount(defaultPoints)
 							, ballpointPenTester.declareSuperClass(defaultPoints)
+							, ballpointPenTester.excludes(defaultPoints)
 							, ballpointPenTester.operateConstructorWithoutDiscount(defaultPoints
 									, PenName.SHIKIORI
 									, sailorBrand
@@ -128,13 +129,13 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 							// fountain pen
 							, fountainPenTester.declare(defaultPoints)
 							, fountainPenTester.declareFields(defaultPoints)
-							, fountainPenTester.declareConstructor(defaultPoints)
 							, fountainPenTester.declareSuperClass(defaultPoints)
+							, fountainPenTester.declareConstructor(defaultPoints)
 							, fountainPenTester.operateConstructor(defaultPoints
 									, PenName.GOLDEN_LOTUS
 									, concopensBrand
 									, 645.27)
-							, fountainPenTester.declareSuperClass(defaultPoints)
+							, fountainPenTester.excludes(defaultPoints)
 							, fountainPenTester.declareGetTax(defaultPoints)
 							, fountainPenTester.operateGetTax(defaultPoints
 									, PenName.GOLDEN_LOTUS

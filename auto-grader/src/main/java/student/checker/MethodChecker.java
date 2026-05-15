@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 import student.model.Getter;
 import student.model.MethodTesting;
@@ -199,6 +201,25 @@ public class MethodChecker {
 			return false;
 		}
 		
+		return true;
+	}
+	
+	/*
+	 * EXCLUDE
+	 */
+	
+	public boolean isExluded(Class<?> clazz, MethodTesting... excludedMethods) {
+		Method[] actualMethods = clazz.getDeclaredMethods();
+
+		for (Method am : actualMethods) {
+			Optional<MethodTesting> foundMethod = Stream.of(excludedMethods)
+					.filter(em -> em.getName().equals(am.getName()) && em.getReturnedType().equals(am.getReturnType()))
+					.findFirst();
+			if (foundMethod.isPresent()) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 }

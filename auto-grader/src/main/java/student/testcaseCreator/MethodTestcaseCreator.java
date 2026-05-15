@@ -12,6 +12,7 @@ import student.model.Getter;
 import student.model.ITestCase;
 import student.model.MethodTesting;
 import student.model.Setter;
+import student.util.MethodUtils;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
@@ -379,6 +380,35 @@ public class MethodTestcaseCreator {
 			@Override
 			public String getFeedback() {
 				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+			}
+		};
+	}
+
+	public ITestCase excludes(int points, Class<?> subclass, MethodTesting... method) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_EXCLUDING_METHOD.getName(subclass.getName(), MethodUtils.getJoinedName(Constants.COMMA_WITH_SPACE, method));
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return methodChecker.isExluded(subclass, method);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_EXCLUDING_METHOD.getContent(subclass.getName(), MethodUtils.getJoinedName(Constants.COMMA_WITH_SPACE, method));
 			}
 		};
 	}

@@ -11,6 +11,10 @@ public class MethodUtils {
 		return Stream.of(method.getParameters()).map(Parameter::getType).toArray(Class<?>[]::new);
 	}
 	
+	public static String getJoinedName(CharSequence delimeter, MethodTesting... method) {
+		return String.join(delimeter, Stream.of(method).map(m -> m.getName()).toList());
+	}
+	
 	/*
 	 * common methods
 	 */
