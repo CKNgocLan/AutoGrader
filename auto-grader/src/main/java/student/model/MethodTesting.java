@@ -266,6 +266,16 @@ public class MethodTesting {
 	}
 
 	@Deprecated
+	public void updateIntegerFieldValue(String fieldName, int value) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+		Field updatedField = clazz.getDeclaredField(fieldName);
+		boolean canAccessed = updatedField.canAccess(instance);
+		updatedField.setAccessible(true);
+		
+		updatedField.setInt(instance, value);
+		updatedField.setAccessible(canAccessed);
+	}
+
+	@Deprecated
 	public boolean assertExpectedValue(Object expected) throws NoSuchMethodException, SecurityException,
 			IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
 		return this.boxingReturnedType().cast(returning()).equals(expected);

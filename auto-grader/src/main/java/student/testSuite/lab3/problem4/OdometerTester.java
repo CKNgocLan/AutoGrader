@@ -109,7 +109,7 @@ public class OdometerTester extends BaseTester {
 	
 	public ITestCase operateIncrementMileage(int points, int expected) {
 		try {
-			return super.methodTester.operationAsVoid(points,
+			return super.methodTester.operationAsVoidAndCompareIntField(points,
 					incrementMileageMethod()
 							.config(getCorrespondingClass(), instantiate(fuelGaugeTester.instantiate(1)))
 							.expectedValue(expected),

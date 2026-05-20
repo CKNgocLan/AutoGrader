@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import student.checker.FieldChecker;
 import student.checker.MethodChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
@@ -381,7 +382,7 @@ public class MethodTestcaseCreator {
 		};
 	}
 
-	public ITestCase operationAsVoid(int points, MethodTesting method, String updatedFieldName) {
+	public ITestCase operationAsVoidAndCompareIntField(int points, MethodTesting method, String integerFieldName) {
 		return new ITestCase() {
 
 			@Override
@@ -398,7 +399,7 @@ public class MethodTestcaseCreator {
 			public boolean runTest() {
 				try {
 					method.returnVoid();
-					return NumbericUtils.toInteger(method.getExpectedValue()).equals(method.getUpdatedValue(updatedFieldName));
+					return NumbericUtils.toInteger(method.getExpectedValue()).equals(method.getUpdatedValue(integerFieldName));
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					e.printStackTrace();

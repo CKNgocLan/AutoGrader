@@ -54,9 +54,6 @@ public class FieldChecker {
 	}
 
 	public boolean compareValue(FieldTesting fieldTesting, Object actualValue) {
-//		if (reflectField.getType().isPrimitive()) {
-//			ClassUtils.boxing(reflectField.getType()).cast(fieldTesting.getValue());
-//		}
 		return fieldTesting.getValue().equals(actualValue);
 	}
 }
