@@ -159,12 +159,13 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, odometerTester.fields(defaultPoints)
 						, odometerTester.declareConstructor(defaultPoints)
 						, odometerTester.operateConstructor(defaultPoints, fuelGaugeInstance)
+						, odometerTester.declareIncrementMileage(defaultPoints)
+						, odometerTester.operateIncrementMileage(defaultPoints, 1)
+						, odometerTester.declareGetMileage(defaultPoints)
 						);
 			}
 			case Question.Q5:
 
-				return Arrays.asList();
-			case Question.Q6:
 				return Arrays.asList();
 			default:
 				return null;

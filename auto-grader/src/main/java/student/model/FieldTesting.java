@@ -7,7 +7,8 @@ public class FieldTesting {
 	private int modifier;
 	private Class<?> type;
 	private String name;
-	private Class<?> typeParameter; // type parameter of Collection 
+	private Class<?> typeParameter; // type parameter of Collection
+	private Object value;
 	private boolean isStatic;
 	private boolean isFinal;
 	private boolean isPublic;
@@ -29,6 +30,15 @@ public class FieldTesting {
 		this.modifier = modifier;
 		this.type = type;
 		this.name = name;
+	}
+	
+	public FieldTesting setValue(Object value) {
+		this.value = value;
+		return this;
+	}
+	
+	public Object getValue() {
+		return this.value;
 	}
 	
 	public FieldTesting asStatic() {

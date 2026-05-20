@@ -63,6 +63,7 @@ public class ClassTestcaseCreator {
 					Class.forName(className, true, targetClassesLoader);
 					return true;
 				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
 					return false;
 				}
 			}
@@ -515,9 +516,8 @@ public class ClassTestcaseCreator {
 					Class.forName(className, true, targetClassesLoader)
 							.getDeclaredConstructor(Stream.of(params).map(p -> p.getType()).toArray(Class<?>[]::new));
 					return true;
-				} catch (ClassNotFoundException e) {
-					return false;
 				} catch (Exception e) {
+//					e.printStackTrace();
 					return false;
 				}
 			}
@@ -567,6 +567,7 @@ public class ClassTestcaseCreator {
 
 					return true;
 				} catch (Exception e) {
+					e.printStackTrace();
 					return false;
 				}
 			}

@@ -27,9 +27,9 @@ public class ConstTester extends BaseTester {
 	
 	public ITestCase fields(int points) {
 		return fieldTester.checkDeclarationsAsPublicStaticFinal(points, className
-				, new FieldTesting(int.class, FieldName.UPPERCASE_CAR_MAX_GALLON)
-				, new FieldTesting(int.class, FieldName.UPPERCASE_ODOMETER_MAXIMUM_MILEAGE_MILES)
-				, new FieldTesting(int.class, FieldName.UPPERCASE_MILES_PER_ONE_GALLON)
+				, new FieldTesting(int.class, FieldName.UPPERCASE_CAR_MAX_GALLON).setValue(15)
+				, new FieldTesting(int.class, FieldName.UPPERCASE_ODOMETER_MAXIMUM_MILEAGE_MILES).setValue(999999)
+				, new FieldTesting(int.class, FieldName.UPPERCASE_MILES_PER_ONE_GALLON).setValue(24)
 		);
 	}
 }

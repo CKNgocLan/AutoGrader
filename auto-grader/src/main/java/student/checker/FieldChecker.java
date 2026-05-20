@@ -34,7 +34,7 @@ public class FieldChecker {
 				&& StringUtils.isAllUppercase(field.getName());
 	}
 
-	public boolean checkDeclaration(java.lang.reflect.Field reflectField, String name, Class<?> type) {
+	public boolean checkDeclaration(Field reflectField, String name, Class<?> type) {
 		return checkDeclaration(reflectField, Modifier.PRIVATE, name, type);
 	}
 	
@@ -47,10 +47,16 @@ public class FieldChecker {
 				;
 	}
 
-	public boolean checkDeclaration(java.lang.reflect.Field reflectField, int modifier, String name,
+	public boolean checkDeclaration(Field reflectField, int modifier, String name,
 			Class<?> type) {
 		return reflectField.getModifiers() == modifier && reflectField.getName().equals(name)
 				&& reflectField.getType().equals(type);
 	}
 
+	public boolean compareValue(FieldTesting fieldTesting, Object actualValue) {
+//		if (reflectField.getType().isPrimitive()) {
+//			ClassUtils.boxing(reflectField.getType()).cast(fieldTesting.getValue());
+//		}
+		return fieldTesting.getValue().equals(actualValue);
+	}
 }

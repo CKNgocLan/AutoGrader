@@ -288,9 +288,10 @@ public class LabTestSuite2 extends ALabTestSuite {
 			}
 		} catch (Exception e) {
 			System.out.println("Class Not Found: %s".formatted(e.getMessage()));
-			for (StackTraceElement st : e.getStackTrace()) {
-				System.out.println(st);
-			}
+			e.printStackTrace();
+//			for (StackTraceElement st : e.getStackTrace()) {
+//				System.out.println(st);
+//			}
 			
 			return null;
 		}

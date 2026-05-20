@@ -1,5 +1,6 @@
 package student.testcaseCreator;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.stream.Stream;
 
@@ -95,10 +96,7 @@ public class FieldTestcaseCreator {
 					return true;
 					
 				} catch (ClassNotFoundException e) {
-					for (StackTraceElement st : e.getStackTrace()) {
-						System.out.println(st);
-					}
-
+					e.printStackTrace();
 					return false;
 				}
 			}
@@ -219,27 +217,31 @@ public class FieldTestcaseCreator {
 			public boolean runTest() {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					Object instance = clazz.getDeclaredConstructor().newInstance();
 					
 					if (fields.length > clazz.getDeclaredFields().length) {
 						return false;
 					}
 					
 					for (FieldTesting testingField : fields) {
-						if (!fieldChecker.checkPublicStaticFinalField(clazz, clazz.getField(testingField.getName()))) {
+						java.lang.reflect.Field reflectField = clazz.getField(testingField.getName());
+
+						if (!fieldChecker.checkPublicStaticFinalField(clazz, reflectField)) {
 							return false;
 						}
 						
-						if (!clazz.getField(testingField.getName()).getType().equals(testingField.getType())) {
+						if (!reflectField.getType().equals(testingField.getType())) {
+							return false;
+						}
+						
+						if(!fieldChecker.compareValue(testingField, reflectField.get(instance))) {
 							return false;
 						}
 					}
 					return true;
 					
-				} catch (ClassNotFoundException | NoSuchFieldException | SecurityException e) {
-					for (StackTraceElement st : e.getStackTrace()) {
-						System.out.println(st);
-					}
-
+				} catch (ClassNotFoundException | NoSuchFieldException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
+					e.printStackTrace();
 					return false;
 				}
 			}

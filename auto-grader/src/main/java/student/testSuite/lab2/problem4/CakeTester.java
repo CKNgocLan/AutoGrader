@@ -80,8 +80,7 @@ public class CakeTester {
      * Constructor ***************
      */
 
-	public ITestCase checkPartialArgsConstructors(int points, ParameterTesting... params)
-			throws ClassNotFoundException {
+	public ITestCase checkPartialArgsConstructors(int points, ParameterTesting... params) {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
 
