@@ -1,5 +1,6 @@
 package student.model;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -27,10 +28,6 @@ public class MethodTesting {
 	private boolean isFinal;
 	private boolean isPublic;
 	private boolean isAbstract;
-	
-	public MethodTesting() {
-		
-	}
 
 	public MethodTesting(Class<?> returnedType, String name) {
 		this.modifier = Modifier.PUBLIC;
@@ -184,6 +181,10 @@ public class MethodTesting {
 				&& Arrays.equals(this.getParameterTypes(), MethodUtils.getParameterTypes(reflectMethod))
 				;
 	}
+	
+	/*
+	 * *************************
+	 */
 
 	private boolean isConfigured() throws InvalidConfigurationException {
 		if (clazz == null) {
@@ -204,6 +205,18 @@ public class MethodTesting {
 
 		return this;
 	}
+	
+	public Class<?> getConfiguredClass() {
+		return this.clazz;
+	}
+	
+	public Object getConfiguredInstance() {
+		return this.instance;
+	}
+	
+	/*
+	 * *************************
+	 */
 
 	public Object returning() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
 			IllegalAccessException, InvocationTargetException {
@@ -233,6 +246,23 @@ public class MethodTesting {
 	
 	public boolean assertExpectedBoolean() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
 		return returnBooleanInPrivate().equals(expectedValue);
+	}
+	
+	public void returnVoid() throws InvalidConfigurationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		isConfigured();
+		
+		clazz.getDeclaredMethod(name, getParameterTypes()).invoke(instance, getParameterValues());
+	}
+	
+	/*
+	 * *************************
+	 */
+	
+	public Object getUpdatedValue(String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+		Field updatedField = clazz.getDeclaredField(fieldName);
+		updatedField.setAccessible(true);
+
+		return updatedField.get(instance);
 	}
 
 	@Deprecated

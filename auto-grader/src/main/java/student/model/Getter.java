@@ -5,10 +5,6 @@ import java.lang.reflect.Field;
 import student.util.GetterUtils;
 
 public class Getter extends MethodTesting {
-	public Getter() {
-		super();
-	}
-
 	public Getter(Field field) {
 		super(field.getType(), GetterUtils.getGetterName(field.getName()));
 	}

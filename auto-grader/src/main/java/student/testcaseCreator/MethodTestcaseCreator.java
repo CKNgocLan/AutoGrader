@@ -13,6 +13,7 @@ import student.model.ITestCase;
 import student.model.MethodTesting;
 import student.model.Setter;
 import student.util.MethodUtils;
+import student.util.NumbericUtils;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
@@ -331,13 +332,9 @@ public class MethodTestcaseCreator {
 				try {
 					Double abs = method.returnNumbericAbs();
 					return Double.isNaN(abs) || abs < Constants.ERROR_BOUND;
-				} catch (NoSuchMethodException e) {
-					return false;
-				} catch (IllegalArgumentException e) {
-					System.out.println(e.getMessage());
-					return false;
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
+					e.printStackTrace();
 					return false;
 				}
 			}
@@ -373,6 +370,38 @@ public class MethodTestcaseCreator {
 					return false;
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+			}
+		};
+	}
+
+	public ITestCase operationAsVoid(int points, MethodTesting method, String updatedFieldName) {
+		return new ITestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					method.returnVoid();
+					return NumbericUtils.toInteger(method.getExpectedValue()).equals(method.getUpdatedValue(updatedFieldName));
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
 					return false;
 				}
 			}

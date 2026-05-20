@@ -109,9 +109,11 @@ public class OdometerTester extends BaseTester {
 	
 	public ITestCase operateIncrementMileage(int points, int expected) {
 		try {
-			return super.methodTester.checkOperationAsNumberic(points, incrementMileageMethod()
-					.config(getCorrespondingClass(), instantiate(fuelGaugeTester.instantiate(1)))
-					.expectedValue(expected));
+			return super.methodTester.operationAsVoid(points,
+					incrementMileageMethod()
+							.config(getCorrespondingClass(), instantiate(fuelGaugeTester.instantiate(1)))
+							.expectedValue(expected),
+					FieldName.MILEAGE);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(points, className, e);
