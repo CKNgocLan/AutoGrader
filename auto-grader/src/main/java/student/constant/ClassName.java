@@ -59,4 +59,10 @@ public class ClassName {
 	/* problem 4 */
 	public static final String FUEL_GAUGE = "FuelGauge";
 	public static final String ODOMETER = "Odometer";
+	
+	/* problem 5 */
+	public static final String PARKED_CAR = "ParkedCar";
+	public static final String PARKING_METER = "ParkingMeter";
+	public static final String PARKING_TICKET = "ParkingTicket";
+	public static final String POLICE_OFFICER = "PoliceOfficer";
 }

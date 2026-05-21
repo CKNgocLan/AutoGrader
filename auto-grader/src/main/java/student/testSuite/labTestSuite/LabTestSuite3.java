@@ -19,6 +19,10 @@ import student.testSuite.lab3.problem3.ShapeInterfaceTester;
 import student.testSuite.lab3.problem4.ConstTester;
 import student.testSuite.lab3.problem4.FuelGaugeTester;
 import student.testSuite.lab3.problem4.OdometerTester;
+import student.testSuite.lab3.problem5.ParkedCarTester;
+import student.testSuite.lab3.problem5.ParkingMeterTester;
+import student.testSuite.lab3.problem5.ParkingTicketTester;
+import student.testSuite.lab3.problem5.PoliceOfficerTester;
 
 public class LabTestSuite3 extends ALabTestSuite {
 
@@ -136,7 +140,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 			}
 			case Question.Q4:
 			{
-				ConstTester constTester = new ConstTester();
+				student.testSuite.lab3.problem4.ConstTester constTester = new student.testSuite.lab3.problem4.ConstTester();
 				FuelGaugeTester fuelGaugeTester = new FuelGaugeTester();
 				OdometerTester odometerTester = new OdometerTester(fuelGaugeTester);
 				
@@ -172,8 +176,59 @@ public class LabTestSuite3 extends ALabTestSuite {
 						);
 			}
 			case Question.Q5:
+				student.testSuite.lab3.problem5.ConstTester constTester = new student.testSuite.lab3.problem5.ConstTester();
+				ParkedCarTester parkedCarTester = new ParkedCarTester();
+				String make = "Mazda";
+				String model = "CX-5";
+				String color = "graphite";
+				String licenseNumber = "LIC-12345";
+				int parkedMinutes = 90;
+				
+				ParkingMeterTester parkingMeterTester = new ParkingMeterTester();
+				int purchasedMinutes = 60;
+				
+				PoliceOfficerTester policeOfficerTester = new PoliceOfficerTester();
+				String officerName = "police name";
+				String badgeNumber = "police badge 12345";
 
-				return Arrays.asList();
+				ParkingTicketTester parkingTicketTester = new ParkingTicketTester(parkedCarTester, policeOfficerTester);
+
+				return Arrays.asList(
+						// const
+						constTester.declare(defaultPoints)
+						, constTester.fields(defaultPoints)
+
+						// parkedCar
+						, parkedCarTester.declare(defaultPoints)
+						, parkedCarTester.declareFields(defaultPoints)
+						, parkedCarTester.declareConstructor(defaultPoints)
+						, parkedCarTester.operateConstructor(defaultPoints, make, model, color, licenseNumber, parkedMinutes)
+						, parkedCarTester.checkGetterDeclaration(defaultPoints)
+						, parkedCarTester.checkSetterDeclaration(defaultPoints)
+						
+						// parkingMeter
+						, parkingMeterTester.declare(defaultPoints)
+						, parkingMeterTester.declareFields(defaultPoints)
+						, parkingMeterTester.declareConstructor(defaultPoints)
+						, parkingMeterTester.operateConstructor(defaultPoints, purchasedMinutes)
+						, parkingMeterTester.checkGetterDeclaration(defaultPoints)
+						, parkingMeterTester.checkSetterDeclaration(defaultPoints)
+
+						// parkingTicketTester
+						, parkingTicketTester.declare(defaultPoints)
+						, parkingTicketTester.declareFields(defaultPoints)
+						, parkingTicketTester.declareConstructor(defaultPoints)
+						, parkingTicketTester.checkGetterDeclaration(defaultPoints)
+						, parkingTicketTester.checkSetterDeclaration(defaultPoints)
+
+						// policeOfficerTester
+						, policeOfficerTester.declare(defaultPoints)
+						, policeOfficerTester.declareFields(defaultPoints)
+						, policeOfficerTester.declareConstructor(defaultPoints)
+						, policeOfficerTester.operateConstructor(defaultPoints, officerName, badgeNumber)
+						, policeOfficerTester.checkGetterDeclaration(defaultPoints)
+						, policeOfficerTester.checkSetterDeclaration(defaultPoints)
+				);
 			default:
 				return null;
 			}

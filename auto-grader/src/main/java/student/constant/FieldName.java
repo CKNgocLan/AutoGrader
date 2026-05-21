@@ -133,6 +133,12 @@ public class FieldName {
 	public static final String UPPERCASE_CAR_MAX_GALLON = "CAR_MAX_GALLON";
 	public static final String UPPERCASE_ODOMETER_MAXIMUM_MILEAGE_MILES = "ODOMETER_MAXIMUM_MILEAGE_MILES";
 	public static final String UPPERCASE_MILES_PER_ONE_GALLON = "MILES_PER_ONE_GALLON";
+	
+	/*
+	 * Const - Parking Ticket
+	 */
+	public static final String UPPERCASE_FIRST_HOUR_FINE = "FIRST_HOUR_FINE";
+	public static final String UPPERCASE_ADDITIONAL_HOUR_FINE = "ADDITIONAL_HOUR_FINE";
 
 	/*
 	 * Fuel Gauge
@@ -176,8 +182,30 @@ public class FieldName {
 	public static final String END_DATE = "endDate";
 	
 	/*
-	 * pen
+	 * Pen
 	 */
 	public static final String BRAND = "brand";
 	public static final String DISCOUNT = "discount";
+
+	/*
+	 * PoliceOfficer
+	 */
+	public static final String BADGE_NUMBER = "badgeNumber";
+
+	/*
+	 * ParkingMeter
+	 */
+	public static final String PURCHASED_MINUTES = "purchasedMinutes";
+	
+	/*
+	 * ParkingTicket
+	 */
+	public static final String OFFICER = "officer";
+	public static final String FINE_AMOUNT = "fineAmount";
+	
+	/*
+	 * ParkedCar
+	 */
+	public static final String COLOR = "color";
+	public static final String PARKED_MINUTES = "parkedMinutes";
 }
