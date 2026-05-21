@@ -3,16 +3,12 @@ package student.testSuite.lab3.problem5;
 import java.lang.reflect.InvocationTargetException;
 
 import student.constant.ClassName;
-import student.constant.Constants;
 import student.constant.FieldName;
-import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.FieldTesting;
 import student.model.ITestCase;
-import student.model.MethodTesting;
 import student.model.ParameterTesting;
 import student.testSuite.BaseTester;
-import student.util.TestCaseUtils;
 
 public class ParkingMeterTester extends BaseTester {
 

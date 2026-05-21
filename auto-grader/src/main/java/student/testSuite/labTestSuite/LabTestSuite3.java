@@ -225,7 +225,11 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, policeOfficerTester.operateExamineCar(defaultPoints, officerName, badgeNumber, 60, 60)
 						, policeOfficerTester.operateExamineCar(defaultPoints, 60, 90)
 						, policeOfficerTester.declareIssueTicket(defaultPoints)
+						, policeOfficerTester.operateIssueTicket(defaultPoints, 30, 60)
+						, policeOfficerTester.operateIssueTicket(defaultPoints, 60, 60)
 						, policeOfficerTester.operateIssueTicket(defaultPoints, 90, 60)
+						, policeOfficerTester.operateIssueTicket(defaultPoints, 150, 60)
+						, policeOfficerTester.operateIssueTicket(defaultPoints, 240, 60)
 
 						// parkingTicket
 						, parkingTicketTester.declare(defaultPoints)

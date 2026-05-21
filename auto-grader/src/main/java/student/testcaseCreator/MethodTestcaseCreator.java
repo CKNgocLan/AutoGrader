@@ -376,7 +376,7 @@ public class MethodTestcaseCreator {
 			}
 		};
 	}
-
+	
 	public ITestCase operationAsBooleanInPrivate(int points, MethodTesting method) {
 		return new ITestCase() {
 

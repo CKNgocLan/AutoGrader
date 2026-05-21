@@ -3,7 +3,6 @@ package student.testSuite.lab3.problem5;
 import java.lang.reflect.InvocationTargetException;
 
 import student.constant.ClassName;
-import student.constant.Constants;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
@@ -107,40 +106,6 @@ public class ParkingTicketTester extends BaseTester {
 		try {
 			return super.classTester.checkPartialArgsConstructorOperationViaGetter(points, className, constructorArgs(car, officer, fineAmount));
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
-			e.printStackTrace();
-			return TestCaseUtils.errorTestcase(points, className, e);
-		}
-	}
-	
-	/*
-	 * increaseGallon
-	 */
-	
-	private MethodTesting increaseGallonMethod() {
-		return new MethodTesting(void.class, MethodName.INCREASE_GALLON);
-	}
-	
-	public ITestCase operateIncreaseGallon(int points, Object car, Object officer, double fineAmount) {
-		try {
-			return null;
-		} catch (Exception e) {
-			e.printStackTrace();
-			return TestCaseUtils.errorTestcase(points, className, e);
-		}
-	}
-	
-	/*
-	 * decrementGallon
-	 */
-	
-	private MethodTesting decrementGallonMethod() {
-		return new MethodTesting(void.class, MethodName.DECREMENT_GALLON);
-	}
-	
-	public ITestCase operateDecrementGallon(int points, int gallon) {
-		try {
-			return null;
-		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(points, className, e);
 		}
