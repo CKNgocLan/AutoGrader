@@ -14,6 +14,7 @@ import student.util.ClassUtils;
 import student.util.MethodUtils;
 import student.util.NumbericUtils;
 import student.util.StringUtils;
+import student.util.ValueUtils;
 
 public class MethodTesting {
 	private int modifier;
@@ -242,6 +243,12 @@ public class MethodTesting {
 	
 	public Boolean returnBooleanInPrivate() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
 		return Boolean.valueOf(StringUtils.toString(returningInPrivate()));
+	}
+	
+	public boolean returnBooleanPrimitive() throws InvalidConfigurationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		isConfigured();
+
+		return ValueUtils.toBooleanPrimitive(clazz.getDeclaredMethod(name, getParameterTypes()).invoke(instance, getParameterValues()));
 	}
 	
 	public boolean assertExpectedBoolean() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {

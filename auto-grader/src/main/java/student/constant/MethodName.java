@@ -56,5 +56,7 @@ public class MethodName {
 
 	public static final String IS_DISCOUNTED = "isDiscounted";
 	public static final String GET_DISCOUNT_PRICE = "getDiscountPrice";
+	public static final String EXAMINE_CAR = "examineCar";
+	public static final String ISSUE_TICKET = "issueTicket";
 
 }

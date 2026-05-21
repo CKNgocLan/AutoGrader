@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-import student.checker.FieldChecker;
 import student.checker.MethodChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
@@ -15,6 +14,7 @@ import student.model.MethodTesting;
 import student.model.Setter;
 import student.util.MethodUtils;
 import student.util.NumbericUtils;
+import student.util.ValueUtils;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
@@ -61,7 +61,7 @@ public class MethodTestcaseCreator {
 			@Override
 			public boolean runTest() {
 				try {
-					return methodChecker.isDeclaredAsSpecialModifers(Class.forName(className, true, targetClassesLoader), method);
+					return methodChecker.isMethodDeclared(Class.forName(className, true, targetClassesLoader), method);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;
@@ -347,6 +347,36 @@ public class MethodTestcaseCreator {
 		};
 	}
 
+	public ITestCase returnBoolean(int points, MethodTesting method) {
+		return new ITestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return method.returnBooleanPrimitive() == ValueUtils.toBooleanPrimitive(method.getExpectedValue());
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+			}
+		};
+	}
+
 	public ITestCase operationAsBooleanInPrivate(int points, MethodTesting method) {
 		return new ITestCase() {
 
@@ -364,11 +394,6 @@ public class MethodTestcaseCreator {
 			public boolean runTest() {
 				try {
 					return method.assertExpectedBoolean();
-				} catch (NoSuchMethodException e) {
-					return false;
-				} catch (IllegalArgumentException e) {
-					System.out.println(e.getMessage());
-					return false;
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;

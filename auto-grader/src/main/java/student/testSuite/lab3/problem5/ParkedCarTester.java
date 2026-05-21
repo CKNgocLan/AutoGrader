@@ -46,6 +46,18 @@ public class ParkedCarTester extends BaseTester {
 			, TesterGotNoClassNameException {
 		return super.instantiateWithArgs(constructorArgs(make, model, color, licenseNumber, parkedMinutes));
 	}
+	
+	public Object instantiate(int parkedMinutes)
+			throws InstantiationException
+			, IllegalAccessException
+			, IllegalArgumentException
+			, InvocationTargetException
+			, NoSuchMethodException
+			, SecurityException
+			, ClassNotFoundException
+			, TesterGotNoClassNameException {
+		return instantiate("default make", "default model", "default color", "default license number", parkedMinutes);
+	}
 
 	/*
 	 * declare

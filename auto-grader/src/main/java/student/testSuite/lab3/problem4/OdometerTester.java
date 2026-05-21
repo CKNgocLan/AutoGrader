@@ -15,7 +15,7 @@ import student.model.ITestCase;
 import student.model.MethodTesting;
 import student.model.ParameterTesting;
 import student.testSuite.BaseTester;
-import student.util.FieldUtils;
+import student.util.ValueUtils;
 import student.util.TestCaseUtils;
 
 public class OdometerTester extends BaseTester {
@@ -114,7 +114,7 @@ public class OdometerTester extends BaseTester {
 
 					Field mileageField = clazz.getDeclaredField(FieldName.MILEAGE);
 					mileageField.setAccessible(true);
-					if (FieldUtils.toInteger(mileageField.get(instance)) != 0) {
+					if (ValueUtils.toInteger(mileageField.get(instance)) != 0) {
 						return false;
 					}
 					
@@ -125,7 +125,7 @@ public class OdometerTester extends BaseTester {
 					Field gallonField = fuelGaugeTester.getCorrespondingClass().getDeclaredField(FieldName.GALLON);
 					gallonField.setAccessible(true);
 					
-					if (FieldUtils.toInt(gallonField.get(fuelGaugeProperty)) != fuelGaugeGallon) {
+					if (ValueUtils.toInt(gallonField.get(fuelGaugeProperty)) != fuelGaugeGallon) {
 						return false;
 					}
 
@@ -200,7 +200,7 @@ public class OdometerTester extends BaseTester {
 					getCorrespondingClass().getDeclaredMethod(method.getName()).invoke(instance);
 
 					if ((mileage + 1) % Constants.MILES_PER_ONE_GALLON == 0
-							&& FieldUtils.toInt(
+							&& ValueUtils.toInt(
 									getFieldAsAccessible(fuelGaugeTester.getCorrespondingClass(), FieldName.GALLON)
 										.get(getFieldAsAccessible(FieldName.FUEL_GAUGE).get(instance))
 									) != fuelGaugeGallon - 1) {
@@ -208,7 +208,7 @@ public class OdometerTester extends BaseTester {
 					}
 					
 					if ((mileage + 1) > Constants.ODOMETER_MAXIMUM_MILEAGE_MILES
-							&& FieldUtils.toInt(mileageField.get(instance)) != 0) {
+							&& ValueUtils.toInt(mileageField.get(instance)) != 0) {
 						return false;
 					}
 					

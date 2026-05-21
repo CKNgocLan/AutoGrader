@@ -4,8 +4,10 @@ import java.lang.reflect.InvocationTargetException;
 
 import student.constant.ClassName;
 import student.constant.Constants;
+import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
+import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
 import student.model.FieldTesting;
 import student.model.ITestCase;
@@ -15,10 +17,21 @@ import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
 public class PoliceOfficerTester extends BaseTester {
+	private ParkedCarTester parkedCarTester;
+	private ParkingMeterTester parkingMeterTester;
+	private ParkingTicketTester parkingTicketTester;
 
-	public PoliceOfficerTester() throws ClassNotFoundException, TesterGotNoClassNameException {
+	public PoliceOfficerTester(ParkedCarTester parkedCarTester, ParkingMeterTester parkingMeterTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.POLICE_OFFICER;
 		super.getCorrespondingClass();
+
+		this.parkedCarTester = parkedCarTester;
+		this.parkingMeterTester = parkingMeterTester;
+	}
+	
+	public PoliceOfficerTester setParkingTicketTester(ParkingTicketTester parkingTicketTester) {
+		this.parkingTicketTester = parkingTicketTester;
+		return this;
 	}
 	
 	/*
@@ -76,6 +89,105 @@ public class PoliceOfficerTester extends BaseTester {
 
 	public ITestCase operateConstructor(int points, String name, String badgeNumber) {
 		return super.classTester.checkPartialArgsConstructorOperationViaGetter(points, className, constructorArgs(name, badgeNumber));
+	}
+
+	/*
+	 * examineCar
+	 */
+	
+	private MethodTesting examineCarMethod() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new MethodTesting(boolean.class, MethodName.EXAMINE_CAR
+				, new ParameterTesting(parkedCarTester.getCorrespondingClass())
+				, new ParameterTesting(parkingMeterTester.getCorrespondingClass())
+		);
+	}
+	
+	private MethodTesting examineCarMethod(int parkedMinutes, int purchasedMinutes) throws ClassNotFoundException, TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		return new MethodTesting(boolean.class, MethodName.EXAMINE_CAR
+				, new ParameterTesting(parkedCarTester.getCorrespondingClass(), FieldName.PARKED_CAR, parkedCarTester.instantiate(parkedMinutes))
+				, new ParameterTesting(parkingMeterTester.getCorrespondingClass(), FieldName.PARKING_METER, parkingMeterTester.instantiate(purchasedMinutes))
+		);
+	}
+	
+	public ITestCase declareExamineCar(int points) {
+		try {
+			return super.methodTester.checkExistence(points, className, examineCarMethod());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(points, className, e);
+		}
+	}
+	
+	public ITestCase operateExamineCar(int points, int parkedMinutes, int purchasedMinutes) {
+		return operateExamineCar(points, Constants.DEFAULT_NAME, Constants.DEFAULT_BADGE_NUMBER, parkedMinutes, purchasedMinutes);
+	}
+	
+	public ITestCase operateExamineCar(int points, String name, String badgeNumber, int parkedMinutes, int purchasedMinutes) {
+		try {
+			return super.methodTester.returnBoolean(points, examineCarMethod(parkedMinutes, purchasedMinutes)
+						.config(getCorrespondingClass(), instantiate(name, badgeNumber))
+						.expectedValue(parkedMinutes > purchasedMinutes)
+				);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(points, className, e);
+		}
+	}
+	
+	/*
+	 * issueTicket
+	 */
+	
+	private MethodTesting issueTicketMethod() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new MethodTesting(this.parkingTicketTester.getCorrespondingClass()
+				, MethodName.ISSUE_TICKET
+				, new ParameterTesting(parkedCarTester.getCorrespondingClass())
+				, new ParameterTesting(parkingMeterTester.getCorrespondingClass())
+		);
+	}
+	
+	private MethodTesting issueTicketMethod(int parkedMinutes, int purchasedMinutes) throws ClassNotFoundException, TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		return new MethodTesting(this.parkingTicketTester.getCorrespondingClass()
+				, MethodName.ISSUE_TICKET
+				, new ParameterTesting(parkedCarTester.getCorrespondingClass(), FieldName.PARKED_CAR, parkedCarTester.instantiate(parkedMinutes))
+				, new ParameterTesting(parkingMeterTester.getCorrespondingClass(), FieldName.PARKING_METER, parkingMeterTester.instantiate(purchasedMinutes))
+		);
+	}
+	
+	private double calcualteFineAmount(int parkedMinutes, int purchasedMinutes) {
+		int overtimeMinutes = parkedMinutes - purchasedMinutes;
+        int fine = Constants.FIRST_HOUR_FINE;
+
+        if (overtimeMinutes > 60) {
+            fine += (overtimeMinutes - 60 + 59) / 60 * Constants.ADDITIONAL_HOUR_FINE;
+        }
+        
+        return fine;
+	}
+	
+	public ITestCase declareIssueTicket(int points) {
+		try {
+			return super.methodTester.checkExistence(points, className, issueTicketMethod());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(points, className, e);
+		}
+	}
+	
+	public ITestCase operateIssueTicket(int points, int parkedMinutes, int purchasedMinutes) {
+		return operateIssueTicket(points, Constants.DEFAULT_NAME, Constants.DEFAULT_BADGE_NUMBER, parkedMinutes, purchasedMinutes);
+	}
+	
+	public ITestCase operateIssueTicket(int points, String name, String badgeNumber, int parkedMinutes, int purchasedMinutes) {
+		try {
+			return super.methodTester.returnBoolean(points, issueTicketMethod(parkedMinutes, purchasedMinutes)
+						.config(getCorrespondingClass(), instantiate(name, badgeNumber))
+						.expectedValue(parkingTicketTester.instantiate(calcualteFineAmount(parkedMinutes, purchasedMinutes)))
+				);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(points, className, e);
+		}
 	}
 	
 }
