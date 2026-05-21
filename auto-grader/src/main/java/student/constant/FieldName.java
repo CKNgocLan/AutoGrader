@@ -202,6 +202,8 @@ public class FieldName {
 	 */
 	public static final String OFFICER = "officer";
 	public static final String FINE_AMOUNT = "fineAmount";
+	public static final String PARKED_CAR = "parkedCar";
+	public static final String PARKING_METER = "ParkingMeter";
 	
 	/*
 	 * ParkedCar

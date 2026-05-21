@@ -28,4 +28,9 @@ public class Constants {
 
     public static final int FIRST_HOUR_FINE = 25;
     public static final int ADDITIONAL_HOUR_FINE = 10;
+    
+
+	
+	public static final String DEFAULT_NAME = "default name";
+	public static final String DEFAULT_BADGE_NUMBER = "default badge number";
 }

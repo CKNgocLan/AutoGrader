@@ -30,9 +30,11 @@ public class ParkingTicketTester extends BaseTester {
 	 * argument
 	 */
 	
-	public ParameterTesting[] constructorArgs(int gallon) {
+	public ParameterTesting[] constructorArgs(Object car, Object officer, double fineAmount) throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new ParameterTesting[] {
-			new ParameterTesting(int.class, FieldName.GALLON, gallon)	
+			new ParameterTesting(parkedCarTester.getCorrespondingClass(), FieldName.CAR, car)	
+			, new ParameterTesting(policeOfficerTester.getCorrespondingClass(), FieldName.OFFICER, officer)	
+			, new ParameterTesting(double.class, FieldName.FINE_AMOUNT, fineAmount)	
 		};
 	}
 	
@@ -40,7 +42,7 @@ public class ParkingTicketTester extends BaseTester {
 	 * instantiate
 	 */
 	
-	public Object instantiate(int gallon)
+	public Object instantiate(double fineAmount)
 			throws InstantiationException
 			, IllegalAccessException
 			, IllegalArgumentException
@@ -49,7 +51,19 @@ public class ParkingTicketTester extends BaseTester {
 			, SecurityException
 			, ClassNotFoundException
 			, TesterGotNoClassNameException {
-		return super.instantiateWithArgs(constructorArgs(gallon));
+		return super.instantiateWithArgs(constructorArgs(null, null, fineAmount));
+	}
+	
+	public Object instantiate(Object car, Object officer, double fineAmount)
+			throws InstantiationException
+			, IllegalAccessException
+			, IllegalArgumentException
+			, InvocationTargetException
+			, NoSuchMethodException
+			, SecurityException
+			, ClassNotFoundException
+			, TesterGotNoClassNameException {
+		return super.instantiateWithArgs(constructorArgs(car, officer, fineAmount));
 	}
 
 	/*
@@ -89,8 +103,13 @@ public class ParkingTicketTester extends BaseTester {
 		}
 	}
 
-	public ITestCase operateConstructor(int points, int gallon) {
-		return super.classTester.checkPartialArgsConstructorOperationViaGetter(points, className, constructorArgs(gallon));
+	public ITestCase operateConstructor(int points, Object car, Object officer, double fineAmount) {
+		try {
+			return super.classTester.checkPartialArgsConstructorOperationViaGetter(points, className, constructorArgs(car, officer, fineAmount));
+		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(points, className, e);
+		}
 	}
 	
 	/*
@@ -101,13 +120,9 @@ public class ParkingTicketTester extends BaseTester {
 		return new MethodTesting(void.class, MethodName.INCREASE_GALLON);
 	}
 	
-	public ITestCase operateIncreaseGallon(int points, int gallon) {
+	public ITestCase operateIncreaseGallon(int points, Object car, Object officer, double fineAmount) {
 		try {
-			return super.methodTester.operationAsVoidAndCompareIntField(points
-					, increaseGallonMethod()
-							.config(getCorrespondingClass(), instantiate(gallon))
-							.expectedValue(gallon < Constants.CAR_MAX_GALLON ? gallon + 1 : gallon)
-					, FieldName.GALLON);
+			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(points, className, e);
@@ -124,11 +139,7 @@ public class ParkingTicketTester extends BaseTester {
 	
 	public ITestCase operateDecrementGallon(int points, int gallon) {
 		try {
-			return super.methodTester.operationAsVoidAndCompareIntField(points
-					, decrementGallonMethod()
-							.config(getCorrespondingClass(), instantiate(gallon))
-							.expectedValue(gallon > 0 ? gallon - 1 : gallon)
-					, FieldName.GALLON);
+			return null;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(points, className, e);
