@@ -110,7 +110,7 @@ public abstract class BaseTester {
 	}
 
 	protected ITestCase checkConstructorOperation(int points, ParameterTesting... params) throws ClassNotFoundException {
-		return classTester.checkPartialArgsConstructorOperation(points, className, params);
+		return classTester.checkPartialArgsConstructorOperationViaGetter(points, className, params);
 	}
 	
 	protected ITestCase operateConstructorViaSuper(int points, ParameterTesting... params) {

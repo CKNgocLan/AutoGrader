@@ -1,16 +1,23 @@
 package student.testSuite.lab3.problem4;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.stream.Stream;
 
 import student.constant.ClassName;
+import student.constant.Constants;
+import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
+import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
 import student.model.FieldTesting;
 import student.model.ITestCase;
 import student.model.MethodTesting;
 import student.model.ParameterTesting;
 import student.testSuite.BaseTester;
+import student.util.FieldUtils;
+import student.util.ParameterTestingUtils;
 import student.util.TestCaseUtils;
 
 public class OdometerTester extends BaseTester {
@@ -86,13 +93,56 @@ public class OdometerTester extends BaseTester {
 		}
 	}
 
-	public ITestCase operateConstructor(int points, Object fuelGauge) {
-		try {
-			return super.classTester.checkPartialArgsConstructorOperation(points, className, constructorArgs(fuelGauge));
-		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
-			e.printStackTrace();
-			return TestCaseUtils.errorTestcase(points, className, e);
-		}
+	public ITestCase operateConstructor(int points, int fuelGaugeGallon) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_PARTIAL_ARGS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = getCorrespondingClass();
+					
+					Object instance = clazz
+							.getDeclaredConstructor(fuelGaugeTester.getCorrespondingClass())
+							.newInstance(fuelGaugeTester.instantiate(fuelGaugeGallon));
+
+					Field mileageField = clazz.getDeclaredField(FieldName.MILEAGE);
+					mileageField.setAccessible(true);
+					if (FieldUtils.toInteger(mileageField.get(instance)) != 0) {
+						return false;
+					}
+					
+					Field fuelGaugeField = clazz.getDeclaredField(FieldName.FUEL_GAUGE);
+					fuelGaugeField.setAccessible(true);
+
+					Object fuelGaugeProperty = fuelGaugeField.get(instance);
+					Field gallonField = fuelGaugeTester.getCorrespondingClass().getDeclaredField(FieldName.GALLON);
+					gallonField.setAccessible(true);
+					
+					if (FieldUtils.toInt(gallonField.get(fuelGaugeProperty)) != fuelGaugeGallon) {
+						return false;
+					}
+
+					return true;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.PARTIAL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(className, FieldName.FUEL_GAUGE);
+			}
+		};
 	}
 	
 	/*
@@ -108,10 +158,16 @@ public class OdometerTester extends BaseTester {
 	}
 	
 	public ITestCase operateIncrementMileage(int points, int expected) {
+		return operateIncrementMileage(points, 1, expected);
+	}
+	
+	public ITestCase operateIncrementMileage(int points, int fuelGaugeGallon, int expected) {
 		try {
+			Object fuelGauge = fuelGaugeTester.instantiate(fuelGaugeGallon);
+			
 			return super.methodTester.operationAsVoidAndCompareIntField(points,
 					incrementMileageMethod()
-							.config(getCorrespondingClass(), instantiate(fuelGaugeTester.instantiate(1)))
+							.config(getCorrespondingClass(), instantiate(fuelGauge))
 							.expectedValue(expected),
 					FieldName.MILEAGE);
 		} catch (Exception e) {

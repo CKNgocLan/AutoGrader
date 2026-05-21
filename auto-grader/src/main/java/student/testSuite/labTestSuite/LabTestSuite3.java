@@ -141,27 +141,27 @@ public class LabTestSuite3 extends ALabTestSuite {
 				
 				int gallon = 9;
 				
-				Object fuelGaugeInstance = fuelGaugeTester.instantiate(gallon); 
+//				Object fuelGaugeInstance = fuelGaugeTester.instantiate(gallon); 
 
 				return Arrays.asList(
 						// const
 						constTester.declare(defaultPoints)
 						, constTester.fields(defaultPoints)
 
-//						//fuelGauge
-//						, fuelGaugeTester.declare(defaultPoints)
-//						, fuelGaugeTester.fields(defaultPoints)
-//						, fuelGaugeTester.declareConstructor(defaultPoints)
-//						, fuelGaugeTester.operateConstructor(defaultPoints, gallon)
-//
-//						// odometer
-//						, odometerTester.declare(defaultPoints)
-//						, odometerTester.fields(defaultPoints)
-//						, odometerTester.declareConstructor(defaultPoints)
-//						, odometerTester.operateConstructor(defaultPoints, fuelGaugeInstance)
-//						, odometerTester.declareIncrementMileage(defaultPoints)
+						//fuelGauge
+						, fuelGaugeTester.declare(defaultPoints)
+						, fuelGaugeTester.fields(defaultPoints)
+						, fuelGaugeTester.declareConstructor(defaultPoints)
+						, fuelGaugeTester.operateConstructor(defaultPoints, gallon)
+
+						// odometer
+						, odometerTester.declare(defaultPoints)
+						, odometerTester.fields(defaultPoints)
+						, odometerTester.declareConstructor(defaultPoints)
+						, odometerTester.operateConstructor(defaultPoints, gallon)
+						, odometerTester.declareIncrementMileage(defaultPoints)
 						, odometerTester.operateIncrementMileage(defaultPoints, 1)
-//						, odometerTester.declareGetMileage(defaultPoints)
+						, odometerTester.declareGetMileage(defaultPoints)
 						);
 			}
 			case Question.Q5:

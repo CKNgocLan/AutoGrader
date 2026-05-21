@@ -20,16 +20,4 @@ public class Odometer {
     public int getMileage() {
         return mileage;
     }
-
-    public void setMileage(int mileage) {
-        this.mileage = mileage;
-    }
-
-    public FuelGauge getFuelGauge() {
-        return fuelGauge;
-    }
-
-    public void setFuelGauge(FuelGauge fuelGauge) {
-        this.fuelGauge = fuelGauge;
-    }
 }

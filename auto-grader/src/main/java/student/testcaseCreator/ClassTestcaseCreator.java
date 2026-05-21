@@ -537,7 +537,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkPartialArgsConstructorOperation(int points, String className, ParameterTesting... params) {
+	public ITestCase checkPartialArgsConstructorOperationViaGetter(int points, String className, ParameterTesting... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {

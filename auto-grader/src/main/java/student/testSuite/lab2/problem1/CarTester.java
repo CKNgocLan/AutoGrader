@@ -62,7 +62,7 @@ public class CarTester {
 	}
 
 	public ITestCase checkPartialArgsConstructorOperation(int points, ParameterTesting... params) {
-		return classTest.checkPartialArgsConstructorOperation(points, className, params);
+		return classTest.checkPartialArgsConstructorOperationViaGetter(points, className, params);
 	}
 
 	/*

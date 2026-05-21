@@ -69,6 +69,6 @@ public class FuelGaugeTester extends BaseTester {
 	}
 
 	public ITestCase operateConstructor(int points, int gallon) {
-		return super.classTester.checkPartialArgsConstructorOperation(points, className, constructorArgs(gallon));
+		return super.classTester.checkPartialArgsConstructorOperationViaGetter(points, className, constructorArgs(gallon));
 	}
 }

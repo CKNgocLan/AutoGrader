@@ -61,7 +61,7 @@ public class LabTestSuite1 extends ALabTestSuite {
 					// partial-args constructor
 					, classTest.checkPartialArgsConstructorDeclaration(5, ClassName.EMPLOYEE
 							, ParameterTestingUtils.mapFromTypes(String.class, int.class))
-					, classTest.checkPartialArgsConstructorOperation(5, ClassName.EMPLOYEE
+					, classTest.checkPartialArgsConstructorOperationViaGetter(5, ClassName.EMPLOYEE
 							, new ParameterTesting(String.class, FieldName.NAME, "Susan Meyers")
 							, new ParameterTesting(int.class, FieldName.ID_NUMBER, 47899)
 					)
