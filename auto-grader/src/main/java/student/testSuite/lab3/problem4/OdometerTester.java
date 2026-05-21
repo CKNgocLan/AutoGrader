@@ -17,6 +17,7 @@ import student.model.MethodTesting;
 import student.model.ParameterTesting;
 import student.testSuite.BaseTester;
 import student.util.FieldUtils;
+import student.util.NumbericUtils;
 import student.util.ParameterTestingUtils;
 import student.util.TestCaseUtils;
 
@@ -156,14 +157,14 @@ public class OdometerTester extends BaseTester {
 	public ITestCase declareIncrementMileage(int points) {
 		return super.methodTester.checkExistence(points, className, incrementMileageMethod());
 	}
+//	
+//	public ITestCase operateIncrementMileage(int points, int expected) {
+//		return operateIncrementMileage(points, 1, expected);
+//	}
 	
 	public ITestCase operateIncrementMileage(int points, int expected) {
-		return operateIncrementMileage(points, 1, expected);
-	}
-	
-	public ITestCase operateIncrementMileage(int points, int fuelGaugeGallon, int expected) {
 		try {
-			Object fuelGauge = fuelGaugeTester.instantiate(fuelGaugeGallon);
+			Object fuelGauge = fuelGaugeTester.instantiate(1);
 			
 			return super.methodTester.operationAsVoidAndCompareIntField(points,
 					incrementMileageMethod()
@@ -174,6 +175,59 @@ public class OdometerTester extends BaseTester {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(points, className, e);
 		}
+	}
+	
+	public ITestCase operateIncrementMileage(int points, int fuelGaugeGallon, int mileage) {
+		MethodTesting method = incrementMileageMethod();
+		return new ITestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Object instance = instantiate(fuelGaugeTester.instantiate(fuelGaugeGallon));
+					
+					// update mileage
+					Field mileageField = getFieldAsAccessible(FieldName.MILEAGE);
+					mileageField.set(instance, mileage);
+					
+					getCorrespondingClass().getDeclaredMethod(method.getName()).invoke(instance);
+
+					if ((mileage + 1) % Constants.MILES_PER_ONE_GALLON == 0
+							&& FieldUtils.toInt(
+									getFieldAsAccessible(fuelGaugeTester.getCorrespondingClass(), FieldName.GALLON)
+										.get(getFieldAsAccessible(FieldName.FUEL_GAUGE).get(instance))
+									) != fuelGaugeGallon - 1) {
+						return false;
+					}
+					
+					if ((mileage + 1) > Constants.ODOMETER_MAXIMUM_MILEAGE_MILES
+							&& FieldUtils.toInt(mileageField.get(instance)) != 0) {
+						return false;
+					}
+					
+					return true;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(getCorrespondingClassName(), method.getName());
+			}
+		};
 	}
 	
 	/*

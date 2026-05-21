@@ -3,6 +3,7 @@ package student.testSuite.labTestSuite;
 import java.util.Arrays;
 import java.util.List;
 
+import student.constant.Constants;
 import student.constant.FieldName;
 import student.constant.Question;
 import student.model.ALabTestSuite;
@@ -153,6 +154,10 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, fuelGaugeTester.fields(defaultPoints)
 						, fuelGaugeTester.declareConstructor(defaultPoints)
 						, fuelGaugeTester.operateConstructor(defaultPoints, gallon)
+						, fuelGaugeTester.operateIncreaseGallon(defaultPoints, gallon)
+						, fuelGaugeTester.operateIncreaseGallon(defaultPoints, Constants.CAR_MAX_GALLON)
+						, fuelGaugeTester.operateDecrementGallon(defaultPoints, gallon)
+						, fuelGaugeTester.operateDecrementGallon(defaultPoints, 0)
 
 						// odometer
 						, odometerTester.declare(defaultPoints)
@@ -162,6 +167,8 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, odometerTester.declareIncrementMileage(defaultPoints)
 						, odometerTester.operateIncrementMileage(defaultPoints, 1)
 						, odometerTester.declareGetMileage(defaultPoints)
+						, odometerTester.operateIncrementMileage(defaultPoints, gallon, Constants.MILES_PER_ONE_GALLON - 1)
+						, odometerTester.operateIncrementMileage(defaultPoints, gallon, Constants.ODOMETER_MAXIMUM_MILEAGE_MILES)
 						);
 			}
 			case Question.Q5:

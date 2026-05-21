@@ -57,5 +57,4 @@ public class MethodName {
 	public static final String IS_DISCOUNTED = "isDiscounted";
 	public static final String GET_DISCOUNT_PRICE = "getDiscountPrice";
 
-//	public static final String INCREMENT_MILEAGE = "incrementMileage";
 }

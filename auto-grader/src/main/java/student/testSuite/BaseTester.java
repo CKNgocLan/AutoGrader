@@ -1,5 +1,6 @@
 package student.testSuite;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import student.constant.ExceptionMessage;
@@ -50,6 +51,21 @@ public abstract class BaseTester {
 	
 	protected String getCorrespondingClassName() {
 		return this.className;
+	}
+
+	/*
+	 * field ***************
+	 */
+	
+	protected Field getFieldAsAccessible(String fieldName) throws NoSuchFieldException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
+		return getFieldAsAccessible(getCorrespondingClass(), fieldName);
+	}
+	
+	protected Field getFieldAsAccessible(Class<?> clazz, String fieldName) throws NoSuchFieldException, SecurityException {
+		Field field = clazz.getDeclaredField(fieldName);
+		field.setAccessible(true);
+		
+		return field;
 	}
 
 	/*
