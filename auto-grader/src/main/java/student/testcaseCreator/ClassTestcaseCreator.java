@@ -9,12 +9,12 @@ import java.util.stream.Stream;
 
 import student.checker.FieldChecker;
 import student.constant.Constants;
+import student.constant.Country;
 import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.TestcaseType;
 import student.model.ITestCase;
 import student.model.ParameterTesting;
-import student.testSuite.midterm253.Country;
 import student.util.ParameterTestingUtils;
 
 public class ClassTestcaseCreator {

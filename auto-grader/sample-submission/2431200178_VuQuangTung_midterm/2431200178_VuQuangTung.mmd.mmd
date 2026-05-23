@@ -1,0 +1,77 @@
+classDiagram
+    FountainPen --|> Pen
+    BallpointPen --|> Pen
+    Pen o-- PenType
+    Pen o-- Discount
+    Pen o-- Brand
+    Pen ..> Tax
+    Brand -- Country
+
+
+    class Brand{
+        - id: UUID
+        - name: String
+        - country: String
+
+        + Brand(name:String, country: String)
+        +getter()
+        + setter()
+        +toString() String
+    }
+    class Discount{
+        - id: UUID
+        - percent: double
+        - startDate: LocalDate
+        - endDate: LocalDate
+
+        + Discount(percent:double, endDate: LocalDate)
+        + getter()
+        + setter()
+    }
+
+    class Country{
+        +JAPAN: String$
+        + VIETNAM: String$
+    }
+
+    class Tax{
+        + _8: double$
+        + _10: double$
+    }
+
+    class PenType{
+        <<enumeration>>
+        BALLPOINT
+        FOUNTAIN
+    }
+
+    class Pen{
+        <<abstract>> 
+        - id: UUID
+        -name: String
+        - type: PenType
+        - brand: Brand
+        - price: double
+        - discount: Discount
+
+        + Pen(name:String, brand:Brand,price:double)
+        + Pen(name:String, brand:Brand,price:double, discount:Discount)
+        +getter()
+        +setter()
+        - isDiscounted() boolean
+        +getPriceAfterTax() double
+        + getDiscountPrice() double
+        + toString() String
+        + getTax() double*
+    }
+
+    class FountainPen{
+        +FountainPen(name: String, brand: Brand, price: double)
+        +getTax() double
+    }
+
+    class BallpointPen{
+        + BallpointPen(name:String, brand: Brand, price: double)
+        + BallpointPen(name:String, brand: Brand, price: double, discount: Discount)
+        + getTax() double
+    }

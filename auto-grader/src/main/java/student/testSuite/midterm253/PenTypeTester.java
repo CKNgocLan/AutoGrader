@@ -51,7 +51,7 @@ public class PenTypeTester extends BaseTester {
 	
 	public ITestCase declareFields(int points) {
 		try {
-			return super.fieldTester.checkDeclarationsAsPublicStaticFinal(points, className, fields());
+			return super.fieldTester.declareInEnum(points, className, fields());
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(points, className, e);
