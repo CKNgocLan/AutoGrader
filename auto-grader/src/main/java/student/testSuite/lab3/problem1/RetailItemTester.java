@@ -3,9 +3,9 @@ package student.testSuite.lab3.problem1;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 
 public class RetailItemTester extends BaseTester {
@@ -23,11 +23,11 @@ public class RetailItemTester extends BaseTester {
 	 * argument
 	 */
 	
-	public ParameterTesting[] createArgs(String description, int unitsOnHand, double price) {
-		return new ParameterTesting[] {
-				new ParameterTesting(String.class, FieldName.DESCRIPTION, description),
-				new ParameterTesting(int.class, FieldName.UNITS_ON_HAND, unitsOnHand),
-				new ParameterTesting(double.class, FieldName.PRICE, price) };
+	public TestingParameter[] createArgs(String description, int unitsOnHand, double price) {
+		return new TestingParameter[] {
+				new TestingParameter(String.class, FieldName.DESCRIPTION, description),
+				new TestingParameter(int.class, FieldName.UNITS_ON_HAND, unitsOnHand),
+				new TestingParameter(double.class, FieldName.PRICE, price) };
 	}
 
 	/*
@@ -35,8 +35,8 @@ public class RetailItemTester extends BaseTester {
 	 */
 
 	public ITestCase checkFields(int points) {
-		return super.checkFields(points, new FieldTesting(String.class, FieldName.DESCRIPTION),
-				new FieldTesting(int.class, FieldName.UNITS_ON_HAND), new FieldTesting(double.class, FieldName.PRICE));
+		return super.checkFields(points, new TestingField(String.class, FieldName.DESCRIPTION),
+				new TestingField(int.class, FieldName.UNITS_ON_HAND), new TestingField(double.class, FieldName.PRICE));
 	}
 
 	/*
@@ -47,7 +47,7 @@ public class RetailItemTester extends BaseTester {
 		return super.checkConstructorDeclaration(points, String.class, int.class, double.class);
 	}
 
-	public ITestCase checkConstructorOperation(int points, ParameterTesting... retailItemArgs)
+	public ITestCase checkConstructorOperation(int points, TestingParameter... retailItemArgs)
 			throws ClassNotFoundException {
 		return super.checkConstructorOperation(points, retailItemArgs);
 	}

@@ -5,9 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -66,7 +66,7 @@ public class UserTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase checkPartialArgsConstructorDeclaration(int points, ParameterTesting... params) {
+	public ITestCase checkPartialArgsConstructorDeclaration(int points, TestingParameter... params) {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
 
@@ -76,9 +76,9 @@ public class UserTester {
 	
 	public ITestCase checkFields(int points) {
 		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(String.class, FieldName.ID)
-				, new FieldTesting(String.class, FieldName.NAME)
-				, new FieldTesting(String.class, FieldName.EMAIL)
+				, new TestingField(String.class, FieldName.ID)
+				, new TestingField(String.class, FieldName.NAME)
+				, new TestingField(String.class, FieldName.EMAIL)
 		);
 	}
 

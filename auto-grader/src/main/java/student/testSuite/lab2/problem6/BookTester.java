@@ -5,9 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -66,7 +66,7 @@ public class BookTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase checkFullArgsConstructorDeclaration(int points, ParameterTesting... params) {
+	public ITestCase checkFullArgsConstructorDeclaration(int points, TestingParameter... params) {
 		return classTester.checkFullArgsConstructorDeclaration(points, className, params);
 	}
 
@@ -76,8 +76,8 @@ public class BookTester {
 	
 	public ITestCase checkFields(int points) {
 		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(String.class, FieldName.ISBN)
-				, new FieldTesting(String.class, FieldName.TITLE)
+				, new TestingField(String.class, FieldName.ISBN)
+				, new TestingField(String.class, FieldName.TITLE)
 		);
 	}
 

@@ -2,7 +2,7 @@ package student.util;
 
 import java.util.stream.Stream;
 
-import student.model.FieldTesting;
+import student.model.TestingField;
 
 public class ClassUtils {
 	public static Class<?> boxing(Class<?> primitiveType) {
@@ -27,11 +27,11 @@ public class ClassUtils {
 	 * ***************************************************************************
 	 */
 
-	public static boolean containField(Class<?> clazz, FieldTesting testingField) {
+	public static boolean containField(Class<?> clazz, TestingField testingField) {
 		return Stream.of(clazz.getDeclaredFields()).filter(declaredField -> testingField.equals(declaredField)).toList().size() > 0;
 	}
 
-	public static boolean containFieldButModifiers(Class<?> clazz, FieldTesting testingField) {
+	public static boolean containFieldButModifiers(Class<?> clazz, TestingField testingField) {
 		return Stream.of(clazz.getDeclaredFields()).filter(declaredField -> testingField.equalsButModifiers(declaredField)).toList().size() > 0;
 	}
 }

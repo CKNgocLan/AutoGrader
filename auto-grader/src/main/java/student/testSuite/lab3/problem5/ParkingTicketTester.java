@@ -6,10 +6,10 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
@@ -29,11 +29,11 @@ public class ParkingTicketTester extends BaseTester {
 	 * argument
 	 */
 	
-	public ParameterTesting[] constructorArgs(Object car, Object officer, double fineAmount) throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new ParameterTesting[] {
-			new ParameterTesting(parkedCarTester.getCorrespondingClass(), FieldName.CAR, car)	
-			, new ParameterTesting(policeOfficerTester.getCorrespondingClass(), FieldName.OFFICER, officer)	
-			, new ParameterTesting(double.class, FieldName.FINE_AMOUNT, fineAmount)	
+	public TestingParameter[] constructorArgs(Object car, Object officer, double fineAmount) throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingParameter[] {
+			new TestingParameter(parkedCarTester.getCorrespondingClass(), FieldName.CAR, car)	
+			, new TestingParameter(policeOfficerTester.getCorrespondingClass(), FieldName.OFFICER, officer)	
+			, new TestingParameter(double.class, FieldName.FINE_AMOUNT, fineAmount)	
 		};
 	}
 	
@@ -79,9 +79,9 @@ public class ParkingTicketTester extends BaseTester {
 	public ITestCase declareFields(int points) {
 		try {
 			return fieldTester.checkDeclarations(points, className
-					, new FieldTesting(parkedCarTester.getCorrespondingClass(), FieldName.CAR)
-					, new FieldTesting(policeOfficerTester.getCorrespondingClass(), FieldName.OFFICER)
-					, new FieldTesting(double.class, FieldName.FINE_AMOUNT)
+					, new TestingField(parkedCarTester.getCorrespondingClass(), FieldName.CAR)
+					, new TestingField(policeOfficerTester.getCorrespondingClass(), FieldName.OFFICER)
+					, new TestingField(double.class, FieldName.FINE_AMOUNT)
 			);
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
 			e.printStackTrace();

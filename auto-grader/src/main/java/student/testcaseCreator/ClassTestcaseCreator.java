@@ -13,7 +13,7 @@ import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.TestcaseType;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testSuite.midterm253.Country;
 import student.util.ParameterTestingUtils;
 
@@ -263,7 +263,7 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
-	public ITestCase operateConstructorViaSuper(int points, String className, ParameterTesting... args) {
+	public ITestCase operateConstructorViaSuper(int points, String className, TestingParameter... args) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -290,7 +290,7 @@ public class ClassTestcaseCreator {
 							actualField.setAccessible(true);
 						}
 						
-						Optional<ParameterTesting> paramTestingOptional = Arrays.stream(args)
+						Optional<TestingParameter> paramTestingOptional = Arrays.stream(args)
 								.filter(arg -> arg.getName()
 								.equals(actualField.getName()))
 								.findFirst();
@@ -371,7 +371,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkNoArgConstructorOperation(int points, String className, ParameterTesting params) {
+	public ITestCase checkNoArgConstructorOperation(int points, String className, TestingParameter params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -409,7 +409,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkFullArgsConstructorDeclaration(int points, String className, ParameterTesting... params) {
+	public ITestCase checkFullArgsConstructorDeclaration(int points, String className, TestingParameter... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -446,7 +446,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkFullArgsConstructorOperation(int points, String className, ParameterTesting... params) {
+	public ITestCase checkFullArgsConstructorOperation(int points, String className, TestingParameter... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -467,7 +467,7 @@ public class ClassTestcaseCreator {
 					Object[] testValues = Stream.of(params).map(pt -> pt.getValue()).toArray(Object[]::new);
 					Object instance = clazz.getDeclaredConstructor(types).newInstance(testValues);
 
-					for (ParameterTesting param : params) {
+					for (TestingParameter param : params) {
 						if (!ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, param)) {
 							return false;
 						}
@@ -498,7 +498,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkPartialArgsConstructorDeclaration(int points, String className, ParameterTesting... params) {
+	public ITestCase checkPartialArgsConstructorDeclaration(int points, String className, TestingParameter... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -536,7 +536,7 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkPartialArgsConstructorOperationViaGetter(int points, String className, ParameterTesting... params) {
+	public ITestCase checkPartialArgsConstructorOperationViaGetter(int points, String className, TestingParameter... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -558,7 +558,7 @@ public class ClassTestcaseCreator {
 							.getDeclaredConstructor(ParameterTestingUtils.mapToType(params))
 							.newInstance(ParameterTestingUtils.mapToTestingValue(params));
 
-					for (ParameterTesting param : params) {
+					for (TestingParameter param : params) {
 						if (!ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, param)) {
 							return false;
 						}
@@ -581,7 +581,7 @@ public class ClassTestcaseCreator {
 	
 	// TODO operateConstructorHavingSuperclass
 	@Deprecated
-	public ITestCase operateConstructorHavingSuperclass(int points, String className, String superclassName, ParameterTesting... params) {
+	public ITestCase operateConstructorHavingSuperclass(int points, String className, String superclassName, TestingParameter... params) {
 		return new ITestCase() {
 			@Override
 			public String getName() {
@@ -602,7 +602,7 @@ public class ClassTestcaseCreator {
 							.getDeclaredConstructor(ParameterTestingUtils.mapToType(params))
 							.newInstance(ParameterTestingUtils.mapToTestingValue(params));
 
-					for (ParameterTesting param : params) {
+					for (TestingParameter param : params) {
 						if (!ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, param)) {
 							return false;
 						}

@@ -3,7 +3,7 @@ package student.checker;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.util.ClassUtils;
 import student.util.StringUtils;
 
@@ -39,7 +39,7 @@ public class FieldChecker {
 	}
 	
 	public boolean checkPublicStaticFinalField(Class<?> clazz, Field field) {
-		return ClassUtils.containFieldButModifiers(clazz, new FieldTesting(field.getType(), field.getName()))
+		return ClassUtils.containFieldButModifiers(clazz, new TestingField(field.getType(), field.getName()))
 				&& Modifier.isPublic(field.getModifiers())
 				&& Modifier.isStatic(field.getModifiers())
 				&& Modifier.isFinal(field.getModifiers())
@@ -53,7 +53,7 @@ public class FieldChecker {
 				&& reflectField.getType().equals(type);
 	}
 
-	public boolean compareValue(FieldTesting fieldTesting, Object actualValue) {
+	public boolean compareValue(TestingField fieldTesting, Object actualValue) {
 		return fieldTesting.getValue().equals(actualValue);
 	}
 }

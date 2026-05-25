@@ -8,7 +8,7 @@ import student.constant.FieldName;
 import student.constant.Question;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testSuite.lab2.ConstTester;
 import student.testSuite.lab2.CustomerTester;
 import student.testSuite.lab2.problem1.CarTester;
@@ -46,9 +46,9 @@ public class LabTestSuite2 extends ALabTestSuite {
 						car.checkPartialArgsConstructorDeclaration(5,
 								ParameterTestingUtils.mapFromTypes(int.class, String.class)),
 						car.checkPartialArgsConstructorOperation(10,
-								new ParameterTesting(int.class, FieldName.YEAR_MODEL, 2025),
-								new ParameterTesting(String.class, FieldName.MAKE, "Mazda"),
-								new ParameterTesting(int.class, FieldName.SPEED, 0, true))
+								new TestingParameter(int.class, FieldName.YEAR_MODEL, 2025),
+								new TestingParameter(String.class, FieldName.MAKE, "Mazda"),
+								new TestingParameter(int.class, FieldName.SPEED, 0, true))
 
 						// accelerate()
 						, car.checkAccelerateDeclaration(25), car.checkAccelerateOperation(15)
@@ -81,12 +81,12 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, pet.checkExistence(5)
 						, pet.checkFields(15)
 						, pet.checkPartialArgsConstructors(5,
-								new ParameterTesting(CustomerTester.getCorrespondingClass()))
+								new TestingParameter(CustomerTester.getCorrespondingClass()))
 						, pet.checkPartialArgsConstructors(10,
-								new ParameterTesting(CustomerTester.getCorrespondingClass()),
-								new ParameterTesting(String.class),
-								new ParameterTesting(int.class),
-								new ParameterTesting(double.class))
+								new TestingParameter(CustomerTester.getCorrespondingClass()),
+								new TestingParameter(String.class),
+								new TestingParameter(int.class),
+								new TestingParameter(double.class))
 						, pet.checkToStringExistence(5)
 						, pet.checkToStringOperation(5)
 						, pet.checkToStringOperation(5, "H'Mong Coc", 24, 15, CustomerTester.initObject("Lao Hac"))
@@ -153,10 +153,10 @@ public class LabTestSuite2 extends ALabTestSuite {
 						// cake
 						, cake.checkExistence(5)
 						, cake.checkPartialArgsConstructors(5,
-								new ParameterTesting(CustomerTester.getCorrespondingClass()),
-								new ParameterTesting(EventTester.getCorrespondingClass()),
-								new ParameterTesting(int.class),
-								new ParameterTesting(double.class)
+								new TestingParameter(CustomerTester.getCorrespondingClass()),
+								new TestingParameter(EventTester.getCorrespondingClass()),
+								new TestingParameter(int.class),
+								new TestingParameter(double.class)
 						)
 						, cake.checkFields(5)
 						, cake.checkGetterDeclaration(5)
@@ -167,9 +167,9 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, quote.checkExistence(5)
 						, quote.checkFields(5)
 						, quote.checkPartialArgsConstructorDeclaration(5,
-								new ParameterTesting(CakeTester.getCorrespondingClass()),
-								new ParameterTesting(double.class),
-								new ParameterTesting(double.class)
+								new TestingParameter(CakeTester.getCorrespondingClass()),
+								new TestingParameter(double.class),
+								new TestingParameter(double.class)
 						)
 						, quote.checkGetterDeclaration(5)
 						, quote.checkSetterDeclaration(5)
@@ -206,7 +206,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, rentalCustomer.checkFields(2)
 						, rentalCustomer.checkGetterDeclaration(2)
 						, rentalCustomer.checkSetterDeclaration(2)
-						, rentalCustomer.checkPartialArgsConstructors(5, new ParameterTesting(String.class))
+						, rentalCustomer.checkPartialArgsConstructors(5, new TestingParameter(String.class))
 						, rentalCustomer.checkToStringOperation(5, name, address, license)
 
 						// const
@@ -217,11 +217,11 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, rentalCar.checkExistence(5)
 						, rentalCar.checkFields(5)
 						, rentalCar.checkPartialArgsConstructorDeclaration(5
-								, new ParameterTesting(String.class)
-								, new ParameterTesting(String.class)
-								, new ParameterTesting(int.class)
-								, new ParameterTesting(int.class)
-								, new ParameterTesting(CarRentalCustomerTester.getCorrespondingClass())
+								, new TestingParameter(String.class)
+								, new TestingParameter(String.class)
+								, new TestingParameter(int.class)
+								, new TestingParameter(int.class)
+								, new TestingParameter(CarRentalCustomerTester.getCorrespondingClass())
 						)
 						
 						// agreement
@@ -240,8 +240,8 @@ public class LabTestSuite2 extends ALabTestSuite {
 						user.checkExistence(defaultPoints)
 						, user.checkFields(defaultPoints)
 						, user.checkPartialArgsConstructorDeclaration(defaultPoints
-								, new ParameterTesting(String.class)
-								, new ParameterTesting(String.class)
+								, new TestingParameter(String.class)
+								, new TestingParameter(String.class)
 						)
 						, user.checkGetterDeclaration(defaultPoints)
 						, user.checkSetterDeclaration(defaultPoints)
@@ -251,8 +251,8 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, book.checkExistence(5)
 						, book.checkFields(2)
 						, book.checkFullArgsConstructorDeclaration(defaultPoints
-								, new ParameterTesting(String.class)
-								, new ParameterTesting(String.class)
+								, new TestingParameter(String.class)
+								, new TestingParameter(String.class)
 						)
 						, book.checkGetterDeclaration(defaultPoints)
 						, book.checkSetterDeclaration(defaultPoints)
@@ -262,9 +262,9 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, record.checkExistence(5)
 						, record.checkFields(2)
 						, record.checkPartialArgsConstructorDeclaration(defaultPoints
-								, new ParameterTesting(UserTester.getCorrespondingClass())
-								, new ParameterTesting(BookTester.getCorrespondingClass())
-								, new ParameterTesting(LocalDate.class)
+								, new TestingParameter(UserTester.getCorrespondingClass())
+								, new TestingParameter(BookTester.getCorrespondingClass())
+								, new TestingParameter(LocalDate.class)
 						)
 						, record.checkGetterDeclaration(defaultPoints)
 						, record.checkSetterDeclaration(defaultPoints)

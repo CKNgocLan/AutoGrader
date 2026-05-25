@@ -11,10 +11,10 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testSuite.lab2.CustomerTester;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -76,10 +76,10 @@ public class PetShopTester {
 
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
 		return fieldTester.checkDeclarations(points, className,
-				new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.CUSTOMER),
+				new TestingField(List.class, student.model.ClassLoader.retrieveClass(ClassName.CUSTOMER),
 						FieldName.CUSTOMERS),
-				new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PETS),
-				new FieldTesting(List.class, student.model.ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE),
+				new TestingField(List.class, student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PETS),
+				new TestingField(List.class, student.model.ClassLoader.retrieveClass(ClassName.SERVICE_ESTIMATE),
 						FieldName.SERVICE_ESTIMATES));
 	}
 
@@ -111,12 +111,12 @@ public class PetShopTester {
 
 	public ITestCase checkAddCustomerDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.checkExistence(points, className,
-				new MethodTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER), MethodName.ADD_CUSTOMER,
-						new ParameterTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMERS)));
+				new TestingMethod(ClassLoader.retrieveClass(ClassName.CUSTOMER), MethodName.ADD_CUSTOMER,
+						new TestingParameter(ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMERS)));
 	}
 
 	public ITestCase checkAddCustomerOperation(int points) throws ClassNotFoundException {
-		MethodTesting method = new MethodTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER),
+		TestingMethod method = new TestingMethod(ClassLoader.retrieveClass(ClassName.CUSTOMER),
 				MethodName.ADD_CUSTOMER);
 
 		return new ITestCase() {
@@ -156,7 +156,7 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkShowAllCustomersDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new MethodTesting(void.class, MethodName.SHOW_ALL_CUSTOMERS));
+		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_CUSTOMERS));
 	}
 
 	public ITestCase checkShowAllCustomersOperation(int points) {
@@ -219,12 +219,12 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkAddPetDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new MethodTesting(void.class,
-				MethodName.ADD_PET, new ParameterTesting(PetTester.getCorrespondingClass(), FieldName.PETS)));
+		return methodTester.checkExistence(points, className, new TestingMethod(void.class,
+				MethodName.ADD_PET, new TestingParameter(PetTester.getCorrespondingClass(), FieldName.PETS)));
 	}
 
 	public ITestCase checkAddPetOperation(int points) throws ClassNotFoundException {
-		MethodTesting method = new MethodTesting(ClassLoader.retrieveClass(ClassName.PET), MethodName.ADD_PET);
+		TestingMethod method = new TestingMethod(ClassLoader.retrieveClass(ClassName.PET), MethodName.ADD_PET);
 
 		return new ITestCase() {
 			@Override
@@ -266,11 +266,11 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkShowAllPetsDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new MethodTesting(void.class, MethodName.SHOW_ALL_PETS));
+		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_PETS));
 	}
 
 	public ITestCase checkShowAllPetsOperation(int points) throws ClassNotFoundException {
-		MethodTesting method = new MethodTesting(PetTester.getCorrespondingClass(), MethodName.SHOW_ALL_PETS);
+		TestingMethod method = new TestingMethod(PetTester.getCorrespondingClass(), MethodName.SHOW_ALL_PETS);
 		final String customerName = "Old Man Hac";
 
 		return new ITestCase() {
@@ -326,13 +326,13 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkAddServiceEstimateDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new MethodTesting(void.class, MethodName.ADD_SERVICE_ESTIMATE,
-				new ParameterTesting(ServiceEstimateTester.getCorrespondingClass(), FieldName.SERVICE_ESTIMATES)));
+		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.ADD_SERVICE_ESTIMATE,
+				new TestingParameter(ServiceEstimateTester.getCorrespondingClass(), FieldName.SERVICE_ESTIMATES)));
 	}
 
 	public ITestCase checkAddServiceEstimateOperation(int points) throws ClassNotFoundException {
-		MethodTesting method = new MethodTesting(void.class, MethodName.ADD_SERVICE_ESTIMATE,
-				new ParameterTesting(ServiceEstimateTester.getCorrespondingClass(), FieldName.SERVICE_ESTIMATE));
+		TestingMethod method = new TestingMethod(void.class, MethodName.ADD_SERVICE_ESTIMATE,
+				new TestingParameter(ServiceEstimateTester.getCorrespondingClass(), FieldName.SERVICE_ESTIMATE));
 
 		return new ITestCase() {
 			@Override
@@ -371,11 +371,11 @@ public class PetShopTester {
 
 	public ITestCase checkShowAllServiceEstimatesDeclaration(int points) {
 		return methodTester.checkExistence(points, className,
-				new MethodTesting(void.class, MethodName.SHOW_ALL_SERVICE_ESTIMATES));
+				new TestingMethod(void.class, MethodName.SHOW_ALL_SERVICE_ESTIMATES));
 	}
 
 	public ITestCase checkShowAllServiceEstimatesOperation(int points) throws ClassNotFoundException {
-		MethodTesting method = new MethodTesting(PetTester.getCorrespondingClass(), MethodName.SHOW_ALL_SERVICE_ESTIMATES);
+		TestingMethod method = new TestingMethod(PetTester.getCorrespondingClass(), MethodName.SHOW_ALL_SERVICE_ESTIMATES);
 		final String customerName = "Old Man Hac";
 
 		return new ITestCase() {

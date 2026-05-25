@@ -6,10 +6,10 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 
 public class RectangleTester extends BaseTester {
@@ -19,18 +19,18 @@ public class RectangleTester extends BaseTester {
 		super.getCorrespondingClass();
 	}
 	
-	public MethodTesting method() {
-		return new MethodTesting(double.class, MethodName.AREA);
+	public TestingMethod method() {
+		return new TestingMethod(double.class, MethodName.AREA);
 	}
 	
 	/*
 	 * argument
 	 */
 	
-	public ParameterTesting[] createArgs(double width, double length) {
-		return new ParameterTesting[] {
-				new ParameterTesting(double.class, FieldName.WIDTH, width)
-				, new ParameterTesting(double.class, FieldName.LENGTH, length)
+	public TestingParameter[] createArgs(double width, double length) {
+		return new TestingParameter[] {
+				new TestingParameter(double.class, FieldName.WIDTH, width)
+				, new TestingParameter(double.class, FieldName.LENGTH, length)
 				};
 	}
 	
@@ -48,8 +48,8 @@ public class RectangleTester extends BaseTester {
 
 	public ITestCase checkFields(int points) {
 		return super.checkFields(points
-				, new FieldTesting(double.class, FieldName.WIDTH)
-				, new FieldTesting(double.class, FieldName.LENGTH)
+				, new TestingField(double.class, FieldName.WIDTH)
+				, new TestingField(double.class, FieldName.LENGTH)
 				);
 	}
 

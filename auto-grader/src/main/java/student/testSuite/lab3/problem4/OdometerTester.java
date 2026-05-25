@@ -10,10 +10,10 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.ValueUtils;
 import student.util.TestCaseUtils;
@@ -32,9 +32,9 @@ public class OdometerTester extends BaseTester {
 	 * argument
 	 */
 	
-	public ParameterTesting[] constructorArgs(Object fuelGauge) throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new ParameterTesting[] {
-			new ParameterTesting(fuelGaugeTester.getCorrespondingClass(), FieldName.FUEL_GAUGE, fuelGauge)	
+	public TestingParameter[] constructorArgs(Object fuelGauge) throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingParameter[] {
+			new TestingParameter(fuelGaugeTester.getCorrespondingClass(), FieldName.FUEL_GAUGE, fuelGauge)	
 		};
 	}
 	
@@ -68,8 +68,8 @@ public class OdometerTester extends BaseTester {
 	public ITestCase fields(int points) {
 		try {
 			return fieldTester.checkDeclarations(points, className
-					, new FieldTesting(int.class, FieldName.MILEAGE)
-					, new FieldTesting(fuelGaugeTester.getCorrespondingClass(), FieldName.FUEL_GAUGE)
+					, new TestingField(int.class, FieldName.MILEAGE)
+					, new TestingField(fuelGaugeTester.getCorrespondingClass(), FieldName.FUEL_GAUGE)
 			);
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
 			e.printStackTrace();
@@ -147,8 +147,8 @@ public class OdometerTester extends BaseTester {
 	 * incrementMileage
 	 */
 	
-	private MethodTesting incrementMileageMethod() {
-		return new MethodTesting(void.class, MethodName.INCREMENT_MILEAGE);
+	private TestingMethod incrementMileageMethod() {
+		return new TestingMethod(void.class, MethodName.INCREMENT_MILEAGE);
 	}
 	
 	public ITestCase declareIncrementMileage(int points) {
@@ -175,7 +175,7 @@ public class OdometerTester extends BaseTester {
 	}
 	
 	public ITestCase operateIncrementMileage(int points, int fuelGaugeGallon, int mileage) {
-		MethodTesting method = incrementMileageMethod();
+		TestingMethod method = incrementMileageMethod();
 		return new ITestCase() {
 
 			@Override
@@ -231,8 +231,8 @@ public class OdometerTester extends BaseTester {
 	 * getMileage
 	 */
 	
-	private MethodTesting getMileageMethod() {
-		return new MethodTesting(int.class, MethodName.GET_MILEAGE);
+	private TestingMethod getMileageMethod() {
+		return new TestingMethod(int.class, MethodName.GET_MILEAGE);
 	}
 	
 	public ITestCase declareGetMileage(int points) {

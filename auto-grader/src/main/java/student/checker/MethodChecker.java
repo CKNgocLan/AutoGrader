@@ -8,7 +8,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 import student.model.Getter;
-import student.model.MethodTesting;
+import student.model.TestingMethod;
 import student.model.Setter;
 import student.util.GetterUtils;
 import student.util.SetterUtils;
@@ -180,11 +180,11 @@ public class MethodChecker {
 	 * DECLARATION ***************
 	 */
 
-	public boolean isMethodDeclared(Class<?> clazz, MethodTesting method) throws NoSuchMethodException, SecurityException {
+	public boolean isMethodDeclared(Class<?> clazz, TestingMethod method) throws NoSuchMethodException, SecurityException {
 		return method.equals(clazz.getDeclaredMethod(method.getName(), method.getParameterTypes()));
 	}
 
-	public boolean isDeclaredAsSpecialModifers(Class<?> clazz, MethodTesting method) throws NoSuchMethodException, SecurityException {
+	public boolean isDeclaredAsSpecialModifers(Class<?> clazz, TestingMethod method) throws NoSuchMethodException, SecurityException {
 		Method reflectMethod = clazz.getDeclaredMethod(method.getName(), method.getParameterTypes());
 		
 		if (!method.equalsButModifiers(reflectMethod)) {
@@ -208,11 +208,11 @@ public class MethodChecker {
 	 * EXCLUDE
 	 */
 	
-	public boolean isExluded(Class<?> clazz, MethodTesting... excludedMethods) {
+	public boolean isExluded(Class<?> clazz, TestingMethod... excludedMethods) {
 		Method[] actualMethods = clazz.getDeclaredMethods();
 
 		for (Method am : actualMethods) {
-			Optional<MethodTesting> foundMethod = Stream.of(excludedMethods)
+			Optional<TestingMethod> foundMethod = Stream.of(excludedMethods)
 					.filter(em -> em.getName().equals(am.getName()) && em.getReturnedType().equals(am.getReturnType()))
 					.findFirst();
 			if (foundMethod.isPresent()) {

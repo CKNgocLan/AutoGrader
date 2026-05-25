@@ -9,7 +9,7 @@ import student.constant.FieldName;
 import student.constant.Question;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.ParameterTestingUtils;
@@ -31,47 +31,47 @@ public class LabTestSuite1 extends ALabTestSuite {
 					
 					// no-agrs constructor
 					, classTest.checkNoArgConstructorDeclaration(5, ClassName.EMPLOYEE)
-					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new ParameterTesting(String.class, FieldName.NAME, Constants.EMPTY_STRING))
-					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new ParameterTesting(String.class, FieldName.DEPARTMENT, Constants.EMPTY_STRING))
-					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new ParameterTesting(String.class, FieldName.POSITION, Constants.EMPTY_STRING))
-					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new ParameterTesting(int.class, FieldName.ID_NUMBER, (int) 0))
+					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new TestingParameter(String.class, FieldName.NAME, Constants.EMPTY_STRING))
+					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new TestingParameter(String.class, FieldName.DEPARTMENT, Constants.EMPTY_STRING))
+					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new TestingParameter(String.class, FieldName.POSITION, Constants.EMPTY_STRING))
+					, classTest.checkNoArgConstructorOperation(5, ClassName.EMPLOYEE, new TestingParameter(int.class, FieldName.ID_NUMBER, (int) 0))
 					
 					// full-agrs constructor
 					, classTest.checkFullArgsConstructorDeclaration(5, ClassName.EMPLOYEE,
 							ParameterTestingUtils.mapFromTypes(String.class, int.class, String.class, String.class))
 					, classTest.checkFullArgsConstructorOperation(5, ClassName.EMPLOYEE
-							, new ParameterTesting(String.class, FieldName.NAME, "Susan Meyers")
-							, new ParameterTesting(int.class, FieldName.ID_NUMBER, 47899)
-							, new ParameterTesting(String.class, FieldName.DEPARTMENT, "Accounting")
-							, new ParameterTesting(String.class, FieldName.POSITION, "Vice President")
+							, new TestingParameter(String.class, FieldName.NAME, "Susan Meyers")
+							, new TestingParameter(int.class, FieldName.ID_NUMBER, 47899)
+							, new TestingParameter(String.class, FieldName.DEPARTMENT, "Accounting")
+							, new TestingParameter(String.class, FieldName.POSITION, "Vice President")
 					)
 					, classTest.checkFullArgsConstructorOperation(5, ClassName.EMPLOYEE
-							, new ParameterTesting(String.class, FieldName.NAME, "Mark Jones")
-							, new ParameterTesting(int.class, FieldName.ID_NUMBER, 39119)
-							, new ParameterTesting(String.class, FieldName.DEPARTMENT, "IT")
-							, new ParameterTesting(String.class, FieldName.POSITION, "Programmer")
+							, new TestingParameter(String.class, FieldName.NAME, "Mark Jones")
+							, new TestingParameter(int.class, FieldName.ID_NUMBER, 39119)
+							, new TestingParameter(String.class, FieldName.DEPARTMENT, "IT")
+							, new TestingParameter(String.class, FieldName.POSITION, "Programmer")
 					)
 					, classTest.checkFullArgsConstructorOperation(5, ClassName.EMPLOYEE
-							, new ParameterTesting(String.class, FieldName.NAME, "Joy Rogers")
-							, new ParameterTesting(int.class, FieldName.ID_NUMBER, 81774)
-							, new ParameterTesting(String.class, FieldName.DEPARTMENT, "Manufacturing")
-							, new ParameterTesting(String.class, FieldName.POSITION, "Engineer")
+							, new TestingParameter(String.class, FieldName.NAME, "Joy Rogers")
+							, new TestingParameter(int.class, FieldName.ID_NUMBER, 81774)
+							, new TestingParameter(String.class, FieldName.DEPARTMENT, "Manufacturing")
+							, new TestingParameter(String.class, FieldName.POSITION, "Engineer")
 					)
 					
 					// partial-args constructor
 					, classTest.checkPartialArgsConstructorDeclaration(5, ClassName.EMPLOYEE
 							, ParameterTestingUtils.mapFromTypes(String.class, int.class))
 					, classTest.checkPartialArgsConstructorOperationViaGetter(5, ClassName.EMPLOYEE
-							, new ParameterTesting(String.class, FieldName.NAME, "Susan Meyers")
-							, new ParameterTesting(int.class, FieldName.ID_NUMBER, 47899)
+							, new TestingParameter(String.class, FieldName.NAME, "Susan Meyers")
+							, new TestingParameter(int.class, FieldName.ID_NUMBER, 47899)
 					)
 					, classTest.checkFullArgsConstructorOperation(5, ClassName.EMPLOYEE
-							, new ParameterTesting(String.class, FieldName.NAME, "Mark Jones")
-							, new ParameterTesting(int.class, FieldName.ID_NUMBER, 39119)
+							, new TestingParameter(String.class, FieldName.NAME, "Mark Jones")
+							, new TestingParameter(int.class, FieldName.ID_NUMBER, 39119)
 					)
 					, classTest.checkFullArgsConstructorOperation(5, ClassName.EMPLOYEE
-							, new ParameterTesting(String.class, FieldName.NAME, "Joy Rogers")
-							, new ParameterTesting(int.class, FieldName.ID_NUMBER, 81774)
+							, new TestingParameter(String.class, FieldName.NAME, "Joy Rogers")
+							, new TestingParameter(int.class, FieldName.ID_NUMBER, 81774)
 					)
 					
 					// attribute

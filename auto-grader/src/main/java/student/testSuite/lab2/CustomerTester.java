@@ -8,9 +8,9 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
+import student.model.TestingMethod;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -99,9 +99,9 @@ public class CustomerTester {
 	
 	public ITestCase checkFields(int points) {
 		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(String.class, FieldName.NAME)
-				, new FieldTesting(String.class, FieldName.ADDRESS)
-				, new FieldTesting(String.class, FieldName.PHONE_NUMBER)
+				, new TestingField(String.class, FieldName.NAME)
+				, new TestingField(String.class, FieldName.ADDRESS)
+				, new TestingField(String.class, FieldName.PHONE_NUMBER)
 		);
 	}
 
@@ -124,7 +124,7 @@ public class CustomerTester {
 	 */
 	
 	public ITestCase checkToStringDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new MethodTesting(String.class, MethodName.TO_STRING));
+		return methodTester.checkExistence(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 	
 	public ITestCase checkToStringOperation(int points) throws ClassNotFoundException {
@@ -132,7 +132,7 @@ public class CustomerTester {
 	}
 	
 	public ITestCase checkToStringOperation(int points, String name, String address, String phoneNumber) throws ClassNotFoundException {
-		MethodTesting method = MethodUtils.createMethodToString();
+		TestingMethod method = MethodUtils.createMethodToString();
 
 		return new ITestCase() {
 			@Override

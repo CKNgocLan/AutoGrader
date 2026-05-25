@@ -7,8 +7,8 @@ import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.InvalidConfigurationException;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -53,11 +53,11 @@ public class TemperatureTester {
 	 * Constructor **********
 	 */
 
-	public ITestCase checkFullArgsConstructorDeclaration(int points, ParameterTesting... params) {
+	public ITestCase checkFullArgsConstructorDeclaration(int points, TestingParameter... params) {
 		return classTest.checkFullArgsConstructorDeclaration(points, className, params);
 	}
 
-	public ITestCase checkFullArgsConstructorOperation(int points, ParameterTesting... params) {
+	public ITestCase checkFullArgsConstructorOperation(int points, TestingParameter... params) {
 		return classTest.checkFullArgsConstructorOperation(points, className, params);
 	}
 
@@ -84,13 +84,13 @@ public class TemperatureTester {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
-					MethodTesting setFahrenheit = createSetFahrenheit(fahrenheit);
+					TestingMethod setFahrenheit = createSetFahrenheit(fahrenheit);
 					if (!methodTester.getMethodChecker().isMethodDeclared(clazz, setFahrenheit)) {
 						invalidMethodName = setFahrenheit.getName();
 						return false;
 					}
 
-					MethodTesting getFahrenheit = new MethodTesting(double.class, MethodName.GET_FAHRENHEIT).expectedValue(fahrenheit);
+					TestingMethod getFahrenheit = new TestingMethod(double.class, MethodName.GET_FAHRENHEIT).expectedValue(fahrenheit);
 					if (!methodTester.getMethodChecker().isMethodDeclared(clazz, getFahrenheit)) {
 						invalidMethodName = getFahrenheit.getName();
 						return false;
@@ -120,7 +120,7 @@ public class TemperatureTester {
 	 */
 	public ITestCase checkGetCelsius(int points, double fahrenheit, double celsius) {
 		return new ITestCase() {
-			MethodTesting testedMethod = new MethodTesting(double.class, MethodName.GET_CELSIUS);
+			TestingMethod testedMethod = new TestingMethod(double.class, MethodName.GET_CELSIUS);
 
 			@Override
 			public String getName() {
@@ -165,7 +165,7 @@ public class TemperatureTester {
 	 */
 	public ITestCase checkGetKelvin(int points, double fahrenheit, double kelvin) {
 		return new ITestCase() {
-			MethodTesting testedMethod = new MethodTesting(double.class, MethodName.GET_KELVIN);
+			TestingMethod testedMethod = new TestingMethod(double.class, MethodName.GET_KELVIN);
 
 			@Override
 			public String getName() {
@@ -205,9 +205,9 @@ public class TemperatureTester {
 		};
 	}
 
-	private MethodTesting createSetFahrenheit(double fahrenheit) {
-		return new MethodTesting(void.class, MethodName.SET_FAHRENHEIT,
-				new ParameterTesting(double.class, FieldName.FTEMP, fahrenheit)
+	private TestingMethod createSetFahrenheit(double fahrenheit) {
+		return new TestingMethod(void.class, MethodName.SET_FAHRENHEIT,
+				new TestingParameter(double.class, FieldName.FTEMP, fahrenheit)
 			).expectedValue(fahrenheit);
 	}
 }

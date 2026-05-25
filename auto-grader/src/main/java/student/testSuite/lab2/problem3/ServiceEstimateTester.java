@@ -9,9 +9,9 @@ import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.InvalidConfigurationException;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
+import student.model.TestingMethod;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -83,10 +83,10 @@ public class ServiceEstimateTester {
 	 */
 
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
-		return fieldTester.checkDeclarations(points, className, new FieldTesting(double.class, FieldName.GROOMING_COST),
-				new FieldTesting(double.class, FieldName.ADDITIONAL_CARE_COST),
-				new FieldTesting(double.class, FieldName.TAX),
-				new FieldTesting(student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PET));
+		return fieldTester.checkDeclarations(points, className, new TestingField(double.class, FieldName.GROOMING_COST),
+				new TestingField(double.class, FieldName.ADDITIONAL_CARE_COST),
+				new TestingField(double.class, FieldName.TAX),
+				new TestingField(student.model.ClassLoader.retrieveClass(ClassName.PET), FieldName.PET));
 	}
 
 	/*
@@ -102,7 +102,7 @@ public class ServiceEstimateTester {
 	 */
 
 	public ITestCase checkToStringExistence(int points) {
-		return methodTester.checkExistence(points, className, new MethodTesting(String.class, MethodName.TO_STRING));
+		return methodTester.checkExistence(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 	
 	public ITestCase checkToStringOperation(int points) {
@@ -110,7 +110,7 @@ public class ServiceEstimateTester {
 	}
 	
 	public ITestCase checkToStringOperation(int points, double groomingCost, double additionalCareCost, double tax) {
-		MethodTesting method = MethodUtils.createMethodToString();
+		TestingMethod method = MethodUtils.createMethodToString();
 
 		return new ITestCase() {
 			@Override
@@ -155,7 +155,7 @@ public class ServiceEstimateTester {
 
 	public ITestCase checkGetTotalCostAfterTaxExistence(int points) {
 		return methodTester.checkExistence(points, className,
-				new MethodTesting(double.class, MethodName.GET_TOTAL_COST_AFTER_TAX));
+				new TestingMethod(double.class, MethodName.GET_TOTAL_COST_AFTER_TAX));
 	}
 	
 	public ITestCase checkGetTotalCostAfterTaxOperation(int points) {
@@ -163,7 +163,7 @@ public class ServiceEstimateTester {
 	}
 	
 	public ITestCase checkGetTotalCostAfterTaxOperation(int points, double expected, double groomingCost, double additionalCareCost, double tax) {
-		MethodTesting method = new MethodTesting(double.class, MethodName.GET_TOTAL_COST_AFTER_TAX);
+		TestingMethod method = new TestingMethod(double.class, MethodName.GET_TOTAL_COST_AFTER_TAX);
 
 		return new ITestCase() {
 			@Override

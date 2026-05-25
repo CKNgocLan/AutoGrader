@@ -9,10 +9,10 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 import student.util.ValueUtils;
@@ -39,10 +39,10 @@ public class PoliceOfficerTester extends BaseTester {
 	 * argument
 	 */
 	
-	public ParameterTesting[] constructorArgs(String name, String badgeNumber) {
-		return new ParameterTesting[] {
-			new ParameterTesting(String.class, FieldName.NAME, name)	
-			, new ParameterTesting(String.class, FieldName.BADGE_NUMBER, badgeNumber)	
+	public TestingParameter[] constructorArgs(String name, String badgeNumber) {
+		return new TestingParameter[] {
+			new TestingParameter(String.class, FieldName.NAME, name)	
+			, new TestingParameter(String.class, FieldName.BADGE_NUMBER, badgeNumber)	
 		};
 	}
 	
@@ -75,8 +75,8 @@ public class PoliceOfficerTester extends BaseTester {
 	
 	public ITestCase declareFields(int points) {
 		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(String.class, FieldName.NAME)
-				, new FieldTesting(String.class, FieldName.BADGE_NUMBER)
+				, new TestingField(String.class, FieldName.NAME)
+				, new TestingField(String.class, FieldName.BADGE_NUMBER)
 		);
 	}
 
@@ -96,17 +96,17 @@ public class PoliceOfficerTester extends BaseTester {
 	 * examineCar
 	 */
 	
-	private MethodTesting examineCarMethod() throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new MethodTesting(boolean.class, MethodName.EXAMINE_CAR
-				, new ParameterTesting(parkedCarTester.getCorrespondingClass())
-				, new ParameterTesting(parkingMeterTester.getCorrespondingClass())
+	private TestingMethod examineCarMethod() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingMethod(boolean.class, MethodName.EXAMINE_CAR
+				, new TestingParameter(parkedCarTester.getCorrespondingClass())
+				, new TestingParameter(parkingMeterTester.getCorrespondingClass())
 		);
 	}
 	
-	private MethodTesting examineCarMethod(int parkedMinutes, int purchasedMinutes) throws ClassNotFoundException, TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		return new MethodTesting(boolean.class, MethodName.EXAMINE_CAR
-				, new ParameterTesting(parkedCarTester.getCorrespondingClass(), FieldName.PARKED_CAR, parkedCarTester.instantiate(parkedMinutes))
-				, new ParameterTesting(parkingMeterTester.getCorrespondingClass(), FieldName.PARKING_METER, parkingMeterTester.instantiate(purchasedMinutes))
+	private TestingMethod examineCarMethod(int parkedMinutes, int purchasedMinutes) throws ClassNotFoundException, TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		return new TestingMethod(boolean.class, MethodName.EXAMINE_CAR
+				, new TestingParameter(parkedCarTester.getCorrespondingClass(), FieldName.PARKED_CAR, parkedCarTester.instantiate(parkedMinutes))
+				, new TestingParameter(parkingMeterTester.getCorrespondingClass(), FieldName.PARKING_METER, parkingMeterTester.instantiate(purchasedMinutes))
 		);
 	}
 	
@@ -139,19 +139,19 @@ public class PoliceOfficerTester extends BaseTester {
 	 * issueTicket
 	 */
 	
-	private MethodTesting issueTicketMethod() throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new MethodTesting(this.parkingTicketTester.getCorrespondingClass()
+	private TestingMethod issueTicketMethod() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingMethod(this.parkingTicketTester.getCorrespondingClass()
 				, MethodName.ISSUE_TICKET
-				, new ParameterTesting(parkedCarTester.getCorrespondingClass())
-				, new ParameterTesting(parkingMeterTester.getCorrespondingClass())
+				, new TestingParameter(parkedCarTester.getCorrespondingClass())
+				, new TestingParameter(parkingMeterTester.getCorrespondingClass())
 		);
 	}
 	
-	private MethodTesting issueTicketMethod(int parkedMinutes, int purchasedMinutes) throws ClassNotFoundException, TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		return new MethodTesting(this.parkingTicketTester.getCorrespondingClass()
+	private TestingMethod issueTicketMethod(int parkedMinutes, int purchasedMinutes) throws ClassNotFoundException, TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		return new TestingMethod(this.parkingTicketTester.getCorrespondingClass()
 				, MethodName.ISSUE_TICKET
-				, new ParameterTesting(parkedCarTester.getCorrespondingClass(), FieldName.PARKED_CAR, parkedCarTester.instantiate(parkedMinutes))
-				, new ParameterTesting(parkingMeterTester.getCorrespondingClass(), FieldName.PARKING_METER, parkingMeterTester.instantiate(purchasedMinutes))
+				, new TestingParameter(parkedCarTester.getCorrespondingClass(), FieldName.PARKED_CAR, parkedCarTester.instantiate(parkedMinutes))
+				, new TestingParameter(parkingMeterTester.getCorrespondingClass(), FieldName.PARKING_METER, parkingMeterTester.instantiate(purchasedMinutes))
 		);
 	}
 	
@@ -184,7 +184,7 @@ public class PoliceOfficerTester extends BaseTester {
 	}
 	
 	public ITestCase operateIssueTicket(int points, String name, String badgeNumber, int parkedMinutes, int purchasedMinutes) {
-		MethodTesting method;
+		TestingMethod method;
 		try {
 			method = issueTicketMethod(parkedMinutes, purchasedMinutes);
 		} catch (Exception e) {

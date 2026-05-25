@@ -7,10 +7,10 @@ import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.TestcaseType;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -82,7 +82,7 @@ public class CarRentalCustomerTester {
 	 * Constructor ***************
 	 */
 
-	public ITestCase checkPartialArgsConstructors(int points, ParameterTesting... params)
+	public ITestCase checkPartialArgsConstructors(int points, TestingParameter... params)
 			throws ClassNotFoundException {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
@@ -92,9 +92,9 @@ public class CarRentalCustomerTester {
 	 */
 
 	public ITestCase checkFields(int points) {
-		return fieldTester.checkDeclarations(points, className, new FieldTesting(String.class, FieldName.NAME),
-				new FieldTesting(String.class, FieldName.ADDRESS),
-				new FieldTesting(String.class, FieldName.LICENSE_NUMBER));
+		return fieldTester.checkDeclarations(points, className, new TestingField(String.class, FieldName.NAME),
+				new TestingField(String.class, FieldName.ADDRESS),
+				new TestingField(String.class, FieldName.LICENSE_NUMBER));
 	}
 
 	/*
@@ -121,7 +121,7 @@ public class CarRentalCustomerTester {
 
 	public ITestCase checkToStringOperation(int points, String name, String address, String licenseNumber)
 			throws ClassNotFoundException {
-		MethodTesting method = MethodUtils.createMethodToString();
+		TestingMethod method = MethodUtils.createMethodToString();
 
 		return new ITestCase() {
 			@Override

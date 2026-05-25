@@ -4,7 +4,7 @@ import student.constant.ClassName;
 import student.constant.Constants;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
 import student.testSuite.BaseTester;
 
@@ -28,9 +28,9 @@ public class ConstTester extends BaseTester {
 	
 	public ITestCase fields(int points) {
 		return fieldTester.checkDeclarationsAsPublicStaticFinal(points, className
-				, new FieldTesting(int.class, FieldName.UPPERCASE_CAR_MAX_GALLON).setValue(Constants.CAR_MAX_GALLON)
-				, new FieldTesting(int.class, FieldName.UPPERCASE_ODOMETER_MAXIMUM_MILEAGE_MILES).setValue(Constants.ODOMETER_MAXIMUM_MILEAGE_MILES)
-				, new FieldTesting(int.class, FieldName.UPPERCASE_MILES_PER_ONE_GALLON).setValue(Constants.MILES_PER_ONE_GALLON)
+				, new TestingField(int.class, FieldName.UPPERCASE_CAR_MAX_GALLON).setValue(Constants.CAR_MAX_GALLON)
+				, new TestingField(int.class, FieldName.UPPERCASE_ODOMETER_MAXIMUM_MILEAGE_MILES).setValue(Constants.ODOMETER_MAXIMUM_MILEAGE_MILES)
+				, new TestingField(int.class, FieldName.UPPERCASE_MILES_PER_ONE_GALLON).setValue(Constants.MILES_PER_ONE_GALLON)
 		);
 	}
 }

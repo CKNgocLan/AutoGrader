@@ -6,10 +6,10 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 
 public class CircleTester extends BaseTester {
@@ -19,16 +19,16 @@ public class CircleTester extends BaseTester {
 		super.getCorrespondingClass();
 	}
 	
-	public MethodTesting method() {
-		return new MethodTesting(double.class, MethodName.AREA);
+	public TestingMethod method() {
+		return new TestingMethod(double.class, MethodName.AREA);
 	}
 	
 	/*
 	 * argument
 	 */
 	
-	public ParameterTesting[] createArgs(double radius) {
-		return new ParameterTesting[] { new ParameterTesting(double.class, FieldName.RADIUS, radius) };
+	public TestingParameter[] createArgs(double radius) {
+		return new TestingParameter[] { new TestingParameter(double.class, FieldName.RADIUS, radius) };
 	}
 	
 	/*
@@ -44,7 +44,7 @@ public class CircleTester extends BaseTester {
 	 */
 
 	public ITestCase checkFields(int points) {
-		return super.checkFields(points, new FieldTesting(double.class, FieldName.RADIUS));
+		return super.checkFields(points, new TestingField(double.class, FieldName.RADIUS));
 	}
 
 	/*

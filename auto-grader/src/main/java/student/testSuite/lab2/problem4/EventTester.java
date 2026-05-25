@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -66,8 +66,8 @@ public class EventTester {
 	
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
 		return fieldTester.checkDeclarationsAsPublicStaticFinal(points, className
-				, new FieldTesting(student.model.ClassLoader.retrieveClass(ClassName.EVENT), FieldName.UPPERCASE_WEDDING)
-				, new FieldTesting(student.model.ClassLoader.retrieveClass(ClassName.EVENT), FieldName.UPPERCASE_BIRTHDAY)
+				, new TestingField(student.model.ClassLoader.retrieveClass(ClassName.EVENT), FieldName.UPPERCASE_WEDDING)
+				, new TestingField(student.model.ClassLoader.retrieveClass(ClassName.EVENT), FieldName.UPPERCASE_BIRTHDAY)
 		);
 	}
 

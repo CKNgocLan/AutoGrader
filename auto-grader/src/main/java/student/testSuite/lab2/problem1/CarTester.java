@@ -5,10 +5,10 @@ import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -48,8 +48,8 @@ public class CarTester {
 
 	public ITestCase checkFields(int points) {
 		return fieldTester.checkDeclarations(points, className,
-				new FieldTesting(int.class, FieldName.YEAR_MODEL),
-				new FieldTesting(String.class, FieldName.MAKE), new FieldTesting(int.class, FieldName.SPEED)
+				new TestingField(int.class, FieldName.YEAR_MODEL),
+				new TestingField(String.class, FieldName.MAKE), new TestingField(int.class, FieldName.SPEED)
 				);
 	}
 
@@ -57,11 +57,11 @@ public class CarTester {
 	 * Constructor **********
 	 */
 
-	public ITestCase checkPartialArgsConstructorDeclaration(int points, ParameterTesting... params) {
+	public ITestCase checkPartialArgsConstructorDeclaration(int points, TestingParameter... params) {
 		return classTest.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
 
-	public ITestCase checkPartialArgsConstructorOperation(int points, ParameterTesting... params) {
+	public ITestCase checkPartialArgsConstructorOperation(int points, TestingParameter... params) {
 		return classTest.checkPartialArgsConstructorOperationViaGetter(points, className, params);
 	}
 
@@ -70,11 +70,11 @@ public class CarTester {
 	 */
 
 	public ITestCase checkAccelerateDeclaration(int points) {
-		return methodTester.checkExistence(points, ClassName.CAR, new MethodTesting(int.class, MethodName.ACCELERATE));
+		return methodTester.checkExistence(points, ClassName.CAR, new TestingMethod(int.class, MethodName.ACCELERATE));
 	}
 
 	public ITestCase checkAccelerateOperation(int points) {
-		MethodTesting methodTesting = new MethodTesting(int.class, MethodName.ACCELERATE).expectedValue(5);
+		TestingMethod methodTesting = new TestingMethod(int.class, MethodName.ACCELERATE).expectedValue(5);
 
 		return new ITestCase() {
 
@@ -101,7 +101,7 @@ public class CarTester {
 
 					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
 
-					return ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, new ParameterTesting(
+					return ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, new TestingParameter(
 							methodTesting.getReturnedType(), FieldName.SPEED, methodTesting.getExpectedValue()));
 				} catch (NoSuchMethodException e) {
 					return false;
@@ -126,11 +126,11 @@ public class CarTester {
 	 */
 
 	public ITestCase checkBrakeDeclaration(int points) {
-		return methodTester.checkExistence(points, ClassName.CAR, new MethodTesting(int.class, MethodName.BRAKE));
+		return methodTester.checkExistence(points, ClassName.CAR, new TestingMethod(int.class, MethodName.BRAKE));
 	}
 
 	public ITestCase checkBrakeOperation(int points) {
-		MethodTesting methodTesting = new MethodTesting(int.class, MethodName.BRAKE).expectedValue(0);
+		TestingMethod methodTesting = new TestingMethod(int.class, MethodName.BRAKE).expectedValue(0);
 
 		return new ITestCase() {
 
@@ -159,7 +159,7 @@ public class CarTester {
 
 					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
 
-					return ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, new ParameterTesting(
+					return ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, new TestingParameter(
 							methodTesting.getReturnedType(), FieldName.SPEED, methodTesting.getExpectedValue()));
 				} catch (NoSuchMethodException e) {
 					return false;

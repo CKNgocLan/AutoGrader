@@ -10,7 +10,7 @@ import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.Getter;
 import student.model.ITestCase;
-import student.model.MethodTesting;
+import student.model.TestingMethod;
 import student.model.Setter;
 import student.util.MethodUtils;
 import student.util.NumbericUtils;
@@ -45,7 +45,7 @@ public class MethodTestcaseCreator {
 	 * existence ***************
 	 */
 
-	public ITestCase checkExistence(int points, String className, MethodTesting method) {
+	public ITestCase checkExistence(int points, String className, TestingMethod method) {
 		return new ITestCase() {
 
 			@Override
@@ -78,7 +78,7 @@ public class MethodTestcaseCreator {
 	}
 	
 
-	public ITestCase declaredAsSpecialModifers(int points, String className, MethodTesting method) {
+	public ITestCase declaredAsSpecialModifers(int points, String className, TestingMethod method) {
 		return new ITestCase() {
 
 			@Override
@@ -142,7 +142,7 @@ public class MethodTestcaseCreator {
 			@Override
 			public String getFeedback() {
 				return Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className,
-						String.join(Constants.COMMA, invalid.stream().map(MethodTesting::getName).toList()));
+						String.join(Constants.COMMA, invalid.stream().map(TestingMethod::getName).toList()));
 			}
 		};
 	}
@@ -179,7 +179,7 @@ public class MethodTestcaseCreator {
 			@Override
 			public String getFeedback() {
 				return Feedback.SETTER_DECLARED_NOT_CORRECT.getContent(className,
-						String.join(Constants.COMMA, invalid.stream().map(MethodTesting::getName).toList()));
+						String.join(Constants.COMMA, invalid.stream().map(TestingMethod::getName).toList()));
 			}
 		};
 	}
@@ -237,7 +237,7 @@ public class MethodTestcaseCreator {
 			public String getFeedback() {
 				return invalidGetter.size() > 0
 						? Feedback.GETTER_DECLARED_NOT_CORRECT.getContent(className,
-								String.join(Constants.COMMA, invalidGetter.stream().map(MethodTesting::getName).toList()))
+								String.join(Constants.COMMA, invalidGetter.stream().map(TestingMethod::getName).toList()))
 						: Feedback.GETTER_SETTER_OPERATION_WORKING_NOT_PROPERLY.getContent(invalidField);
 			}
 		};
@@ -315,7 +315,7 @@ public class MethodTestcaseCreator {
 	 * operate ***************
 	 */
 
-	public ITestCase checkOperationAsNumberic(int points, MethodTesting method) {
+	public ITestCase checkOperationAsNumberic(int points, TestingMethod method) {
 		return new ITestCase() {
 
 			@Override
@@ -347,7 +347,7 @@ public class MethodTestcaseCreator {
 		};
 	}
 
-	public ITestCase returnBoolean(int points, MethodTesting method) {
+	public ITestCase returnBoolean(int points, TestingMethod method) {
 		return new ITestCase() {
 
 			@Override
@@ -377,7 +377,7 @@ public class MethodTestcaseCreator {
 		};
 	}
 	
-	public ITestCase operationAsBooleanInPrivate(int points, MethodTesting method) {
+	public ITestCase operationAsBooleanInPrivate(int points, TestingMethod method) {
 		return new ITestCase() {
 
 			@Override
@@ -407,7 +407,7 @@ public class MethodTestcaseCreator {
 		};
 	}
 
-	public ITestCase operationAsVoidAndCompareIntField(int points, MethodTesting method, String integerFieldName) {
+	public ITestCase operationAsVoidAndCompareIntField(int points, TestingMethod method, String integerFieldName) {
 		return new ITestCase() {
 
 			@Override
@@ -439,7 +439,7 @@ public class MethodTestcaseCreator {
 		};
 	}
 
-	public ITestCase excludes(int points, Class<?> subclass, MethodTesting... method) {
+	public ITestCase excludes(int points, Class<?> subclass, TestingMethod... method) {
 		return new ITestCase() {
 			@Override
 			public String getName() {

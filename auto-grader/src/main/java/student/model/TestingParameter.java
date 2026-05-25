@@ -3,28 +3,28 @@ package student.model;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
-public class ParameterTesting {
+public class TestingParameter {
 	private String name;
 	private Class<?> type;
 	private Object value;
 	private boolean skipConstruction;
 
-	public ParameterTesting(Class<?> type) {
+	public TestingParameter(Class<?> type) {
 		this.type = type;
 	}
 	
-	public ParameterTesting(Class<?> type, String name) {
+	public TestingParameter(Class<?> type, String name) {
 		this.type = type;
 		this.name = name;
 	}
 
-	public ParameterTesting(Class<?> type, String name, Object value) {
+	public TestingParameter(Class<?> type, String name, Object value) {
 		this.type = type;
 		this.name = name;
 		this.value = value;
 	}
 
-	public ParameterTesting(Class<?> type, String name, Object value, boolean skipConstruction) {
+	public TestingParameter(Class<?> type, String name, Object value, boolean skipConstruction) {
 		this.type = type;
 		this.name = name;
 		this.value = value;

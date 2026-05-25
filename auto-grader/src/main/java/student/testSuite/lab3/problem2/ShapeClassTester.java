@@ -7,8 +7,8 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 
 public class ShapeClassTester extends BaseTester {
@@ -26,34 +26,34 @@ public class ShapeClassTester extends BaseTester {
 	 * argument ***************
 	 */
 	
-	public ParameterTesting[] circleArgs() {
+	public TestingParameter[] circleArgs() {
 		return circleArgs(null);
 	}
 
-	public ParameterTesting[] circleArgs(Double radius) {
-		return new ParameterTesting[] { new ParameterTesting(double.class, FieldName.RADIUS, radius) };
+	public TestingParameter[] circleArgs(Double radius) {
+		return new TestingParameter[] { new TestingParameter(double.class, FieldName.RADIUS, radius) };
 	}
 
-	public ParameterTesting[] rectangleArgs() {
+	public TestingParameter[] rectangleArgs() {
 		return rectangleArgs(null, null);
 	}
 
-	public ParameterTesting[] rectangleArgs(Long width, Long length) {
-		return new ParameterTesting[] { new ParameterTesting(long.class, FieldName.WIDTH, width),
-				new ParameterTesting(long.class, FieldName.LENGTH, length) };
+	public TestingParameter[] rectangleArgs(Long width, Long length) {
+		return new TestingParameter[] { new TestingParameter(long.class, FieldName.WIDTH, width),
+				new TestingParameter(long.class, FieldName.LENGTH, length) };
 	}
 
-	public ParameterTesting[] cylinderArgs() {
+	public TestingParameter[] cylinderArgs() {
 		return cylinderArgs(null, null);
 	}
 
-	public ParameterTesting[] cylinderArgs(Double radius, Double height) {
-		return new ParameterTesting[] { new ParameterTesting(double.class, FieldName.RADIUS, radius),
-				new ParameterTesting(double.class, FieldName.HEIGHT, height) };
+	public TestingParameter[] cylinderArgs(Double radius, Double height) {
+		return new TestingParameter[] { new TestingParameter(double.class, FieldName.RADIUS, radius),
+				new TestingParameter(double.class, FieldName.HEIGHT, height) };
 	}
 
-	public MethodTesting method(ParameterTesting... args) {
-		return new MethodTesting(double.class, MethodName.AREA, args);
+	public TestingMethod method(TestingParameter... args) {
+		return new TestingMethod(double.class, MethodName.AREA, args);
 	}
 
 	/*

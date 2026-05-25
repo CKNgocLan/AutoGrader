@@ -8,7 +8,7 @@ import student.checker.FieldChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
 import student.util.ClassUtils;
 
@@ -65,7 +65,7 @@ public class FieldTestcaseCreator {
 		};
 	}
 	
-	public ITestCase checkDeclarations(int points, String className, FieldTesting... fields) {
+	public ITestCase checkDeclarations(int points, String className, TestingField... fields) {
 		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
 		
 		return new ITestCase() {
@@ -88,7 +88,7 @@ public class FieldTestcaseCreator {
 						return false;
 					}
 					
-					for (FieldTesting testingField : fields) {
+					for (TestingField testingField : fields) {
 						if (!ClassUtils.containField(clazz, testingField)) {
 							return false;
 						}
@@ -147,7 +147,7 @@ public class FieldTestcaseCreator {
 		};
 	}
 	
-	public ITestCase checkDeclarationsAsSpecialModifiers(int points, String className, FieldTesting... fields) {
+	public ITestCase checkDeclarationsAsSpecialModifiers(int points, String className, TestingField... fields) {
 		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
 		
 		return new ITestCase() {
@@ -170,7 +170,7 @@ public class FieldTestcaseCreator {
 						return false;
 					}
 					
-					for (FieldTesting testingField : fields) {
+					for (TestingField testingField : fields) {
 						if (!ClassUtils.containFieldButModifiers(clazz, testingField)) {
 							return false;
 						}
@@ -199,7 +199,7 @@ public class FieldTestcaseCreator {
 		};
 	}
 	
-	public ITestCase checkDeclarationsAsPublicStaticFinal(int points, String className, FieldTesting... fields) {
+	public ITestCase checkDeclarationsAsPublicStaticFinal(int points, String className, TestingField... fields) {
 		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
 		
 		return new ITestCase() {
@@ -223,7 +223,7 @@ public class FieldTestcaseCreator {
 						return false;
 					}
 					
-					for (FieldTesting testingField : fields) {
+					for (TestingField testingField : fields) {
 						java.lang.reflect.Field reflectField = clazz.getField(testingField.getName());
 
 						if (!fieldChecker.checkPublicStaticFinalField(clazz, reflectField)) {

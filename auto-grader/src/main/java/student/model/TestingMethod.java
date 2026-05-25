@@ -16,11 +16,11 @@ import student.util.NumbericUtils;
 import student.util.StringUtils;
 import student.util.ValueUtils;
 
-public class MethodTesting {
+public class TestingMethod {
 	private int modifier;
 	private String name;
 	private Class<?> returnedType;
-	private ParameterTesting[] parameters = {};
+	private TestingParameter[] parameters = {};
 	private Object expectedValue;
 	private Object returnedValue;
 	private Class<?> clazz;
@@ -30,20 +30,20 @@ public class MethodTesting {
 	private boolean isPublic;
 	private boolean isAbstract;
 
-	public MethodTesting(Class<?> returnedType, String name) {
+	public TestingMethod(Class<?> returnedType, String name) {
 		this.modifier = Modifier.PUBLIC;
 		this.returnedType = returnedType;
 		this.name = name;
 	}
 
-	public MethodTesting(Class<?> returnedType, String name, ParameterTesting... parameters) {
+	public TestingMethod(Class<?> returnedType, String name, TestingParameter... parameters) {
 		this.modifier = Modifier.PUBLIC;
 		this.returnedType = returnedType;
 		this.name = name;
 		this.parameters = parameters;
 	}
 
-	public MethodTesting(int modifier, Class<?> returnedType, String name, ParameterTesting... parameters) {
+	public TestingMethod(int modifier, Class<?> returnedType, String name, TestingParameter... parameters) {
 		this.modifier = modifier;
 		this.returnedType = returnedType;
 		this.name = name;
@@ -74,11 +74,11 @@ public class MethodTesting {
 		this.returnedType = returnedType;
 	}
 
-	public ParameterTesting[] getParameters() {
+	public TestingParameter[] getParameters() {
 		return parameters;
 	}
 
-	public void setParameter(ParameterTesting... parameters) {
+	public void setParameter(TestingParameter... parameters) {
 		this.parameters = parameters;
 	}
 	
@@ -106,7 +106,7 @@ public class MethodTesting {
 		return this.clazz.getSimpleName();
 	}
 	
-	public MethodTesting expectedValue(Object expectedValue) {
+	public TestingMethod expectedValue(Object expectedValue) {
 		this.expectedValue = expectedValue;
 		return this;
 	}
@@ -115,7 +115,7 @@ public class MethodTesting {
 		return this.expectedValue;
 	}
 	
-	public MethodTesting asStatic() {
+	public TestingMethod asStatic() {
 		this.isStatic = true;
 		return this;
 	}
@@ -124,7 +124,7 @@ public class MethodTesting {
 		return this.isStatic;
 	}
 
-	public MethodTesting asFinal() {
+	public TestingMethod asFinal() {
 		this.isFinal = true;
 		return this;
 	}
@@ -133,7 +133,7 @@ public class MethodTesting {
 		return this.isFinal;
 	}
 	
-	public MethodTesting asPublic() {
+	public TestingMethod asPublic() {
 		this.isPublic = true;
 		return this;
 	}
@@ -142,7 +142,7 @@ public class MethodTesting {
 		return this.isPublic;
 	}
 	
-	public MethodTesting asAbstract() {
+	public TestingMethod asAbstract() {
 		this.isAbstract = true;
 		return this;
 	}
@@ -200,7 +200,7 @@ public class MethodTesting {
 		return true;
 	}
 
-	public MethodTesting config(Class<?> clazz, Object instance) {
+	public TestingMethod config(Class<?> clazz, Object instance) {
 		this.clazz = clazz;
 		this.instance = instance;
 

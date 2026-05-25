@@ -5,9 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 
 public class ParkingMeterTester extends BaseTester {
@@ -21,9 +21,9 @@ public class ParkingMeterTester extends BaseTester {
 	 * argument
 	 */
 	
-	public ParameterTesting[] constructorArgs(int purchasedMinutes) {
-		return new ParameterTesting[] {
-			new ParameterTesting(int.class, FieldName.PURCHASED_MINUTES, purchasedMinutes)	
+	public TestingParameter[] constructorArgs(int purchasedMinutes) {
+		return new TestingParameter[] {
+			new TestingParameter(int.class, FieldName.PURCHASED_MINUTES, purchasedMinutes)	
 		};
 	}
 	
@@ -56,7 +56,7 @@ public class ParkingMeterTester extends BaseTester {
 	
 	public ITestCase declareFields(int points) {
 		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(int.class, FieldName.PURCHASED_MINUTES)
+				, new TestingField(int.class, FieldName.PURCHASED_MINUTES)
 		);
 	}
 

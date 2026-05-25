@@ -7,10 +7,10 @@ import student.constant.Constants;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
@@ -25,9 +25,9 @@ public class FuelGaugeTester extends BaseTester {
 	 * argument
 	 */
 	
-	public ParameterTesting[] constructorArgs(int gallon) {
-		return new ParameterTesting[] {
-			new ParameterTesting(int.class, FieldName.GALLON, gallon)	
+	public TestingParameter[] constructorArgs(int gallon) {
+		return new TestingParameter[] {
+			new TestingParameter(int.class, FieldName.GALLON, gallon)	
 		};
 	}
 	
@@ -60,7 +60,7 @@ public class FuelGaugeTester extends BaseTester {
 	
 	public ITestCase fields(int points) {
 		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(int.class, FieldName.GALLON)
+				, new TestingField(int.class, FieldName.GALLON)
 		);
 	}
 
@@ -80,8 +80,8 @@ public class FuelGaugeTester extends BaseTester {
 	 * increaseGallon
 	 */
 	
-	private MethodTesting increaseGallonMethod() {
-		return new MethodTesting(void.class, MethodName.INCREASE_GALLON);
+	private TestingMethod increaseGallonMethod() {
+		return new TestingMethod(void.class, MethodName.INCREASE_GALLON);
 	}
 	
 	public ITestCase operateIncreaseGallon(int points, int gallon) {
@@ -101,8 +101,8 @@ public class FuelGaugeTester extends BaseTester {
 	 * decrementGallon
 	 */
 	
-	private MethodTesting decrementGallonMethod() {
-		return new MethodTesting(void.class, MethodName.DECREMENT_GALLON);
+	private TestingMethod decrementGallonMethod() {
+		return new TestingMethod(void.class, MethodName.DECREMENT_GALLON);
 	}
 	
 	public ITestCase operateDecrementGallon(int points, int gallon) {

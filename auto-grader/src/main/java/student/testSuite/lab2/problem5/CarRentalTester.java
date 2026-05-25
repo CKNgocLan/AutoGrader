@@ -7,10 +7,10 @@ import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.TestcaseType;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -75,11 +75,11 @@ public class CarRentalTester {
 	
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
 		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(String.class, FieldName.MAKE)
-				, new FieldTesting(String.class, FieldName.MODEL)
-				, new FieldTesting(int.class, FieldName.PERIOD)
-				, new FieldTesting(int.class, FieldName.MILEAGE_LIMIT)
-				, new FieldTesting(CarRentalCustomerTester.getCorrespondingClass(), FieldName.CUSTOMER)
+				, new TestingField(String.class, FieldName.MAKE)
+				, new TestingField(String.class, FieldName.MODEL)
+				, new TestingField(int.class, FieldName.PERIOD)
+				, new TestingField(int.class, FieldName.MILEAGE_LIMIT)
+				, new TestingField(CarRentalCustomerTester.getCorrespondingClass(), FieldName.CUSTOMER)
 		);
 	}
 
@@ -87,11 +87,11 @@ public class CarRentalTester {
 	 * Constructor ***************************************************************************
 	 */
 
-	public ITestCase checkPartialArgsConstructorDeclaration(int points, ParameterTesting... params) {
+	public ITestCase checkPartialArgsConstructorDeclaration(int points, TestingParameter... params) {
 		return classTest.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
 
-	public ITestCase checkPartialArgsConstructorOperation(int points, ParameterTesting... params) {
+	public ITestCase checkPartialArgsConstructorOperation(int points, TestingParameter... params) {
 		return classTest.checkPartialArgsConstructorOperationViaGetter(points, className, params);
 	}
 
@@ -114,7 +114,7 @@ public class CarRentalTester {
 	 */
 	
 	public ITestCase checkToStringOperation(int points, String make, String model, int period, int mileageLimit, Object customer) throws ClassNotFoundException {
-		MethodTesting method = MethodUtils.createMethodToString();
+		TestingMethod method = MethodUtils.createMethodToString();
 
 		return new ITestCase() {
 			@Override

@@ -6,10 +6,10 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 
 public class CashRegisterTester extends BaseTester {
@@ -31,11 +31,11 @@ public class CashRegisterTester extends BaseTester {
 	 * argument
 	 */
 	
-	public ParameterTesting[] createArgs(Object retailItemInstance, int quantity)
+	public TestingParameter[] createArgs(Object retailItemInstance, int quantity)
 			throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new ParameterTesting[] {
-				new ParameterTesting(retailItemTester.getCorrespondingClass(), FieldName.RETAIL_ITEM, retailItemInstance),
-				new ParameterTesting(int.class, FieldName.QUANTITY, quantity) };
+		return new TestingParameter[] {
+				new TestingParameter(retailItemTester.getCorrespondingClass(), FieldName.RETAIL_ITEM, retailItemInstance),
+				new TestingParameter(int.class, FieldName.QUANTITY, quantity) };
 	}
 
 	/*
@@ -44,9 +44,9 @@ public class CashRegisterTester extends BaseTester {
 
 	public ITestCase checkFields(int points) throws ClassNotFoundException, TesterGotNoClassNameException {
 		return super.checkFieldsAsSpecialModifiers(points,
-				new FieldTesting(retailItemTester.getCorrespondingClass(), FieldName.RETAIL_ITEM),
-				new FieldTesting(int.class, FieldName.QUANTITY),
-				new FieldTesting(double.class, FieldName.UPPERCASE_TAX_RATE).asStatic().asFinal());
+				new TestingField(retailItemTester.getCorrespondingClass(), FieldName.RETAIL_ITEM),
+				new TestingField(int.class, FieldName.QUANTITY),
+				new TestingField(double.class, FieldName.UPPERCASE_TAX_RATE).asStatic().asFinal());
 	}
 
 	/*
@@ -58,7 +58,7 @@ public class CashRegisterTester extends BaseTester {
 		return super.checkConstructorDeclaration(points, this.retailItemTester.getCorrespondingClass(), int.class);
 	}
 	
-	public ITestCase checkConstructorOperation(int points, ParameterTesting... params) throws ClassNotFoundException {
+	public ITestCase checkConstructorOperation(int points, TestingParameter... params) throws ClassNotFoundException {
 		return super.checkConstructorOperation(points, params);
 	}
 	
@@ -67,14 +67,14 @@ public class CashRegisterTester extends BaseTester {
 	 */
 	
 	public ITestCase declareGetSubtotal(int points) {
-		return super.methodTester.checkExistence(points, className, new MethodTesting(double.class, MethodName.GET_SUBTOTAL));
+		return super.methodTester.checkExistence(points, className, new TestingMethod(double.class, MethodName.GET_SUBTOTAL));
 	}
 	
-	public ITestCase operateGetSubtotal(int points, double expected, ParameterTesting[] args)
+	public ITestCase operateGetSubtotal(int points, double expected, TestingParameter[] args)
 			throws ClassNotFoundException, TesterGotNoClassNameException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		return super.methodTester.checkOperationAsNumberic(points,
-				new MethodTesting(double.class, MethodName.GET_SUBTOTAL)
+				new TestingMethod(double.class, MethodName.GET_SUBTOTAL)
 						.config(getCorrespondingClass(), instantiateWithArgs(args)).expectedValue(expected));
 	}
 	
@@ -83,14 +83,14 @@ public class CashRegisterTester extends BaseTester {
 	 */
 	
 	public ITestCase declareGetTax(int points) {
-		return super.methodTester.checkExistence(points, className, new MethodTesting(double.class, MethodName.GET_TAX));
+		return super.methodTester.checkExistence(points, className, new TestingMethod(double.class, MethodName.GET_TAX));
 	}
 	
-	public ITestCase operateGetTax(int points, double expected, ParameterTesting[] args) throws ClassNotFoundException,
+	public ITestCase operateGetTax(int points, double expected, TestingParameter[] args) throws ClassNotFoundException,
 			TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException {
 		return super.methodTester.checkOperationAsNumberic(points,
-				new MethodTesting(double.class, MethodName.GET_TAX).config(getCorrespondingClass(),
+				new TestingMethod(double.class, MethodName.GET_TAX).config(getCorrespondingClass(),
 						instantiateWithArgs(args)).expectedValue(expected));
 	}
 	
@@ -99,14 +99,14 @@ public class CashRegisterTester extends BaseTester {
 	 */
 	
 	public ITestCase declareGetTotal(int points) {
-		return super.methodTester.checkExistence(points, className, new MethodTesting(double.class, MethodName.GET_TOTAL));
+		return super.methodTester.checkExistence(points, className, new TestingMethod(double.class, MethodName.GET_TOTAL));
 	}
 	
-	public ITestCase operateGetTotal(int points, double expected, ParameterTesting[] args) throws ClassNotFoundException,
+	public ITestCase operateGetTotal(int points, double expected, TestingParameter[] args) throws ClassNotFoundException,
 			TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException {
 		return super.methodTester.checkOperationAsNumberic(points,
-				new MethodTesting(double.class, MethodName.GET_TOTAL).config(getCorrespondingClass(),
+				new TestingMethod(double.class, MethodName.GET_TOTAL).config(getCorrespondingClass(),
 						instantiateWithArgs(args)).expectedValue(expected));
 	}
 }

@@ -2,7 +2,7 @@ package student.testSuite.lab2;
 
 import student.constant.ClassName;
 import student.constant.FieldName;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -39,7 +39,7 @@ public class ConstTester {
 	
 	public ITestCase checkFields(int points) {
 		return fieldTester.checkDeclarationsAsPublicStaticFinal(points, className
-				, new FieldTesting(double.class, FieldName.UPPERCASE_TAX)
+				, new TestingField(double.class, FieldName.UPPERCASE_TAX)
 		);
 	}
 	

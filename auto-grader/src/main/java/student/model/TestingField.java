@@ -3,7 +3,7 @@ package student.model;
 import java.lang.reflect.Modifier;
 import java.util.List;
 
-public class FieldTesting {
+public class TestingField {
 	private int modifier;
 	private Class<?> type;
 	private String name;
@@ -13,26 +13,26 @@ public class FieldTesting {
 	private boolean isFinal;
 	private boolean isPublic;
 
-	public FieldTesting(Class<?> type, String name) {
+	public TestingField(Class<?> type, String name) {
 		this.modifier = Modifier.PRIVATE;
 		this.type = type;
 		this.name = name;
 	}
 	
-	public FieldTesting(Class<? extends List> type, Class<?> typeParameter, String name) {
+	public TestingField(Class<? extends List> type, Class<?> typeParameter, String name) {
 		this.modifier = Modifier.PRIVATE;
 		this.type = type;
 		this.typeParameter = typeParameter;
 		this.name = name;
 	}
 	
-	public FieldTesting(int modifier, Class<?> type, String name) {
+	public TestingField(int modifier, Class<?> type, String name) {
 		this.modifier = modifier;
 		this.type = type;
 		this.name = name;
 	}
 	
-	public FieldTesting setValue(Object value) {
+	public TestingField setValue(Object value) {
 		this.value = value;
 		return this;
 	}
@@ -41,7 +41,7 @@ public class FieldTesting {
 		return this.value;
 	}
 	
-	public FieldTesting asStatic() {
+	public TestingField asStatic() {
 		this.isStatic = true;
 		return this;
 	}
@@ -124,7 +124,7 @@ public class FieldTesting {
 		return this.isStatic;
 	}
 	
-	public FieldTesting asFinal() {
+	public TestingField asFinal() {
 		this.isFinal = true;
 		return this;
 	}
@@ -133,7 +133,7 @@ public class FieldTesting {
 		return this.isFinal;
 	}
 	
-	public FieldTesting asPublic() {
+	public TestingField asPublic() {
 		this.isPublic = true;
 		return this;
 	}

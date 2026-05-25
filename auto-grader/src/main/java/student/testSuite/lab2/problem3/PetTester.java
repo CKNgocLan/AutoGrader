@@ -8,10 +8,10 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testSuite.lab2.CustomerTester;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -84,16 +84,16 @@ public class PetTester {
 	 */
 
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
-		return fieldTester.checkDeclarations(points, className, new FieldTesting(String.class, FieldName.BREED),
-				new FieldTesting(int.class, FieldName.AGE), new FieldTesting(double.class, FieldName.WEIGHT),
-				new FieldTesting(ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMER));
+		return fieldTester.checkDeclarations(points, className, new TestingField(String.class, FieldName.BREED),
+				new TestingField(int.class, FieldName.AGE), new TestingField(double.class, FieldName.WEIGHT),
+				new TestingField(ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMER));
 	}
 
 	/*
 	 * Constructor ***************
 	 */
 
-	public ITestCase checkPartialArgsConstructors(int points, ParameterTesting... params)
+	public ITestCase checkPartialArgsConstructors(int points, TestingParameter... params)
 			throws ClassNotFoundException {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
@@ -103,7 +103,7 @@ public class PetTester {
 	 */
 
 	public ITestCase checkToStringExistence(int points) {
-		return methodTester.checkExistence(points, className, new MethodTesting(String.class, MethodName.TO_STRING));
+		return methodTester.checkExistence(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 	
 	public ITestCase checkToStringOperation(int points) {
@@ -111,7 +111,7 @@ public class PetTester {
 	}
 	
 	public ITestCase checkToStringOperation(int points, String breed, int age, double weight, Object customer) {
-		MethodTesting method = MethodUtils.createMethodToString();
+		TestingMethod method = MethodUtils.createMethodToString();
 
 		return new ITestCase() {
 			@Override
@@ -155,7 +155,7 @@ public class PetTester {
 	}
 
 	public ITestCase checkToStringOperation(int points, String name, String address, String phoneNumber) {
-		MethodTesting method = MethodUtils.createMethodToString();
+		TestingMethod method = MethodUtils.createMethodToString();
 
 		return new ITestCase() {
 			@Override

@@ -3,14 +3,14 @@ package student.util;
 import java.lang.reflect.InvocationTargetException;
 import java.util.stream.Stream;
 
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 
 public class ParameterTestingUtils {
-	public static ParameterTesting[] mapFromTypes(Class<?>... types) {
-		return Stream.of(types).map(ParameterTesting::new).toArray(ParameterTesting[]::new);
+	public static TestingParameter[] mapFromTypes(Class<?>... types) {
+		return Stream.of(types).map(TestingParameter::new).toArray(TestingParameter[]::new);
 	}
 
-	public static boolean compareTestingValueViaGetter(Class<?> clazz, Object instance, ParameterTesting paramTest)
+	public static boolean compareTestingValueViaGetter(Class<?> clazz, Object instance, TestingParameter paramTest)
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Object castValue = (paramTest.getType().isPrimitive() ? ClassUtils.boxing(paramTest.getType())
 				: paramTest.getType())
@@ -18,22 +18,22 @@ public class ParameterTestingUtils {
 		return castValue != null ? castValue.equals(paramTest.getValue()) : paramTest.getValue() == null;
 	}
 	
-	public static Class<?>[] mapToType(ParameterTesting... parameterTestings) {
+	public static Class<?>[] mapToType(TestingParameter... parameterTestings) {
 		return Stream.of(parameterTestings).map(param -> param.getType()).toArray(Class<?>[]::new);
 	}
 	
-	public static Class<?>[] mapToConstructorType(ParameterTesting... parameterTestings) {
+	public static Class<?>[] mapToConstructorType(TestingParameter... parameterTestings) {
 		return Stream.of(parameterTestings)
 				.filter(param -> !param.isSkipConstruction())
 				.map(param -> param.getType())
 				.toArray(Class<?>[]::new);
 	}
 	
-	public static Object[] mapToTestingValue(ParameterTesting...parameterTestings) {
+	public static Object[] mapToTestingValue(TestingParameter...parameterTestings) {
 		return Stream.of(parameterTestings).map(param -> param.getValue()).toArray(Object[]::new);
 	}
 	
-	public static Object[] mapToConstructorValue(ParameterTesting...parameterTestings) {
+	public static Object[] mapToConstructorValue(TestingParameter...parameterTestings) {
 		return Stream.of(parameterTestings)
 				.filter(param -> !param.isSkipConstruction())
 				.map(param -> param.getValue())

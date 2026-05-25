@@ -8,9 +8,9 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
+import student.model.TestingMethod;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 
@@ -73,10 +73,10 @@ public class AgreementTester {
 	 */
 
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
-		return fieldTester.checkDeclarations(points, className, new FieldTesting(String.class, FieldName.PURPOSE),
-				new FieldTesting(double.class, FieldName.BASE_RENTAL_FEE),
-				new FieldTesting(double.class, FieldName.MILEAGE_FEE),
-				new FieldTesting(CarRentalTester.getCorrespondingClass(), FieldName.CAR));
+		return fieldTester.checkDeclarations(points, className, new TestingField(String.class, FieldName.PURPOSE),
+				new TestingField(double.class, FieldName.BASE_RENTAL_FEE),
+				new TestingField(double.class, FieldName.MILEAGE_FEE),
+				new TestingField(CarRentalTester.getCorrespondingClass(), FieldName.CAR));
 	}
 
 	/*
@@ -84,7 +84,7 @@ public class AgreementTester {
 	 */
 	
 	public ITestCase checkGetRentalCostAfterTaxOperation(int points, Object car, String purpose, double baseRentalFee, double mileageFee, double rentalCostAfterTax) {
-		MethodTesting method = new MethodTesting(double.class, MethodName.GET_RENTAL_COST_AFTER_TAX);
+		TestingMethod method = new TestingMethod(double.class, MethodName.GET_RENTAL_COST_AFTER_TAX);
 
 		return new ITestCase() {
 

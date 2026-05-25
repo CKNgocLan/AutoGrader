@@ -6,7 +6,7 @@ import java.util.List;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
@@ -31,10 +31,10 @@ public class CountryTester extends BaseTester {
 	/*
 	 * 
 	 */
-	public FieldTesting[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new FieldTesting[] {
-				new FieldTesting(String.class, FieldName.UPPERCASE_JAPAN)
-				, new FieldTesting(String.class, FieldName.UPPERCASE_VIETNAM)
+	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingField[] {
+				new TestingField(String.class, FieldName.UPPERCASE_JAPAN)
+				, new TestingField(String.class, FieldName.UPPERCASE_VIETNAM)
 		};
 	}
 	

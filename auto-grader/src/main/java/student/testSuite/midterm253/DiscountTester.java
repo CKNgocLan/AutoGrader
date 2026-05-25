@@ -9,9 +9,9 @@ import java.util.UUID;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
@@ -45,21 +45,21 @@ public class DiscountTester extends BaseTester {
 	 * argument
 	 */
 	
-	private ParameterTesting[] argument(double percent, LocalDate endDate) throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new ParameterTesting[] {
-				new ParameterTesting(double.class, FieldName.PERCENT, percent),
-				new ParameterTesting(LocalDate.class, FieldName.END_DATE, endDate) };
+	private TestingParameter[] argument(double percent, LocalDate endDate) throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingParameter[] {
+				new TestingParameter(double.class, FieldName.PERCENT, percent),
+				new TestingParameter(LocalDate.class, FieldName.END_DATE, endDate) };
 	}
 
 	/*
 	 * field declared
 	 */
 	
-	public FieldTesting[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new FieldTesting[] { new FieldTesting(UUID.class, FieldName.ID),
-				new FieldTesting(double.class, FieldName.PERCENT),
-				new FieldTesting(LocalDate.class, FieldName.START_DATE),
-				new FieldTesting(LocalDate.class, FieldName.END_DATE) };
+	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingField[] { new TestingField(UUID.class, FieldName.ID),
+				new TestingField(double.class, FieldName.PERCENT),
+				new TestingField(LocalDate.class, FieldName.START_DATE),
+				new TestingField(LocalDate.class, FieldName.END_DATE) };
 	}
 
 	/*

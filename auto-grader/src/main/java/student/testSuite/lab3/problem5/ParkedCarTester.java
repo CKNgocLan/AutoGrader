@@ -5,9 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
@@ -21,13 +21,13 @@ public class ParkedCarTester extends BaseTester {
 	 * argument
 	 */
 	
-	public ParameterTesting[] constructorArgs(String make, String model, String color, String licenseNumber, int parkedMinutes) throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new ParameterTesting[] {
-			new ParameterTesting(String.class, FieldName.MAKE, make)
-			, new ParameterTesting(String.class, FieldName.MODEL, model)
-			, new ParameterTesting(String.class, FieldName.COLOR, color)
-			, new ParameterTesting(String.class, FieldName.LICENSE_NUMBER, licenseNumber)
-			, new ParameterTesting(int.class, FieldName.PARKED_MINUTES, parkedMinutes)
+	public TestingParameter[] constructorArgs(String make, String model, String color, String licenseNumber, int parkedMinutes) throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingParameter[] {
+			new TestingParameter(String.class, FieldName.MAKE, make)
+			, new TestingParameter(String.class, FieldName.MODEL, model)
+			, new TestingParameter(String.class, FieldName.COLOR, color)
+			, new TestingParameter(String.class, FieldName.LICENSE_NUMBER, licenseNumber)
+			, new TestingParameter(int.class, FieldName.PARKED_MINUTES, parkedMinutes)
 		};
 	}
 	
@@ -72,11 +72,11 @@ public class ParkedCarTester extends BaseTester {
 	
 	public ITestCase declareFields(int points) {
 		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(String.class, FieldName.MAKE)
-				, new FieldTesting(String.class, FieldName.MODEL)
-				, new FieldTesting(String.class, FieldName.COLOR)
-				, new FieldTesting(String.class, FieldName.LICENSE_NUMBER)
-				, new FieldTesting(int.class, FieldName.PARKED_MINUTES)
+				, new TestingField(String.class, FieldName.MAKE)
+				, new TestingField(String.class, FieldName.MODEL)
+				, new TestingField(String.class, FieldName.COLOR)
+				, new TestingField(String.class, FieldName.LICENSE_NUMBER)
+				, new TestingField(int.class, FieldName.PARKED_MINUTES)
 		);
 	}
 

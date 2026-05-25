@@ -7,7 +7,7 @@ import student.constant.Constants;
 import student.constant.Question;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testSuite.lab3.problem1.CashRegisterTester;
 import student.testSuite.lab3.problem1.RetailItemTester;
 import student.testSuite.lab3.problem2.ShapeClassTester;
@@ -36,11 +36,11 @@ public class LabTestSuite3 extends ALabTestSuite {
 					CashRegisterTester cashRegisterTester = new CashRegisterTester(retailItemTester);
 					
 					double price = 25.9;
-					ParameterTesting[] retailItemArgs = retailItemTester
+					TestingParameter[] retailItemArgs = retailItemTester
 							.createArgs("DESCRIPTION", 15, price);
 					
 					int quantity = 3;
-					ParameterTesting[] cashRegisterArgs = cashRegisterTester
+					TestingParameter[] cashRegisterArgs = cashRegisterTester
 							.createArgs(retailItemTester.instantiateWithArgs(retailItemArgs), quantity);
 
 					double tax_rate = 0.06;

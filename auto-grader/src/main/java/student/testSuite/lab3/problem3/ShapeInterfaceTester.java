@@ -4,7 +4,7 @@ import student.constant.ClassName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ITestCase;
-import student.model.MethodTesting;
+import student.model.TestingMethod;
 import student.testSuite.BaseTester;
 
 public class ShapeInterfaceTester extends BaseTester {
@@ -21,8 +21,8 @@ public class ShapeInterfaceTester extends BaseTester {
 	/*
 	 * define area
 	 */
-	private MethodTesting defineArea() {
-		return new MethodTesting(double.class, MethodName.AREA).asAbstract();
+	private TestingMethod defineArea() {
+		return new TestingMethod(double.class, MethodName.AREA).asAbstract();
 	}
 	
 	/*

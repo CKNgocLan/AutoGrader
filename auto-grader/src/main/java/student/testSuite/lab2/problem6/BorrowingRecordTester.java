@@ -6,9 +6,9 @@ import java.time.LocalDate;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -69,7 +69,7 @@ public class BorrowingRecordTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase checkPartialArgsConstructorDeclaration(int points, ParameterTesting... params) {
+	public ITestCase checkPartialArgsConstructorDeclaration(int points, TestingParameter... params) {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
 
@@ -79,10 +79,10 @@ public class BorrowingRecordTester {
 	
 	public ITestCase checkFields(int points) throws ClassNotFoundException {
 		return fieldTester.checkDeclarations(points, className
-				, new FieldTesting(UserTester.getCorrespondingClass(), FieldName.USER)
-				, new FieldTesting(BookTester.getCorrespondingClass(), FieldName.BOOK)
-				, new FieldTesting(LocalDate.class, FieldName.BORROWING_DATE)
-				, new FieldTesting(LocalDate.class, FieldName.DUE_DATE)
+				, new TestingField(UserTester.getCorrespondingClass(), FieldName.USER)
+				, new TestingField(BookTester.getCorrespondingClass(), FieldName.BOOK)
+				, new TestingField(LocalDate.class, FieldName.BORROWING_DATE)
+				, new TestingField(LocalDate.class, FieldName.DUE_DATE)
 		);
 	}
 

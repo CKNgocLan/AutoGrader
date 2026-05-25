@@ -9,10 +9,10 @@ import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ClassLoader;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.MethodTesting;
-import student.model.ParameterTesting;
+import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -78,7 +78,7 @@ public abstract class BaseTester {
 		return getCorrespondingClass().getDeclaredConstructor().newInstance();
 	}
 
-	public Object instantiateWithArgs(ParameterTesting... args)
+	public Object instantiateWithArgs(TestingParameter... args)
 			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
 		return getCorrespondingClass().getDeclaredConstructor(ParameterTestingUtils.mapToConstructorType(args))
@@ -125,11 +125,11 @@ public abstract class BaseTester {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, paramTypes);
 	}
 
-	protected ITestCase checkConstructorOperation(int points, ParameterTesting... params) throws ClassNotFoundException {
+	protected ITestCase checkConstructorOperation(int points, TestingParameter... params) throws ClassNotFoundException {
 		return classTester.checkPartialArgsConstructorOperationViaGetter(points, className, params);
 	}
 	
-	protected ITestCase operateConstructorViaSuper(int points, ParameterTesting... params) {
+	protected ITestCase operateConstructorViaSuper(int points, TestingParameter... params) {
 		return classTester.operateConstructorViaSuper(points, className, params);
 	}
 
@@ -137,11 +137,11 @@ public abstract class BaseTester {
 	 * field ***************
 	 */
 
-	protected ITestCase checkFields(int points, FieldTesting... fieldTestings) {
+	protected ITestCase checkFields(int points, TestingField... fieldTestings) {
 		return fieldTester.checkDeclarations(points, className, fieldTestings);
 	}
 	
-	public ITestCase checkFieldsAsSpecialModifiers(int points, FieldTesting... fieldTestings) {
+	public ITestCase checkFieldsAsSpecialModifiers(int points, TestingField... fieldTestings) {
 		return fieldTester.checkDeclarationsAsSpecialModifiers(points, className, fieldTestings);
 	}
 
@@ -165,11 +165,11 @@ public abstract class BaseTester {
 	 */
 
 	public ITestCase checkToStringDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new MethodTesting(String.class, MethodName.TO_STRING));
+		return methodTester.checkExistence(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 
-	public ITestCase checkToStringOperation(int points, ParameterTesting... args) throws ClassNotFoundException {
-		MethodTesting method = MethodUtils.createMethodToString();
+	public ITestCase checkToStringOperation(int points, TestingParameter... args) throws ClassNotFoundException {
+		TestingMethod method = MethodUtils.createMethodToString();
 
 		return new ITestCase() {
 			@Override
@@ -192,7 +192,7 @@ public abstract class BaseTester {
 					String actual = method.invokeToString();
 
 					// Get captured output then compare
-					for (ParameterTesting arg : args) {
+					for (TestingParameter arg : args) {
 						if (!actual.contains(String.valueOf(arg.getValue()))) {
 							return false;
 						}

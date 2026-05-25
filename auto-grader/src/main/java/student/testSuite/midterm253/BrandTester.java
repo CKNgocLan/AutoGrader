@@ -8,9 +8,9 @@ import java.util.UUID;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
-import student.model.ParameterTesting;
+import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
@@ -43,19 +43,19 @@ public class BrandTester extends BaseTester {
 	 * argument
 	 */
 	
-	private ParameterTesting[] argument(String name, String country) throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new ParameterTesting[] {
-				new ParameterTesting(String.class, FieldName.NAME, name),
-				new ParameterTesting(String.class, FieldName.COUNTRY, country) };
+	private TestingParameter[] argument(String name, String country) throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingParameter[] {
+				new TestingParameter(String.class, FieldName.NAME, name),
+				new TestingParameter(String.class, FieldName.COUNTRY, country) };
 	}
 
 	/*
 	 * field declared
 	 */
 	
-	public FieldTesting[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new FieldTesting[] { new FieldTesting(UUID.class, FieldName.ID),
-				new FieldTesting(String.class, FieldName.NAME), new FieldTesting(String.class, FieldName.COUNTRY) };
+	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingField[] { new TestingField(UUID.class, FieldName.ID),
+				new TestingField(String.class, FieldName.NAME), new TestingField(String.class, FieldName.COUNTRY) };
 	}
 
 	/*

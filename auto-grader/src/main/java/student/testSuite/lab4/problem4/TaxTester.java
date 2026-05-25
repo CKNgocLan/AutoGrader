@@ -6,7 +6,7 @@ import java.util.List;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.FieldTesting;
+import student.model.TestingField;
 import student.model.ITestCase;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
@@ -31,10 +31,10 @@ public class TaxTester extends BaseTester {
 	/*
 	 * 
 	 */
-	public FieldTesting[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new FieldTesting[] {
-				new FieldTesting(double.class, FieldName.UNDERSCORE_8)
-				, new FieldTesting(double.class, FieldName.UNDERSCORE_10)
+	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingField[] {
+				new TestingField(double.class, FieldName.UNDERSCORE_8)
+				, new TestingField(double.class, FieldName.UNDERSCORE_10)
 		};
 	}
 	
