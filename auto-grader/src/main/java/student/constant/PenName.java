@@ -1,4 +1,4 @@
-package student.testSuite.lab4.problem4;
+package student.constant;
 
 public class PenName {
 	public static final String SHIKIORI = "Shikiori";
