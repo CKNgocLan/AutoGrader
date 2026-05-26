@@ -5,6 +5,7 @@ import student.constant.Midterm;
 import student.testSuite.labTestSuite.LabTestSuite1;
 import student.testSuite.labTestSuite.LabTestSuite2;
 import student.testSuite.labTestSuite.LabTestSuite3;
+import student.testSuite.labTestSuite.LabTestSuite4;
 import student.testSuite.midterm.MidtermTestSuite253;
 
 public class LabTestSuiteFactory {
@@ -19,8 +20,8 @@ public class LabTestSuiteFactory {
 			return new LabTestSuite2();
 		case Lab.L3:
 			return new LabTestSuite3();
-//		case Lab.L4:
-//			return new LabTestSuite4();
+		case Lab.L4:
+			return new LabTestSuite4();
 //		case Lab.L5:
 //			return new LabTestSuite5();
 //		case Lab.L6:

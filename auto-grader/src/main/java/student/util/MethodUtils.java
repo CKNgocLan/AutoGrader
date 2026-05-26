@@ -32,8 +32,6 @@ public class MethodUtils {
 	 */
 	
 	public static TestingMethod fromSolution(Class<?> clazz, String methodName, Class<?>... parameterTypes) throws NoSuchMethodException, SecurityException {
-		Method declaredMethod = clazz.getDeclaredMethod(methodName, parameterTypes);
-		
-		return new TestingMethod(declaredMethod.getModifiers(), declaredMethod.getReturnType(), methodName);
+		return new TestingMethod(clazz.getDeclaredMethod(methodName, parameterTypes));
 	}
 }

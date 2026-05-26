@@ -59,4 +59,5 @@ public class MethodName {
 	public static final String EXAMINE_CAR = "examineCar";
 	public static final String ISSUE_TICKET = "issueTicket";
 
+	public static final String IS_VALID_NUMBER = "isValidNumber";
 }

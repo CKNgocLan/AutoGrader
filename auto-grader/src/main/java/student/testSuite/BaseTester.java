@@ -16,6 +16,7 @@ import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
+import student.util.FieldUtils;
 import student.util.MethodUtils;
 import student.util.ParameterUtils;
 import student.util.StringUtils;
@@ -27,6 +28,7 @@ public abstract class BaseTester {
 	protected MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
 	private Class<?> clazz;
 	protected int defaultPoints = 1;
+	protected Class<?> solutionClass;
 
 	/*
 	 * class ***************
@@ -66,6 +68,18 @@ public abstract class BaseTester {
 		field.setAccessible(true);
 		
 		return field;
+	}
+	
+	/*
+	 * solution
+	 */
+	
+	protected TestingField[] getSolutionFields() {
+		return FieldUtils.fromSolution(solutionClass);
+	}
+	
+	protected TestingMethod getSolutionMethod(String methodName, Class<?>... parameterTypes) throws NoSuchMethodException, SecurityException {
+		return MethodUtils.fromSolution(solutionClass, methodName, parameterTypes);
 	}
 
 	/*

@@ -10,11 +10,9 @@ import java.util.stream.Stream;
 import student.checker.FieldChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
-import student.constant.FieldName;
 import student.constant.TestcaseType;
 import student.model.ITestCase;
 import student.model.TestingParameter;
-import student.testSuite.midterm253.Country;
 import student.util.ParameterUtils;
 
 public class ClassTestcaseCreator {
@@ -597,7 +595,6 @@ public class ClassTestcaseCreator {
 			public boolean runTest() {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
-					Class<?> superclazz = Class.forName(superclassName, true, targetClassesLoader);
 					Object instance = clazz
 							.getDeclaredConstructor(ParameterUtils.mapToType(params))
 							.newInstance(ParameterUtils.mapToTestingValue(params));

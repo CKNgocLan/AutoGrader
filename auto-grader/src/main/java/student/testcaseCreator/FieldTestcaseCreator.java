@@ -253,7 +253,7 @@ public class FieldTestcaseCreator {
 		};
 	}
 	
-	public ITestCase declareInEnum(int points, String className, FieldTesting... fields) {
+	public ITestCase declareInEnum(int points, String className, TestingField... fields) {
 		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
 		
 		return new ITestCase() {
@@ -272,7 +272,7 @@ public class FieldTestcaseCreator {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
-					for (FieldTesting testingField : fields) {
+					for (TestingField testingField : fields) {
 						if (!fieldChecker.checkPublicStaticFinalField(clazz, clazz.getField(testingField.getName()))) {
 							return false;
 						}
