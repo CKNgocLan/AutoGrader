@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 import student.model.TestingParameter;
 
-public class ParameterTestingUtils {
+public class ParameterUtils {
 	public static TestingParameter[] mapFromTypes(Class<?>... types) {
 		return Stream.of(types).map(TestingParameter::new).toArray(TestingParameter[]::new);
 	}

@@ -14,7 +14,7 @@ import student.exception.InvalidConfigurationException;
 import student.util.ClassUtils;
 import student.util.MethodUtils;
 import student.util.NumbericUtils;
-import student.util.ParameterTestingUtils;
+import student.util.ParameterUtils;
 import student.util.StringUtils;
 import student.util.ValueUtils;
 
@@ -53,8 +53,10 @@ public class TestingMethod {
 	}
 
 	public TestingMethod(Method method) {
-		this(method.getModifiers(), method.getReturnType(), method.getName(),
-				ParameterTestingUtils.mapFromParameters(method.getParameters()));
+		this(method.getModifiers()
+				, method.getReturnType()
+				, method.getName(),
+				ParameterUtils.mapFromParameters(method.getParameters()));
 	}
 
 	public int getModifier() {

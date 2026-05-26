@@ -15,7 +15,7 @@ import student.constant.TestcaseType;
 import student.model.ITestCase;
 import student.model.TestingParameter;
 import student.testSuite.midterm253.Country;
-import student.util.ParameterTestingUtils;
+import student.util.ParameterUtils;
 
 public class ClassTestcaseCreator {
 	private static ClassTestcaseCreator instance;
@@ -282,8 +282,8 @@ public class ClassTestcaseCreator {
 					Class<?> superclazz = clazz.getSuperclass();
 					
 					Object instance = clazz
-							.getDeclaredConstructor(ParameterTestingUtils.mapToConstructorType(args))
-							.newInstance(ParameterTestingUtils.mapToConstructorValue(args));
+							.getDeclaredConstructor(ParameterUtils.mapToConstructorType(args))
+							.newInstance(ParameterUtils.mapToConstructorValue(args));
 					
 					for (java.lang.reflect.Field actualField : superclazz.getDeclaredFields()) {
 						if (!actualField.canAccess(instance)) {
@@ -388,7 +388,7 @@ public class ClassTestcaseCreator {
 				try {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 
-					return ParameterTestingUtils.compareTestingValueViaGetter(clazz, clazz.getDeclaredConstructor().newInstance(),
+					return ParameterUtils.compareTestingValueViaGetter(clazz, clazz.getDeclaredConstructor().newInstance(),
 							params);
 				} catch (Exception e) {
 					return false;
@@ -468,7 +468,7 @@ public class ClassTestcaseCreator {
 					Object instance = clazz.getDeclaredConstructor(types).newInstance(testValues);
 
 					for (TestingParameter param : params) {
-						if (!ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, param)) {
+						if (!ParameterUtils.compareTestingValueViaGetter(clazz, instance, param)) {
 							return false;
 						}
 					}
@@ -488,7 +488,7 @@ public class ClassTestcaseCreator {
 	
 	
 	public ITestCase checkPartialArgsConstructorDeclaration(int points, String className, Class<?>... paramTypes) {
-		return checkPartialArgsConstructorDeclaration(points, className, ParameterTestingUtils.mapFromTypes(paramTypes));
+		return checkPartialArgsConstructorDeclaration(points, className, ParameterUtils.mapFromTypes(paramTypes));
 	}
 
 	/**
@@ -555,11 +555,11 @@ public class ClassTestcaseCreator {
 					
 					// TODO compare field as Object without using getter/setter
 					Object instance = clazz
-							.getDeclaredConstructor(ParameterTestingUtils.mapToType(params))
-							.newInstance(ParameterTestingUtils.mapToTestingValue(params));
+							.getDeclaredConstructor(ParameterUtils.mapToType(params))
+							.newInstance(ParameterUtils.mapToTestingValue(params));
 
 					for (TestingParameter param : params) {
-						if (!ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, param)) {
+						if (!ParameterUtils.compareTestingValueViaGetter(clazz, instance, param)) {
 							return false;
 						}
 					}
@@ -599,11 +599,11 @@ public class ClassTestcaseCreator {
 					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
 					Class<?> superclazz = Class.forName(superclassName, true, targetClassesLoader);
 					Object instance = clazz
-							.getDeclaredConstructor(ParameterTestingUtils.mapToType(params))
-							.newInstance(ParameterTestingUtils.mapToTestingValue(params));
+							.getDeclaredConstructor(ParameterUtils.mapToType(params))
+							.newInstance(ParameterUtils.mapToTestingValue(params));
 
 					for (TestingParameter param : params) {
-						if (!ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, param)) {
+						if (!ParameterUtils.compareTestingValueViaGetter(clazz, instance, param)) {
 							return false;
 						}
 					}

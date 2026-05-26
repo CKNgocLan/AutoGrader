@@ -12,7 +12,7 @@ import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
-import student.util.ParameterTestingUtils;
+import student.util.ParameterUtils;
 
 public class CarTester {
 	private static CarTester instance = null;
@@ -101,7 +101,7 @@ public class CarTester {
 
 					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
 
-					return ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, new TestingParameter(
+					return ParameterUtils.compareTestingValueViaGetter(clazz, instance, new TestingParameter(
 							methodTesting.getReturnedType(), FieldName.SPEED, methodTesting.getExpectedValue()));
 				} catch (NoSuchMethodException e) {
 					return false;
@@ -159,7 +159,7 @@ public class CarTester {
 
 					clazz.getDeclaredMethod(methodTesting.getName()).invoke(instance);
 
-					return ParameterTestingUtils.compareTestingValueViaGetter(clazz, instance, new TestingParameter(
+					return ParameterUtils.compareTestingValueViaGetter(clazz, instance, new TestingParameter(
 							methodTesting.getReturnedType(), FieldName.SPEED, methodTesting.getExpectedValue()));
 				} catch (NoSuchMethodException e) {
 					return false;

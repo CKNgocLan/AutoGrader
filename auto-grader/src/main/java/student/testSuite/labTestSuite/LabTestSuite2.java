@@ -26,7 +26,7 @@ import student.testSuite.lab2.problem6.BookTester;
 import student.testSuite.lab2.problem6.BorrowingRecordTester;
 import student.testSuite.lab2.problem6.LibraryManagementTester;
 import student.testSuite.lab2.problem6.UserTester;
-import student.util.ParameterTestingUtils;
+import student.util.ParameterUtils;
 
 public class LabTestSuite2 extends ALabTestSuite {
 
@@ -44,7 +44,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 				// partial-args constructor
 						,
 						car.checkPartialArgsConstructorDeclaration(5,
-								ParameterTestingUtils.mapFromTypes(int.class, String.class)),
+								ParameterUtils.mapFromTypes(int.class, String.class)),
 						car.checkPartialArgsConstructorOperation(10,
 								new TestingParameter(int.class, FieldName.YEAR_MODEL, 2025),
 								new TestingParameter(String.class, FieldName.MAKE, "Mazda"),

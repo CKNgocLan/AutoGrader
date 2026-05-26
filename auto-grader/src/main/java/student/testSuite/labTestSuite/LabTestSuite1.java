@@ -12,7 +12,7 @@ import student.model.ITestCase;
 import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
-import student.util.ParameterTestingUtils;
+import student.util.ParameterUtils;
 
 /**
  * Test suite for the Employee class. Tests constructors, getters, and setters
@@ -38,7 +38,7 @@ public class LabTestSuite1 extends ALabTestSuite {
 					
 					// full-agrs constructor
 					, classTest.checkFullArgsConstructorDeclaration(5, ClassName.EMPLOYEE,
-							ParameterTestingUtils.mapFromTypes(String.class, int.class, String.class, String.class))
+							ParameterUtils.mapFromTypes(String.class, int.class, String.class, String.class))
 					, classTest.checkFullArgsConstructorOperation(5, ClassName.EMPLOYEE
 							, new TestingParameter(String.class, FieldName.NAME, "Susan Meyers")
 							, new TestingParameter(int.class, FieldName.ID_NUMBER, 47899)
@@ -60,7 +60,7 @@ public class LabTestSuite1 extends ALabTestSuite {
 					
 					// partial-args constructor
 					, classTest.checkPartialArgsConstructorDeclaration(5, ClassName.EMPLOYEE
-							, ParameterTestingUtils.mapFromTypes(String.class, int.class))
+							, ParameterUtils.mapFromTypes(String.class, int.class))
 					, classTest.checkPartialArgsConstructorOperationViaGetter(5, ClassName.EMPLOYEE
 							, new TestingParameter(String.class, FieldName.NAME, "Susan Meyers")
 							, new TestingParameter(int.class, FieldName.ID_NUMBER, 47899)

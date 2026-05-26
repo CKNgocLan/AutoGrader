@@ -17,7 +17,7 @@ import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.MethodUtils;
-import student.util.ParameterTestingUtils;
+import student.util.ParameterUtils;
 import student.util.StringUtils;
 
 public abstract class BaseTester {
@@ -81,8 +81,8 @@ public abstract class BaseTester {
 	public Object instantiateWithArgs(TestingParameter... args)
 			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
-		return getCorrespondingClass().getDeclaredConstructor(ParameterTestingUtils.mapToConstructorType(args))
-				.newInstance(ParameterTestingUtils.mapToConstructorValue(args));
+		return getCorrespondingClass().getDeclaredConstructor(ParameterUtils.mapToConstructorType(args))
+				.newInstance(ParameterUtils.mapToConstructorValue(args));
 	}
 
 	/*
