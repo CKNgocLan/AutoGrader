@@ -1,5 +1,6 @@
 package student.util;
 
+import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.stream.Stream;
 
@@ -24,5 +25,15 @@ public class MethodUtils {
 	
 	public static TestingMethod createMethodEquals(String paramName, Class<?> paramType) {
 		return new TestingMethod(boolean.class, MethodName.EQUALS, new student.model.TestingParameter(paramType, paramName));
+	}
+	
+	/*
+	 * for testcase
+	 */
+	
+	public static TestingMethod fromSolution(Class<?> clazz, String methodName, Class<?>... parameterTypes) throws NoSuchMethodException, SecurityException {
+		Method declaredMethod = clazz.getDeclaredMethod(methodName, parameterTypes);
+		
+		return new TestingMethod(declaredMethod.getModifiers(), declaredMethod.getReturnType(), methodName);
 	}
 }

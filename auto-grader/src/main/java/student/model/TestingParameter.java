@@ -1,5 +1,7 @@
 package student.model;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Parameter;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
@@ -12,7 +14,7 @@ public class TestingParameter {
 	public TestingParameter(Class<?> type) {
 		this.type = type;
 	}
-	
+
 	public TestingParameter(Class<?> type, String name) {
 		this.type = type;
 		this.name = name;
@@ -30,6 +32,22 @@ public class TestingParameter {
 		this.value = value;
 		this.skipConstruction = skipConstruction;
 	}
+
+	public TestingParameter(Parameter parameter) {
+		this(parameter.getType(), parameter.getName());
+	}
+
+	public TestingParameter(Parameter parameter, boolean skipConstruction) {
+		this(parameter.getType(), parameter.getName(), null, skipConstruction);
+	}
+
+//	public TestingParameter(Field field) {
+//		this(field.getType(), field.getName());
+//	}
+//	
+//	public TestingParameter(Field field, boolean skipConstruction) {
+//		this(field.getType(), field.getName(), null, skipConstruction);
+//	}
 
 	public String getName() {
 		return name;
@@ -67,7 +85,7 @@ public class TestingParameter {
 		if (!this.type.isEnum()) {
 			return false;
 		}
-		
+
 		try {
 			Stream.of(enumClass.getEnumConstants()).filter(e -> e.name().equals(enumValue)).findFirst().get();
 		} catch (NoSuchElementException e) {

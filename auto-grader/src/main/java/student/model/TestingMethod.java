@@ -2,6 +2,7 @@ package student.model;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.stream.Stream;
@@ -13,6 +14,7 @@ import student.exception.InvalidConfigurationException;
 import student.util.ClassUtils;
 import student.util.MethodUtils;
 import student.util.NumbericUtils;
+import student.util.ParameterTestingUtils;
 import student.util.StringUtils;
 import student.util.ValueUtils;
 
@@ -48,6 +50,11 @@ public class TestingMethod {
 		this.returnedType = returnedType;
 		this.name = name;
 		this.parameters = parameters;
+	}
+
+	public TestingMethod(Method method) {
+		this(method.getModifiers(), method.getReturnType(), method.getName(),
+				ParameterTestingUtils.mapFromParameters(method.getParameters()));
 	}
 
 	public int getModifier() {

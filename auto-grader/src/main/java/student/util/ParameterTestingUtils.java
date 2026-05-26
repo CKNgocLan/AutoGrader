@@ -1,6 +1,7 @@
 package student.util;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Parameter;
 import java.util.stream.Stream;
 
 import student.model.TestingParameter;
@@ -38,5 +39,9 @@ public class ParameterTestingUtils {
 				.filter(param -> !param.isSkipConstruction())
 				.map(param -> param.getValue())
 				.toArray(Object[]::new);
+	}
+	
+	public static TestingParameter[] mapFromParameters(Parameter... parameters) {
+		return Stream.of(parameters).map(param -> new TestingParameter(param)).toArray(TestingParameter[]::new);
 	}
 }
