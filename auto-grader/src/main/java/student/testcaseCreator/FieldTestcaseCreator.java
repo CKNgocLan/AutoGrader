@@ -234,13 +234,52 @@ public class FieldTestcaseCreator {
 							return false;
 						}
 						
-						if(!fieldChecker.compareValue(testingField, reflectField.get(instance))) {
+						if(testingField.getValue() != null && !fieldChecker.compareValue(testingField, reflectField.get(instance))) {
 							return false;
 						}
 					}
 					return true;
 					
 				} catch (ClassNotFoundException | NoSuchFieldException | SecurityException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.FIELD_DECLARED_NOT_CORRECT.getContent(className, fieldNames);
+			}
+		};
+	}
+	
+	public ITestCase declareInEnum(int points, String className, FieldTesting... fields) {
+		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
+		
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_FIELD.getName(className, fieldNames);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+
+					for (FieldTesting testingField : fields) {
+						if (!fieldChecker.checkPublicStaticFinalField(clazz, clazz.getField(testingField.getName()))) {
+							return false;
+						}
+					}
+					return true;
+					
+				} catch (Exception e) {
 					e.printStackTrace();
 					return false;
 				}
