@@ -6,7 +6,7 @@ import student.testSuite.labTestSuite.LabTestSuite1;
 import student.testSuite.labTestSuite.LabTestSuite2;
 import student.testSuite.labTestSuite.LabTestSuite3;
 import student.testSuite.labTestSuite.LabTestSuite4;
-import student.testSuite.midterm.MidtermTestSuite253;
+import student.testSuite.labTestSuite.MidtermTestSuite253;
 
 public class LabTestSuiteFactory {
 	public ALabTestSuite createSuite(String lab) {

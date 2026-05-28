@@ -1,4 +1,4 @@
-package student.testSuite.midterm;
+package student.testSuite.labTestSuite;
 
 import java.time.LocalDate;
 import java.util.Arrays;
