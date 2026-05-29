@@ -6,14 +6,14 @@ import student.testSuite.labTestSuite.LabTestSuite1;
 import student.testSuite.labTestSuite.LabTestSuite2;
 import student.testSuite.labTestSuite.LabTestSuite3;
 import student.testSuite.labTestSuite.LabTestSuite4;
-import student.testSuite.labTestSuite.MidtermTestSuite253;
+import student.testSuite.labTestSuite.ExamMidtermTestSuite253;
 
 public class LabTestSuiteFactory {
 	public ALabTestSuite createSuite(String lab) {
 
 		switch (lab) {
 		case Midterm.MIDTERM_253:
-			return new MidtermTestSuite253();
+			return new ExamMidtermTestSuite253();
 		case Lab.L1:
 			return new LabTestSuite1();
 		case Lab.L2:

@@ -19,12 +19,11 @@ import student.testSuite.midterm253.PenTester;
 import student.testSuite.midterm253.PenTypeTester;
 import student.testSuite.midterm253.TaxTester;
 
-public class MidtermTestSuite253 extends ALabTestSuite {
+public class ExamMidtermTestSuite253 extends ALabTestSuite {
 	@Override
 	public List<ITestCase> getAllTests(String question) {
 		int defaultPoints = 5;
 		try {
-
 			switch (question) {
 				case Question.Q1:
 					PenTypeTester penTypeTester = new PenTypeTester();
@@ -42,11 +41,6 @@ public class MidtermTestSuite253 extends ALabTestSuite {
 					Object sailorBrand = brandTester.instantiate(BrandName.SAILOR, Country.JAPAN);
 					Object concopensBrand = brandTester.instantiate(BrandName.CONCOPENS, Country.VIETNAM);
 					Object discount = discountTester.instantiate(0.19, LocalDate.now().plusMonths(1));
-					
-//					List<ITestCase> testcases = penTypeTester.getAllTestcases();
-//					testcases.addAll(countryTester.getAllTestcases());
-//					testcases.addAll(taxTester.getAllTestcases());
-//					testcases.addAll(brandTester.getAllTestcases());
 					
 					return Arrays.asList(
 							// pen type enum
