@@ -1,5 +1,6 @@
 package student.testSuite;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
@@ -80,6 +81,10 @@ public abstract class BaseTester {
 	
 	protected TestingMethod getSolutionMethod(String methodName, Class<?>... parameterTypes) throws NoSuchMethodException, SecurityException {
 		return MethodUtils.fromSolution(solutionClass, methodName, parameterTypes);
+	}
+	
+	protected Constructor<?> getSolutionFirstConstructor() {
+		return solutionClass.getDeclaredConstructors()[0];
 	}
 
 	/*

@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+import student.constant.Constants;
 import student.constant.Country;
 import student.constant.Question;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
+import student.testSuite.lab4.problem1_3.EmployeeTester;
 import student.testSuite.midterm253.BallpointPenTester;
 import student.testSuite.midterm253.BrandName;
 import student.testSuite.midterm253.BrandTester;
@@ -30,8 +32,15 @@ public class LabTestSuite4 extends ALabTestSuite {
 			case Question.Q2:
 			case Question.Q3:
 			{
+				EmployeeTester employeeTester = new EmployeeTester();
 
-				return Arrays.asList();
+				return Arrays.asList(
+						employeeTester.declare(defaultPoints)
+						, employeeTester.declareFields(defaultPoints)
+						, employeeTester.declareConstructor(defaultPoints)
+						, employeeTester.operateConstructor(defaultPoints, Constants.DEFAULT_NAME, "012-A", LocalDate.now())
+						, employeeTester.operateConstructor(defaultPoints, Constants.DEFAULT_NAME, "012AB", LocalDate.now())
+				);
 			}
 			case Question.Q4:
 			{

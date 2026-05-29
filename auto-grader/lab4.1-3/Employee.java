@@ -1,5 +1,3 @@
-package student.solution.lab4.problem1_3;
-
 import java.time.LocalDate;
 
 public class Employee {
@@ -9,7 +7,7 @@ public class Employee {
 
     public Employee(String name, String number, LocalDate hireDate) {
         this.name = name;
-        this.number = number;
+        setNumber(number);
         this.hireDate = hireDate;
     }
 
@@ -51,7 +49,7 @@ public class Employee {
     public String toString() {
         return "Employee{name='" + name + '\'' +
                 ", number='" + number + '\'' +
-                ", hireDate='" + hireDate + '\'' +
+                ", hireDate=" + hireDate +
                 '}';
     }
 }

@@ -210,4 +210,10 @@ public class FieldName {
 	 */
 	public static final String COLOR = "color";
 	public static final String PARKED_MINUTES = "parkedMinutes";
+	
+	/*
+	 * Employee 
+	 */
+	public static final String NUMBER = "number";
+	public static final String HIRE_DATE = "hireDate";
 }

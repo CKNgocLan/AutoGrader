@@ -1,5 +1,3 @@
-package student.solution.lab4.problem1_3;
-
 import java.time.LocalDate;
 
 public class ShiftSupervisor extends Employee {
