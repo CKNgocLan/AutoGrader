@@ -10,24 +10,11 @@ import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
 public class PenFactoryTester extends BaseTester {
-//	private BrandTester brandTester;
-//	private ColorTester colorTester;
-
 	public PenFactoryTester() throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.PEN_FACTORY;
 		super.getCorrespondingClass();
 		super.solutionClass = PenFactory.class;
 	}
-	
-//	public PenFactoryTester brandTester(BrandTester brandTester) {
-//		this.brandTester = brandTester;
-//		return this;
-//	}
-//	
-//	public PenFactoryTester colorTester(ColorTester colorTester) {
-//		this.colorTester = colorTester;
-//		return this;
-//	}
 	
 	/*
 	 * declaration

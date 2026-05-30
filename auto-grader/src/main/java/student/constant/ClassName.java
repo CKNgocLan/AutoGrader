@@ -6,6 +6,8 @@ public class ClassName {
 	 */
 	public static final String PEN_FACTORY = "PenFactory";
 	public static final String COLOR = "Color";
+	public static final String BALLPOINT_PEN_FACTORY = "BallpointPenFactory";
+	public static final String FOUNTAIN_PEN_FACTORY = "FountainPenFactory";
 	
 	/*
 	 * midterm 253
