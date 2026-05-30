@@ -6,6 +6,7 @@ public enum ExceptionMessage {
 	PROPERTY_NOT_CONFIGURED("Properties Not Configured: {0}")
 	, TESTER_GOT_NO_CLASS_NAME("{0}: NO VALID CLASS NAME")
 	, INVALID_EMPLOYEE_NUMBER_FORMAT("Invalid employee number format.")
+	, NO_SOLUTION_CLASS("No Solution Class Defined for Class {0}.")
 	;
 	
 	private final String value;

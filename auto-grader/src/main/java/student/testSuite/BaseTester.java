@@ -8,6 +8,7 @@ import student.constant.ExceptionMessage;
 import student.constant.Feedback;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
+import student.exception.NoSolutionClassException;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ClassLoader;
 import student.model.TestingField;
@@ -81,6 +82,10 @@ public abstract class BaseTester {
 	
 	protected TestingMethod getSolutionMethod(String methodName, Class<?>... parameterTypes) throws NoSuchMethodException, SecurityException {
 		return MethodUtils.fromSolution(solutionClass, methodName, parameterTypes);
+	}
+	
+	protected TestingMethod getSolutionMethodAtFirst(String methodName) {
+		return MethodUtils.fromSolution(clazz, methodName).orElseThrow();
 	}
 	
 	protected Constructor<?> getSolutionFirstConstructor() {

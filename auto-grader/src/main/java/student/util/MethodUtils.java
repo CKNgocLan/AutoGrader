@@ -1,7 +1,7 @@
 package student.util;
 
-import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.Optional;
 import java.util.stream.Stream;
 
 import student.constant.MethodName;
@@ -33,5 +33,12 @@ public class MethodUtils {
 	
 	public static TestingMethod fromSolution(Class<?> clazz, String methodName, Class<?>... parameterTypes) throws NoSuchMethodException, SecurityException {
 		return new TestingMethod(clazz.getDeclaredMethod(methodName, parameterTypes));
+	}
+	
+	public static Optional<TestingMethod> fromSolution(Class<?> clazz, String methodName) {
+		return Stream.of(clazz.getDeclaredMethods())
+				.filter(method -> method.getName().equals(methodName))
+				.map(method -> new TestingMethod(method))
+				.findFirst();
 	}
 }

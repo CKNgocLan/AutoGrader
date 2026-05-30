@@ -1,0 +1,60 @@
+package student.testSuite.finalExam.final253;
+
+import java.util.Arrays;
+import java.util.List;
+
+import student.constant.ClassName;
+import student.constant.FieldName;
+import student.exception.TesterGotNoClassNameException;
+import student.model.TestingField;
+import student.model.ITestCase;
+import student.testSuite.BaseTester;
+import student.util.TestCaseUtils;
+
+public class ColorTester extends BaseTester {
+	public List<ITestCase> getAllTestcases() {
+		return Arrays.asList(
+				declare(defaultPoints)
+				, declareFields(defaultPoints)
+				);
+	}
+
+	/*
+	 * instantiate ***************
+	 */
+
+	public ColorTester() throws ClassNotFoundException, TesterGotNoClassNameException {
+		super.className = ClassName.PEN_TYPE;
+		super.getCorrespondingClass();
+	}
+	
+	/*
+	 * 
+	 */
+	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingField[] {
+				new TestingField(super.getCorrespondingClass(), FieldName.UPPERCASE_BALLPOINT)
+				, new TestingField(super.getCorrespondingClass(), FieldName.UPPERCASE_FOUNTAIN)
+		};
+	}
+	
+	/*
+	 * declaration
+	 */
+	public ITestCase declare(int points) {
+		return super.declareAsEnum(points);
+	}
+	
+	/*
+	 * field ***************
+	 */
+	
+	public ITestCase declareFields(int points) {
+		try {
+			return super.fieldTester.checkDeclarationsAsPublicStaticFinal(points, className, fields());
+		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(points, className, e);
+		}
+	}
+}

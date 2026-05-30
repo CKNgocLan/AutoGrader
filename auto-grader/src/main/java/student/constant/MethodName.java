@@ -60,4 +60,5 @@ public class MethodName {
 	public static final String ISSUE_TICKET = "issueTicket";
 
 	public static final String IS_VALID_NUMBER = "isValidNumber";
+	public static final String CREATE_PEN = "createPen";
 }

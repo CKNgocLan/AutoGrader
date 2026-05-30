@@ -76,7 +76,38 @@ public class MethodTestcaseCreator {
 			}
 		};
 	}
-	
+
+	public ITestCase declaredAsPublicAbstract(int points, String className, TestingMethod method) {
+		return new ITestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_EXISTENCE.getName(className, method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return methodChecker.isPublicAbstract(Class.forName(className, true, targetClassesLoader), method);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				} finally {
+					
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_DECLARED_NOT_CORRECT.getContent(className, method.getName());
+			}
+		};
+	}
 
 	public ITestCase declaredAsSpecialModifers(int points, String className, TestingMethod method) {
 		return new ITestCase() {

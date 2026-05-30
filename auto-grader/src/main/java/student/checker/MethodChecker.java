@@ -175,39 +175,51 @@ public class MethodChecker {
 				.valueOf(clazz.getDeclaredMethod(GetterUtils.getGetterName(fieldName)).invoke(instance).toString())
 				.doubleValue();
 	}
-	
+
 	/*
 	 * DECLARATION ***************
 	 */
 
-	public boolean isMethodDeclared(Class<?> clazz, TestingMethod method) throws NoSuchMethodException, SecurityException {
+	public boolean isMethodDeclared(Class<?> clazz, TestingMethod method)
+			throws NoSuchMethodException, SecurityException {
 		return method.equals(clazz.getDeclaredMethod(method.getName(), method.getParameterTypes()));
 	}
 
-	public boolean isDeclaredAsSpecialModifers(Class<?> clazz, TestingMethod method) throws NoSuchMethodException, SecurityException {
+	public boolean isDeclaredAsSpecialModifers(Class<?> clazz, TestingMethod method)
+			throws NoSuchMethodException, SecurityException {
 		Method reflectMethod = clazz.getDeclaredMethod(method.getName(), method.getParameterTypes());
-		
+
 		if (!method.equalsButModifiers(reflectMethod)) {
 			return false;
 		}
-		
+
 		if ((method.isStatic() && !Modifier.isStatic(reflectMethod.getModifiers()))
 				|| (!method.isStatic() && Modifier.isStatic(reflectMethod.getModifiers()))) {
 			return false;
 		}
-		
+
 		if ((method.isAbstract() && !Modifier.isAbstract(reflectMethod.getModifiers()))
 				|| (!method.isAbstract() && Modifier.isAbstract(reflectMethod.getModifiers()))) {
 			return false;
 		}
-		
+
 		return true;
 	}
 	
+	public boolean isPublicAbstract(Class<?> clazz, TestingMethod method) throws NoSuchMethodException {
+		Method reflectMethod = clazz.getDeclaredMethod(method.getName(), method.getParameterTypes());
+
+		if (!method.equalsButModifiers(reflectMethod)) {
+			return false;
+		}
+		
+		return Modifier.isPublic(reflectMethod.getModifiers()) && Modifier.isAbstract(reflectMethod.getModifiers());
+	}
+
 	/*
 	 * EXCLUDE
 	 */
-	
+
 	public boolean isExluded(Class<?> clazz, TestingMethod... excludedMethods) {
 		Method[] actualMethods = clazz.getDeclaredMethods();
 

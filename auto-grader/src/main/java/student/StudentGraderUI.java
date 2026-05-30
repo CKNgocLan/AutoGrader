@@ -50,6 +50,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import student.constant.Constants;
+import student.constant.FinalExam;
 import student.constant.Lab;
 import student.constant.Midterm;
 import student.constant.Question;
@@ -195,6 +196,7 @@ public class StudentGraderUI extends JFrame {
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
+		labQuestionsMap.put(FinalExam.FINAL_253, Arrays.asList(Question.Q1));
 		labQuestionsMap.put(Lab.L4, Arrays.asList(Question.Q1, Question.Q4));
 		labQuestionsMap.put(Lab.L3, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
 		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
@@ -681,7 +683,7 @@ public class StudentGraderUI extends JFrame {
         SwingUtilities.invokeLater(() -> {
         	try {
 				new StudentGraderUI().setVisible(true);
-			} catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
         });
