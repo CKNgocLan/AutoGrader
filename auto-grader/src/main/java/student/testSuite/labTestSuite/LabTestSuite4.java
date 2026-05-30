@@ -39,7 +39,7 @@ public class LabTestSuite4 extends ALabTestSuite {
 						, employeeTester.declareFields(defaultPoints)
 						, employeeTester.declareConstructor(defaultPoints)
 						, employeeTester.operateConstructor(defaultPoints, Constants.DEFAULT_NAME, "012-A", LocalDate.now())
-						, employeeTester.operateConstructor(defaultPoints, Constants.DEFAULT_NAME, "012AB", LocalDate.now())
+						, employeeTester.invalidNumberInConstructor(defaultPoints, "012AB")
 				);
 			}
 			case Question.Q4:

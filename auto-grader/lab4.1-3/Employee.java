@@ -8,6 +8,7 @@ public class Employee {
     public Employee(String name, String number, LocalDate hireDate) {
         this.name = name;
         setNumber(number);
+		// this.number = number;
         this.hireDate = hireDate;
     }
 

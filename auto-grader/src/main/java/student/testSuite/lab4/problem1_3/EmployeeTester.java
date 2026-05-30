@@ -1,17 +1,25 @@
 package student.testSuite.lab4.problem1_3;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
+import java.util.stream.Stream;
 
 import student.constant.ClassName;
+import student.constant.Constants;
+import student.constant.ExceptionMessage;
+import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
+import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ITestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.solution.lab4.problem1_3.Employee;
 import student.testSuite.BaseTester;
+import student.util.ParameterUtils;
 import student.util.TestCaseUtils;
 
 public class EmployeeTester extends BaseTester {
@@ -76,5 +84,47 @@ public class EmployeeTester extends BaseTester {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(points, className, e);
 		}
+	}
+	
+	public ITestCase invalidNumberInConstructor(int points, String number) {
+		TestingMethod method;
+		try {
+			method = isValidNumberMethod();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(points, className, e);
+		}
+		
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_PARTIAL_ARGS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					assertThrows(InvocationTargetException.class, () -> {
+						instantiate(Constants.DEFAULT_NAME, number, LocalDate.now());
+					});
+
+					return true;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.PARTIAL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(className, String
+						.join(Constants.COMMA_WITH_SPACE, Stream.of(method.getParameters()).map(param -> param.getName()).toList()));
+			}
+		};
 	}
 }
