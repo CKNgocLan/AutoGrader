@@ -35,10 +35,11 @@ public class MethodUtils {
 		return new TestingMethod(clazz.getDeclaredMethod(methodName, parameterTypes));
 	}
 	
-	public static Optional<TestingMethod> fromSolution(Class<?> clazz, String methodName) {
+	public static TestingMethod fromSolution(Class<?> clazz, String methodName) {
 		return Stream.of(clazz.getDeclaredMethods())
 				.filter(method -> method.getName().equals(methodName))
 				.map(method -> new TestingMethod(method))
-				.findFirst();
+				.findFirst()
+				.get();
 	}
 }

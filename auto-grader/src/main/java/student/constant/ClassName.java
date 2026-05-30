@@ -2,9 +2,10 @@ package student.constant;
 
 public class ClassName {
 	/*
-	 * 
+	 * final 253
 	 */
 	public static final String PEN_FACTORY = "PenFactory";
+	public static final String COLOR = "Color";
 	
 	/*
 	 * midterm 253

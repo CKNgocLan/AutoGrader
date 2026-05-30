@@ -84,8 +84,8 @@ public abstract class BaseTester {
 		return MethodUtils.fromSolution(solutionClass, methodName, parameterTypes);
 	}
 	
-	protected TestingMethod getSolutionMethodAtFirst(String methodName) {
-		return MethodUtils.fromSolution(clazz, methodName).orElseThrow();
+	protected TestingMethod getFirstSolutionMethod(String methodName) {
+		return MethodUtils.fromSolution(clazz, methodName);
 	}
 	
 	protected Constructor<?> getSolutionFirstConstructor() {

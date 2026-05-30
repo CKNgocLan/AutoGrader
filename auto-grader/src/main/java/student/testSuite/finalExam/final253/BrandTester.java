@@ -1,31 +1,19 @@
 package student.testSuite.finalExam.final253;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
-import java.util.List;
 import java.util.UUID;
 
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.TestingField;
 import student.model.ITestCase;
+import student.model.TestingField;
 import student.model.TestingParameter;
+import student.solution.final253.section1.Brand;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
 public class BrandTester extends BaseTester {
-	public List<ITestCase> getAllTestcases() {
-		return Arrays.asList(
-				declare(defaultPoints)
-				, declareFields(defaultPoints)
-				, declareConstructor(defaultPoints)
-				, declareGetters(defaultPoints)
-				, declareSetters(defaultPoints)
-				, declareToString(defaultPoints)
-				);
-	}
-
 	/*
 	 * instantiate ***************
 	 */
@@ -33,6 +21,7 @@ public class BrandTester extends BaseTester {
 	public BrandTester() throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.BRAND;
 		super.getCorrespondingClass();
+		super.solutionClass = Brand.class;
 	}
 	
 	public Object instantiate(String name, String country) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
@@ -61,20 +50,20 @@ public class BrandTester extends BaseTester {
 	/*
 	 * declaration
 	 */
-	public ITestCase declare(int points) {
-		return super.declare(points);
+	public ITestCase declare() {
+		return super.declare(defaultPoints);
 	}
 
 	/*
 	 * field ***************
 	 */
 
-	public ITestCase declareFields(int points) {
+	public ITestCase declareFields() {
 		try {
-			return super.fieldTester.checkDeclarations(points, className, fields());
-		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
+			return super.fieldTester.checkDeclarations(defaultPoints, className, super.getSolutionFields());
+		} catch (Exception e) {
 			e.printStackTrace();
-			return TestCaseUtils.errorTestcase(points, className, e);
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
 		}
 	}
 
