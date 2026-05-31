@@ -77,6 +77,7 @@ public class MethodTestcaseCreator {
 		};
 	}
 
+
 	public ITestCase declaredAsPublicAbstract(int points, String className, TestingMethod method) {
 		return new ITestCase() {
 

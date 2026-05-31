@@ -41,7 +41,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 					
 					int quantity = 3;
 					TestingParameter[] cashRegisterArgs = cashRegisterTester
-							.createArgs(retailItemTester.instantiateWithArgs(retailItemArgs), quantity);
+							.createArgs(retailItemTester.instantiate(retailItemArgs), quantity);
 
 					double tax_rate = 0.06;
 					

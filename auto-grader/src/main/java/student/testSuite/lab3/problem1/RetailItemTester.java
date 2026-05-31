@@ -1,5 +1,7 @@
 package student.testSuite.lab3.problem1;
 
+import java.lang.reflect.InvocationTargetException;
+
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
@@ -28,6 +30,10 @@ public class RetailItemTester extends BaseTester {
 				new TestingParameter(String.class, FieldName.DESCRIPTION, description),
 				new TestingParameter(int.class, FieldName.UNITS_ON_HAND, unitsOnHand),
 				new TestingParameter(double.class, FieldName.PRICE, price) };
+	}
+
+	public Object instantiate(TestingParameter[] args) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
+		return super.instantiateWithArgs(args);
 	}
 
 	/*

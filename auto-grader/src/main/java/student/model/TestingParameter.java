@@ -41,14 +41,6 @@ public class TestingParameter {
 		this(parameter.getType(), parameter.getName(), null, skipConstruction);
 	}
 
-//	public TestingParameter(Field field) {
-//		this(field.getType(), field.getName());
-//	}
-//	
-//	public TestingParameter(Field field, boolean skipConstruction) {
-//		this(field.getType(), field.getName(), null, skipConstruction);
-//	}
-
 	public String getName() {
 		return name;
 	}
@@ -71,6 +63,11 @@ public class TestingParameter {
 
 	public void setValue(Object value) {
 		this.value = value;
+	}
+
+	public TestingParameter value(Object value) {
+		this.value = value;
+		return this;
 	}
 
 	public boolean isSkipConstruction() {

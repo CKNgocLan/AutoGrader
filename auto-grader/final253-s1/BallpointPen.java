@@ -5,7 +5,7 @@ public class BallpointPen extends Pen {
         setPrice(price);
     }
 
-    @Deprecated
+	@Override
     public String getDescription() {
         return String.format("Ballpoint Pen: %s %s (%s) - $%.2f", getBrand().getName(), getModel(), getColor(),
                 getPrice());

@@ -74,7 +74,7 @@ public class EmployeeTester extends BaseTester {
 	 */
 	
 	public ITestCase declareConstructor(int points) {
-		return super.classTester.checkPartialArgsConstructorDeclaration(points, className, super.getSolutionFirstConstructor().getParameterTypes());
+		return super.classTester.checkPartialArgsConstructorDeclaration(points, className, super.uniqueConstructorParameterPrimitiveTypes());
 	}
 
 	public ITestCase operateConstructor(int points, String name, String number, LocalDate hireDate) {

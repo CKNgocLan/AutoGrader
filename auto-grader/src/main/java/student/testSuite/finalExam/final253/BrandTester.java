@@ -24,18 +24,16 @@ public class BrandTester extends BaseTester {
 		super.solutionClass = Brand.class;
 	}
 	
-	public Object instantiate(String name, String country) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
-		return super.instantiateWithArgs(argument(name, country));
+	public Object instantiate(String name) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
+		return super.instantiateWithArgs(argument(name));
 	}
 	
 	/*
 	 * argument
 	 */
 	
-	private TestingParameter[] argument(String name, String country) throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new TestingParameter[] {
-				new TestingParameter(String.class, FieldName.NAME, name),
-				new TestingParameter(String.class, FieldName.COUNTRY, country) };
+	private TestingParameter[] argument(String name) throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingParameter[] { new TestingParameter(String.class, FieldName.NAME, name) };
 	}
 
 	/*

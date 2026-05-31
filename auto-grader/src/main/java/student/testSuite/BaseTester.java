@@ -22,6 +22,7 @@ import student.util.FieldUtils;
 import student.util.MethodUtils;
 import student.util.ParameterUtils;
 import student.util.StringUtils;
+import student.util.TestCaseUtils;
 
 public abstract class BaseTester {
 	protected String className;
@@ -71,7 +72,13 @@ public abstract class BaseTester {
 		
 		return field;
 	}
-	
+
+	/*
+	 * 
+	 */
+	protected ITestCase exceptionTestCase(Exception e) {
+		return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+	}
 	/*
 	 * solution
 	 */
@@ -87,22 +94,22 @@ public abstract class BaseTester {
 	protected TestingMethod getFirstSolutionMethod(String methodName) {
 		return MethodUtils.fromSolution(clazz, methodName);
 	}
-	
-	protected Constructor<?> getSolutionFirstConstructor() {
-		return solutionClass.getDeclaredConstructors()[0];
+
+	protected Class<?>[] uniqueConstructorParameterPrimitiveTypes() {
+		return solutionClass.getDeclaredConstructors()[0].getParameterTypes();
 	}
 
 	/*
 	 * instantiate ***************
 	 */
 
-	public Object instantiate()
+	protected Object instantiate()
 			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
 		return getCorrespondingClass().getDeclaredConstructor().newInstance();
 	}
 
-	public Object instantiateWithArgs(TestingParameter... args)
+	protected Object instantiateWithArgs(TestingParameter... args)
 			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 			NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
 		return getCorrespondingClass().getDeclaredConstructor(ParameterUtils.mapToConstructorType(args))
@@ -133,7 +140,7 @@ public abstract class BaseTester {
 	 * super class
 	 */
 	
-	public ITestCase declareSuperClass(int points, Class<?> superclass) {
+	protected ITestCase declareSuperClass(int points, Class<?> superclass) {
 		return classTester.declareSuperclass(points, className, superclass);
 	}
 
