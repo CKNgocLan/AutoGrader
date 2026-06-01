@@ -25,13 +25,15 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 			ColorTester colorTester = new ColorTester();
 			BrandTester brandTester = new BrandTester();
 			
-			PenTester penTester = new PenTester();
+			PenTester penTester = new PenTester().brandTester(brandTester).colorTester(colorTester);
 			BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester)
-					.brandTester(brandTester)
-					.colorTester(colorTester);
+//					.brandTester(brandTester)
+//					.colorTester(colorTester);
+					;
 			FountainPenTester fountainPenTester = new FountainPenTester(penTester)
-					.brandTester(brandTester)
-					.colorTester(colorTester);
+//					.brandTester(brandTester)
+//					.colorTester(colorTester);
+					;
 
 			Object brandInstance = brandTester.instantiate(BrandName.CONCOPENS);
 			Object redEnum = colorTester.valueFrom(ColorEnum.RED);
@@ -39,22 +41,25 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 			return Arrays.asList(
 					// color
 					colorTester.declare()
-					, colorTester.declareFields()
-
-					// brand
-					, brandTester.declare()
-					, brandTester.declareFields()
-
-					// penFactory
-					, penFactoryTester.declare()
-					, penFactoryTester.declareCreatePen()
-
-					// ballpointPen
-					, ballpointPenTester.declare()
-					, ballpointPenTester.declareSuper()
+//					, colorTester.declareFields()
+//
+//					// brand
+//					, brandTester.declare()
+//					, brandTester.declareFields()
+//
+//					// penFactory
+//					, penFactoryTester.declare()
+//					, penFactoryTester.declareCreatePen()
+//
+//					// ballpointPen
+//					, ballpointPenTester.declare()
+//					, ballpointPenTester.declareSuper()
 					, ballpointPenTester.declareConstructor()
 					, ballpointPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
-					, ballpointPenTester.declareGetDescription()
+//					, ballpointPenTester.declareGetDescription()
+
+//					// fountainPen
+//					, fountainPenTester.declare()
 			);
 		} catch (ClassNotFoundException | TesterGotNoClassNameException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
