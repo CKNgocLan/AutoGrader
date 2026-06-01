@@ -54,7 +54,7 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 //					// ballpointPen
 //					, ballpointPenTester.declare()
 //					, ballpointPenTester.declareSuper()
-					, ballpointPenTester.declareConstructor()
+//					, ballpointPenTester.declareConstructor()
 					, ballpointPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
 //					, ballpointPenTester.declareGetDescription()
 

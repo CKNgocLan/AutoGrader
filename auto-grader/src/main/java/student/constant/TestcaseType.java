@@ -22,7 +22,7 @@ public enum TestcaseType {
 	, CHECK_CLASS_GETTER_OPERATION_FOR_FIELD("Check GETTER Operation of Class: {0} for field {1}")
 	, CHECK_CLASS_SETTER_OPERATION_FOR_FIELD("Check SETTER Operation of Class: {0} for field {1}")
 	, CHECK_CLASS_SPECIFIC_GETTER_OPERATION("Check \"{1}\" Getter Operation of Class: {0}")
-	, CHECK_OPERATION_OF_CONSTRUCTOR_HAVING_SUPERCLASS("Check Constructor \"{0}\" OPERATION including SUPERCLASS of Class: {1}")
+	, CHECK_OPERATION_OF_CONSTRUCTOR_HAVING_SUPERCLASS("Check Constructor \"{0}\" OPERATION including SUPERCLASS: {1}")
 	, CHECK_CLASS_EXCLUDING_METHOD("Check {0} Class Excluding Method: {1}")
 	
 	, CHECK_FIELD("Check Field(s) of Class {0}: {1}")
