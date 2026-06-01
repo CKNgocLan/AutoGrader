@@ -6,9 +6,12 @@ import student.solution.final253.section1.BallpointPenFactory;
 import student.testSuite.BaseTester;
 
 public class BallpointPenFactoryTester extends BaseTester {
-	public BallpointPenFactoryTester() throws ClassNotFoundException, TesterGotNoClassNameException {
+	private PenFactoryTester penFactoryTester;
+
+	public BallpointPenFactoryTester(PenFactoryTester penFactoryTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.BALLPOINT_PEN_FACTORY;
 		super.getCorrespondingClass();
 		super.solutionClass = BallpointPenFactory.class;
+		this.penFactoryTester = penFactoryTester;
 	}
 }

@@ -10,9 +10,11 @@ import student.constant.ModelName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
+import student.testSuite.finalExam.final253.BallpointPenFactoryTester;
 import student.testSuite.finalExam.final253.BallpointPenTester;
 import student.testSuite.finalExam.final253.BrandTester;
 import student.testSuite.finalExam.final253.ColorTester;
+import student.testSuite.finalExam.final253.FountainPenFactoryTester;
 import student.testSuite.finalExam.final253.FountainPenTester;
 import student.testSuite.finalExam.final253.PenFactoryTester;
 import student.testSuite.finalExam.final253.PenTester;
@@ -26,14 +28,15 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 			BrandTester brandTester = new BrandTester();
 			
 			PenTester penTester = new PenTester().brandTester(brandTester).colorTester(colorTester);
-			BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester)
-					;
-			FountainPenTester fountainPenTester = new FountainPenTester(penTester)
-					;
+			BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester);
+			FountainPenTester fountainPenTester = new FountainPenTester(penTester);
 
 			Object brandInstance = brandTester.instantiate(BrandName.CONCOPENS);
 			Object redEnum = colorTester.valueFrom(ColorEnum.RED);
 			Object greyEnum = colorTester.valueFrom(ColorEnum.GREY);
+
+			BallpointPenFactoryTester ballpointPenFactoryTester = new BallpointPenFactoryTester(penFactoryTester);
+			FountainPenFactoryTester fountainPenFactoryTester = new FountainPenFactoryTester(penFactoryTester);
 
 			return Arrays.asList(
 					// color
