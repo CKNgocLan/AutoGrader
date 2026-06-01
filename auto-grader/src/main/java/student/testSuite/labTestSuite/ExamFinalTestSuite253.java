@@ -27,40 +27,42 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 			
 			PenTester penTester = new PenTester().brandTester(brandTester).colorTester(colorTester);
 			BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester)
-//					.brandTester(brandTester)
-//					.colorTester(colorTester);
 					;
 			FountainPenTester fountainPenTester = new FountainPenTester(penTester)
-//					.brandTester(brandTester)
-//					.colorTester(colorTester);
 					;
 
 			Object brandInstance = brandTester.instantiate(BrandName.CONCOPENS);
 			Object redEnum = colorTester.valueFrom(ColorEnum.RED);
+			Object greyEnum = colorTester.valueFrom(ColorEnum.GREY);
 
 			return Arrays.asList(
 					// color
 					colorTester.declare()
-//					, colorTester.declareFields()
-//
-//					// brand
-//					, brandTester.declare()
-//					, brandTester.declareFields()
-//
-//					// penFactory
-//					, penFactoryTester.declare()
-//					, penFactoryTester.declareCreatePen()
-//
-//					// ballpointPen
-//					, ballpointPenTester.declare()
-//					, ballpointPenTester.declareSuper()
-//					, ballpointPenTester.declareConstructor()
+					, colorTester.declareFields()
+
+					// brand
+					, brandTester.declare()
+					, brandTester.declareFields()
+
+					// penFactory
+					, penFactoryTester.declare()
+					, penFactoryTester.declareCreatePen()
+
+					// ballpointPen
+					, ballpointPenTester.declare()
+					, ballpointPenTester.declareSuper()
+					, ballpointPenTester.declareConstructor()
 					, ballpointPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
 					, ballpointPenTester.declareGetDescription()
 					, ballpointPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
 
-//					// fountainPen
-//					, fountainPenTester.declare()
+					// fountainPen
+					, fountainPenTester.declare()
+					, fountainPenTester.declareSuper()
+					, fountainPenTester.declareConstructor()
+					, fountainPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
+					, fountainPenTester.declareGetDescription()
+					, fountainPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
 			);
 		} catch (ClassNotFoundException | TesterGotNoClassNameException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
