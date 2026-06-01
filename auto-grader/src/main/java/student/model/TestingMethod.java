@@ -160,6 +160,10 @@ public class TestingMethod {
 		return this.isAbstract;
 	}
 
+	/*
+	 * *************************
+	 */
+
 	public String invokeToString()
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		return String.valueOf(clazz.getMethod(MethodName.TO_STRING).invoke(instance));
@@ -228,18 +232,22 @@ public class TestingMethod {
 	 * *************************
 	 */
 
+	private Method getDeclaredMethod() throws NoSuchMethodException, SecurityException {
+		return clazz.getDeclaredMethod(name, getParameterTypes());
+	}
+
 	public Object returning() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
 			IllegalAccessException, InvocationTargetException {
 		isConfigured();
 
-		return clazz.getDeclaredMethod(name, getParameterTypes()).invoke(instance, getParameterValues());
+		return getDeclaredMethod().invoke(instance, getParameterValues());
 	}
 	
 	public Object returningInPrivate() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
 			IllegalAccessException, InvocationTargetException {
 		isConfigured();
 
-		java.lang.reflect.Method method = clazz.getDeclaredMethod(name, getParameterTypes());
+		java.lang.reflect.Method method = getDeclaredMethod();
 		method.setAccessible(true);
 		return method.invoke(instance, getParameterValues());
 	}
@@ -257,7 +265,7 @@ public class TestingMethod {
 	public boolean returnBooleanPrimitive() throws InvalidConfigurationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		isConfigured();
 
-		return ValueUtils.toBooleanPrimitive(clazz.getDeclaredMethod(name, getParameterTypes()).invoke(instance, getParameterValues()));
+		return ValueUtils.toBooleanPrimitive(getDeclaredMethod().invoke(instance, getParameterValues()));
 	}
 	
 	public boolean assertExpectedBoolean() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
@@ -267,7 +275,12 @@ public class TestingMethod {
 	public void returnVoid() throws InvalidConfigurationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		isConfigured();
 		
-		clazz.getDeclaredMethod(name, getParameterTypes()).invoke(instance, getParameterValues());
+		getDeclaredMethod().invoke(instance, getParameterValues());
+	}
+
+	public String returnString() throws InvalidConfigurationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		isConfigured();
+		return StringUtils.toString(getDeclaredMethod().invoke(instance, getParameterValues()));
 	}
 	
 	/*

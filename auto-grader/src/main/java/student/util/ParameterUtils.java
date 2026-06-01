@@ -44,4 +44,12 @@ public class ParameterUtils {
 	public static TestingParameter[] mapFromParameters(Parameter... parameters) {
 		return Stream.of(parameters).map(param -> new TestingParameter(param)).toArray(TestingParameter[]::new);
 	}
+
+	public static TestingParameter retrieve(TestingParameter[] parameterTestings, String name) {
+		if (StringUtils.isNullOrEmpty(name)) {
+			return null;
+		}
+
+		return Stream.of(parameterTestings).filter(param -> name.equals(param.getName())).findFirst().orElse(null);
+	}
 }

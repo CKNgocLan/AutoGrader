@@ -14,6 +14,7 @@ import student.model.TestingMethod;
 import student.model.Setter;
 import student.util.MethodUtils;
 import student.util.NumbericUtils;
+import student.util.StringUtils;
 import student.util.ValueUtils;
 
 /**
@@ -455,6 +456,43 @@ public class MethodTestcaseCreator {
 				try {
 					method.returnVoid();
 					return NumbericUtils.toInteger(method.getExpectedValue()).equals(method.getUpdatedValue(integerFieldName));
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+			}
+		};
+	}
+
+	public ITestCase operationAsString(int points, String className, TestingMethod method) {
+		return new ITestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					String actualString = method.returnString();
+					for (Object testingValue : method.getParameterValues()) {
+						if(!actualString.contains(StringUtils.toString(testingValue))) {
+							return false;
+						}
+					}
+					return true;
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					e.printStackTrace();
