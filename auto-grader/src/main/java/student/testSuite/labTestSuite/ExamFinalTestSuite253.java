@@ -41,31 +41,31 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 			return Arrays.asList(
 					// color
 					colorTester.declare()
-//					, colorTester.declareFields()
-//
-//					// brand
-//					, brandTester.declare()
-//					, brandTester.declareFields()
-//
-//					// penFactory
-//					, penFactoryTester.declare()
-//					, penFactoryTester.declareCreatePen()
-//
-//					// ballpointPen
-//					, ballpointPenTester.declare()
-//					, ballpointPenTester.declareSuper()
-//					, ballpointPenTester.declareConstructor()
-//					, ballpointPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
-//					, ballpointPenTester.declareGetDescription()
-//					, ballpointPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
-//
-//					// fountainPen
-//					, fountainPenTester.declare()
-//					, fountainPenTester.declareSuper()
-//					, fountainPenTester.declareConstructor()
-//					, fountainPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
-//					, fountainPenTester.declareGetDescription()
-//					, fountainPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
+					, colorTester.declareFields()
+
+					// brand
+					, brandTester.declare()
+					, brandTester.declareFields()
+
+					// penFactory
+					, penFactoryTester.declare()
+					, penFactoryTester.declareCreatePen()
+
+					// ballpointPen
+					, ballpointPenTester.declare()
+					, ballpointPenTester.declareSuper()
+					, ballpointPenTester.declareConstructor()
+					, ballpointPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
+					, ballpointPenTester.declareGetDescription()
+					, ballpointPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
+
+					// fountainPen
+					, fountainPenTester.declare()
+					, fountainPenTester.declareSuper()
+					, fountainPenTester.declareConstructor()
+					, fountainPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
+					, fountainPenTester.declareGetDescription()
+					, fountainPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
 
 					// ballpointPenFactoryTester
 					, ballpointPenFactoryTester.declare()
