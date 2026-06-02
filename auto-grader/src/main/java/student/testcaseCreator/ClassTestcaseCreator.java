@@ -261,6 +261,34 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
+	public ITestCase implementInterface(int points, String className, Class<?> interfaze) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_SUPERCLASS_EXTENDED_BY_CLASS.getName(className, interfaze.getSimpleName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Class.forName(className, true, targetClassesLoader).getInterfaces()[0].equals(interfaze);
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_EXTENDING_SUPERCLASS.getContent(className, interfaze.getSimpleName());
+			}
+		};
+	}
+	
 	public ITestCase operateConstructorViaSuper(int points, String className, TestingParameter... args) {
 		return new ITestCase() {
 			@Override

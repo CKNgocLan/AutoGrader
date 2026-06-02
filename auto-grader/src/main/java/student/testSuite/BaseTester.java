@@ -145,6 +145,14 @@ public abstract class BaseTester {
 	}
 
 	/*
+	 * interface
+	 */
+
+	protected ITestCase implementInterface(int points, Class<?> interfaze) {
+		return classTester.implementInterface(points, className, interfaze);
+	}
+
+	/*
 	 * constructor ***************
 	 */
 

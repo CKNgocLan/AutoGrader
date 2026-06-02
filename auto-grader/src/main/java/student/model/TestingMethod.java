@@ -90,6 +90,11 @@ public class TestingMethod {
 	public void setParameter(TestingParameter... parameters) {
 		this.parameters = parameters;
 	}
+
+	public TestingMethod addParameter(TestingParameter... parameters) {
+		setParameter(parameters);
+		return this;
+	}
 	
 	public Class<?> boxingReturnedType() {
 		return returnedType.isPrimitive() ? ClassUtils.boxing(returnedType): returnedType;

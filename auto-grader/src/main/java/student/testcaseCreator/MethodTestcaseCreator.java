@@ -507,6 +507,38 @@ public class MethodTestcaseCreator {
 		};
 	}
 
+	public ITestCase operationAsCasting(int points, TestingMethod method, Class<?> castingClass) {
+		return new ITestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					castingClass.cast(method.returning());
+					return true;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+			}
+		};
+	}
+
 	public ITestCase excludes(int points, Class<?> subclass, TestingMethod... method) {
 		return new ITestCase() {
 			@Override

@@ -23,7 +23,6 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 	@Override
 	public List<ITestCase> getAllTests(String question) {
 		try {
-			PenFactoryTester penFactoryTester = new PenFactoryTester();
 			ColorTester colorTester = new ColorTester();
 			BrandTester brandTester = new BrandTester();
 			
@@ -35,39 +34,50 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 			Object redEnum = colorTester.valueFrom(ColorEnum.RED);
 			Object greyEnum = colorTester.valueFrom(ColorEnum.GREY);
 
+			PenFactoryTester penFactoryTester = new PenFactoryTester(penTester.getCorrespondingClass()).brandTester(brandTester).colorTester(colorTester);
 			BallpointPenFactoryTester ballpointPenFactoryTester = new BallpointPenFactoryTester(penFactoryTester);
 			FountainPenFactoryTester fountainPenFactoryTester = new FountainPenFactoryTester(penFactoryTester);
 
 			return Arrays.asList(
 					// color
 					colorTester.declare()
-					, colorTester.declareFields()
+//					, colorTester.declareFields()
+//
+//					// brand
+//					, brandTester.declare()
+//					, brandTester.declareFields()
+//
+//					// penFactory
+//					, penFactoryTester.declare()
+//					, penFactoryTester.declareCreatePen()
+//
+//					// ballpointPen
+//					, ballpointPenTester.declare()
+//					, ballpointPenTester.declareSuper()
+//					, ballpointPenTester.declareConstructor()
+//					, ballpointPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
+//					, ballpointPenTester.declareGetDescription()
+//					, ballpointPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
+//
+//					// fountainPen
+//					, fountainPenTester.declare()
+//					, fountainPenTester.declareSuper()
+//					, fountainPenTester.declareConstructor()
+//					, fountainPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
+//					, fountainPenTester.declareGetDescription()
+//					, fountainPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
 
-					// brand
-					, brandTester.declare()
-					, brandTester.declareFields()
+					// ballpointPenFactoryTester
+					, ballpointPenFactoryTester.declare()
+					, ballpointPenFactoryTester.implementInterface()
+					, ballpointPenFactoryTester.operateCreatePen(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
 
-					// penFactory
-					, penFactoryTester.declare()
-					, penFactoryTester.declareCreatePen()
-
-					// ballpointPen
-					, ballpointPenTester.declare()
-					, ballpointPenTester.declareSuper()
-					, ballpointPenTester.declareConstructor()
-					, ballpointPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
-					, ballpointPenTester.declareGetDescription()
-					, ballpointPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
-
-					// fountainPen
-					, fountainPenTester.declare()
-					, fountainPenTester.declareSuper()
-					, fountainPenTester.declareConstructor()
-					, fountainPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
-					, fountainPenTester.declareGetDescription()
-					, fountainPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
+					// fountainPenFactoryTester
+					, fountainPenFactoryTester.declare()
+					, fountainPenFactoryTester.implementInterface()
+					, fountainPenFactoryTester.operateCreatePen(brandInstance, ModelName.TUZU_FORGE, greyEnum, 65)
 			);
-		} catch (ClassNotFoundException | TesterGotNoClassNameException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
