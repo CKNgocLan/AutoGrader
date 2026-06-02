@@ -13,6 +13,10 @@ public class Question {
 	public static final String Q5 = "5";
 	public static final String Q6 = "6";
 
+
+	public static final String SECTION_1 = "Section 1";
+	public static final String SECTION_2 = "Section 2";
+
 	public static List<String> getNameList() {
 		return Arrays.asList(Question.class.getDeclaredFields()).stream().map(field -> {
 			try {

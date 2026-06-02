@@ -1,4 +1,4 @@
-package student.testSuite.finalExam.final253;
+package student.testSuite.finalExam.final253.section1;
 
 import student.constant.ClassName;
 import student.constant.FieldName;

@@ -160,14 +160,9 @@ public class ExamMidtermTestSuite253 extends ALabTestSuite {
 				default:
 					return null;
 			}
-		} catch (ClassNotFoundException e) {
-			return null;
 		} catch (Exception e) {
 			System.out.println("Class Not Found: %s".formatted(e.getMessage()));
-			for (StackTraceElement st : e.getStackTrace()) {
-				System.out.println(st);
-			}
-
+			e.printStackTrace();
 			return null;
 		}
 	}
