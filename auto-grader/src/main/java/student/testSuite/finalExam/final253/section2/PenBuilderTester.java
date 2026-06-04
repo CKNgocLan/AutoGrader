@@ -1,14 +1,10 @@
 package student.testSuite.finalExam.final253.section2;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import student.constant.ClassName;
-import student.constant.Feedback;
 import student.constant.FieldName;
-import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ITestCase;
 import student.model.TestingMethod;
@@ -16,10 +12,9 @@ import student.model.TestingParameter;
 import student.solution.final253.section2.Pen;
 import student.testSuite.BaseTester;
 import student.util.ClassUtils;
-import student.util.MethodUtils;
 import student.util.SetterUtils;
 import student.util.StringUtils;
-import student.util.TestCaseUtils;
+import student.util.ValueUtils;
 
 public class PenBuilderTester extends BaseTester {
 	private ArrayList<TestingParameter> args;
@@ -87,9 +82,7 @@ public class PenBuilderTester extends BaseTester {
 	}
 
 	private TestingMethod createSetBrandMethod(String brand) throws Exception {
-		return createSetBrandMethod().updateParameter(
-				new TestingParameter(String.class, FieldName.BRAND, brand)
-		);
+		return createSetBrandMethod().updateParameter(new TestingParameter(String.class, FieldName.BRAND, brand));
 	}
 
 	public ITestCase declareSetBrand() {
@@ -108,15 +101,86 @@ public class PenBuilderTester extends BaseTester {
 			TestingMethod method = createSetBrandMethod(brand);
 
 			super.buildInstance(clazz, instance, method);
-			Field field = getFieldAsAccessible(clazz, FieldName.BRAND);
-			String testCaseType = TestcaseType.CHECK_METHOD_OPERATION.getName(clazz.getName(), method.getName());
-			String feedback = Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(clazz.getName(), method.getName());
 
-			if (brand.equals(StringUtils.toString(field.get(instance)))) {
-				return pass(testCaseType, feedback);
-			}
+			return brand.equals(StringUtils.toString(super.getFieldAsAccessible(clazz, FieldName.BRAND).get(instance))) ?
+					passMethodOperation(method.getName()) :
+					failMethodOperation(method.getName());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionTestCase(e);
+		}
+	}
 
-			return fail(testCaseType, feedback);
+	/*
+	 * setModel
+	 */
+
+	private TestingMethod createSetModelMethod() throws Exception {
+		return new TestingMethod(getCorrespondingClass(), SetterUtils.getSetterName(FieldName.MODEL), new TestingParameter(String.class));
+	}
+
+	private TestingMethod createSetModelMethod(String model) throws Exception {
+		return createSetModelMethod().updateParameter(new TestingParameter(String.class, FieldName.MODEL, model));
+	}
+
+	public ITestCase declareSetModel() {
+		try {
+			return super.methodTester.declare(defaultPoints, className, createSetModelMethod());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionTestCase(e);
+		}
+	}
+
+	public ITestCase operateSetModel(String model) {
+		try {
+			Class<?> clazz = getCorrespondingClass();
+			Object instance = instantiate();
+			TestingMethod method = createSetModelMethod(model);
+
+			super.buildInstance(clazz, instance, method);
+
+			return model.equals(StringUtils.toString(super.getFieldAsAccessible(clazz, FieldName.MODEL).get(instance))) ?
+					passMethodOperation(method.getName()) :
+					failMethodOperation(method.getName());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionTestCase(e);
+		}
+	}
+
+	/*
+	 * setPrice
+	 */
+
+	private TestingMethod createSetPriceMethod() throws Exception {
+		return new TestingMethod(getCorrespondingClass(), SetterUtils.getSetterName(FieldName.PRICE), new TestingParameter(double.class));
+	}
+
+	private TestingMethod createSetPriceMethod(double price) throws Exception {
+		return createSetPriceMethod().updateParameter(new TestingParameter(double.class, FieldName.PRICE, price));
+	}
+
+	public ITestCase declareSetPrice() {
+		try {
+			return super.methodTester.declare(defaultPoints, className, createSetPriceMethod());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionTestCase(e);
+		}
+	}
+
+	public ITestCase operateSetPrice(double price) {
+		try {
+			Class<?> clazz = getCorrespondingClass();
+			Object instance = instantiate();
+			TestingMethod method = createSetPriceMethod(price);
+
+			super.buildInstance(clazz, instance, method);
+
+			return price == ValueUtils.toDoublePrimitive(super.getFieldAsAccessible(clazz, FieldName.PRICE).get(instance)) ?
+					passMethodOperation(method.getName()) :
+					failMethodOperation(method.getName());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return exceptionTestCase(e);

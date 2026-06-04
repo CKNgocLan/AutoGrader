@@ -99,6 +99,10 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 //							, builderTester.declareFields()
 							, builderTester.declareSetBrand()
 							, builderTester.operateSetBrand(BrandName.CONCOPENS)
+							, builderTester.declareSetModel()
+							, builderTester.operateSetModel(ModelName.GOLDEN_LOTUS)
+							, builderTester.declareSetPrice()
+							, builderTester.operateSetPrice(61)
 					);
 				}
 				default:

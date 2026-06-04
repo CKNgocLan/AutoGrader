@@ -13,7 +13,6 @@ import student.constant.PropertyName;
 import student.exception.InvalidConfigurationException;
 import student.util.ClassUtils;
 import student.util.MethodUtils;
-import student.util.NumbericUtils;
 import student.util.ParameterUtils;
 import student.util.StringUtils;
 import student.util.ValueUtils;
@@ -259,8 +258,8 @@ public class TestingMethod {
 	
 	public Double returnNumbericAbs() throws NumberFormatException, NoSuchMethodException,
 			SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
-		return Math.abs(NumbericUtils.toDouble(boxingReturnedType().cast(returning()))
-				- NumbericUtils.toDouble(expectedValue));
+		return Math.abs(ValueUtils.toDouble(boxingReturnedType().cast(returning()))
+				- ValueUtils.toDouble(expectedValue));
 	}
 	
 	public Boolean returnBooleanInPrivate() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {

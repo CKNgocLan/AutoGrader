@@ -10,10 +10,9 @@ import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.Getter;
 import student.model.ITestCase;
-import student.model.TestingMethod;
 import student.model.Setter;
+import student.model.TestingMethod;
 import student.util.MethodUtils;
-import student.util.NumbericUtils;
 import student.util.StringUtils;
 import student.util.ValueUtils;
 
@@ -455,7 +454,7 @@ public class MethodTestcaseCreator {
 			public boolean runTest() {
 				try {
 					method.returnVoid();
-					return NumbericUtils.toInteger(method.getExpectedValue()).equals(method.getUpdatedValue(integerFieldName));
+					return ValueUtils.toInteger(method.getExpectedValue()).equals(method.getUpdatedValue(integerFieldName));
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					e.printStackTrace();
