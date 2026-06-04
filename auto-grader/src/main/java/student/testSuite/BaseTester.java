@@ -123,6 +123,10 @@ public abstract class BaseTester {
 	public ITestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
+
+	public ITestCase declareAsInnerClass(int points, String superClassName) {
+		return classTester.declareAsInnerClass(points, className, superClassName);
+	}
 	
 	public ITestCase declareAsInterface(int points) {
 		return classTester.declareAsInterface(points, className);
@@ -170,6 +174,10 @@ public abstract class BaseTester {
 	
 	protected ITestCase operateConstructorViaSuper(int points, TestingParameter... params) {
 		return classTester.operateConstructorViaSuper(points, className, params);
+	}
+
+	protected ITestCase declareConstructorAsPrivate(int points, Class<?>... parammeterTypes) {
+		return classTester.declareConstructorAsPrivate(points, className, parammeterTypes);
 	}
 
 	/*

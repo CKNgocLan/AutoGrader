@@ -163,6 +163,75 @@ public class ClassTestcaseCreator {
 			}
 		};
 	}
+	
+	public ITestCase declareConstructorAsPrivate(int points, String className, Class<?>... parammeterTypes) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_PRIVATE_CLASS_DECLARATION.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					clazz.getDeclaredConstructor(parammeterTypes);
+					if (Modifier.isPrivate(clazz.getModifiers())) {
+						return false;
+					}
+
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_PRIVATE.getContent(className);
+			}
+		};
+	}
+	public ITestCase declareAsInnerClass(int points, String className, String superClassName) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_DECLARED_INSIDE_CLASS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					Class<?> superClass = Class.forName(superClassName, true, targetClassesLoader);
+					for (Class<?> innerClass : clazz.getDeclaredClasses()) {
+						if (innerClass.equals(superClass)) {
+							return true;
+						}
+					}
+					return false;
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_INSIDE.getContent(className);
+			}
+		};
+	}
 
 	/**
 	 * Class existence testcase

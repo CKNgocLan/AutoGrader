@@ -19,6 +19,7 @@ import student.testSuite.finalExam.final253.section1.FountainPenFactoryTester;
 import student.testSuite.finalExam.final253.section1.FountainPenTester;
 import student.testSuite.finalExam.final253.section1.PenFactoryTester;
 import student.testSuite.finalExam.final253.section1.PenTester;
+import student.testSuite.finalExam.final253.section2.PenBuilderTester;
 
 public class ExamFinalTestSuite253 extends ALabTestSuite {
 	@Override
@@ -30,7 +31,9 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 					ColorTester colorTester = new ColorTester();
 					BrandTester brandTester = new BrandTester();
 					
-					PenTester penTester = new PenTester().brandTester(brandTester).colorTester(colorTester);
+					student.testSuite.finalExam.final253.section1.PenTester penTester = new student.testSuite.finalExam.final253.section1.PenTester()
+							.brandTester(brandTester)
+							.colorTester(colorTester);
 					BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester);
 					FountainPenTester fountainPenTester = new FountainPenTester(penTester);
 
@@ -84,7 +87,16 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 				}
 				case Question.SECTION_2:
 				{
-					return Arrays.asList();
+					PenBuilderTester builderTester = new PenBuilderTester();
+					student.testSuite.finalExam.final253.section2.PenTester penTester = new student.testSuite.finalExam.final253.section2.PenTester(builderTester);
+					return Arrays.asList(
+							penTester.declare()
+							, penTester.declareFields()
+
+							// builder
+							, builderTester.declare()
+							, builderTester.declareFields()
+					);
 				}
 				default:
 					return null;

@@ -69,12 +69,12 @@ public class BrandTester extends BaseTester {
 	 * constructor
 	 */
 
-	public ITestCase declareConstructor(int points) {
+	public ITestCase declareConstructor() {
 		try {
-			return super.checkConstructorDeclaration(points, String.class, String.class);
+			return super.checkConstructorDeclaration(defaultPoints, String.class, String.class);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			return TestCaseUtils.errorTestcase(points, className, e);
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
 		}
 	}
 

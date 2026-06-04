@@ -6,6 +6,8 @@ public enum TestcaseType {
 	, CHECK_INTERFACE_EXISTENCE("Check INTERFACE Existence: {0}")
 	, CHECK_ENUM_EXISTENCE("Check ENUM Existence: {0}")
 	, CHECK_ABSTRACT_CLASS_DECLARATION("Check Class Declared as Abstract: {0}")
+	, CHECK_PRIVATE_CLASS_DECLARATION("Check Class Declared as PRIVATE: {0}")
+	, CHECK_CLASS_DECLARED_INSIDE_CLASS("Check Class \"{0}\" DECLARED INSIDE Class \"{1}\"")
 	, CHECK_SUPERCLASS_EXTENDED_BY_CLASS("Check Super Class \"{1}\" EXTENDED by Class \"{0}\"")
 	, CHECK_INTERFACE_IMPLEMENTED_BY_CLASS("Check INTERFACE \"{1}\" Implemented by Class \"{0}\"")
 	, CHECK_DECLARATION_OF_CONSTRUCTOR_NO_ARGS("Check No-Argument Constructor DECLARATION of Class: {0}")
