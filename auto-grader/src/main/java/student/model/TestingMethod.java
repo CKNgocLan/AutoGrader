@@ -91,7 +91,7 @@ public class TestingMethod {
 		this.parameters = parameters;
 	}
 
-	public TestingMethod addParameter(TestingParameter... parameters) {
+	public TestingMethod updateParameter(TestingParameter... parameters) {
 		setParameter(parameters);
 		return this;
 	}

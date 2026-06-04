@@ -64,7 +64,7 @@ public class CircleTester extends BaseTester {
 	 */
 	
 	public ITestCase declareArea(int points) {
-		return super.methodTester.checkExistence(points, className, method());
+		return super.methodTester.declare(points, className, method());
 	}
 
 	public ITestCase operateArea(int points, double radius, double expected)

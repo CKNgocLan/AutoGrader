@@ -46,7 +46,7 @@ public class MethodTestcaseCreator {
 	 * existence ***************
 	 */
 
-	public ITestCase checkExistence(int points, String className, TestingMethod method) {
+	public ITestCase declare(int points, String className, TestingMethod method) {
 		return new ITestCase() {
 
 			@Override

@@ -116,7 +116,7 @@ public class CakeTester {
 	 */
 	
 	public ITestCase checkToStringDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
+		return methodTester.declare(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 	
 	public ITestCase checkToStringOperation(int points)

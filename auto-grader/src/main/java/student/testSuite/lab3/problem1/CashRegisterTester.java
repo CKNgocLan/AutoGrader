@@ -75,7 +75,7 @@ public class CashRegisterTester extends BaseTester {
 	 */
 	
 	public ITestCase declareGetSubtotal(int points) {
-		return super.methodTester.checkExistence(points, className, new TestingMethod(double.class, MethodName.GET_SUBTOTAL));
+		return super.methodTester.declare(points, className, new TestingMethod(double.class, MethodName.GET_SUBTOTAL));
 	}
 	
 	public ITestCase operateGetSubtotal(int points, double expected, TestingParameter[] args)
@@ -91,7 +91,7 @@ public class CashRegisterTester extends BaseTester {
 	 */
 	
 	public ITestCase declareGetTax(int points) {
-		return super.methodTester.checkExistence(points, className, new TestingMethod(double.class, MethodName.GET_TAX));
+		return super.methodTester.declare(points, className, new TestingMethod(double.class, MethodName.GET_TAX));
 	}
 	
 	public ITestCase operateGetTax(int points, double expected, TestingParameter[] args) throws ClassNotFoundException,
@@ -107,7 +107,7 @@ public class CashRegisterTester extends BaseTester {
 	 */
 	
 	public ITestCase declareGetTotal(int points) {
-		return super.methodTester.checkExistence(points, className, new TestingMethod(double.class, MethodName.GET_TOTAL));
+		return super.methodTester.declare(points, className, new TestingMethod(double.class, MethodName.GET_TOTAL));
 	}
 	
 	public ITestCase operateGetTotal(int points, double expected, TestingParameter[] args) throws ClassNotFoundException,

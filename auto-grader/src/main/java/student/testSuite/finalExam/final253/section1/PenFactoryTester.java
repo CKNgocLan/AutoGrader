@@ -45,7 +45,7 @@ public class PenFactoryTester extends BaseTester {
 	 * createPen
 	 */
 	protected TestingMethod createPen(Class<?> subclass, Object brand, String model, Object color, double price) throws ClassNotFoundException, TesterGotNoClassNameException {
-		return createPen(subclass).addParameter(createPenParameters(brand, model, color, price));
+		return createPen(subclass).updateParameter(createPenParameters(brand, model, color, price));
 	}
 
 	protected TestingMethod createPen(Class<?> subclass) {
@@ -72,7 +72,7 @@ public class PenFactoryTester extends BaseTester {
 
 	public ITestCase declareCreatePen(Class<?> clazz) {
 		try {
-			return super.methodTester.checkExistence(defaultPoints, clazz.getName(), createPen(clazz));
+			return super.methodTester.declare(defaultPoints, clazz.getName(), createPen(clazz));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);

@@ -73,11 +73,24 @@ public abstract class BaseTester {
 	}
 
 	/*
-	 * 
+	 * build instance
 	 */
+
+	protected void buildInstance(Class<?> clazz, Object instance, TestingMethod method) throws Exception {
+		this.methodTester.getMethodChecker().buildInstance(clazz, instance, method);
+	}
+
+	/*
+	 * default testcase
+	 */
+
 	protected ITestCase exceptionTestCase(Exception e) {
 		return TestCaseUtils.errorTestcase(defaultPoints, className, e);
 	}
+	protected ITestCase passTestCase() {
+		return TestCaseUtils.pass(defaultPoints, className);
+	}
+
 	/*
 	 * solution
 	 */
@@ -183,6 +196,8 @@ public abstract class BaseTester {
 		return classTester.declareConstructorAsPrivate(points, className, parammeterTypes);
 	}
 
+//	protected void 
+
 	/*
 	 * field ***************
 	 */
@@ -215,7 +230,7 @@ public abstract class BaseTester {
 	 */
 
 	public ITestCase checkToStringDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
+		return methodTester.declare(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 
 	public ITestCase checkToStringOperation(int points, TestingParameter... args) throws ClassNotFoundException {

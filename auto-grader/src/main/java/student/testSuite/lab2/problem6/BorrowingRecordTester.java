@@ -107,7 +107,7 @@ public class BorrowingRecordTester {
      */
 
 	public ITestCase checkEqualsDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, MethodUtils.createMethodEquals(FieldName.BORROWING_RECORD,
+		return methodTester.declare(points, className, MethodUtils.createMethodEquals(FieldName.BORROWING_RECORD,
 				BorrowingRecordTester.getCorrespondingClass()));
 	}
 }

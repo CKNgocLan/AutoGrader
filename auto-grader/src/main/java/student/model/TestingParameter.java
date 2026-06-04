@@ -91,4 +91,8 @@ public class TestingParameter {
 
 		return true;
 	}
+
+	public boolean equalsName(TestingParameter parameter) {
+		return this.name.equals(parameter.getName());
+	}
 }

@@ -234,4 +234,12 @@ public class MethodChecker {
 
 		return true;
 	}
+
+	/*
+	 * build
+	 */
+	
+	public void buildInstance(Class<?> clazz, Object instance, TestingMethod method) throws Exception {
+		clazz.getDeclaredMethod(method.getName(), method.getParameterTypes()).invoke(instance, method.getParameterValues());
+	}
 }

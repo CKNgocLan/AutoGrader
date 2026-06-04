@@ -15,6 +15,7 @@ import student.testSuite.BaseTester;
 import student.util.ClassUtils;
 import student.util.MethodUtils;
 import student.util.SetterUtils;
+import student.util.TestCaseUtils;
 
 public class PenBuilderTester extends BaseTester {
 	private ArrayList<TestingParameter> args;
@@ -77,12 +78,38 @@ public class PenBuilderTester extends BaseTester {
 	 * setBrand
 	 */
 
-	private TestingMethod createSetBrandMethod() {
-		return MethodUtils.fromSolution(solutionClass, SetterUtils.getSetterName(FieldName.BRAND));
+	private TestingMethod createSetBrandMethod() throws Exception {
+		return new TestingMethod(getCorrespondingClass(), SetterUtils.getSetterName(FieldName.BRAND), new TestingParameter(String.class));
+	}
+
+	private TestingMethod createSetBrandMethod(String brand) throws Exception {
+		return createSetBrandMethod().updateParameter(
+				new TestingParameter(String.class, FieldName.BRAND, brand)
+		);
 	}
 
 	public ITestCase declareSetBrand() {
-		return null;
-//		return super.methodTester.de
+		try {
+			return super.methodTester.declare(defaultPoints, className, createSetBrandMethod());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionTestCase(e);
+		}
+	}
+
+	public ITestCase operateSetBrand(String brand) {
+		try {
+			Class<?> clazz = getCorrespondingClass();
+			Object instance = instantiate();
+			TestingMethod method = createSetBrandMethod(brand);
+
+			super.buildInstance(clazz, instance, method);
+//			super.methodTester.getMethodChecker().buildInstance(clazz, instance, method);
+
+			return passTestCase();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionTestCase(e);
+		}
 	}
 }

@@ -102,7 +102,7 @@ public class ServiceEstimateTester {
 	 */
 
 	public ITestCase checkToStringExistence(int points) {
-		return methodTester.checkExistence(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
+		return methodTester.declare(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 	
 	public ITestCase checkToStringOperation(int points) {
@@ -154,7 +154,7 @@ public class ServiceEstimateTester {
 	 */
 
 	public ITestCase checkGetTotalCostAfterTaxExistence(int points) {
-		return methodTester.checkExistence(points, className,
+		return methodTester.declare(points, className,
 				new TestingMethod(double.class, MethodName.GET_TOTAL_COST_AFTER_TAX));
 	}
 	

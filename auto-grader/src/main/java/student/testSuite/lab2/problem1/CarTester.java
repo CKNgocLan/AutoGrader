@@ -70,7 +70,7 @@ public class CarTester {
 	 */
 
 	public ITestCase checkAccelerateDeclaration(int points) {
-		return methodTester.checkExistence(points, ClassName.CAR, new TestingMethod(int.class, MethodName.ACCELERATE));
+		return methodTester.declare(points, ClassName.CAR, new TestingMethod(int.class, MethodName.ACCELERATE));
 	}
 
 	public ITestCase checkAccelerateOperation(int points) {
@@ -126,7 +126,7 @@ public class CarTester {
 	 */
 
 	public ITestCase checkBrakeDeclaration(int points) {
-		return methodTester.checkExistence(points, ClassName.CAR, new TestingMethod(int.class, MethodName.BRAKE));
+		return methodTester.declare(points, ClassName.CAR, new TestingMethod(int.class, MethodName.BRAKE));
 	}
 
 	public ITestCase checkBrakeOperation(int points) {

@@ -102,7 +102,7 @@ public class BookTester {
      */
 
 	public ITestCase checkEqualsDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className,
+		return methodTester.declare(points, className,
 				MethodUtils.createMethodEquals(FieldName.BOOK, BookTester.getCorrespondingClass()));
 	}
 }

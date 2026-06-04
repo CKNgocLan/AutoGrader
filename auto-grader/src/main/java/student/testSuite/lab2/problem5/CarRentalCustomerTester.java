@@ -116,7 +116,7 @@ public class CarRentalCustomerTester {
 	 */
 
 	public ITestCase checkToStringDeclaration(int points) {
-		return methodTester.checkExistence(points, className, MethodUtils.createMethodToString());
+		return methodTester.declare(points, className, MethodUtils.createMethodToString());
 	}
 
 	public ITestCase checkToStringOperation(int points, String name, String address, String licenseNumber)

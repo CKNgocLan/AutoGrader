@@ -97,7 +97,7 @@ public class LibraryManagementTester {
      */
 
 	public ITestCase addUserDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.ADD_USER,
+		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.ADD_USER,
 				new TestingParameter(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
 
@@ -106,7 +106,7 @@ public class LibraryManagementTester {
      */
 
 	public ITestCase addBookDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.ADD_BOOK,
+		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.ADD_BOOK,
 				new TestingParameter(BookTester.getCorrespondingClass(), FieldName.BOOK)));
 	}
     
@@ -115,7 +115,7 @@ public class LibraryManagementTester {
      */
 
 	public ITestCase addBorrowingRecordDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.ADD_BORROWING_RECORD,
+		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.ADD_BORROWING_RECORD,
 				new TestingParameter(BorrowingRecordTester.getCorrespondingClass(), FieldName.BORROWING_RECORD)));
 	}
     
@@ -124,7 +124,7 @@ public class LibraryManagementTester {
      */
 
 	public ITestCase getBorrowingBooksDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new TestingMethod(List.class, MethodName.GET_BORROWING_BOOKS,
+		return methodTester.declare(points, className, new TestingMethod(List.class, MethodName.GET_BORROWING_BOOKS,
 				new TestingParameter(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
     
@@ -133,7 +133,7 @@ public class LibraryManagementTester {
      */
 
 	public ITestCase isValidUserDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new TestingMethod(Modifier.PRIVATE, boolean.class, MethodName.IS_VALID_USER,
+		return methodTester.declare(points, className, new TestingMethod(Modifier.PRIVATE, boolean.class, MethodName.IS_VALID_USER,
 				new TestingParameter(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
     
@@ -142,7 +142,7 @@ public class LibraryManagementTester {
      */
 
 	public ITestCase isUserEligibleToBorrowDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new TestingMethod(Modifier.PRIVATE, boolean.class, MethodName.IS_USER_ELIGIBLE_TO_BORROW,
+		return methodTester.declare(points, className, new TestingMethod(Modifier.PRIVATE, boolean.class, MethodName.IS_USER_ELIGIBLE_TO_BORROW,
 				new TestingParameter(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
     
@@ -151,7 +151,7 @@ public class LibraryManagementTester {
      */
 
 	public ITestCase showAllUsersDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_USERS));
+		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_USERS));
 	}
     
     /*
@@ -159,7 +159,7 @@ public class LibraryManagementTester {
      */
 
 	public ITestCase showAllBooksDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_BOOKS));
+		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_BOOKS));
 	}
     
     /*
@@ -167,6 +167,6 @@ public class LibraryManagementTester {
      */
 
 	public ITestCase showAllBorrowingRecordsDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_BORROWING_RECORDS));
+		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_BORROWING_RECORDS));
 	}
 }

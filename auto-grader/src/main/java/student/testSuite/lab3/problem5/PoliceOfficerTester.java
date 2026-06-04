@@ -112,7 +112,7 @@ public class PoliceOfficerTester extends BaseTester {
 	
 	public ITestCase declareExamineCar(int points) {
 		try {
-			return super.methodTester.checkExistence(points, className, examineCarMethod());
+			return super.methodTester.declare(points, className, examineCarMethod());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(points, className, e);
@@ -172,7 +172,7 @@ public class PoliceOfficerTester extends BaseTester {
 	
 	public ITestCase declareIssueTicket(int points) {
 		try {
-			return super.methodTester.checkExistence(points, className, issueTicketMethod());
+			return super.methodTester.declare(points, className, issueTicketMethod());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(points, className, e);

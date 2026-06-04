@@ -103,7 +103,7 @@ public class UserTester {
      */
 
     public ITestCase checkEqualsDeclaration(int points) throws ClassNotFoundException {
-    	return methodTester.checkExistence(points, className,
+    	return methodTester.declare(points, className,
 				MethodUtils.createMethodEquals(FieldName.USER, UserTester.getCorrespondingClass()));
     }
     

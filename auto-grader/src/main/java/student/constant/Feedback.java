@@ -32,6 +32,7 @@ public enum Feedback {
 	, METHOD_OPERATED_NOT_CORRECT("Method {1}() of class {0} OPERATED NOT CORRECTLY.")
 	
 	, FAILED_TESTCASE_DUE_TO_ERROR("TESTCASE FAILED with message: {0}")
+	, PASSED_TESTCASE_BUT_EXCEPTION("PASSED TESTCASE Exception while checking Class: {0}")
 	;
 	
 	private final String value;

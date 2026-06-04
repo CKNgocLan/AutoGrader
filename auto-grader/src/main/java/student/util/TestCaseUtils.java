@@ -28,4 +28,28 @@ public class TestCaseUtils {
 			}
 		};
 	}
+
+	public static ITestCase pass(int points, String className) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.PASSED_TESTCASE.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				return true;
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.PASSED_TESTCASE_BUT_EXCEPTION.getContent(className);
+			}
+		};
+	}
 }

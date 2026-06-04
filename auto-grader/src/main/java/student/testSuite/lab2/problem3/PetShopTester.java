@@ -110,7 +110,7 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkAddCustomerDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className,
+		return methodTester.declare(points, className,
 				new TestingMethod(ClassLoader.retrieveClass(ClassName.CUSTOMER), MethodName.ADD_CUSTOMER,
 						new TestingParameter(ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMERS)));
 	}
@@ -156,7 +156,7 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkShowAllCustomersDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_CUSTOMERS));
+		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_CUSTOMERS));
 	}
 
 	public ITestCase checkShowAllCustomersOperation(int points) {
@@ -219,7 +219,7 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkAddPetDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new TestingMethod(void.class,
+		return methodTester.declare(points, className, new TestingMethod(void.class,
 				MethodName.ADD_PET, new TestingParameter(PetTester.getCorrespondingClass(), FieldName.PETS)));
 	}
 
@@ -266,7 +266,7 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkShowAllPetsDeclaration(int points) {
-		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_PETS));
+		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_PETS));
 	}
 
 	public ITestCase checkShowAllPetsOperation(int points) throws ClassNotFoundException {
@@ -326,7 +326,7 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkAddServiceEstimateDeclaration(int points) throws ClassNotFoundException {
-		return methodTester.checkExistence(points, className, new TestingMethod(void.class, MethodName.ADD_SERVICE_ESTIMATE,
+		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.ADD_SERVICE_ESTIMATE,
 				new TestingParameter(ServiceEstimateTester.getCorrespondingClass(), FieldName.SERVICE_ESTIMATES)));
 	}
 
@@ -370,7 +370,7 @@ public class PetShopTester {
 	 */
 
 	public ITestCase checkShowAllServiceEstimatesDeclaration(int points) {
-		return methodTester.checkExistence(points, className,
+		return methodTester.declare(points, className,
 				new TestingMethod(void.class, MethodName.SHOW_ALL_SERVICE_ESTIMATES));
 	}
 

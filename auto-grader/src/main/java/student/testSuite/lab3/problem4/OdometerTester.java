@@ -152,7 +152,7 @@ public class OdometerTester extends BaseTester {
 	}
 	
 	public ITestCase declareIncrementMileage(int points) {
-		return super.methodTester.checkExistence(points, className, incrementMileageMethod());
+		return super.methodTester.declare(points, className, incrementMileageMethod());
 	}
 //	
 //	public ITestCase operateIncrementMileage(int points, int expected) {
@@ -236,7 +236,7 @@ public class OdometerTester extends BaseTester {
 	}
 	
 	public ITestCase declareGetMileage(int points) {
-		return super.methodTester.checkExistence(points, className, getMileageMethod());
+		return super.methodTester.declare(points, className, getMileageMethod());
 	}
 	
 	public ITestCase operateGetMileage(int points, int expected) {
