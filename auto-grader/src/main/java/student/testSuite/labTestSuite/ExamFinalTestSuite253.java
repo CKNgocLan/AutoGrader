@@ -1,6 +1,5 @@
 package student.testSuite.labTestSuite;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -8,7 +7,6 @@ import student.constant.BrandName;
 import student.constant.ColorEnum;
 import student.constant.ModelName;
 import student.constant.Question;
-import student.exception.TesterGotNoClassNameException;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.testSuite.finalExam.final253.section1.BallpointPenFactoryTester;
@@ -18,7 +16,6 @@ import student.testSuite.finalExam.final253.section1.ColorTester;
 import student.testSuite.finalExam.final253.section1.FountainPenFactoryTester;
 import student.testSuite.finalExam.final253.section1.FountainPenTester;
 import student.testSuite.finalExam.final253.section1.PenFactoryTester;
-import student.testSuite.finalExam.final253.section1.PenTester;
 import student.testSuite.finalExam.final253.section2.PenBuilderTester;
 
 public class ExamFinalTestSuite253 extends ALabTestSuite {
@@ -89,25 +86,29 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 				{
 					PenBuilderTester builderTester = new PenBuilderTester();
 					student.testSuite.finalExam.final253.section2.PenTester penTester = new student.testSuite.finalExam.final253.section2.PenTester(builderTester);
+
 					String brand = BrandName.CONCOPENS;
 					String model = ModelName.GOLDEN_LOTUS;
 					double price = 61;
 
 					return Arrays.asList(
 							penTester.declare()
-//							, penTester.declareFields()
-//							, penTester.declarePrivateConstructor()
-//
-//							// builder
-//							, builderTester.declare()
-//							, builderTester.declareFields()
-//							, builderTester.declareSetBrand()
-//							, builderTester.operateSetBrand(brand)
-//							, builderTester.declareSetModel()
-//							, builderTester.operateSetModel(model)
-//							, builderTester.declareSetPrice()
-//							, builderTester.operateSetPrice(price)
-//							, builderTester.declareBuild()
+							, penTester.declareFields()
+							, penTester.declarePrivateConstructor()
+							, penTester.checkGetterDeclaration(defaultPoints)
+							, penTester.checkToStringDeclaration(defaultPoints)
+							, penTester.operateToString(brand, model, price)
+
+							// builder
+							, builderTester.declare()
+							, builderTester.declareFields()
+							, builderTester.declareSetBrand()
+							, builderTester.operateSetBrand(brand)
+							, builderTester.declareSetModel()
+							, builderTester.operateSetModel(model)
+							, builderTester.declareSetPrice()
+							, builderTester.operateSetPrice(price)
+							, builderTester.declareBuild()
 							, builderTester.operateBuild(brand, model, price)
 					);
 				}

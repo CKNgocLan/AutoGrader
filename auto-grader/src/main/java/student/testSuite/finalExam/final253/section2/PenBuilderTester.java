@@ -1,7 +1,6 @@
 package student.testSuite.finalExam.final253.section2;
 
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 import student.constant.ClassName;
 import student.constant.FieldName;
@@ -55,10 +54,10 @@ public class PenBuilderTester extends BaseTester {
 		this.args.add(new TestingParameter(double.class, FieldName.PRICE, price));
 		return args;
 	}
-
-	public Object build() throws Exception {
-		return instantiateWithArgs(Stream.of(this.args).toArray(TestingParameter[]::new));
-	}
+//
+//	public Object build() throws Exception {
+//		return instantiateWithArgs(Stream.of(this.args).toArray(TestingParameter[]::new));
+//	}
 	
 	/*
 	 * declare
@@ -194,7 +193,7 @@ public class PenBuilderTester extends BaseTester {
 	 * build
 	 */
 
-	private TestingMethod createBuildMethod() throws Exception {
+	public TestingMethod createBuildMethod() throws Exception {
 		return new TestingMethod(retriveClass(containingClassName), MethodName.BUILD);
 	}
 
@@ -209,21 +208,10 @@ public class PenBuilderTester extends BaseTester {
 
 	public ITestCase operateBuild(String brand, String model, double price) {
 		try {
-			Class<?> clazz = getCorrespondingClass();
-			Object builderInstance = instantiate();
 			TestingMethod method = createBuildMethod();
-
-			// brand
-			super.buildInstance(clazz, builderInstance, createSetBrandMethod(brand));
-
-			// model
-			super.buildInstance(clazz, builderInstance, createSetModelMethod(model));
-
-			// price
-			super.buildInstance(clazz, builderInstance, createSetPriceMethod(price));
+			Object penInstance = buildPen(brand, model, price, method);
 
 			Class<?> penClass = retriveClass(containingClassName);
-			Object penInstance = method.config(clazz, builderInstance).returning();
 			try {
 				penClass.cast(penInstance);
 			} catch (ClassCastException e) {
@@ -239,5 +227,21 @@ public class PenBuilderTester extends BaseTester {
 			e.printStackTrace();
 			return exceptionTestCase(e);
 		}
+	}
+
+	public Object buildPen(String brand, String model, double price, TestingMethod buildMethod) throws Exception {
+		Class<?> clazz = getCorrespondingClass();
+		Object builderInstance = instantiate();
+
+		// brand
+		super.buildInstance(clazz, builderInstance, createSetBrandMethod(brand));
+
+		// model
+		super.buildInstance(clazz, builderInstance, createSetModelMethod(model));
+
+		// price
+		super.buildInstance(clazz, builderInstance, createSetPriceMethod(price));
+
+		return buildMethod.config(clazz, builderInstance).returning();
 	}
 }
