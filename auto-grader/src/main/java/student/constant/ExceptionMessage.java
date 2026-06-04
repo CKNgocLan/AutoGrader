@@ -8,6 +8,7 @@ public enum ExceptionMessage {
 	, INVALID_EMPLOYEE_NUMBER_FORMAT("Invalid employee number format.")
 	, NO_SOLUTION_CLASS("No Solution Class Defined for Class {0}.")
 	, INVALID_FIELD("INVALID FIELDS: {0}")
+	, INVALID_CLASS_NAME("INVALID CLASS NAME INPUT: {0}")
 	, IS_NULL_IN_CLASS("{0} IS NULL in \"{1}\" class")
 	;
 	

@@ -62,4 +62,5 @@ public class MethodName {
 	public static final String IS_VALID_NUMBER = "isValidNumber";
 	public static final String CREATE_PEN = "createPen";
 	public static final String GET_DESCRIPTION = "getDescription";
+	public static final String BUILD = "build";
 }

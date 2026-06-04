@@ -103,6 +103,7 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 							, builderTester.operateSetModel(ModelName.GOLDEN_LOTUS)
 							, builderTester.declareSetPrice()
 							, builderTester.operateSetPrice(61)
+							, builderTester.declareBuild()
 					);
 				}
 				default:

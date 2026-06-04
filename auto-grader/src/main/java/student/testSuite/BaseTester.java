@@ -16,7 +16,6 @@ import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
-import student.util.ClassUtils;
 import student.util.FieldUtils;
 import student.util.MethodUtils;
 import student.util.ParameterUtils;
@@ -36,25 +35,29 @@ public abstract class BaseTester {
 	 * class ***************
 	 */
 
-	public Class<?> getCorrespondingClass() throws ClassNotFoundException, TesterGotNoClassNameException {
-		try {
-			if (StringUtils.isNullOrEmpty(className)) {
-				throw new TesterGotNoClassNameException(
-						ExceptionMessage.TESTER_GOT_NO_CLASS_NAME.getContent(this.getClass().getSimpleName()));
-			}
-
-			if (clazz == null) {
-				clazz = Class.forName(className, true, ClassLoader.getInstance());
-			}
-
-			return clazz;
-		} catch (ClassNotFoundException e) {
-			return null;
+	public Class<?> getCorrespondingClass() throws ClassNotFoundException, TesterGotNoClassNameException, ClassNotFoundException {
+		if (StringUtils.isNullOrEmpty(className)) {
+			throw new TesterGotNoClassNameException(
+					ExceptionMessage.TESTER_GOT_NO_CLASS_NAME.getContent(this.getClass().getSimpleName()));
 		}
+
+		if (clazz == null) {
+			clazz = Class.forName(className, true, ClassLoader.getInstance());
+		}
+
+		return clazz;
 	}
 
 	protected String getCorrespondingClassName() {
 		return this.className;
+	}
+
+	public Class<?> retriveClass(String className) throws IllegalArgumentException, ClassNotFoundException {
+		if (StringUtils.isNullOrEmpty(className)) {
+			throw new IllegalArgumentException(ExceptionMessage.INVALID_CLASS_NAME.getContent(className));
+		}
+
+		return Class.forName(className, true, ClassLoader.getInstance());
 	}
 
 	/*

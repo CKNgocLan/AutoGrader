@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 
 import student.constant.ClassName;
 import student.constant.FieldName;
+import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ITestCase;
 import student.model.TestingMethod;
@@ -18,6 +19,7 @@ import student.util.ValueUtils;
 
 public class PenBuilderTester extends BaseTester {
 	private ArrayList<TestingParameter> args;
+	private String containingClassName = ClassName.PEN;
 
 	/*
 	 * instantiate ***************
@@ -27,6 +29,7 @@ public class PenBuilderTester extends BaseTester {
 		super.className = ClassUtils.toInnerClassName(ClassName.PEN, ClassName.PEN_BUILDER);
 		super.getCorrespondingClass();
 		super.solutionClass = Pen.PenBuilder.class;
+		
 	}
 
 	/*
@@ -186,4 +189,22 @@ public class PenBuilderTester extends BaseTester {
 			return exceptionTestCase(e);
 		}
 	}
+
+	/*
+	 * build
+	 */
+
+	private TestingMethod createBuildMethod() throws Exception {
+		return new TestingMethod(retriveClass(containingClassName), MethodName.BUILD);
+	}
+
+	public ITestCase declareBuild() {
+		try {
+			return super.methodTester.declare(defaultPoints, className, createBuildMethod());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionTestCase(e);
+		}
+	}
+
 }
