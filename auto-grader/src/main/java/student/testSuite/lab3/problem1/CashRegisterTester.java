@@ -48,6 +48,14 @@ public class CashRegisterTester extends BaseTester {
 				new TestingField(int.class, FieldName.QUANTITY),
 				new TestingField(double.class, FieldName.UPPERCASE_TAX_RATE).asStatic().asFinal());
 	}
+	
+	/*
+	 * declare
+	 */
+
+	public ITestCase declare() {
+		return super.declare(defaultPoints);
+	}
 
 	/*
 	 * constructor ***************

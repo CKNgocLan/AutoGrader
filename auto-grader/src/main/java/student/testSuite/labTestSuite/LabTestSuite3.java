@@ -51,7 +51,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 
 					return Arrays.asList(
 							// retail item
-							retailItemTester.declare(defaultPoints)
+							retailItemTester.declare()
 							, retailItemTester.checkFields(defaultPoints)
 							, retailItemTester.checkConstructorDeclaration(defaultPoints)
 							, retailItemTester.checkConstructorOperation(defaultPoints, retailItemArgs)
@@ -59,7 +59,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 							, retailItemTester.checkSetterDeclaration(defaultPoints)
 
 							// cash register
-							, cashRegisterTester.declare(defaultPoints)
+							, cashRegisterTester.declare()
 							, cashRegisterTester.checkFields(defaultPoints)
 							, cashRegisterTester.checkConstructorDeclaration(defaultPoints)
 							, cashRegisterTester.checkConstructorOperation(defaultPoints, cashRegisterArgs)
@@ -82,7 +82,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 					double height = 9;
 
 					return Arrays.asList(
-							shapeClassTester.declare(defaultPoints)
+							shapeClassTester.declare()
 							, shapeClassTester.declareAreaCircle(defaultPoints)
 							, shapeClassTester.operateAreaCircle(defaultPoints, radius, Math.PI * Math.pow(radius, 2))
 							, shapeClassTester.operateAreaCircle(defaultPoints, Double.MAX_VALUE, Math.PI * Math.pow(Double.MAX_VALUE, 2))
@@ -112,7 +112,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, shapeInterfaceTester.declareArea(defaultPoints)
 
 						// circle
-						, circleTester.declare(defaultPoints)
+						, circleTester.declare()
 						, circleTester.implementShape(defaultPoints)
 						, circleTester.constructor(defaultPoints)
 						, circleTester.checkFields(defaultPoints)
@@ -120,7 +120,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, circleTester.operateArea(defaultPoints, radius, Math.PI * Math.pow(radius, 2))
 
 						// rectangle
-						, rectangleTester.declare(defaultPoints)
+						, rectangleTester.declare()
 						, rectangleTester.implementShape(defaultPoints)
 						, rectangleTester.constructor(defaultPoints)
 						, rectangleTester.checkFields(defaultPoints)
@@ -128,7 +128,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, rectangleTester.operateArea(defaultPoints, width, length, width * length)
 
 						// cylinder
-						, cylinderTester.declare(defaultPoints)
+						, cylinderTester.declare()
 						, cylinderTester.implementShape(defaultPoints)
 						, cylinderTester.constructor(defaultPoints)
 						, cylinderTester.checkFields(defaultPoints)

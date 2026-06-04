@@ -1,6 +1,5 @@
 package student.testSuite;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
@@ -8,16 +7,16 @@ import student.constant.ExceptionMessage;
 import student.constant.Feedback;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
-import student.exception.NoSolutionClassException;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ClassLoader;
-import student.model.TestingField;
 import student.model.ITestCase;
+import student.model.TestingField;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
+import student.util.ClassUtils;
 import student.util.FieldUtils;
 import student.util.MethodUtils;
 import student.util.ParameterUtils;
@@ -120,24 +119,28 @@ public abstract class BaseTester {
 	 * declare ***************
 	 */
 
-	public ITestCase declare(int points) {
+	protected ITestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
-	public ITestCase declareAsInnerClass(int points, String superClassName) {
-		return classTester.declareAsInnerClass(points, className, superClassName);
+	protected ITestCase declareAsInnerStaticClass(int points) {
+		return classTester.declareAsInnerStaticClass(points, className);
 	}
 	
-	public ITestCase declareAsInterface(int points) {
+	protected ITestCase declareAsInterface(int points) {
 		return classTester.declareAsInterface(points, className);
 	}
 	
-	public ITestCase declareAsEnum(int points) {
+	protected ITestCase declareAsEnum(int points) {
 		return classTester.declareAsEnum(points, className);
 	}
 	
 	protected ITestCase declareAsAbstract(int points) {
 		return classTester.declareAsAbstract(points, className);
+	}
+
+	protected ITestCase declareAsStaticClass(int points) {
+		return classTester.declareAsStaticClass(points, className);
 	}
 	
 	/*

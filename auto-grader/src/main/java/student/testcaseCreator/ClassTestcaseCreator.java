@@ -13,6 +13,7 @@ import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.ITestCase;
 import student.model.TestingParameter;
+import student.util.ClassUtils;
 import student.util.ParameterUtils;
 
 public class ClassTestcaseCreator {
@@ -164,6 +165,34 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
+	public ITestCase declareAsStaticClass(int points, String className) {
+		return new ITestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_STATIC_CLASS_DECLARATION.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Modifier.isStatic(Class.forName(className, true, targetClassesLoader).getModifiers());
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_STATIC.getContent(className);
+			}
+		};
+	}
+	
 	public ITestCase declareConstructorAsPrivate(int points, String className, Class<?>... parammeterTypes) {
 		return new ITestCase() {
 			@Override
@@ -197,11 +226,13 @@ public class ClassTestcaseCreator {
 			}
 		};
 	}
-	public ITestCase declareAsInnerClass(int points, String className, String superClassName) {
+
+	public ITestCase declareAsInnerStaticClass(int points, String className) {
+		Object[] classNameArgs = ClassUtils.splitInnerClassName(className);
 		return new ITestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_CLASS_DECLARED_INSIDE_CLASS.getName(className);
+				return TestcaseType.CHECK_CLASS_DECLARED_STATIC_INNER_CLASS.getName(classNameArgs);
 			}
 
 			@Override
@@ -212,14 +243,7 @@ public class ClassTestcaseCreator {
 			@Override
 			public boolean runTest() {
 				try {
-					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
-					Class<?> superClass = Class.forName(superClassName, true, targetClassesLoader);
-					for (Class<?> innerClass : clazz.getDeclaredClasses()) {
-						if (innerClass.equals(superClass)) {
-							return true;
-						}
-					}
-					return false;
+					return Modifier.isStatic(Class.forName(className, true, targetClassesLoader).getModifiers());
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 					return false;
@@ -228,11 +252,11 @@ public class ClassTestcaseCreator {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CLASS_NOT_INSIDE.getContent(className);
+				return Feedback.CLASS_NOT_STATIC_INSIDE.getContent(classNameArgs);
 			}
 		};
 	}
-
+	
 	/**
 	 * Class existence testcase
 	 * 
@@ -370,6 +394,7 @@ public class ClassTestcaseCreator {
 				return points;
 			}
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public boolean runTest() {
 				try {

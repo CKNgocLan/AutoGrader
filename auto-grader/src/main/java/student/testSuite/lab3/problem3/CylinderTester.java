@@ -37,6 +37,10 @@ public class CylinderTester extends BaseTester {
 	/*
 	 * declare
 	 */
+
+	public ITestCase declare() {
+		return super.declare(defaultPoints);
+	}
 	
 	public ITestCase implementShape(int points) {
 		return super.classTester.checkImplementingInterface(points, className, ClassName.SHAPE);

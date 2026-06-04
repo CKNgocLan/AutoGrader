@@ -3,10 +3,11 @@ import java.text.MessageFormat;
 
 public enum Feedback {
 	CLASS_NOT_FOUND("Class \"{0}\" was not found. Make sure {0}.java is in the submission folder.")
-	, CLASS_NOT_INSIDE("Class \"{0}\" was NOT DECLARED INSIDE class \"{1}\".")
+	, CLASS_NOT_STATIC_INSIDE("Class \"{0}\" was NOT DECLARED INSIDE class \"{1}\".")
 	, ENUM_NOT_FOUND("ENUM \"{0}\" was not found. Make sure {0}.java is in the submission folder.")
 	, CLASS_NOT_EXTENDING_SUPERCLASS("Class \"{0}\" was NOT EXTENDING SUPER CLASS \"{1}\".")
 	, CLASS_NOT_ABSTRACT("Class \"{0}\" was NOT ABSTRACT.")
+	, CLASS_NOT_STATIC("Class \"{0}\" was NOT STATIC.")
 	, CLASS_NOT_PRIVATE("Class \"{0}\" was NOT PRIVATE.")
 	, CLASS_NOT_IMPLEMENTING_INTERFACE("Class \"{0}\" was NOT IMPLEMENTING INTERFACE \"{1}\".")
 	, INTERFACE_NOT_FOUND("Interface \"{0}\" was not found. Make sure {0}.java is in the submission folder.")

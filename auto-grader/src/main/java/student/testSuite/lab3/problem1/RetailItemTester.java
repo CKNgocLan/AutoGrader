@@ -35,6 +35,14 @@ public class RetailItemTester extends BaseTester {
 	public Object instantiate(TestingParameter[] args) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
 		return super.instantiateWithArgs(args);
 	}
+	
+	/*
+	 * declare
+	 */
+
+	public ITestCase declare() {
+		return super.declare(defaultPoints);
+	}
 
 	/*
 	 * field ***************

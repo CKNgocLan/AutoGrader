@@ -2,6 +2,7 @@ package student.util;
 
 import java.util.stream.Stream;
 
+import student.constant.Constants;
 import student.model.TestingField;
 
 public class ClassUtils {
@@ -21,6 +22,14 @@ public class ClassUtils {
 		}
 		
 		return Object.class;
+	}
+
+	public static String toInnerClassName(String superClassName, String className) {
+		return String.join(Constants.DOLLAR_SIGN, superClassName, className);
+	}
+
+	public static String[] splitInnerClassName(String fullInnerClassName) {
+		return fullInnerClassName.split(Constants.ESCAPE_DOLLAR_SIGN);
 	}
 
 	/*

@@ -21,6 +21,14 @@ public class ShapeClassTester extends BaseTester {
 		super.className = ClassName.SHAPE;
 		super.getCorrespondingClass();
 	}
+	
+	/*
+	 * declare
+	 */
+
+	public ITestCase declare() {
+		return super.declare(defaultPoints);
+	}
 
 	/*
 	 * argument ***************

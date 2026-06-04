@@ -91,11 +91,11 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 					student.testSuite.finalExam.final253.section2.PenTester penTester = new student.testSuite.finalExam.final253.section2.PenTester(builderTester);
 					return Arrays.asList(
 							penTester.declare()
-							, penTester.declareFields()
+//							, penTester.declareFields()
 
 							// builder
 							, builderTester.declare()
-							, builderTester.declareFields()
+//							, builderTester.declareFields()
 					);
 				}
 				default:

@@ -5,6 +5,7 @@ import student.exception.TesterGotNoClassNameException;
 import student.model.ITestCase;
 import student.solution.final253.section2.Pen;
 import student.testSuite.BaseTester;
+import student.util.ClassUtils;
 
 public class PenBuilderTester extends BaseTester {
 
@@ -13,7 +14,7 @@ public class PenBuilderTester extends BaseTester {
 	 */
 
 	public PenBuilderTester() throws ClassNotFoundException, TesterGotNoClassNameException {
-		super.className = ClassName.PEN_BUILDER;
+		super.className = ClassUtils.toInnerClassName(ClassName.PEN, ClassName.PEN_BUILDER);
 		super.getCorrespondingClass();
 		super.solutionClass = Pen.PenBuilder.class;
 	}
@@ -23,7 +24,7 @@ public class PenBuilderTester extends BaseTester {
 	 */
 
 	public ITestCase declare() {
-		return super.declareAsInnerClass(defaultPoints, ClassName.PEN);
+		return super.declareAsInnerStaticClass(defaultPoints);
 	}
 
 	/*
