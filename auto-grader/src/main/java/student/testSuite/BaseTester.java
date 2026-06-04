@@ -87,8 +87,33 @@ public abstract class BaseTester {
 	protected ITestCase exceptionTestCase(Exception e) {
 		return TestCaseUtils.errorTestcase(defaultPoints, className, e);
 	}
-	protected ITestCase passTestCase() {
-		return TestCaseUtils.pass(defaultPoints, className);
+
+	protected ITestCase passByDefault() {
+		return TestCaseUtils.passByDefault(defaultPoints, className);
+	}
+
+//	protected ITestCase pass() {
+//		return pass(TestcaseType.CHECK_METHOD_OPERATION, Feedback.METHOD_OPERATED_NOT_CORRECT);
+//	}
+	
+//	protected ITestCase pass(TestcaseType testcaseType, Feedback feedback) {
+//		return TestCaseUtils.pass(defaultPoints, className, testcaseType, feedback);
+//	}
+	
+//	protected ITestCase fail() {
+//		return fail(TestcaseType.CHECK_METHOD_OPERATION, Feedback.METHOD_OPERATED_NOT_CORRECT);
+//	}
+	
+//	protected ITestCase fail(TestcaseType testcaseType, Feedback feedback) {
+//		return TestCaseUtils.fail(defaultPoints, className, testcaseType, feedback);
+//	}
+
+	protected ITestCase pass(String type, String feedback) {
+		return TestCaseUtils.pass(defaultPoints, className, type, feedback);
+	}
+
+	protected ITestCase fail(String type, String feedback) {
+		return TestCaseUtils.fail(defaultPoints, className, type, feedback);
 	}
 
 	/*
