@@ -207,4 +207,37 @@ public class PenBuilderTester extends BaseTester {
 		}
 	}
 
+	public ITestCase operateBuild(String brand, String model, double price) {
+		try {
+			Class<?> clazz = getCorrespondingClass();
+			Object builderInstance = instantiate();
+			TestingMethod method = createBuildMethod();
+
+			// brand
+			super.buildInstance(clazz, builderInstance, createSetBrandMethod(brand));
+
+			// model
+			super.buildInstance(clazz, builderInstance, createSetModelMethod(model));
+
+			// price
+			super.buildInstance(clazz, builderInstance, createSetPriceMethod(price));
+
+			Class<?> penClass = retriveClass(containingClassName);
+			Object penInstance = method.config(clazz, builderInstance).returning();
+			try {
+				penClass.cast(penInstance);
+			} catch (ClassCastException e) {
+				return failMethodOperation(method.getName());
+			}
+
+			return (!brand.equals(StringUtils.toString(getFieldAsAccessible(penClass, FieldName.BRAND).get(penInstance)))
+					|| !model.equals(StringUtils.toString(getFieldAsAccessible(penClass, FieldName.MODEL).get(penInstance)))
+					|| price != ValueUtils.toDoublePrimitive(getFieldAsAccessible(penClass, FieldName.PRICE).get(penInstance))) ?
+				failMethodOperation(method.getName()) :
+				passMethodOperation(method.getName());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionTestCase(e);
+		}
+	}
 }

@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 import student.constant.ExceptionMessage;
@@ -92,6 +93,18 @@ public class TestingMethod {
 
 	public TestingMethod updateParameter(TestingParameter... parameters) {
 		setParameter(parameters);
+		return this;
+	}
+
+	public TestingMethod addParameter(TestingParameter parameter) {
+		if (this.parameters == null) {
+			this.parameters = Stream.of(parameter).toArray(TestingParameter[]::new);
+		} else {
+			List<TestingParameter> tempList = Stream.of(this.parameters).toList();
+			tempList.add(parameter);
+			this.parameters = tempList.stream().toArray(TestingParameter[]::new);
+		}
+
 		return this;
 	}
 	

@@ -89,6 +89,10 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 				{
 					PenBuilderTester builderTester = new PenBuilderTester();
 					student.testSuite.finalExam.final253.section2.PenTester penTester = new student.testSuite.finalExam.final253.section2.PenTester(builderTester);
+					String brand = BrandName.CONCOPENS;
+					String model = ModelName.GOLDEN_LOTUS;
+					double price = 61;
+
 					return Arrays.asList(
 							penTester.declare()
 //							, penTester.declareFields()
@@ -97,13 +101,14 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 //							// builder
 //							, builderTester.declare()
 //							, builderTester.declareFields()
-							, builderTester.declareSetBrand()
-							, builderTester.operateSetBrand(BrandName.CONCOPENS)
-							, builderTester.declareSetModel()
-							, builderTester.operateSetModel(ModelName.GOLDEN_LOTUS)
-							, builderTester.declareSetPrice()
-							, builderTester.operateSetPrice(61)
-							, builderTester.declareBuild()
+//							, builderTester.declareSetBrand()
+//							, builderTester.operateSetBrand(brand)
+//							, builderTester.declareSetModel()
+//							, builderTester.operateSetModel(model)
+//							, builderTester.declareSetPrice()
+//							, builderTester.operateSetPrice(price)
+//							, builderTester.declareBuild()
+							, builderTester.operateBuild(brand, model, price)
 					);
 				}
 				default:
