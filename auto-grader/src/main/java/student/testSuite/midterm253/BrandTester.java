@@ -35,8 +35,13 @@ public class BrandTester extends BaseTester {
 		super.getCorrespondingClass();
 	}
 	
-	public Object instantiate(String name, String country) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
-		return super.instantiateWithArgs(argument(name, country));
+	public Object instantiate(String name, String country) throws Exception {
+		try {
+			return super.instantiateWithArgs(argument(name, country));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionTestCase(e);
+		}
 	}
 	
 	/*

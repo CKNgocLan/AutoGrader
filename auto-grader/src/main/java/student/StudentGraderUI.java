@@ -351,6 +351,8 @@ public class StudentGraderUI extends JFrame {
                 }
 
                 log("\nDetailed report saved in reports/ folder.");
+                log("\nPassed Testcase(s): %s/%s.".formatted(passedList.size(), tests.size()));
+                log("\nPercentage: %.2f".formatted(Double.valueOf(passedList.size()) / tests.size()));
 
                 SwingUtilities.invokeLater(() -> {
                     JOptionPane.showMessageDialog(this,
@@ -422,7 +424,7 @@ public class StudentGraderUI extends JFrame {
             String safeLab = (selectedLab == null || selectedLab.isEmpty()) ? "Lab" : selectedLab.replaceAll("[^a-zA-Z0-9._-]", "_");
             String safeQ = (selectedQuestion == null || selectedQuestion.isEmpty()) ? "Q" : selectedQuestion.replaceAll("[^a-zA-Z0-9._-]", "_");
             
-            String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "-L" + safeLab + "-Q" + safeQ + "_" + timestamp + "_report.txt";
+            String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "-" + safeLab + "-" + safeQ + "_" + timestamp + "_report.txt";
             
 //            String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "_" + timestamp + "_report.txt";
             Files.write(Paths.get(fileName), content.getBytes("UTF-8"));
@@ -593,7 +595,7 @@ public class StudentGraderUI extends JFrame {
 				
 				// Result
 				org.apache.poi.ss.usermodel.Cell resultCell = aggregationRow.createCell(colIndex++);
-				resultCell.setCellValue(MessageFormat.format("{0}%", String.valueOf((passedCounter/results.size())*100)));
+				resultCell.setCellValue(MessageFormat.format("{0}%", String.valueOf(((double)passedCounter/results.size())*100)));
 				resultCell.setCellStyle(resultStyle);
 				
 				// Feedback
