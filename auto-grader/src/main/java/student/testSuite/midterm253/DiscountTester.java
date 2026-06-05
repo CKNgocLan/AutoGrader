@@ -97,7 +97,12 @@ public class DiscountTester extends BaseTester {
 
 	public ITestCase operateConstructor(int points, double percent, LocalDate endDate)
 			throws ClassNotFoundException, TesterGotNoClassNameException {
-		return super.checkConstructorOperation(points, argument(percent, endDate));
+		try {
+			return super.checkConstructorOperation(points, argument(percent, endDate));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return exceptionTestCase(e);
+		}
 	}
 
 	/*

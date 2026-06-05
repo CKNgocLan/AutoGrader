@@ -130,7 +130,7 @@ public class StudentGraderUI extends JFrame {
         topPanel.add(folderPathField);
         topPanel.add(browseButton);
         // LAB drop down
-        JLabel labLabel = new JLabel("     Lab:");
+        JLabel labLabel = new JLabel("     Topic:");
         topPanel.add(labLabel);
 
         topPanel.add(labComboBox);
@@ -196,11 +196,12 @@ public class StudentGraderUI extends JFrame {
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
-		labQuestionsMap.put(FinalExam.FINAL_253, Arrays.asList(Question.SECTION_2, Question.SECTION_1));
-		labQuestionsMap.put(Lab.L4, Arrays.asList(Question.Q1, Question.Q4));
-		labQuestionsMap.put(Lab.L3, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
-		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
-		labQuestionsMap.put(Lab.L1, Arrays.asList(Question.Q0));
+//		labQuestionsMap.put(FinalExam.FINAL_253, Arrays.asList(Question.SECTION_2, Question.SECTION_1));
+//		labQuestionsMap.put(Lab.L4, Arrays.asList(Question.Q1, Question.Q4));
+		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Question.Q1));
+//		labQuestionsMap.put(Lab.L3, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
+//		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
+//		labQuestionsMap.put(Lab.L1, Arrays.asList(Question.Q0));
 	}
     
     private void initializeComboBoxes() {

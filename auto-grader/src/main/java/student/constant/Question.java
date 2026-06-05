@@ -13,7 +13,6 @@ public class Question {
 	public static final String Q5 = "5";
 	public static final String Q6 = "6";
 
-
 	public static final String SECTION_1 = "Section 1";
 	public static final String SECTION_2 = "Section 2";
 
@@ -26,7 +25,7 @@ public class Question {
 			}
 		}).collect(Collectors.toList());
 	}
-	
+
 	public static List<String> getNameList(int end) {
 		List<String> result = new ArrayList<>();
 		for (int i = 1; i < end; i++) {

@@ -40,7 +40,7 @@ public class ExamMidtermTestSuite253 extends ALabTestSuite {
 					
 					Object sailorBrand = brandTester.instantiate(BrandName.SAILOR, Country.JAPAN);
 					Object concopensBrand = brandTester.instantiate(BrandName.CONCOPENS, Country.VIETNAM);
-					Object discount = discountTester.instantiate(0.19, LocalDate.now().plusMonths(1));
+//					Object discount = discountTester.instantiate(0.19, LocalDate.now().plusMonths(1));
 					
 					return Arrays.asList(
 							// pen type enum
@@ -87,13 +87,13 @@ public class ExamMidtermTestSuite253 extends ALabTestSuite {
 									, PenName.SHIKIORI
 									, sailorBrand
 									, 51.61
-									, discount
+									, 0.19, LocalDate.now().plusMonths(1)
 							)
 							, ballpointPenTester.operateConstructorWithDiscount(defaultPoints
 									, PenName.FRIXION
 									, sailorBrand
 									, 13.82
-									, discount
+									, 0.19, LocalDate.now().plusMonths(1)
 							)
 							, ballpointPenTester.declareGetTax(defaultPoints)
 							, ballpointPenTester.operateGetTax(defaultPoints
@@ -161,7 +161,7 @@ public class ExamMidtermTestSuite253 extends ALabTestSuite {
 					return null;
 			}
 		} catch (Exception e) {
-			System.out.println("Class Not Found: %s".formatted(e.getMessage()));
+//			System.out.println("Class Not Found: %s".formatted(e.getMessage()));
 			e.printStackTrace();
 			return null;
 		}
