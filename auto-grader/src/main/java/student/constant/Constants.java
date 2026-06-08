@@ -15,6 +15,7 @@ public class Constants {
 
 	public static final String UNDERSCORE = "_";
 	public static final String COMMA = ",";
+	public static final String ASSIGN = "=";
 	public static final String COMMA_WITH_SPACE = ", ";
 	public static final char UNDERSCORE_CHAR = '_';
 
@@ -34,4 +35,6 @@ public class Constants {
 	
 	public static final String DEFAULT_NAME = "default name";
 	public static final String DEFAULT_BADGE_NUMBER = "default badge number";
+
+	public static final String FILE_NAME = "File Name";
 }

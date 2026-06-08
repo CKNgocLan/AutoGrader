@@ -50,13 +50,15 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import student.constant.Constants;
-import student.constant.FinalExam;
-import student.constant.Lab;
+import student.constant.ExceptionMessage;
+import student.constant.FileExtension;
+import student.constant.GradingMessage;
 import student.constant.Midterm;
 import student.constant.Question;
 import student.constant.TestCaseResult;
 import student.model.ITestCase;
 import student.util.PathUtils;
+import student.util.StringUtils;
 
 public class StudentGraderUI extends JFrame {
 	private static final long serialVersionUID = 3700796113357733984L;
@@ -254,26 +256,43 @@ public class StudentGraderUI extends JFrame {
 
         if (!submissionFolder.exists() || !submissionFolder.isDirectory()) {
             JOptionPane.showMessageDialog(this, 
-                "Folder not found!\nPlease select a valid folder containing your .java files.", 
-                "Error", JOptionPane.ERROR_MESSAGE);
+                GradingMessage.FOLDER_CONTAINING_JAVA_FILE_NOT_FOUND.getContent()
+                , GradingMessage.ERROR.getContent()
+                , JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
 		String selectedLab = (String) labComboBox.getSelectedItem();
-		if (selectedLab == null) {
-			JOptionPane.showMessageDialog(this, "Please select a Lab!", "Warning", JOptionPane.WARNING_MESSAGE);
+		if (StringUtils.isNullOrEmpty(selectedLab)) {
+			JOptionPane.showMessageDialog(this
+					, GradingMessage.PLEASE_SELECT_LAB.getContent()
+					, GradingMessage.WARNING.getContent()
+					, JOptionPane.WARNING_MESSAGE);
 			return;
 		}
         
 		String selectedQuestion = (String) questionComboBox.getSelectedItem();
-		if (selectedQuestion == null) {
-			JOptionPane.showMessageDialog(this, "Please select a Question!", "Warning", JOptionPane.WARNING_MESSAGE);
+		if (StringUtils.isNullOrEmpty(selectedQuestion)) {
+			JOptionPane.showMessageDialog(this
+					, GradingMessage.PLEASE_SELECT_QUESTION.getContent()
+					, GradingMessage.WARNING.getContent()
+					, JOptionPane.WARNING_MESSAGE);
 			return;
 		}
+
+        // TODO loop through submission directory
+        for (File subfolder : submissionFolder.listFiles()) {
+        	if (!subfolder.isDirectory()) {
+        		continue;
+        	}
+
+//        	subfolder.
+        }
 		
-        logArea.setText(""); // Clear previous log
-        log("Starting self-grading for folder: " + submissionFolder.getName());
-        log("Compiling your Java files...\n");
+        // Clear previous log
+        logArea.setText(Constants.EMPTY_STRING);
+        log(GradingMessage.STARTING_GRADING_FOR_FOLDER.getContent(submissionFolder.getName()));
+        log(GradingMessage.COMPILING_JAVA_FILES_NEWLINE.getContent());
 
         gradeButton.setEnabled(false);
 
@@ -283,36 +302,37 @@ public class StudentGraderUI extends JFrame {
                 boolean compileSuccess = compileStudentFiles(submissionFolder);
 
                 if (!compileSuccess) {
-                    log("Compilation failed. Please check your code for errors.");
+                    log(GradingMessage.COMPILATION_FAILED.getContent());
                     generateCompilationErrorReport(submissionFolder.getName(), selectedLab, selectedQuestion);
                     SwingUtilities.invokeLater(() -> gradeButton.setEnabled(true));
                     return;
                 }
 
-                log("Compilation successful!\n");
+                log(GradingMessage.COMPILATION_SUCCESSFUL_NEWLINE.getContent());
 
                 // Step 2: Run tests
-                // TODO retrieve test suite based on selected lab & question 
                 List<ITestCase> tests = testSuiteRouter.invokeAllTests(selectedLab, selectedQuestion);
                 if (tests == null) {
                 	SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, 
-                        		"ERROR! CHECK TERMINAL FOR ERROR STACK TRACE!", 
-                            "ATTENTION", JOptionPane.WARNING_MESSAGE);
+                        		GradingMessage.ERROR_CHECK_TERMINAL.getClass()
+                        		, GradingMessage.UPPERCASE_ATTENTION.getContent()
+                        		, JOptionPane.WARNING_MESSAGE);
                         gradeButton.setEnabled(true);
                     });
                 	return;
                 } else if (tests.size() == 0) {
                 	SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, 
-                        		MessageFormat.format("TEST SUITE IS UNDER CONSTRUCTION!\n(Lab {0} - Problem {1})", selectedLab, selectedQuestion), 
-                            "ATTENTION", JOptionPane.WARNING_MESSAGE);
+                        		GradingMessage.TEST_SUITE_UNDER_CONSTRUCTION.getContent(selectedLab, selectedQuestion)
+                        		, GradingMessage.UPPERCASE_ATTENTION.getContent()
+                        		, JOptionPane.WARNING_MESSAGE);
                         gradeButton.setEnabled(true);
                     });
                 	return;
                 }
 
-                log("Running your test cases...\n");
+                log(GradingMessage.RUNNING_TEST_CASES_NEWLINE.getContent());
                 List<Integer> scores = new ArrayList<>();
                 List<Boolean> passedList = new ArrayList<>();
                 List<TestResult> results = new ArrayList<>();
@@ -335,33 +355,30 @@ public class StudentGraderUI extends JFrame {
                 // create REPORTS directory
                 createReportDir();
                 
-                // Generate Excel Report
+                // Step 3: Generate Excel Report
                 generateExcelReport(submissionFolder.getName(), selectedLab, selectedQuestion, results);
 
-                // TODO Step 3: Generate report
-                // generateStudentReport(submissionFolder.getName(), selectedLab, selectedQuestion, totalScore, tests, scores, passedList);
-
-                // TODO
-                log("=".repeat(60));
+                log(Constants.ASSIGN.repeat(60));
 
                 if (totalScore/5 == tests.size()) {
-                    log("Excellent! All tests passed.");
+                    log(GradingMessage.EXCELLENT_ALL_TESTS_PASSED.getContent());
                 } else {
-                    log("Good work! Review the failed tests below.");
+                    log(GradingMessage.GOOD_WORK_REVIEW_FAILED_TESTS.getContent());
                 }
 
-                log("\nDetailed report saved in reports/ folder.");
-                log("\nPassed Testcase(s): %s/%s.".formatted(passedList.size(), tests.size()));
-                log("\nPercentage: %.2f".formatted(Double.valueOf(passedList.size()) / tests.size()));
+                log("\n" + GradingMessage.DETAILED_REPORT_SAVED_IN_FOLDER.getContent(Constants.REPORTS_DIR));
+                log("\n" + GradingMessage.PASSED_TESTCASE_RATE.getContent(passedList.size(), tests.size()));
+                log("\n" + GradingMessage.PERCENTAGE.getContent(Double.valueOf(passedList.size()) / tests.size()));
 
                 SwingUtilities.invokeLater(() -> {
                     JOptionPane.showMessageDialog(this,
-                        MessageFormat.format("Grading Completed!\nYou have passed {0}/{1} testcase.", passedList.size(), tests.size()), 
-                        "Success", JOptionPane.INFORMATION_MESSAGE);
+                        GradingMessage.GRADING_COMPLETED_WITH_PASSED_TESTCASE.getContent(passedList.size(), tests.size())
+                        , GradingMessage.SUCCESS.getContent()
+                        , JOptionPane.INFORMATION_MESSAGE);
                     gradeButton.setEnabled(true);
                 });
             } catch (Exception ex) {
-                log("\nUnexpected error: " + ex.getMessage());
+                log("\n" + GradingMessage.UNEXPECTED_ERROR_WITH_MESSAGE.getContent(ex.getMessage()));
                 gradeButton.setEnabled(true);
             }
         }).start();
@@ -372,11 +389,11 @@ public class StudentGraderUI extends JFrame {
         try {
             List<String> javaFiles = new ArrayList<>();
             Files.walk(folder.toPath())
-                 .filter(p -> p.toString().endsWith(".java"))
+                 .filter(p -> p.toString().endsWith(FileExtension.JAVA))
                  .forEach(p -> javaFiles.add(p.toString()));
 
             if (javaFiles.isEmpty()) {
-                log("No .java files found in the folder!");
+                log(GradingMessage.NO_JAVA_FILE_FOUND_IN_FOLDER.getContent(folder.getName()));
                 return false;
             }
             
@@ -394,7 +411,7 @@ public class StudentGraderUI extends JFrame {
             int exitCode = process.waitFor();
 
             if (exitCode != 0) {
-                log("Compilation Errors:");
+                log(GradingMessage.COMPILATION_ERRORS_WITH_MESSAGE.getContent(Constants.EMPTY_STRING));
                 try (BufferedReader br = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
                     String line;
                     while ((line = br.readLine()) != null) {
@@ -406,7 +423,7 @@ public class StudentGraderUI extends JFrame {
             return true;
 
         } catch (Exception e) {
-            log("Compilation error: " + e.getMessage());
+            log(GradingMessage.COMPILATION_ERRORS_WITH_MESSAGE.getContent(e.getMessage()));
             return false;
         }
     }
@@ -429,58 +446,6 @@ public class StudentGraderUI extends JFrame {
 //            String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "_" + timestamp + "_report.txt";
             Files.write(Paths.get(fileName), content.getBytes("UTF-8"));
         } catch (Exception ignored) {}
-    }
-
-    @Deprecated
-    private void generateStudentReport(String folderName, 
-							           String selectedLab, 
-							           String selectedQuestion,
-							           int totalScore, 
-                                       List<ITestCase> tests, 
-                                       List<Integer> scores, 
-                                       List<Boolean> passed) {
-        try {
-            StringBuilder sb = new StringBuilder();
-            sb.append("===========================================\n");
-            sb.append("          STUDENT SELF-GRADER REPORT\n");
-            sb.append("===========================================\n");
-            sb.append("Folder Name   : ").append(folderName).append("\n");
-            sb.append("Date          : ").append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).append("\n");
-
-            sb.append("DETAILED TEST RESULTS:\n");
-            sb.append("--------------------------------------------------\n\n");
-
-            for (int i = 0; i < tests.size(); i++) {
-                ITestCase t = tests.get(i);
-                boolean p = passed.get(i);
-                int score = scores.get(i);
-
-                //TODO sb.append(String.format("%-45s %s %3d / %d pts%n", t.getName(), p ? "PASSED" : "FAILED", score, t.getPoints()));
-                sb.append(String.format("%-45s %s%n", t.getName(), p ? "PASSED" : "FAILED"));
-
-                if (!p) {
-                    sb.append("   Feedback : ").append(t.getFeedback()).append("\n\n");
-                } else {
-                    sb.append("\n");
-                }
-            }
-
-            sb.append("===========================================\n");
-            sb.append("OVERALL RESULT: ").append(totalScore).append("/100\n");
-
-            String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss"));
-            
-            String safeDir = folderName.replaceAll("[^a-zA-Z0-9._-]", "_");
-            String safeLab = (selectedLab == null || selectedLab.isEmpty()) ? "Lab" : selectedLab.replaceAll("[^a-zA-Z0-9._-]", "_");
-            String safeQ = (selectedQuestion == null || selectedQuestion.isEmpty()) ? "Q" : selectedQuestion.replaceAll("[^a-zA-Z0-9._-]", "_");
-            
-            String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "-L" + safeLab + "-Q" + safeQ + "_" + timestamp + ".txt";
-
-            Files.write(Paths.get(fileName), sb.toString().getBytes("UTF-8"));
-
-        } catch (Exception e) {
-            log("Failed to save report: " + e.getMessage());
-        }
     }
 
     private void openReportsFolder() {
@@ -541,10 +506,10 @@ public class StudentGraderUI extends JFrame {
 				row.createCell(col++).setCellValue(result.testName);
 
 				// Max Points
-				//TODO row.createCell(col++).setCellValue(result.maxPoints);
+				// row.createCell(col++).setCellValue(result.maxPoints);
 
 				// Earned Points
-				//TODO row.createCell(col++).setCellValue(result.earnedPoints);
+				// row.createCell(col++).setCellValue(result.earnedPoints);
 
 				// Result + Color
 				Cell resultCell = row.createCell(col++);
