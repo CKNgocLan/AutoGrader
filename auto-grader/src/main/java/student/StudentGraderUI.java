@@ -77,7 +77,7 @@ public class StudentGraderUI extends JFrame {
     public StudentGraderUI() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
     	initThemeColor();
     	
-        setTitle("Midterm Grader - 253");
+        setTitle("Grader - 253");
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -280,14 +280,6 @@ public class StudentGraderUI extends JFrame {
 		}
 
         // TODO loop through submission directory
-        for (File subfolder : submissionFolder.listFiles()) {
-        	if (!subfolder.isDirectory()) {
-        		continue;
-        	}
-
-//        	subfolder.
-        }
-		
         // Clear previous log
         logArea.setText(Constants.EMPTY_STRING);
         log(GradingMessage.STARTING_GRADING_FOR_FOLDER.getContent(submissionFolder.getName()));

@@ -20,6 +20,7 @@ public enum GradingMessage {
 	, COMPILATION_ERRORS_WITH_MESSAGE("Compilation Errors: {0}")
 	, COMPILATION_FAILED("Compilation failed. Please check your code for errors.")
 	, COMPILATION_SUCCESSFUL_NEWLINE("Compilation successful!\n")
+	, FOLDER_COMPILATION_SUCCESSFUL("Compilation successful for Folder: {0}")
 	, EXCELLENT_ALL_TESTS_PASSED("Excellent! All tests passed.")
 	, GOOD_WORK_REVIEW_FAILED_TESTS("Good work! Review the failed tests below.")
 	, DETAILED_REPORT_SAVED_IN_FOLDER("Detailed report saved in {0} folder.")
@@ -41,5 +42,13 @@ public enum GradingMessage {
 	
 	public String getContent(Object... args) {
 		return MessageFormat.format(this.value, args);
+	}
+
+	public void printErrorContent(Object... args) {
+		System.err.println(getContent(args));
+	}
+
+	public void printContent(Object... args) {
+		System.out.println(getContent(args));
 	}
 }
