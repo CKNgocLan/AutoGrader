@@ -4,20 +4,20 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Question {
-	public static final String Q0 = "0";
-	public static final String Q1 = "1";
-	public static final String Q2 = "2";
-	public static final String Q3 = "3";
-	public static final String Q4 = "4";
-	public static final String Q5 = "5";
-	public static final String Q6 = "6";
+public class Problem {
+	public static final String P0 = "problem0";
+	public static final String P1 = "problem1";
+	public static final String P2 = "problem2";
+	public static final String P3 = "problem3";
+	public static final String P4 = "problem4";
+	public static final String P5 = "problem5";
+	public static final String P6 = "problem6";
 
 	public static final String SECTION_1 = "Section 1";
 	public static final String SECTION_2 = "Section 2";
 
 	public static List<String> getNameList() {
-		return Arrays.asList(Question.class.getDeclaredFields()).stream().map(field -> {
+		return Arrays.asList(Problem.class.getDeclaredFields()).stream().map(field -> {
 			try {
 				return String.valueOf(field.get(field.getName()));
 			} catch (IllegalArgumentException | IllegalAccessException e) {

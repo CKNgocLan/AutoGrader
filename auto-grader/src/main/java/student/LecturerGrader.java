@@ -16,7 +16,7 @@ import java.util.concurrent.Future;
 
 import org.apache.xmlbeans.impl.xb.ltgfmt.TestCase;
 
-import student.constant.Question;
+import student.constant.Problem;
 import student.model.ITestCase;
 import student.testSuite.labTestSuite.ExamFinalTestSuite253;
 
@@ -113,7 +113,7 @@ public class LecturerGrader {
             }
 
             // Run tests
-            List<ITestCase> tests = new ExamFinalTestSuite253().getAllTests(Question.SECTION_1);
+            List<ITestCase> tests = new ExamFinalTestSuite253().getAllTests(Problem.SECTION_1);
             int totalScore = 0;
             List<Integer> scores = new ArrayList<>();
             List<Boolean> passedList = new ArrayList<>();

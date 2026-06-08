@@ -50,11 +50,10 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import student.constant.Constants;
-import student.constant.ExceptionMessage;
 import student.constant.FileExtension;
 import student.constant.GradingMessage;
 import student.constant.Midterm;
-import student.constant.Question;
+import student.constant.Problem;
 import student.constant.TestCaseResult;
 import student.model.ITestCase;
 import student.util.PathUtils;
@@ -200,7 +199,7 @@ public class StudentGraderUI extends JFrame {
 		// Format: Lab Name -> List of Questions
 //		labQuestionsMap.put(FinalExam.FINAL_253, Arrays.asList(Question.SECTION_2, Question.SECTION_1));
 //		labQuestionsMap.put(Lab.L4, Arrays.asList(Question.Q1, Question.Q4));
-		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Question.Q1));
+		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Problem.P1));
 //		labQuestionsMap.put(Lab.L3, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
 //		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
 //		labQuestionsMap.put(Lab.L1, Arrays.asList(Question.Q0));

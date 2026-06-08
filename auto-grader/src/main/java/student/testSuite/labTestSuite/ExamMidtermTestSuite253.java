@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import student.constant.Country;
-import student.constant.Question;
+import student.constant.Problem;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.testSuite.midterm253.BallpointPenTester;
@@ -25,7 +25,7 @@ public class ExamMidtermTestSuite253 extends ALabTestSuite {
 		int defaultPoints = 5;
 		try {
 			switch (question) {
-				case Question.Q1:
+				case Problem.P1:
 					PenTypeTester penTypeTester = new PenTypeTester();
 					CountryTester countryTester = new CountryTester();
 					TaxTester taxTester = new TaxTester();

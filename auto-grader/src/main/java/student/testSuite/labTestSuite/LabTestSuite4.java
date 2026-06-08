@@ -6,7 +6,7 @@ import java.util.List;
 
 import student.constant.Constants;
 import student.constant.Country;
-import student.constant.Question;
+import student.constant.Problem;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.testSuite.lab4.problem1_3.EmployeeTester;
@@ -28,9 +28,9 @@ public class LabTestSuite4 extends ALabTestSuite {
 		try {
 
 			switch (question) {
-			case Question.Q1:
-			case Question.Q2:
-			case Question.Q3:
+			case Problem.P1:
+			case Problem.P2:
+			case Problem.P3:
 			{
 				EmployeeTester employeeTester = new EmployeeTester();
 
@@ -42,7 +42,7 @@ public class LabTestSuite4 extends ALabTestSuite {
 						, employeeTester.invalidNumberInConstructor(defaultPoints, "012AB")
 				);
 			}
-			case Question.Q4:
+			case Problem.P4:
 			{
 				PenTypeTester penTypeTester = new PenTypeTester();
 				CountryTester countryTester = new CountryTester();

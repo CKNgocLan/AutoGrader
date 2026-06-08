@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import student.constant.FieldName;
-import student.constant.Question;
+import student.constant.Problem;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.model.TestingParameter;
@@ -36,7 +36,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 			int defaultPoints = 5;
 
 			switch (question) {
-			case Question.Q1:
+			case Problem.P1:
 				CarTester car = CarTester.getInstance();
 
 				return Arrays.asList(car.checkExistence(5)
@@ -55,14 +55,14 @@ public class LabTestSuite2 extends ALabTestSuite {
 
 						// brake()
 						, car.checkBrakeDeclaration(25), car.checkBrakeOperation(15));
-			case Question.Q2:
+			case Problem.P2:
 				TemperatureTester temperature = TemperatureTester.getInstance();
 
 				return Arrays.asList(temperature.checkExistence(5),
 						temperature.checkField(5, FieldName.FTEMP, double.class),
 						temperature.checkSetgetFahrenheit(10, 50), temperature.checkGetCelsius(15, 50, 10),
 						temperature.checkGetKelvin(15, 50, 283));
-			case Question.Q3:
+			case Problem.P3:
 				CustomerTester customer = CustomerTester.getInstance();
 				PetTester pet = PetTester.getInstance();
 				ServiceEstimateTester serviceEstimate = ServiceEstimateTester.getInstance();
@@ -116,7 +116,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, petShop.checkShowAllCustomersDeclaration(3)
 						, petShop.checkShowAllCustomersOperation(9)
 						);
-			case Question.Q4:
+			case Problem.P4:
 				customer = CustomerTester.getInstance();
 				CakeTester cake = CakeTester.getInstance();
 				ConstTester consts = ConstTester.getInstance();
@@ -178,7 +178,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, quote.checkGetPriceAfterTaxDeclaration(5)
 						, quote.checkGetPriceAfterTaxOperation(5, laborCharge, deliveryFee, priceAfterTax)
 				);
-			case Question.Q5:
+			case Problem.P5:
 				consts = ConstTester.getInstance();
 				CarRentalCustomerTester rentalCustomer = CarRentalCustomerTester.getInstance();
 				AgreementTester agreement = AgreementTester.getInstance();
@@ -229,7 +229,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, agreement.checkFields(5)
 						, agreement.checkGetRentalCostAfterTaxOperation(mileageLimit, carObj, purpose, baseRentalFee, mileageFee, rentalCostAfterTax)
 						);
-			case Question.Q6:
+			case Problem.P6:
 				UserTester user = UserTester.getInstance();
 				BookTester book = BookTester.getInstance();
 				BorrowingRecordTester record = BorrowingRecordTester.getInstance();

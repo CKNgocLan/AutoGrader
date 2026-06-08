@@ -47,4 +47,12 @@ public class StringUtils {
 	public static String toString(Object value) {
 		return isNullOrEmpty(value) ? Constants.EMPTY_STRING : String.valueOf(value);
 	}
+
+	public static String removeWhiteSpace(Object value) {
+		return toString(value).replaceAll("\\s", Constants.EMPTY_STRING);
+	}
+
+	public static String toLowerCaseNoSpace(Object value) {
+		return removeWhiteSpace(value).toLowerCase();
+	}
 }

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import student.constant.Constants;
-import student.constant.Question;
+import student.constant.Problem;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.model.TestingParameter;
@@ -30,7 +30,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 		try {
 
 			switch (question) {
-			case Question.Q1:
+			case Problem.P1:
 				{
 					RetailItemTester retailItemTester = new RetailItemTester();
 					CashRegisterTester cashRegisterTester = new CashRegisterTester(retailItemTester);
@@ -73,7 +73,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 							, cashRegisterTester.operateGetTotal(defaultPoints, total, cashRegisterArgs)
 							);
 				}
-			case Question.Q2:
+			case Problem.P2:
 				{
 					ShapeClassTester shapeClassTester = new ShapeClassTester();
 					double radius = 5;
@@ -94,7 +94,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 							, shapeClassTester.operateAreaCylinder(defaultPoints, Double.MAX_VALUE, Double.MAX_VALUE, Math.PI * Math.pow(Double.MAX_VALUE, 2) * Double.MAX_VALUE)
 							);
 				}
-			case Question.Q3:
+			case Problem.P3:
 			{
 				ShapeInterfaceTester shapeInterfaceTester = new ShapeInterfaceTester();
 				CircleTester circleTester = new CircleTester();
@@ -136,7 +136,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, cylinderTester.operateArea(defaultPoints, radius, height, Math.PI * Math.pow(radius, 2) * height)
 						);
 			}
-			case Question.Q4:
+			case Problem.P4:
 			{
 				student.testSuite.lab3.problem4.ConstTester constTester = new student.testSuite.lab3.problem4.ConstTester();
 				FuelGaugeTester fuelGaugeTester = new FuelGaugeTester();
@@ -173,7 +173,7 @@ public class LabTestSuite3 extends ALabTestSuite {
 						, odometerTester.operateIncrementMileage(defaultPoints, gallon, Constants.ODOMETER_MAXIMUM_MILEAGE_MILES)
 						);
 			}
-			case Question.Q5:
+			case Problem.P5:
 				student.testSuite.lab3.problem5.ConstTester constTester = new student.testSuite.lab3.problem5.ConstTester();
 				ParkedCarTester parkedCarTester = new ParkedCarTester();
 				String make = "Mazda";

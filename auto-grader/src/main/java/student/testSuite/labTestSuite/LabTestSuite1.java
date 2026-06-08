@@ -6,7 +6,7 @@ import java.util.List;
 import student.constant.ClassName;
 import student.constant.Constants;
 import student.constant.FieldName;
-import student.constant.Question;
+import student.constant.Problem;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.model.TestingParameter;
@@ -25,7 +25,7 @@ public class LabTestSuite1 extends ALabTestSuite {
 	@Override
 	public List<ITestCase> getAllTests(String question) {
 		switch (question) {
-		case Question.Q0:
+		case Problem.P0:
 			return Arrays.asList(
 					classTest.checkExistence(5, ClassName.EMPLOYEE)
 					

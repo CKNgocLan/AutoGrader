@@ -6,7 +6,7 @@ import java.util.List;
 import student.constant.BrandName;
 import student.constant.ColorEnum;
 import student.constant.ModelName;
-import student.constant.Question;
+import student.constant.Problem;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
 import student.testSuite.finalExam.final253.section1.BallpointPenFactoryTester;
@@ -23,7 +23,7 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 	public List<ITestCase> getAllTests(String question) {
 		try {
 			switch (question) {
-				case Question.SECTION_1:
+				case Problem.SECTION_1:
 				{
 					ColorTester colorTester = new ColorTester();
 					BrandTester brandTester = new BrandTester();
@@ -82,7 +82,7 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 							, fountainPenFactoryTester.operateCreatePen(brandInstance, ModelName.TUZU_FORGE, greyEnum, 65)
 					);
 				}
-				case Question.SECTION_2:
+				case Problem.SECTION_2:
 				{
 					PenBuilderTester builderTester = new PenBuilderTester();
 					student.testSuite.finalExam.final253.section2.PenTester penTester = new student.testSuite.finalExam.final253.section2.PenTester(builderTester);
