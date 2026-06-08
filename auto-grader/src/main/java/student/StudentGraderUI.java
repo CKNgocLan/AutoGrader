@@ -306,7 +306,7 @@ public class StudentGraderUI extends JFrame {
                 if (tests == null) {
                 	SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, 
-                        		GradingMessage.ERROR_CHECK_TERMINAL.getClass()
+                        		GradingMessage.ERROR_CHECK_TERMINAL.getContent()
                         		, GradingMessage.UPPERCASE_ATTENTION.getContent()
                         		, JOptionPane.WARNING_MESSAGE);
                         gradeButton.setEnabled(true);
