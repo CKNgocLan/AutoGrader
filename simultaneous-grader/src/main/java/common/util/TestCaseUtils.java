@@ -2,11 +2,11 @@ package common.util;
 
 import common.constant.Feedback;
 import common.constant.TestcaseType;
-import model.ITestCase;
+import model.TestCase;
 
 public class TestCaseUtils {
-	public static ITestCase errorTestcase(int points, String className, Exception e) {
-		return new ITestCase() {
+	public static TestCase errorTestcase(int points, String className, Exception e) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_ATTRIBUTE.getName(className);
@@ -29,8 +29,8 @@ public class TestCaseUtils {
 		};
 	}
 
-	public static ITestCase passByDefault(int points, String className) {
-		return new ITestCase() {
+	public static TestCase passByDefault(int points, String className) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.PASSED_TESTCASE.getName(className);
@@ -53,8 +53,8 @@ public class TestCaseUtils {
 		};
 	}
 	
-	public static ITestCase pass(int points, String className, TestcaseType testcaseType, Feedback feedback) {
-		return new ITestCase() {
+	public static TestCase pass(int points, String className, TestcaseType testcaseType, Feedback feedback) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return testcaseType.getName(className);
@@ -77,8 +77,8 @@ public class TestCaseUtils {
 		};
 	}
 	
-	public static ITestCase pass(int points, String className, String type, String feedback) {
-		return new ITestCase() {
+	public static TestCase pass(int points, String className, String type, String feedback) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return type;
@@ -101,8 +101,8 @@ public class TestCaseUtils {
 		};
 	}
 	
-	public static ITestCase fail(int points, String className, String type, String feedback) {
-		return new ITestCase() {
+	public static TestCase fail(int points, String className, String type, String feedback) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return type;
@@ -125,8 +125,8 @@ public class TestCaseUtils {
 		};
 	}
 	
-	public static ITestCase fail(int points, String className, TestcaseType testcaseType, Feedback feedback) {
-		return new ITestCase() {
+	public static TestCase fail(int points, String className, TestcaseType testcaseType, Feedback feedback) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return testcaseType.getName(className);

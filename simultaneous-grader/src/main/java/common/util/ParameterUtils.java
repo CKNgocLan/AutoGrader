@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Parameter;
 import java.util.stream.Stream;
 
-import model.TestingParameter;
+import model.element.testing.TestingParameter;
 
 public class ParameterUtils {
 	public static TestingParameter[] mapFromTypes(Class<?>... types) {

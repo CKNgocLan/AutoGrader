@@ -1,8 +1,9 @@
-package model;
+package model.component;
 
 import java.lang.reflect.Field;
 
 import common.util.SetterUtils;
+import model.element.testing.TestingMethod;
 
 public class Setter extends TestingMethod {
 	private Class<?> paramType;

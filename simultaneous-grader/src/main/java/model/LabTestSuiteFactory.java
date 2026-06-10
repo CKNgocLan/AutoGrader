@@ -1,7 +1,7 @@
 package model;
 
 public class LabTestSuiteFactory {
-	public ALabTestSuite createSuite(String lab) {
+	public AbstractLabTestSuite createSuite(String lab) {
 
 		switch (lab) {
 //		case FinalExam.FINAL_253:

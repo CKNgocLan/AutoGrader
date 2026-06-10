@@ -3,7 +3,7 @@ package common.util;
 import java.util.stream.Stream;
 
 import common.constant.Constants;
-import model.TestingField;
+import model.element.testing.TestingField;
 
 public class ClassUtils {
 	public static Class<?> boxing(Class<?> primitiveType) {

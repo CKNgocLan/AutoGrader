@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import common.constant.FieldName;
 import common.constant.MethodName;
-import model.Setter;
+import model.component.Setter;
 
 public class SetterUtils {
 	public static List<Setter> getMissingSetter(Class<?> clazz) {

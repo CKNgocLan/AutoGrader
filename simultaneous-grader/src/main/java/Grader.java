@@ -1,5 +1,3 @@
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
@@ -58,7 +56,7 @@ import common.constant.TestCaseResult;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.StringUtils;
-import model.ITestCase;
+import model.TestCase;
 
 public class Grader extends JFrame {
 	private static final long serialVersionUID = 3700796113357733984L;
@@ -341,7 +339,7 @@ public class Grader extends JFrame {
                 log(GradingMessage.COMPILATION_SUCCESSFUL_NEWLINE.getContent());
 
                 // Step 2: Run tests
-                List<ITestCase> tests = testSuiteRouter.invokeAllTests(selectedLab, selectedQuestion);
+                List<TestCase> tests = testSuiteRouter.invokeAllTests(selectedLab, selectedQuestion);
                 if (tests == null) {
                 	SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, 
@@ -367,7 +365,7 @@ public class Grader extends JFrame {
                 List<Boolean> passedList = new ArrayList<>();
                 List<TestResult> results = new ArrayList<>();
 
-                for (ITestCase test : tests) {
+                for (TestCase test : tests) {
 //                    log("→ " + test.getName() + " (" + test.getPoints() + " pts) ... ");
                     log("→ " + test.getName() + " ... ");
                     boolean passed = test.runTest();

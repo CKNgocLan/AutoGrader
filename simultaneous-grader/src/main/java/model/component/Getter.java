@@ -1,8 +1,9 @@
-package model;
+package model.component;
 
 import java.lang.reflect.Field;
 
 import common.util.GetterUtils;
+import model.element.testing.TestingMethod;
 
 public class Getter extends TestingMethod {
 	public Getter(Field field) {
