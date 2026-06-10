@@ -1,0 +1,82 @@
+classDiagram
+    class LabFactory {
+        <<interface>>
+        + createLab() AbstractLab
+    }
+    class LabFactory1 {
+        + createLab() AbstractLab
+    }
+    class LabFactory2 {
+        + createLab() AbstractLab
+    }
+    class LabFactory3 {
+        + createLab() AbstractLab
+    }
+    LabFactory1 ..|> LabFactory
+    LabFactory2 ..|> LabFactory
+    LabFactory3 ..|> LabFactory
+
+    class AbstractLab {
+        <<abstract>>
+        - problems: List~AbstractProblem~
+        + getProblems() List~AbstractProblem~*
+        + run() void
+    }
+    class Runnable {
+        <<interface>>
+        + run() void
+    }
+    class Lab1 {
+        + getProblems() List~AbstractProblem~
+    }
+    class Lab2 {
+        + getProblems() List~AbstractProblem~
+    }
+    class Lab3 {
+        + getProblems() List~AbstractProblem~
+    }
+    AbstractLab ..|> Runnable
+    AbstractLab <|-- Lab1
+    AbstractLab <|-- Lab2
+    AbstractLab <|-- Lab3
+    %% Lab1 <|-- AbstractLab
+    %% Lab2 <|-- AbstractLab
+    %% Lab3 <|-- AbstractLab
+
+    AbstractLab <|-- LabFactory1
+    AbstractLab <|-- LabFactory2
+    AbstractLab <|-- LabFactory3
+    class Problem {
+        <<interface>>
+        + grade() void
+    }
+    class AbstractProblem {
+        <<abstract>>
+        - testers: List~AbstractTester~
+        + getTesters() List~AbstractTester~*
+        + combineJavaFiles() void
+        + grade() void
+    }
+    AbstractProblem ..|> Problem
+
+    class AbstractTester {
+        <<abstract>>
+        - testCases: List~TestCase~
+        + getTestCases() List~TestCase~*
+        + evaluateTestCases() boolean
+    }
+    class TestCase {
+        <<interface>>
+        + getName() String
+        + getPoints() int
+        + run() boolean
+        + getFeedback() String
+    }
+
+    %% AbstractLab *-- AbstractProblem
+    LabFactory1 *-- AbstractProblem
+    LabFactory2 *-- AbstractProblem
+    LabFactory3 *-- AbstractProblem
+
+    AbstractProblem *-- AbstractTester
+    AbstractTester o-- TestCase
