@@ -2,6 +2,8 @@ package model;
 
 import java.util.List;
 
+import model.component.TestCase;
+
 public abstract class AbstractLabTestSuite {
 	protected int defaultPoints = 5;
 

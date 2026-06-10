@@ -4,8 +4,8 @@ import java.lang.reflect.Parameter;
 import java.util.stream.Stream;
 
 import common.constant.MethodName;
-import model.element.testing.TestingMethod;
-import model.element.testing.TestingParameter;
+import model.element.TestingMethod;
+import model.element.TestingParameter;
 
 public class MethodUtils {
 	public static Class<?>[] getParameterTypes(java.lang.reflect.Method method) {

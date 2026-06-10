@@ -2,7 +2,7 @@ package common.util;
 
 import java.util.stream.Stream;
 
-import model.element.testing.TestingField;
+import model.element.TestingField;
 
 
 public class FieldUtils {

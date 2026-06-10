@@ -1,4 +1,4 @@
-package model.element.testing;
+package model.element;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;

@@ -55,7 +55,7 @@ import common.constant.TestCaseResult;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.StringUtils;
-import model.TestCase;
+import model.component.TestCase;
 
 public class Grader extends JFrame {
 	private static final long serialVersionUID = 3700796113357733984L;
@@ -367,7 +367,7 @@ public class Grader extends JFrame {
                 for (TestCase test : tests) {
 //                    log("→ " + test.getName() + " (" + test.getPoints() + " pts) ... ");
                     log("→ " + test.getName() + " ... ");
-                    boolean passed = test.runTest();
+                    boolean passed = test.run();
                     int points = passed ? test.getPoints() : 0;
                     scores.add(points);
                     if (passed) {

@@ -1,7 +1,7 @@
 import java.util.List;
 
-import model.TestCase;
 import model.LabTestSuiteFactory;
+import model.component.TestCase;
 
 
 public class TestSuiteRouter {

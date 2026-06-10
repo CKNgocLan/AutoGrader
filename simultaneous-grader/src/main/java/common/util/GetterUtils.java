@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import common.constant.FieldName;
 import common.constant.MethodName;
-import model.component.Getter;
+import model.element.Getter;
 
 public class GetterUtils {
 	public static List<Getter> getMissingGetter(Class<?> clazz) {

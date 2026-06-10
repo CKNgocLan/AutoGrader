@@ -2,7 +2,7 @@ package common.util;
 
 import common.constant.Feedback;
 import common.constant.TestcaseType;
-import model.TestCase;
+import model.component.TestCase;
 
 public class TestCaseUtils {
 	public static TestCase errorTestcase(int points, String className, Exception e) {
@@ -18,7 +18,7 @@ public class TestCaseUtils {
 			}
 
 			@Override
-			public boolean runTest() {
+			public boolean run() {
 				return false;
 			}
 
@@ -42,7 +42,7 @@ public class TestCaseUtils {
 			}
 
 			@Override
-			public boolean runTest() {
+			public boolean run() {
 				return true;
 			}
 
@@ -66,7 +66,7 @@ public class TestCaseUtils {
 			}
 			
 			@Override
-			public boolean runTest() {
+			public boolean run() {
 				return true;
 			}
 			
@@ -90,7 +90,7 @@ public class TestCaseUtils {
 			}
 			
 			@Override
-			public boolean runTest() {
+			public boolean run() {
 				return true;
 			}
 			
@@ -114,7 +114,7 @@ public class TestCaseUtils {
 			}
 			
 			@Override
-			public boolean runTest() {
+			public boolean run() {
 				return false;
 			}
 			
@@ -138,7 +138,7 @@ public class TestCaseUtils {
 			}
 			
 			@Override
-			public boolean runTest() {
+			public boolean run() {
 				return false;
 			}
 			
