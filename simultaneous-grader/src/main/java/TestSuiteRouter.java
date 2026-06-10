@@ -1,5 +1,3 @@
-package common;
-
 import java.util.List;
 
 import model.TestCase;

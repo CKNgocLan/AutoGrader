@@ -46,7 +46,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import common.TestSuiteRouter;
 import common.constant.Constants;
 import common.constant.FileExtension;
 import common.constant.Lab;
@@ -62,7 +61,7 @@ public class Grader extends JFrame {
 	private static final long serialVersionUID = 3700796113357733984L;
 	
 	private JTextField folderPathField;
-    private JButton browseButton, openReportsButton, gradeButton, lab1Button, lab2Button, lab3Button, lab4Button;
+    private JButton browseButton, openReportsButton, gradeButton, lab1Button, lab2Button, lab3Button;
     private JComboBox<String> labComboBox;
 //    private JComboBox<String> questionComboBox;
     private JTextArea logArea;
