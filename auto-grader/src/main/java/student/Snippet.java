@@ -9,8 +9,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 import java.util.stream.Stream;
 
 import org.opentest4j.AssertionFailedError;
@@ -24,29 +28,41 @@ import student.testSuite.lab4.problem1_3.EmployeeTester;
 public class Snippet {
     
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, NoSuchFieldException, TesterGotNoClassNameException {
-    	TestSuiteRouter testSuiteRouter = new TestSuiteRouter();
-    	String selectedLab = Lab.L3;
-    	String selectedQuestion = Problem.P1;
-
-    	String path = "D:\\eclipse-wksp\\AutoGrader\\auto-grader\\sample-lab3-submission";
-    	File submissionDirectory = new File(path);
-    	List<Thread> threadList = new ArrayList<Thread>();
-    	for(File subfile : submissionDirectory.listFiles()) {
-//    		threadList.add(new Thread(new SingleGradingTask(subfile).testSuiteRouter(testSuiteRouter), subfile.getName()));
-    		threadList.add(new Thread(
-    				new SingleGradingTask.Builder(testSuiteRouter)
-		    			.directory(submissionDirectory)
-		    			.lab(selectedLab)
-		    			.build()
-    			, subfile.getName()));
-    	}
-
-    	// Create a thread pool with 2 threads
-    	ExecutorService threadPool = Executors.newFixedThreadPool(threadList.size());
-    	threadList.stream().forEach(thread -> threadPool.submit(thread));
-
-    	// Shutdown the threads/executor
-    	threadPool.shutdown();
+    	ExecutorService executor = Executors.newSingleThreadExecutor();
+    	Future<Integer> future5 = executor.submit(() -> { return 5 * 5; });
+    	
+    	try {
+	    	while (!future5.isDone()) {
+	    		System.out.println("Calculating...");
+	    	}
+			System.out.println(future5.get(500, TimeUnit.MILLISECONDS));
+		} catch (InterruptedException | ExecutionException | TimeoutException e) {
+			e.printStackTrace();
+		}
+    	executor.shutdown();
+//    	TestSuiteRouter testSuiteRouter = new TestSuiteRouter();
+//    	String selectedLab = Lab.L3;
+//    	String selectedQuestion = Problem.P1;
+//
+//    	String path = "D:\\eclipse-wksp\\AutoGrader\\auto-grader\\sample-lab3-submission";
+//    	File submissionDirectory = new File(path);
+//    	List<Thread> threadList = new ArrayList<Thread>();
+//    	for(File subfile : submissionDirectory.listFiles()) {
+////    		threadList.add(new Thread(new SingleGradingTask(subfile).testSuiteRouter(testSuiteRouter), subfile.getName()));
+//    		threadList.add(new Thread(
+//    				new SingleGradingTask.Builder(testSuiteRouter)
+//		    			.directory(submissionDirectory)
+//		    			.lab(selectedLab)
+//		    			.build()
+//    			, subfile.getName()));
+//    	}
+//
+//    	// Create a thread pool with 2 threads
+//    	ExecutorService threadPool = Executors.newFixedThreadPool(threadList.size());
+//    	threadList.stream().forEach(thread -> threadPool.submit(thread));
+//
+//    	// Shutdown the threads/executor
+//    	threadPool.shutdown();
     }
 
 	private static void assertThrownException() throws ClassNotFoundException, TesterGotNoClassNameException {
