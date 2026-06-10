@@ -1,4 +1,4 @@
-package common;
+package student;
 
 import java.util.List;
 

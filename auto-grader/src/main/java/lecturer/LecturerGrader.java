@@ -48,7 +48,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import common.TestSuiteRouter;
+import student.TestSuiteRouter;
 import student.ThemeColor;
 import student.constant.Constants;
 import student.constant.FileExtension;
@@ -65,7 +65,7 @@ public class LecturerGrader extends JFrame {
 	private static final long serialVersionUID = 3700796113357733984L;
 	
 	private JTextField folderPathField;
-    private JButton browseButton, openReportsButton, gradeButton, gradingLab3Button;
+    private JButton browseButton, openReportsButton, gradeButton, lab1Button, lab2Button, lab3Button, lab4Button;
     private JComboBox<String> labComboBox;
 //    private JComboBox<String> questionComboBox;
     private JTextArea logArea;
@@ -117,10 +117,9 @@ public class LecturerGrader extends JFrame {
         gradeButton.setBackground(new Color(208, 18, 18));
         gradeButton.setForeground(Color.WHITE);
 
-        gradingLab3Button = new JButton("Grade Lab 3");
-        gradingLab3Button.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        gradingLab3Button.setBackground(new Color(208, 18, 18));
-        gradingLab3Button.setForeground(Color.WHITE);
+        lab1Button = createGradingLabButton(Lab.L1);
+        lab2Button = createGradingLabButton(Lab.L2);
+        lab3Button = createGradingLabButton(Lab.L3);
         
         // Lab and Question drop down
         labComboBox = new JComboBox<>();
@@ -145,7 +144,9 @@ public class LecturerGrader extends JFrame {
 //        topPanel.add(questionComboBox);
         
         topPanel.add(gradeButton);
-        topPanel.add(gradingLab3Button);
+        topPanel.add(lab1Button);
+        topPanel.add(lab2Button);
+        topPanel.add(lab3Button);
 
         // ==================== CENTER: Log Area ====================
         logArea = new JTextArea();
@@ -182,12 +183,14 @@ public class LecturerGrader extends JFrame {
         
         testSuiteRouter = new TestSuiteRouter();
 
-        // Event Listeners
+        // TODO Event Listeners
         browseButton.addActionListener(this::browseFolder);
         gradeButton.addActionListener(this::startGrading);
-        gradingLab3Button.addActionListener(this::gradeLab3);
         openReportsButton.addActionListener(e -> openReportsFolder());
         clearLogButton.addActionListener(e -> logArea.setText(""));
+        lab1Button.addActionListener(this::gradeLab);
+        lab2Button.addActionListener(this::gradeLab);
+        lab3Button.addActionListener(this::gradeLab);
 
         log("Student Submission Grader Instructions:\n");
         log("1. DELETE PACKAGE STATEMENT (first line)");
@@ -199,6 +202,20 @@ public class LecturerGrader extends JFrame {
         topPanel.setBackground(panelBackgroundColor);
         logScroll.setBackground(panelBackgroundColor);
         bottomPanel.setBackground(panelBackgroundColor);
+    }
+
+    private void gradeLab(ActionEvent e) {
+    	String lab = e.getActionCommand();
+    	System.out.println("Start grading " + lab);
+    }
+    
+    private JButton createGradingLabButton(String lab) {
+        JButton btn = new JButton(lab);
+        btn.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        btn.setBackground(new Color(208, 18, 18));
+        btn.setForeground(Color.WHITE);
+
+        return btn;
     }
     
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
@@ -238,7 +255,7 @@ public class LecturerGrader extends JFrame {
         }
     }
 
-    private File validateSubmissionPath() {
+    private File validateLabSubmissionPath() {
     	File submissionFolder = new File(folderPathField.getText().trim());
 
         if (!submissionFolder.exists() || !submissionFolder.isDirectory()) {
@@ -252,8 +269,8 @@ public class LecturerGrader extends JFrame {
     }
 
     private void gradeLab3(ActionEvent e) {
-    	File submissionFolder = validateSubmissionPath();
-    	if(submissionFolder == null) {
+    	File submissionDir = validateLabSubmissionPath();
+    	if(submissionDir == null) {
     		return;
     	}
 
@@ -262,13 +279,13 @@ public class LecturerGrader extends JFrame {
 
 		// Clear previous log
         logArea.setText(Constants.EMPTY_STRING);
-        log(GradingMessage.STARTING_GRADING_FOR_FOLDER.getContent(submissionFolder.getName()));
+        log(GradingMessage.STARTING_GRADING_FOR_FOLDER.getContent(submissionDir.getName()));
         log(GradingMessage.COMPILING_JAVA_FILES_NEWLINE.getContent());
         log("Grading Lab 3...");
 //        gradeButton.setEnabled(false);
 
      // Step 1: Compile all student's .java files
-        boolean compileSuccess = compileStudentFiles(submissionFolder);
+        boolean compileSuccess = compileStudentFiles(submissionDir);
     }
 
     private void startGrading(ActionEvent e) {
