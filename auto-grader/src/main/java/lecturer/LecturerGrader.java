@@ -1,4 +1,4 @@
-package student;
+package lecturer;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,9 +49,11 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import common.TestSuiteRouter;
+import student.ThemeColor;
 import student.constant.Constants;
 import student.constant.FileExtension;
 import student.constant.GradingMessage;
+import student.constant.Lab;
 import student.constant.Midterm;
 import student.constant.Problem;
 import student.constant.TestCaseResult;
@@ -60,24 +61,21 @@ import student.model.ITestCase;
 import student.util.PathUtils;
 import student.util.StringUtils;
 
-public class StudentGraderUI extends JFrame {
+public class LecturerGrader extends JFrame {
 	private static final long serialVersionUID = 3700796113357733984L;
 	
 	private JTextField folderPathField;
-    private JButton browseButton, gradeButton, openReportsButton;
+    private JButton browseButton, openReportsButton, gradeButton, gradingLab3Button;
     private JComboBox<String> labComboBox;
-    private JComboBox<String> questionComboBox;
+//    private JComboBox<String> questionComboBox;
     private JTextArea logArea;
     private JButton clearLogButton;
     
     private TestSuiteRouter testSuiteRouter;
     
     private Map<String, List<String>> labQuestionsMap = new LinkedHashMap<>();
-    private Map<String, ThemeColor> THEMES = new HashMap<String, ThemeColor>();
 
-    public StudentGraderUI() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
-    	initThemeColor();
-    	
+    public LecturerGrader() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
         setTitle("Grader - 253");
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -104,7 +102,7 @@ public class StudentGraderUI extends JFrame {
 
         // ==================== TOP PANEL ====================
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 15));
-        topPanel.setBorder(BorderFactory.createTitledBorder("Your Submission Folder"));
+        topPanel.setBorder(BorderFactory.createTitledBorder("Student Submission Folder"));
 
         folderPathField = new JTextField(50);
         folderPathField.setText(System.getProperty(Constants.USER_DIR)); // default hint
@@ -118,29 +116,36 @@ public class StudentGraderUI extends JFrame {
         gradeButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
         gradeButton.setBackground(new Color(208, 18, 18));
         gradeButton.setForeground(Color.WHITE);
+
+        gradingLab3Button = new JButton("Grade Lab 3");
+        gradingLab3Button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        gradingLab3Button.setBackground(new Color(208, 18, 18));
+        gradingLab3Button.setForeground(Color.WHITE);
         
         // Lab and Question drop down
         labComboBox = new JComboBox<>();
         labComboBox.setBackground(Color.WHITE);
         labComboBox.setForeground(Color.DARK_GRAY);
         
-        questionComboBox = new JComboBox<>();
-        questionComboBox.setBackground(Color.WHITE);
-        questionComboBox.setForeground(Color.DARK_GRAY);
+//        questionComboBox = new JComboBox<>();
+//        questionComboBox.setBackground(Color.WHITE);
+//        questionComboBox.setForeground(Color.DARK_GRAY);
 
         topPanel.add(new JLabel("Submission Folder:"));
         topPanel.add(folderPathField);
         topPanel.add(browseButton);
         // LAB drop down
-        JLabel labLabel = new JLabel("     Topic:");
+        JLabel labLabel = new JLabel("     Test Case:");
         topPanel.add(labLabel);
 
         topPanel.add(labComboBox);
-        // QUESTION drop down
-        topPanel.add(new JLabel("     Question:"));
-        topPanel.add(questionComboBox);
+
+//        // QUESTION drop down
+//        topPanel.add(new JLabel("     Question:"));
+//        topPanel.add(questionComboBox);
         
         topPanel.add(gradeButton);
+        topPanel.add(gradingLab3Button);
 
         // ==================== CENTER: Log Area ====================
         logArea = new JTextArea();
@@ -180,6 +185,7 @@ public class StudentGraderUI extends JFrame {
         // Event Listeners
         browseButton.addActionListener(this::browseFolder);
         gradeButton.addActionListener(this::startGrading);
+        gradingLab3Button.addActionListener(this::gradeLab3);
         openReportsButton.addActionListener(e -> openReportsFolder());
         clearLogButton.addActionListener(e -> logArea.setText(""));
 
@@ -201,9 +207,6 @@ public class StudentGraderUI extends JFrame {
 //		labQuestionsMap.put(FinalExam.FINAL_253, Arrays.asList(Question.SECTION_2, Question.SECTION_1));
 //		labQuestionsMap.put(Lab.L4, Arrays.asList(Question.Q1, Question.Q4));
 		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Problem.P1));
-//		labQuestionsMap.put(Lab.L3, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
-//		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
-//		labQuestionsMap.put(Lab.L1, Arrays.asList(Question.Q0));
 	}
     
     private void initializeComboBoxes() {
@@ -214,30 +217,15 @@ public class StudentGraderUI extends JFrame {
         updateQuestionComboBox();
     }
     
-	private void initThemeColor() {
-		THEMES.put("RED", new ThemeColor(new Color(254, 242, 242), new Color(254, 226, 226), new Color(239, 68, 68),
-				new Color(220, 38, 38), new Color(185, 28, 28)));
-		THEMES.put("GREEN", new ThemeColor(new Color(240, 253, 244), new Color(220, 252, 231), new Color(34, 197, 94),
-				new Color(22, 163, 74), new Color(21, 128, 61)));
-		THEMES.put("YELLOW", new ThemeColor(new Color(254, 252, 232), new Color(254, 249, 195), new Color(234, 179, 8),
-				new Color(202, 138, 4), new Color(161, 98, 7)));
-		THEMES.put("WHITE", new ThemeColor(new Color(248, 250, 252), new Color(241, 245, 249), new Color(100, 116, 139),
-				new Color(71, 85, 105), new Color(51, 65, 85)));
-		THEMES.put("GREY", new ThemeColor(new Color(243, 244, 246), new Color(229, 231, 235), new Color(107, 114, 128),
-				new Color(75, 85, 99), new Color(55, 65, 81)));
-		THEMES.put("BLUE", new ThemeColor(new Color(239, 246, 255), new Color(219, 234, 254), new Color(59, 130, 246),
-				new Color(37, 99, 235), new Color(29, 78, 216)));
-	}
-    
 	private void updateQuestionComboBox() {
 		String selectedLab = (String) labComboBox.getSelectedItem();
 		if (selectedLab == null)
 			return;
 
-		questionComboBox.removeAllItems();
-		for (String question : labQuestionsMap.get(selectedLab)) {
-			questionComboBox.addItem(question);
-		}
+//		questionComboBox.removeAllItems();
+//		for (String question : labQuestionsMap.get(selectedLab)) {
+//			questionComboBox.addItem(question);
+//		}
 	}
 
     private void browseFolder(ActionEvent e) {
@@ -248,6 +236,39 @@ public class StudentGraderUI extends JFrame {
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             folderPathField.setText(chooser.getSelectedFile().getAbsolutePath());
         }
+    }
+
+    private File validateSubmissionPath() {
+    	File submissionFolder = new File(folderPathField.getText().trim());
+
+        if (!submissionFolder.exists() || !submissionFolder.isDirectory()) {
+            JOptionPane.showMessageDialog(this, 
+                GradingMessage.FOLDER_CONTAINING_JAVA_FILE_NOT_FOUND.getContent()
+                , GradingMessage.ERROR.getContent()
+                , JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
+        return submissionFolder;
+    }
+
+    private void gradeLab3(ActionEvent e) {
+    	File submissionFolder = validateSubmissionPath();
+    	if(submissionFolder == null) {
+    		return;
+    	}
+
+    	String path = folderPathField.getText().trim();
+		String selectedLab = Lab.L3;
+
+		// Clear previous log
+        logArea.setText(Constants.EMPTY_STRING);
+        log(GradingMessage.STARTING_GRADING_FOR_FOLDER.getContent(submissionFolder.getName()));
+        log(GradingMessage.COMPILING_JAVA_FILES_NEWLINE.getContent());
+        log("Grading Lab 3...");
+//        gradeButton.setEnabled(false);
+
+     // Step 1: Compile all student's .java files
+        boolean compileSuccess = compileStudentFiles(submissionFolder);
     }
 
     private void startGrading(ActionEvent e) {
@@ -271,14 +292,15 @@ public class StudentGraderUI extends JFrame {
 			return;
 		}
         
-		String selectedQuestion = (String) questionComboBox.getSelectedItem();
-		if (StringUtils.isNullOrEmpty(selectedQuestion)) {
-			JOptionPane.showMessageDialog(this
-					, GradingMessage.PLEASE_SELECT_QUESTION.getContent()
-					, GradingMessage.WARNING.getContent()
-					, JOptionPane.WARNING_MESSAGE);
-			return;
-		}
+		// TODO remove selecting question
+		String selectedQuestion = "";
+//		if (StringUtils.isNullOrEmpty(selectedQuestion)) {
+//			JOptionPane.showMessageDialog(this
+//					, GradingMessage.PLEASE_SELECT_QUESTION.getContent()
+//					, GradingMessage.WARNING.getContent()
+//					, JOptionPane.WARNING_MESSAGE);
+//			return;
+//		}
 
         // TODO loop through submission directory
         // Clear previous log
@@ -642,7 +664,7 @@ public class StudentGraderUI extends JFrame {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
         	try {
-				new StudentGraderUI().setVisible(true);
+				new LecturerGrader().setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

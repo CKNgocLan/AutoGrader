@@ -10,7 +10,7 @@ import java.util.List;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 
-import student.TestSuiteRouter;
+import common.TestSuiteRouter;
 import student.constant.Constants;
 import student.constant.ExceptionMessage;
 import student.constant.FileExtension;
