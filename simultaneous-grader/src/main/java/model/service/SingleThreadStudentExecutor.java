@@ -13,7 +13,7 @@ import model.component.StudentList;
 /*
  * Student Thread Pool
  */
-public abstract class SingleThreadStudentExecutor {
+public abstract class SingleThreadStudentExecutor implements StudentService {
 	private String topic;
 	private Student student;
 
@@ -26,21 +26,5 @@ public abstract class SingleThreadStudentExecutor {
 		// TODO unimplemented
 		throw new NotImplementedException(ExceptionMessage.NOT_IMPLEMENTED.getContent(this.getClass().getName()));
 //		return Executors.newSingleThreadExecutor();
-	}
-
-	private boolean validate() {
-		if (!LabName.L1.equals(topic)
-				&& !LabName.L2.equals(topic)
-				&& !LabName.L3.equals(topic)
-				&& !LabName.L4.equals(topic)
-				&& !LabName.L5.equals(topic)
-				&& !LabName.L6.equals(topic)
-				&& !LabName.L7.equals(topic)
-				) {
-			return false;
-		}
-
-		
-		return true;
 	}
 }

@@ -11,15 +11,7 @@ public class LabName {
 	public static final String L6 = "Lab 6";
 	public static final String L7 = "Lab 7";
 
-	public static List<String> getNameList() {
-		return Arrays.asList(LabName.class.getDeclaredFields()).stream()
-				.filter(field -> !field.getName().equals("L1"))
-				.map(field -> {
-			try {
-				return String.valueOf(field.get(field.getName()));
-			} catch (IllegalArgumentException | IllegalAccessException e) {
-				return null;
-			}
-		}).toList();
+	public static List<String> getLabList() {
+		return Arrays.asList(L1, L2, L3, L4, L5, L6, L7);
 	}
 }

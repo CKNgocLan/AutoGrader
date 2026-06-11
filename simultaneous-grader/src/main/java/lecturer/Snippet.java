@@ -27,11 +27,14 @@ public class Snippet {
 
 	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			NoSuchFieldException, TesterGotNoClassNameException {
-//    	Stream.of(submissionDirectory.listFiles()).forEach(dir -> System.out.println(dir.getName()));
-		StudentList.setFilePath("D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv");
-//		File _1 = submissionDirectory.listFiles()[0];
-//		String studentID = _1.getName().split(Constants.UNDERSCORE)[0];
-//		System.out.println(StudentList.findByID(studentID));
+		File student = submissionDirectory.listFiles()[0];
+		File[] problems = student.listFiles();
+		for(File p : problems) {
+			System.out.println(p.getName());
+		}
+	}
+	
+	private static void findStudentByDirectory() {
 		for (File studentDir : submissionDirectory.listFiles()) {
 			if (!studentDir.isDirectory()) {
 				continue;

@@ -13,6 +13,7 @@ public enum ExceptionMessage {
 	, IS_NULL_IN_CLASS("{0} IS NULL in \"{1}\" class")
 	, PROPERTY_CANNOT_BE_NULL_OR_EMPTY("Property {0} of {1} cannot be null or empty.")
 	, NOT_IMPLEMENTED("{0} is NOT IMPLEMENTED.")
+	, CANNOT_CONSTRUCT_INSTANCES_DIRECTLY("Cannot construct {0} instances directly.")
 	;
 	
 	private final String value;
