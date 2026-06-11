@@ -12,6 +12,7 @@ public enum ExceptionMessage {
 	, INVALID_CLASS_NAME("INVALID CLASS NAME INPUT: {0}")
 	, IS_NULL_IN_CLASS("{0} IS NULL in \"{1}\" class")
 	, PROPERTY_CANNOT_BE_NULL_OR_EMPTY("Property {0} of {1} cannot be null or empty.")
+	, NOT_IMPLEMENTED("{0} is NOT IMPLEMENTED.")
 	;
 	
 	private final String value;

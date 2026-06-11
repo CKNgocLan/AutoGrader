@@ -1,3 +1,4 @@
+package lecturer;
 import java.util.List;
 
 import model.LabTestSuiteFactory;

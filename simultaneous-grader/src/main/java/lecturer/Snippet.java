@@ -1,14 +1,10 @@
-package student;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
+package lecturer;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -17,16 +13,12 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Stream;
 
-import org.opentest4j.AssertionFailedError;
+import common.constant.LabName;
+import model.exception.TesterGotNoClassNameException;
 
-import student.constant.Lab;
-import student.constant.Problem;
-import student.exception.TesterGotNoClassNameException;
-import student.model.SingleGradingTask;
-import student.testSuite.lab4.problem1_3.EmployeeTester;
 
 public class Snippet {
-	String selectedLab = Lab.L3;
+	String selectedLab = LabName.L3;
 	String path = "D:\\eclipse-wksp\\AutoGrader\\auto-grader\\sample-lab3-submission";
 	File submissionDirectory = new File(path);
     
@@ -48,17 +40,17 @@ public class Snippet {
     	executor.shutdown();
     }
 
-	private static void assertThrownException() throws ClassNotFoundException, TesterGotNoClassNameException {
-		try {
-        	EmployeeTester employeeTester = new EmployeeTester();
-        	assertThrows(NoSuchMethodException.class, () -> {
-        		employeeTester.isValidNumberMethod();
-        	});
-    	} catch (AssertionFailedError e) {
-    		e.printStackTrace();
-    		System.out.println(e.getMessage());
-    	}
-	}
+//	private static void assertThrownException() throws ClassNotFoundException, TesterGotNoClassNameException {
+//		try {
+//        	EmployeeTester employeeTester = new EmployeeTester();
+//        	assertThrows(NoSuchMethodException.class, () -> {
+//        		employeeTester.isValidNumberMethod();
+//        	});
+//    	} catch (AssertionFailedError e) {
+//    		e.printStackTrace();
+//    		System.out.println(e.getMessage());
+//    	}
+//	}
 
 	private static void cleanCombinedFiles() {
 		// Define the relative or absolute path to the target/classes directory
