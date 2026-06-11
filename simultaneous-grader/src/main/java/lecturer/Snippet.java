@@ -8,16 +8,14 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.stream.Stream;
 
-import org.apache.commons.csv.CSVRecord;
-
-import common.constant.Constants;
 import common.constant.LabName;
-import common.util.ReportUtils;
 import model.component.Student;
 import model.component.StudentList;
+import model.component.testSuite.TestSuiteFactory;
+import model.component.testSuite.factory.Lab3Problem1TestSuiteFactory;
 import model.exception.TesterGotNoClassNameException;
+import model.service.ProblemGradingTask;
 
 public class Snippet {
 	static String selectedLab = LabName.L3;
@@ -29,9 +27,10 @@ public class Snippet {
 			NoSuchFieldException, TesterGotNoClassNameException {
 		File student = submissionDirectory.listFiles()[0];
 		File[] problems = student.listFiles();
-		for(File p : problems) {
-			System.out.println(p.getName());
-		}
+		File problem1 = problems[0];
+		TestSuiteFactory testSuiteFactory = new Lab3Problem1TestSuiteFactory(); 
+		Thread thread = new Thread(new ProblemGradingTask(problem1, testSuiteFactory));
+		thread.start();
 	}
 	
 	private static void findStudentByDirectory() {

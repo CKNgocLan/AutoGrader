@@ -3,6 +3,7 @@ package common.util;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.MessageFormat;
 import java.time.LocalDateTime;
@@ -22,6 +23,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import common.constant.Constants;
+import common.constant.FileExtension;
 import common.constant.TestingResult;
 import model.component.TestCaseResult;
 
@@ -37,11 +39,22 @@ public class ReportUtils {
 		}
 	}
 
-	public static void generateExcelReport(String selectedDirectoryName, String selectedLab, String selectedQuestion,
-			List<TestCaseResult> results) {
+	public static void createReportDir() {
+    	Path dirPath = Paths.get(System.getProperty(Constants.USER_DIR), Constants.REPORTS_DIR);
+    	if (!Files.exists(dirPath)) {
+    		try {
+				Files.createDirectories(dirPath);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	}
+    }
+
+	public static void generateExcelReport(String selectedDirectoryName, String topic, String problem, List<TestCaseResult> results) {
+		createReportDir();
 
 		try (Workbook workbook = new XSSFWorkbook()) {
-			Sheet sheet = workbook.createSheet("Test Report");
+			Sheet sheet = workbook.createSheet(topic);
 
 			// Create styles
 			CellStyle headerStyle = createHeaderStyle(workbook);
@@ -143,12 +156,12 @@ public class ReportUtils {
 			// Generate dynamic filename: directory_lab_question_timestamp_report.xlsx
 			String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss"));
 			String safeDir = selectedDirectoryName.replaceAll("[^a-zA-Z0-9._-]", "_");
-			String safeLab = (selectedLab == null || selectedLab.isEmpty()) ? "Lab"
-					: selectedLab.replaceAll("[^a-zA-Z0-9._-]", "_");
-			String safeQ = (selectedQuestion == null || selectedQuestion.isEmpty()) ? "Q"
-					: selectedQuestion.replaceAll("[^a-zA-Z0-9._-]", "_");
+			String safeLab = (topic == null || topic.isEmpty()) ? "(Empty Topic)"
+					: topic.replaceAll("[^a-zA-Z0-9._-]", "_");
+			String safeQ = (problem == null || problem.isEmpty()) ? "(Empty Problem)"
+					: problem.replaceAll("[^a-zA-Z0-9._-]", "_");
 
-			String fileName = "OOP_253-" + safeDir + "-L" + safeLab + "-Q" + safeQ + "_" + timestamp + ".xlsx";
+			String fileName = "OOP_253-" + safeDir + safeLab + safeQ + "_" + timestamp + FileExtension.XLSX;
 
 			String excelFile = Constants.REPORTS_DIR + "/" + fileName;
 
