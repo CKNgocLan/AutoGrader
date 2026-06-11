@@ -9,9 +9,12 @@ import java.util.List;
 
 import common.constant.Constants;
 import common.constant.FileExtension;
+import common.constant.LabName;
+import common.constant.ProblemName;
 import common.constant.TestingResult;
 import common.message.GradingMessage;
 import common.util.PathUtils;
+import common.util.ReportUtils;
 import model.component.TestCase;
 import model.component.TestCaseResult;
 import model.component.testSuite.TestSuite;
@@ -129,6 +132,6 @@ public class ProblemGradingTask implements Runnable {
 	 * Step 4: Save results into CSV file
 	 */
 	private void saveResultsAsCSV(List<TestCaseResult> results) {
-
+		ReportUtils.generateExcelReport(directory.getAbsolutePath(), LabName.L3, ProblemName.P1, results);
 	}
 }

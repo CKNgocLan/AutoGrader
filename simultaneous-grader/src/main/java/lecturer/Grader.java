@@ -51,7 +51,7 @@ import common.constant.Constants;
 import common.constant.FileExtension;
 import common.constant.LabName;
 import common.constant.Midterm;
-import common.constant.Problem;
+import common.constant.ProblemName;
 import common.constant.TestingResult;
 import common.message.GradingMessage;
 import common.util.PathUtils;
@@ -221,7 +221,7 @@ public class Grader extends JFrame {
 		// Format: Lab Name -> List of Questions
 //		labQuestionsMap.put(FinalExam.FINAL_253, Arrays.asList(Question.SECTION_2, Question.SECTION_1));
 //		labQuestionsMap.put(Lab.L4, Arrays.asList(Question.Q1, Question.Q4));
-		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Problem.P1));
+		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(ProblemName.P1));
 	}
     
     private void initializeComboBoxes() {
