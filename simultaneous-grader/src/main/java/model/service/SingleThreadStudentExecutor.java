@@ -19,7 +19,7 @@ public abstract class SingleThreadStudentExecutor {
 
 	public SingleThreadStudentExecutor(File studentDir) {
 		this.topic = studentDir.getParentFile().getName();
-		this.student = StudentList.findByID(studentDir.getName());
+		this.student = StudentList.findByStudentDirectory(studentDir);
 	}
 
 	public ExecutorService toExecutor() {

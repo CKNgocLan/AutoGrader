@@ -12,44 +12,55 @@ import java.util.stream.Stream;
 
 import org.apache.commons.csv.CSVRecord;
 
+import common.constant.Constants;
 import common.constant.LabName;
 import common.util.ReportUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.exception.TesterGotNoClassNameException;
 
-
 public class Snippet {
-	String selectedLab = LabName.L3;
-	String path = "D:\\eclipse-wksp\\AutoGrader\\auto-grader\\sample-lab3-submission";
+	static String selectedLab = LabName.L3;
+	static String path = "D:\\eclipse-wksp\\AutoGrader\\auto-grader\\sample-lab3-submission";
 	static String csvPath = "D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv";
-	File submissionDirectory = new File(path);
-    
-    public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, NoSuchFieldException, TesterGotNoClassNameException {
-//    	List<CSVRecord> records = ReportUtils.readCSV(csvPath);
-//    	List<Student> students = records.stream().map(Student::new).toList();
+	static File submissionDirectory = new File(path);
 
-    	StudentList.setFilePath("D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv");
-    	List<Student> students = StudentList.getList();
-    	Student s = students.stream().filter(stu -> "2331200033".equals(stu.idNumber())).findFirst().orElseThrow();
-    	System.out.println(s);
-//    	for (Student s : students) {
-//    		System.out.println(s.idNumber());
-//    	}
-    }
+	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
+			NoSuchFieldException, TesterGotNoClassNameException {
+//    	Stream.of(submissionDirectory.listFiles()).forEach(dir -> System.out.println(dir.getName()));
+		StudentList.setFilePath("D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv");
+//		File _1 = submissionDirectory.listFiles()[0];
+//		String studentID = _1.getName().split(Constants.UNDERSCORE)[0];
+//		System.out.println(StudentList.findByID(studentID));
+		for (File studentDir : submissionDirectory.listFiles()) {
+			if (!studentDir.isDirectory()) {
+				continue;
+			}
+			System.out.println(StudentList.findByStudentDirectory(studentDir));
+		}
+	}
 
-    private static void future() {
-    	ExecutorService executor = Executors.newSingleThreadExecutor();
-    	Future<Integer> future5 = executor.submit(() -> { return 5 * 5; });
-    	
-    	try {
-	    	while (!future5.isDone()) {
-	    		System.out.println("Calculating...");
-	    	}
+	private static void findStudent() {
+		StudentList.setFilePath("D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv");
+		List<Student> students = StudentList.getList();
+		Student s = students.stream().filter(stu -> "2331200033".equals(stu.idNumber())).findFirst().orElseThrow();
+		System.out.println(s);
+	}
+
+	private static void future() {
+		ExecutorService executor = Executors.newSingleThreadExecutor();
+		Future<Integer> future5 = executor.submit(() -> {
+			return 5 * 5;
+		});
+
+		try {
+			while (!future5.isDone()) {
+				System.out.println("Calculating...");
+			}
 			System.out.println(future5.get(500, TimeUnit.MILLISECONDS));
 		} catch (InterruptedException | ExecutionException | TimeoutException e) {
 			e.printStackTrace();
 		}
-    	executor.shutdown();
-    }
+		executor.shutdown();
+	}
 }

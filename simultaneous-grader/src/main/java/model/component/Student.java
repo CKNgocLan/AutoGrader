@@ -16,7 +16,7 @@ public record Student(String idNumber, String fullName, String groups, String em
 				, record.get(StudentHeader.EMAIL_ADDRESS)
 		);
 	}
-//
+
 //	@Override
 //	public boolean equals(Object obj) {
 //		if (this == obj) {

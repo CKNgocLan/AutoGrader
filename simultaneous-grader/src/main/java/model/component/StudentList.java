@@ -1,7 +1,9 @@
 package model.component;
 
+import java.io.File;
 import java.util.List;
 
+import common.constant.Constants;
 import common.util.ReportUtils;
 
 public class StudentList {
@@ -19,6 +21,10 @@ public class StudentList {
 
 	public static Student findByID(String idNumber) {
 		return list.stream().filter(stu -> stu.idNumber().equals(idNumber)).findFirst().orElseThrow();
+	}
+
+	public static Student findByStudentDirectory(File submissionDir) {
+		return StudentList.findByID(submissionDir.getName().split(Constants.UNDERSCORE)[0]);
 	}
 
 	private static List<Student> initializeList() {
