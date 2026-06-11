@@ -1,8 +1,7 @@
-package classTester.lab3.problem1;
+package tester.lab3.problem1;
 
 import java.lang.reflect.InvocationTargetException;
 
-import classTester.ClassTester;
 import common.constant.ClassName;
 import common.constant.FieldName;
 import common.constant.MethodName;
@@ -11,8 +10,9 @@ import model.element.TestingField;
 import model.element.TestingMethod;
 import model.element.TestingParameter;
 import model.exception.TesterGotNoClassNameException;
+import tester.Tester;
 
-public class CashRegisterTester extends ClassTester {
+public class CashRegisterTester extends Tester {
 	private RetailItemTester retailItemTester;
 
 	/*

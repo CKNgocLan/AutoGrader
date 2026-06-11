@@ -1,4 +1,4 @@
-package classTester;
+package tester;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -22,7 +22,7 @@ import model.element.TestingMethod;
 import model.element.TestingParameter;
 import model.exception.TesterGotNoClassNameException;
 
-public abstract class ClassTester {
+public class Tester {
 	protected String className;
 	protected ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	protected FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
@@ -30,6 +30,15 @@ public abstract class ClassTester {
 	private Class<?> clazz;
 	protected int defaultPoints = 1;
 	protected Class<?> solutionClass;
+
+//	private static Tester instance;
+//	public static Tester getInstance() {
+//		if (instance == null) {
+//			instance = new Tester();
+//		}
+//
+//		return instance;
+//	}
 
 	/*
 	 * class ***************

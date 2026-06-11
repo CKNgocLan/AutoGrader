@@ -1,17 +1,18 @@
-package classTester.lab3.problem1;
+package tester.lab3.problem1;
 
 import java.lang.reflect.InvocationTargetException;
 
-import classTester.ClassTester;
 import common.constant.ClassName;
 import common.constant.FieldName;
 import model.component.TestCase;
 import model.element.TestingField;
 import model.element.TestingParameter;
 import model.exception.TesterGotNoClassNameException;
+import tester.Tester;
 
-public class RetailItemTester extends ClassTester {
-
+public class RetailItemTester extends Tester {
+//	private Tester tester = Tester.getInstance();
+	
 	/*
 	 * instantiate ***************
 	 */
