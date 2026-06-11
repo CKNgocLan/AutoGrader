@@ -1,0 +1,28 @@
+package helper;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+
+import common.util.PathUtils;
+
+public class ClassLoader {
+	private static URLClassLoader instance = null;
+
+	public static URLClassLoader getInstance() {
+		if (instance == null) {
+			try {
+				instance = new URLClassLoader(new URL[] {new File(PathUtils.targetClasses()).toURI().toURL()});
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return instance;
+	}
+	
+	public static Class<?> retrieveClass(String className) throws ClassNotFoundException {
+		return Class.forName(className, true, getInstance());
+	}
+}

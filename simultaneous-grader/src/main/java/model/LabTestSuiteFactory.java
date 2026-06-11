@@ -1,5 +1,6 @@
 package model;
 
+@Deprecated
 public class LabTestSuiteFactory {
 	public AbstractLabTestSuite createSuite(String lab) {
 

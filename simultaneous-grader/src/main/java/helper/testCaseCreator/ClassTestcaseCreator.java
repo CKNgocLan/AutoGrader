@@ -1,0 +1,796 @@
+package helper.testCaseCreator;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.net.URLClassLoader;
+import java.util.Arrays;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.stream.Stream;
+
+import common.constant.Constants;
+import common.constant.Feedback;
+import common.constant.TestcaseType;
+import common.util.ClassUtils;
+import common.util.ParameterUtils;
+import helper.elementChecker.FieldChecker;
+import model.component.TestCase;
+import model.element.TestingParameter;
+import helper.ClassLoader;
+
+public class ClassTestcaseCreator {
+	private static ClassTestcaseCreator instance;
+	private FieldChecker fieldChecker = FieldChecker.getInstance();
+	private URLClassLoader targetClassesLoader = ClassLoader.getInstance();
+
+	/*
+	 * ***************************************************************************
+	 */
+
+	public static ClassTestcaseCreator getInstance() {
+		if (instance == null) {
+			instance = new ClassTestcaseCreator();
+		}
+
+		return instance;
+	}
+
+	/*
+	 * ***************************************************************************
+	 */
+
+	/**
+	 * Class existence testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public TestCase checkExistence(int points, String className) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class.forName(className, true, targetClassesLoader);
+					return true;
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_FOUND.getContent(className);
+			}
+		};
+	}
+
+	/**
+	 * Class existence testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public TestCase declareAsInterface(int points, String className) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_INTERFACE_EXISTENCE.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Class.forName(className, true, targetClassesLoader).isInterface();
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_FOUND.getContent(className);
+			}
+		};
+	}
+	
+	public TestCase declareAsEnum(int points, String className) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_ENUM_EXISTENCE.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Class.forName(className, true, targetClassesLoader).isEnum();
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.ENUM_NOT_FOUND.getContent(className);
+			}
+		};
+	}
+	
+	public TestCase declareAsAbstract(int points, String className) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_ABSTRACT_CLASS_DECLARATION.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Modifier.isAbstract(Class.forName(className, true, targetClassesLoader).getModifiers());
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_ABSTRACT.getContent(className);
+			}
+		};
+	}
+	
+	public TestCase declareAsStaticClass(int points, String className) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_STATIC_CLASS_DECLARATION.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Modifier.isStatic(Class.forName(className, true, targetClassesLoader).getModifiers());
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_STATIC.getContent(className);
+			}
+		};
+	}
+	
+	public TestCase declareConstructorAsPrivate(int points, String className, Class<?>... parammeterTypes) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_PRIVATE_CLASS_DECLARATION.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					clazz.getDeclaredConstructor(parammeterTypes);
+					if (Modifier.isPrivate(clazz.getModifiers())) {
+						return false;
+					}
+
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_PRIVATE.getContent(className);
+			}
+		};
+	}
+
+	public TestCase declareAsInnerStaticClass(int points, String className) {
+		Object[] classNameArgs = ClassUtils.splitInnerClassName(className);
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_DECLARED_STATIC_INNER_CLASS.getName(classNameArgs);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Modifier.isStatic(Class.forName(className, true, targetClassesLoader).getModifiers());
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_STATIC_INSIDE.getContent(classNameArgs);
+			}
+		};
+	}
+	
+	/**
+	 * Class existence testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public TestCase checkExistenceAsEnum(int points, String className) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Class.forName(className, true, targetClassesLoader).isEnum();
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_FOUND.getContent(className);
+			}
+		};
+	}
+	
+	public TestCase checkImplementingInterface(int points, String className, String interfaceName) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_INTERFACE_IMPLEMENTED_BY_CLASS.getName(className, interfaceName);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					for (Class<?> clazz : Class.forName(className, true, targetClassesLoader).getInterfaces()) {
+						if (clazz.getName().contains(interfaceName)) {
+							return true;
+						}
+					}
+					
+					return false;
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_IMPLEMENTING_INTERFACE.getContent(className, interfaceName);
+			}
+		};
+	}
+	
+	public TestCase declareSuperclass(int points, String className, Class<?> superclass) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_SUPERCLASS_EXTENDED_BY_CLASS.getName(className, superclass.getSimpleName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Class.forName(className, true, targetClassesLoader).getSuperclass().equals(superclass);
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_EXTENDING_SUPERCLASS.getContent(className, superclass.getSimpleName());
+			}
+		};
+	}
+	
+	public TestCase implementInterface(int points, String className, Class<?> interfaze) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_SUPERCLASS_EXTENDED_BY_CLASS.getName(className, interfaze.getSimpleName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return Class.forName(className, true, targetClassesLoader).getInterfaces()[0].equals(interfaze);
+				} catch (ClassNotFoundException e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_EXTENDING_SUPERCLASS.getContent(className, interfaze.getSimpleName());
+			}
+		};
+	}
+	
+	public TestCase operateConstructorViaSuper(int points, String className, TestingParameter... args) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_HAVING_SUPERCLASS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					Class<?> superclazz = clazz.getSuperclass();
+					
+					Object instance = clazz
+							.getDeclaredConstructor(ParameterUtils.mapToConstructorType(args))
+							.newInstance(ParameterUtils.mapToConstructorValue(args));
+					
+					for (java.lang.reflect.Field actualField : superclazz.getDeclaredFields()) {
+						if (!actualField.canAccess(instance)) {
+							actualField.setAccessible(true);
+						}
+						
+						Optional<TestingParameter> paramTestingOptional = Arrays.stream(args)
+								.filter(arg -> arg.getName()
+								.equals(actualField.getName()))
+								.findFirst();
+						if (paramTestingOptional.isEmpty()) {
+							System.out.println("Element is not present: %s".formatted(actualField.getName()));
+							continue;
+						}
+						
+						if (actualField.getType().isEnum() && !paramTestingOptional.get().equalsEnumConstant((Class<? extends Enum<?>>) paramTestingOptional.get().getType().asSubclass(Enum.class), actualField.get(instance))) {
+							return false;
+						}
+						
+						if (!paramTestingOptional.get().getValue().equals(actualField.get(instance))) {
+							return false;
+						}
+					}
+					
+					return true;
+				} catch (NoSuchElementException e) {
+					System.out.println("INVALID FIELDS: %s".formatted(e.getMessage()));
+					return false;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.ARGS_CONSTRUCTOR_AMONG_SUPERCLASS_OPERATION_NOT_CORRECT.getContent(className);
+			}
+		};
+	}
+	
+	/*
+	 * constructor ***************
+	 */
+
+	/**
+	 * No-argument constructor DECLARATION testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public TestCase checkNoArgConstructorDeclaration(int points, String className) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_NO_ARGS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class.forName(className, true, targetClassesLoader).getDeclaredConstructor().newInstance();
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.NO_ARGS_CONSTRUCTOR_DECLARATION_MISSING.getContent(className);
+			}
+		};
+	}
+
+	/**
+	 * No-argument constructor OPERATION testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public TestCase checkNoArgConstructorOperation(int points, String className, TestingParameter params) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_NO_ARGS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+
+					return ParameterUtils.compareTestingValueViaGetter(clazz, clazz.getDeclaredConstructor().newInstance(),
+							params);
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.NO_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(className);
+			}
+		};
+	}
+
+	/**
+	 * Full-argument constructor DECLARATION testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public TestCase checkFullArgsConstructorDeclaration(int points, String className, TestingParameter... params) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_FULL_ARGS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class.forName(className, true, targetClassesLoader)
+							.getDeclaredConstructor(Stream.of(params).map(p -> p.getType()).toArray(Class<?>[]::new));
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.FULL_ARGS_CONSTRUCTOR_DECLARATION_MISSING.getContent(className);
+			}
+		};
+	}
+
+	/**
+	 * Full-argument constructor OPERATION testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public TestCase checkFullArgsConstructorOperation(int points, String className, TestingParameter... params) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_FULL_ARGS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+
+					Class<?>[] types = Stream.of(params).map(pt -> pt.getType()).toArray(Class<?>[]::new);
+					Object[] testValues = Stream.of(params).map(pt -> pt.getValue()).toArray(Object[]::new);
+					Object instance = clazz.getDeclaredConstructor(types).newInstance(testValues);
+
+					for (TestingParameter param : params) {
+						if (!ParameterUtils.compareTestingValueViaGetter(clazz, instance, param)) {
+							return false;
+						}
+					}
+
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.FULL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(className);
+			}
+		};
+	}
+	
+	
+	public TestCase checkPartialArgsConstructorDeclaration(int points, String className, Class<?>... paramTypes) {
+		return checkPartialArgsConstructorDeclaration(points, className, ParameterUtils.mapFromTypes(paramTypes));
+	}
+
+	/**
+	 * Partial-argument constructor DECLARATION testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public TestCase checkPartialArgsConstructorDeclaration(int points, String className, TestingParameter... params) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_PARTIAL_ARGS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class.forName(className, true, targetClassesLoader)
+							.getDeclaredConstructor(Stream.of(params).map(p -> p.getType()).toArray(Class<?>[]::new));
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.PARTIAL_ARGS_CONSTRUCTOR_DECLARATION_MISSING.getContent(className, String
+						.join(Constants.COMMA_WITH_SPACE, Stream.of(params).map(param -> param.getName()).toList()));
+			}
+		};
+	}
+
+	/**
+	 * Partial-argument constructor OPERATION testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public TestCase checkPartialArgsConstructorOperationViaGetter(int points, String className, TestingParameter... params) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_PARTIAL_ARGS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					
+					// TODO compare field as Object without using getter/setter
+					Object instance = clazz
+							.getDeclaredConstructor(ParameterUtils.mapToType(params))
+							.newInstance(ParameterUtils.mapToTestingValue(params));
+
+					for (TestingParameter param : params) {
+						if (!ParameterUtils.compareTestingValueViaGetter(clazz, instance, param)) {
+							return false;
+						}
+					}
+
+					return true;
+				} catch (Exception e) {
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.PARTIAL_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(className, String
+						.join(Constants.COMMA_WITH_SPACE, Stream.of(params).map(param -> param.getName()).toList()));
+			}
+		};
+	}
+	
+	// TODO operateConstructorHavingSuperclass
+	@Deprecated
+	public TestCase operateConstructorHavingSuperclass(int points, String className, String superclassName, TestingParameter... params) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_HAVING_SUPERCLASS.getName(className, superclassName);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+					Object instance = clazz
+							.getDeclaredConstructor(ParameterUtils.mapToType(params))
+							.newInstance(ParameterUtils.mapToTestingValue(params));
+
+					for (TestingParameter param : params) {
+						if (!ParameterUtils.compareTestingValueViaGetter(clazz, instance, param)) {
+							return false;
+						}
+					}
+
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.ARGS_CONSTRUCTOR_AMONG_SUPERCLASS_OPERATION_NOT_CORRECT.getContent(className, superclassName);
+			}
+		};
+	}
+	
+	/*
+	 * attribute ***************
+	 */
+
+	/**
+	 * Attribute declaration testcase
+	 * 
+	 * @param className
+	 * @param points
+	 * @return
+	 */
+	public TestCase checkAttributes(int points, String className) {
+		return new TestCase() {
+			String invalidAttrName = null;
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_ATTRIBUTE.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					for (Field field : Class.forName(className, true, targetClassesLoader).getDeclaredFields()) {
+						if (!fieldChecker.checkField(field)) {
+							invalidAttrName = field.getName();
+							return false;
+						}
+					}
+
+					return true;
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.getMessage());
+					return false;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.ATTRIBUTE_DECLARED_NOT_CORRECT.getContent(className, invalidAttrName);
+			}
+		};
+	}
+}

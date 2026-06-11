@@ -369,7 +369,7 @@ public class Grader extends JFrame {
                 for (TestCase test : tests) {
 //                    log("→ " + test.getName() + " (" + test.getPoints() + " pts) ... ");
                     log("→ " + test.getName() + " ... ");
-                    boolean passed = test.run();
+                    boolean passed = test.runTest();
                     int points = passed ? test.getPoints() : 0;
                     scores.add(points);
                     if (passed) {

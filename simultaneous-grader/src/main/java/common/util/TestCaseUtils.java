@@ -18,7 +18,7 @@ public class TestCaseUtils {
 			}
 
 			@Override
-			public boolean run() {
+			public boolean runTest() {
 				return false;
 			}
 
@@ -42,7 +42,7 @@ public class TestCaseUtils {
 			}
 
 			@Override
-			public boolean run() {
+			public boolean runTest() {
 				return true;
 			}
 
@@ -66,7 +66,7 @@ public class TestCaseUtils {
 			}
 			
 			@Override
-			public boolean run() {
+			public boolean runTest() {
 				return true;
 			}
 			
@@ -90,7 +90,7 @@ public class TestCaseUtils {
 			}
 			
 			@Override
-			public boolean run() {
+			public boolean runTest() {
 				return true;
 			}
 			
@@ -114,7 +114,7 @@ public class TestCaseUtils {
 			}
 			
 			@Override
-			public boolean run() {
+			public boolean runTest() {
 				return false;
 			}
 			
@@ -138,7 +138,7 @@ public class TestCaseUtils {
 			}
 			
 			@Override
-			public boolean run() {
+			public boolean runTest() {
 				return false;
 			}
 			

@@ -2,6 +2,6 @@ package model.component;
 
 import java.util.List;
 
-public interface Tester {
+public interface ClassTester {
 	public List<TestCaseResult> runTestCases();
 }

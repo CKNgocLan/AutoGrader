@@ -9,7 +9,7 @@ public interface TestCase {
 
 	public int getPoints();
 
-	public boolean run();
+	public boolean runTest();
 
 	public String getFeedback();
 }
