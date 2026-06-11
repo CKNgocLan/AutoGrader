@@ -1,6 +1,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<properties>
+		<maven.compiler.release>19</maven.compiler.release>
+	</properties>
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>grader</groupId>
 	<artifactId>simultaneous-grader</artifactId>
@@ -41,6 +45,14 @@
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-csv</artifactId>
 			<version>1.14.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Source: https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.21.0</version>
 			<scope>compile</scope>
 		</dependency>
 

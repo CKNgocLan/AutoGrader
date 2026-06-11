@@ -56,6 +56,7 @@ import common.constant.TestCaseResult;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.StringUtils;
+import model.component.StudentList;
 import model.component.TestCase;
 
 public class Grader extends JFrame {
@@ -676,6 +677,7 @@ public class Grader extends JFrame {
 
 	// ==================== End of Helper Class ====================
     public static void main(String[] args) {
+		StudentList.setFilePath("D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv");
         SwingUtilities.invokeLater(() -> {
         	try {
 				new Grader().setVisible(true);

@@ -8,13 +8,18 @@ import org.apache.poi.ss.formula.eval.NotImplementedException;
 import common.constant.LabName;
 import common.message.ExceptionMessage;
 import model.component.Student;
+import model.component.StudentList;
 
+/*
+ * Student Thread Pool
+ */
 public abstract class SingleThreadStudentExecutor {
 	private String topic;
 	private Student student;
 
 	public SingleThreadStudentExecutor(File studentDir) {
 		this.topic = studentDir.getParentFile().getName();
+		this.student = StudentList.findByID(studentDir.getName());
 	}
 
 	public ExecutorService toExecutor() {
