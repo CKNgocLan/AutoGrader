@@ -1,29 +1,193 @@
 package common.util;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import common.constant.Constants;
+import common.constant.TestingResult;
+import model.component.TestCaseResult;
 
 public class ReportUtils {
 	public static List<CSVRecord> readCSV(String filePath) {
 		try {
-			return CSVFormat.DEFAULT
-					.builder()
-					.setHeader()
-					.setSkipHeaderRecord(true)
-					.setIgnoreEmptyLines(true)
-					.setTrim(true)
-					.get()
-					.parse(Files.newBufferedReader(Paths.get(filePath)))
-					.getRecords();
+			return CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).setIgnoreEmptyLines(true)
+					.setTrim(true).get().parse(Files.newBufferedReader(Paths.get(filePath))).getRecords();
 
 		} catch (IOException e) {
 			e.printStackTrace();
 			return List.of();
 		}
 	}
+
+	public static void generateExcelReport(String selectedDirectoryName, String selectedLab, String selectedQuestion,
+			List<TestCaseResult> results) {
+
+		try (Workbook workbook = new XSSFWorkbook()) {
+			Sheet sheet = workbook.createSheet("Test Report");
+
+			// Create styles
+			CellStyle headerStyle = createHeaderStyle(workbook);
+			CellStyle passedStyle = createPassedStyle(workbook); // Green
+			CellStyle failedStyle = createFailedStyle(workbook); // Red
+
+			// Header row
+			Row headerRow = sheet.createRow(0);
+			//String[] headers = {"No.", "Test Case Name", "Max Points", "Earned Points", "Result", "Feedback"};
+			String[] headers = { "No.", "Test Case Name", "Result", "Feedback" };
+			for (int i = 0; i < headers.length; i++) {
+				Cell cell = headerRow.createCell(i);
+				cell.setCellValue(headers[i]);
+				cell.setCellStyle(headerStyle);
+			}
+
+			// Data rows - one test case per row (vertical)
+			int rowNum = 1;
+
+			int passedCounter = 0;
+			for (TestCaseResult result : results) {
+				Row row = sheet.createRow(rowNum++);
+				int col = 0;
+
+				// No.
+				row.createCell(col++).setCellValue(results.indexOf(result) + 1);
+
+				// Test Case Name
+				row.createCell(col++).setCellValue(result.testName());
+
+				// Max Points
+				// row.createCell(col++).setCellValue(result.maxPoints);
+				
+				// Earned Points
+				// row.createCell(col++).setCellValue(result.earnedPoints);
+				
+				// Result + Color
+				Cell resultCell = row.createCell(col++);
+				if (result.passed()) {
+					passedCounter++;
+
+					// Result
+					resultCell.setCellValue(TestingResult.PASSED);
+
+					// Apply color
+					resultCell.setCellStyle(passedStyle);
+				} else {
+					// Result
+					resultCell.setCellValue(TestingResult.FAILED);
+
+					resultCell.setCellStyle(failedStyle);
+
+					// Feedback
+					row.createCell(col++).setCellValue(result.feedback());
+				}
+			}
+
+			// create aggregation row
+			{
+				Row aggregationRow = sheet.createRow(rowNum);
+				int colIndex = 0;
+
+				// aggregation row style
+				org.apache.poi.ss.usermodel.Font resultFont = workbook.createFont();
+				resultFont.setBold(true);
+				resultFont.setItalic(true);
+				resultFont.setColor(IndexedColors.WHITE.getIndex());
+
+				CellStyle resultStyle = workbook.createCellStyle();
+				resultStyle.setAlignment(HorizontalAlignment.CENTER);
+				resultStyle.setFillForegroundColor(IndexedColors.DARK_GREEN.getIndex());
+				resultStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+				resultStyle.setFont(resultFont);
+
+				// No
+				colIndex++;
+
+				// Test Case Name
+				//colIndex++;
+				org.apache.poi.ss.usermodel.Cell testcaseCell = aggregationRow.createCell(colIndex++);
+				testcaseCell.setCellValue(MessageFormat.format("{0}/{1} testcases", passedCounter, results.size()));
+				testcaseCell.setCellStyle(resultStyle);
+
+				// Result
+				org.apache.poi.ss.usermodel.Cell resultCell = aggregationRow.createCell(colIndex++);
+				resultCell.setCellValue(
+						MessageFormat.format("{0}%", String.valueOf(((double) passedCounter / results.size()) * 100)));
+				resultCell.setCellStyle(resultStyle);
+
+				// Feedback
+				colIndex++;
+			}
+
+			// Auto-size columns
+			for (int i = 0; i < 5; i++) {
+				sheet.autoSizeColumn(i);
+			}
+
+			// Generate dynamic filename: directory_lab_question_timestamp_report.xlsx
+			String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss"));
+			String safeDir = selectedDirectoryName.replaceAll("[^a-zA-Z0-9._-]", "_");
+			String safeLab = (selectedLab == null || selectedLab.isEmpty()) ? "Lab"
+					: selectedLab.replaceAll("[^a-zA-Z0-9._-]", "_");
+			String safeQ = (selectedQuestion == null || selectedQuestion.isEmpty()) ? "Q"
+					: selectedQuestion.replaceAll("[^a-zA-Z0-9._-]", "_");
+
+			String fileName = "OOP_253-" + safeDir + "-L" + safeLab + "-Q" + safeQ + "_" + timestamp + ".xlsx";
+
+			String excelFile = Constants.REPORTS_DIR + "/" + fileName;
+
+			try (FileOutputStream fos = new FileOutputStream(excelFile)) {
+				workbook.write(fos);
+			}
+
+			System.out.println("Excel report generated: " + fileName);
+
+		} catch (Exception e) {
+			System.out.println("Error generating Excel report: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+    // Helper styles
+    private static CellStyle createHeaderStyle(Workbook wb) {
+        CellStyle style = wb.createCellStyle();
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        return style;
+    }
+
+    // PASSED Cell Style
+    private static CellStyle createPassedStyle(Workbook wb) {
+        CellStyle style = wb.createCellStyle();
+        style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        return style;
+    }
+
+    // FAILED Cell Style
+    private static CellStyle createFailedStyle(Workbook wb) {
+        CellStyle style = wb.createCellStyle();
+        style.setFillForegroundColor(IndexedColors.RED.getIndex());   // Light red
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        return style;
+    }
 }

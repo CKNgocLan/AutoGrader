@@ -52,7 +52,7 @@ import common.constant.FileExtension;
 import common.constant.LabName;
 import common.constant.Midterm;
 import common.constant.Problem;
-import common.constant.TestCaseResult;
+import common.constant.TestingResult;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.StringUtils;
@@ -376,7 +376,7 @@ public class Grader extends JFrame {
                     	passedList.add(passed);
                     }
 
-                    log(passed ? TestCaseResult.PASSED : TestCaseResult.FAILED);
+                    log(passed ? TestingResult.PASSED : TestingResult.FAILED);
                     results.add(new TestResult(test.getName(), test.getPoints(), passed ? test.getPoints() : 0, passed, test.getFeedback()));
                 }
                 int totalScore = scores.stream().mapToInt(Integer::intValue).sum();
@@ -546,13 +546,13 @@ public class Grader extends JFrame {
 					passedCounter++;
 					
 					// Result
-					resultCell.setCellValue(TestCaseResult.PASSED);
+					resultCell.setCellValue(TestingResult.PASSED);
 
 					// Apply color
 					resultCell.setCellStyle(passedStyle);
 				} else {
 					// Result
-					resultCell.setCellValue(TestCaseResult.FAILED);
+					resultCell.setCellValue(TestingResult.FAILED);
 					
 					resultCell.setCellStyle(failedStyle);
 

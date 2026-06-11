@@ -1,5 +1,6 @@
 package model.component.testSuite.concrete;
 
+import java.util.Arrays;
 import java.util.List;
 
 import model.component.TestCase;
@@ -29,7 +30,29 @@ public class Lab3Problem1TestSuite extends TestSuite {
 			double totalTax = subtotal * tax_rate;
 			double total = subtotal + totalTax;
 
-			return null;
+			return Arrays.asList(
+					// retail item
+					retailItemTester.declare()
+					, retailItemTester.checkFields(defaultPoints)
+					, retailItemTester.checkConstructorDeclaration(defaultPoints)
+					, retailItemTester.checkConstructorOperation(defaultPoints, retailItemArgs)
+					, retailItemTester.checkGetterDeclaration(defaultPoints)
+					, retailItemTester.checkSetterDeclaration(defaultPoints)
+
+					// cash register
+					, cashRegisterTester.declare()
+					, cashRegisterTester.checkFields(defaultPoints)
+					, cashRegisterTester.checkConstructorDeclaration(defaultPoints)
+					, cashRegisterTester.checkConstructorOperation(defaultPoints, cashRegisterArgs)
+					, cashRegisterTester.checkGetterDeclaration(defaultPoints)
+					, cashRegisterTester.checkSetterDeclaration(defaultPoints)
+					, cashRegisterTester.declareGetSubtotal(defaultPoints)
+					, cashRegisterTester.operateGetSubtotal(defaultPoints, subtotal, cashRegisterArgs)
+					, cashRegisterTester.declareGetTax(defaultPoints)
+					, cashRegisterTester.operateGetTax(defaultPoints, totalTax, cashRegisterArgs)
+					, cashRegisterTester.declareGetTotal(defaultPoints)
+					, cashRegisterTester.operateGetTotal(defaultPoints, total, cashRegisterArgs)
+					);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return List.of();

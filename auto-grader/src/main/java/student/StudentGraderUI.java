@@ -56,6 +56,7 @@ import student.constant.Midterm;
 import student.constant.Problem;
 import student.constant.TestCaseResult;
 import student.model.ITestCase;
+import student.model.TestResult;
 import student.util.PathUtils;
 import student.util.StringUtils;
 
@@ -494,7 +495,7 @@ public class StudentGraderUI extends JFrame {
 				row.createCell(col++).setCellValue(results.indexOf(result) + 1);
 
 				// Test Case Name
-				row.createCell(col++).setCellValue(result.testName);
+				row.createCell(col++).setCellValue(result.testName());
 
 				// Max Points
 				// row.createCell(col++).setCellValue(result.maxPoints);
@@ -504,7 +505,7 @@ public class StudentGraderUI extends JFrame {
 
 				// Result + Color
 				Cell resultCell = row.createCell(col++);
-				if (result.passed) {
+				if (result.passed()) {
 					passedCounter++;
 					
 					// Result
@@ -519,7 +520,7 @@ public class StudentGraderUI extends JFrame {
 					resultCell.setCellStyle(failedStyle);
 
 					// Feedback
-					row.createCell(col++).setCellValue(result.feedback);
+					row.createCell(col++).setCellValue(result.feedback());
 				}
 			}
 			
@@ -621,21 +622,21 @@ public class StudentGraderUI extends JFrame {
     // ====================== End of EXCEL REPORT ======================
 	
 	// ==================== Helper Class ====================
-	private static class TestResult {
-		private String testName;
-		private int maxPoints;
-		private int earnedPoints;
-		private boolean passed;
-		private String feedback;
-
-		TestResult(String testName, int maxPoints, int earnedPoints, boolean passed, String feedback) {
-			this.testName = testName;
-			this.maxPoints = maxPoints;
-			this.earnedPoints = earnedPoints;
-			this.passed = passed;
-			this.feedback = feedback;
-		}
-	}
+//	private static class TestResult {
+//		private String testName;
+//		private int maxPoints;
+//		private int earnedPoints;
+//		private boolean passed;
+//		private String feedback;
+//
+//		TestResult(String testName, int maxPoints, int earnedPoints, boolean passed, String feedback) {
+//			this.testName = testName;
+//			this.maxPoints = maxPoints;
+//			this.earnedPoints = earnedPoints;
+//			this.passed = passed;
+//			this.feedback = feedback;
+//		}
+//	}
 
 	// ==================== End of Helper Class ====================
     public static void main(String[] args) {

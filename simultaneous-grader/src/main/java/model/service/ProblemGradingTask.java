@@ -9,9 +9,11 @@ import java.util.List;
 
 import common.constant.Constants;
 import common.constant.FileExtension;
+import common.constant.TestingResult;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import model.component.TestCase;
+import model.component.TestCaseResult;
 import model.component.testSuite.TestSuite;
 import model.component.testSuite.TestSuiteFactory;
 
@@ -49,56 +51,55 @@ public class ProblemGradingTask implements Runnable {
 		}
 
 		// Step 3: Run test cases
-		runTestCases();
+		List<TestCaseResult> results = runTestCases(testCases);
 
 		// Step 4: Save results into CSV file
-		saveResultsAsCSV();
+		saveResultsAsCSV(results);
 	}
 
 	/**
 	 * Step 1: Compile all student's .java files
 	 */
 	private boolean combineJavaFiles() {
-        try {
-            List<String> javaFiles = new ArrayList<>();
-            Files.walk(directory.toPath())
-                 .filter(p -> p.toString().endsWith(FileExtension.JAVA))
-                 .forEach(p -> javaFiles.add(p.toString()));
+		try {
+			List<String> javaFiles = new ArrayList<>();
+			Files.walk(directory.toPath()).filter(p -> p.toString().endsWith(FileExtension.JAVA))
+					.forEach(p -> javaFiles.add(p.toString()));
 
-            if (javaFiles.isEmpty()) {
-            	GradingMessage.NO_JAVA_FILE_FOUND_IN_FOLDER.printErrorContent(directory.getName());
-                return false;
-            }
-            
-            // TODO check and remove package statement
+			if (javaFiles.isEmpty()) {
+				GradingMessage.NO_JAVA_FILE_FOUND_IN_FOLDER.printErrorContent(directory.getName());
+				return false;
+			}
 
-            ProcessBuilder pb = new ProcessBuilder();
-            List<String> cmd = new ArrayList<>();
-            cmd.add("javac");
-            cmd.add("-d");
-            cmd.add(PathUtils.targetClasses());
-            cmd.addAll(javaFiles);
-            pb.command(cmd);
+			// TODO check and remove package statement
 
-            Process process = pb.start();
-            int exitCode = process.waitFor();
+			ProcessBuilder pb = new ProcessBuilder();
+			List<String> cmd = new ArrayList<>();
+			cmd.add("javac");
+			cmd.add("-d");
+			cmd.add(PathUtils.targetClasses());
+			cmd.addAll(javaFiles);
+			pb.command(cmd);
 
-            if (exitCode != 0) {
-            	GradingMessage.COMPILATION_ERRORS_WITH_MESSAGE.printErrorContent(Constants.EMPTY_STRING);
-                try (BufferedReader br = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
-                    String line;
-                    while ((line = br.readLine()) != null) {
-                    	System.err.println("   " + line);
-                    }
-                }
-                return false;
-            }
+			Process process = pb.start();
+			int exitCode = process.waitFor();
 
-            return true;
-        } catch (Exception e) {
-            GradingMessage.COMPILATION_ERRORS_WITH_MESSAGE.printErrorContent(e.getMessage());
-            return false;
-        }
+			if (exitCode != 0) {
+				GradingMessage.COMPILATION_ERRORS_WITH_MESSAGE.printErrorContent(Constants.EMPTY_STRING);
+				try (BufferedReader br = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+					String line;
+					while ((line = br.readLine()) != null) {
+						System.err.println(Constants.SPACE.repeat(3) + line);
+					}
+				}
+				return false;
+			}
+
+			return true;
+		} catch (Exception e) {
+			GradingMessage.COMPILATION_ERRORS_WITH_MESSAGE.printErrorContent(e.getMessage());
+			return false;
+		}
 	}
 
 	/**
@@ -111,14 +112,23 @@ public class ProblemGradingTask implements Runnable {
 	/**
 	 * Step 3: Run test cases
 	 */
-	private void runTestCases() {
-		
+	private List<TestCaseResult> runTestCases(List<TestCase> testCases) {
+		List<TestCaseResult> results = new ArrayList<TestCaseResult>();
+		for (TestCase tc : testCases) {
+			if (tc.runTest()) {
+				results.add(new TestCaseResult(tc.getName(), tc.getPoints(), tc.getPoints(), true, tc.getFeedback()));
+			} else {
+				results.add(new TestCaseResult(tc.getName(), tc.getPoints(), 0, false, tc.getFeedback()));
+			}
+		}
+
+		return results;
 	}
 
 	/**
 	 * Step 4: Save results into CSV file
 	 */
-	private void saveResultsAsCSV() {
-		
+	private void saveResultsAsCSV(List<TestCaseResult> results) {
+
 	}
 }

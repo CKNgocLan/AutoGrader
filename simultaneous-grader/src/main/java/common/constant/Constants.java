@@ -17,6 +17,7 @@ public class Constants {
 	public static final String COMMA = ",";
 	public static final String ASSIGN = "=";
 	public static final String COMMA_WITH_SPACE = ", ";
+	public static final String SPACE = " ";
 	public static final char UNDERSCORE_CHAR = '_';
 
 	public static final String DOLLAR_SIGN = "$";
