@@ -25,7 +25,7 @@ import student.exception.TesterGotNoClassNameException;
 import student.model.SingleGradingTask;
 import student.testSuite.lab4.problem1_3.EmployeeTester;
 
-public class Snippet {
+public class StudentSnippet {
 	String selectedLab = Lab.L3;
 	String path = "D:\\eclipse-wksp\\AutoGrader\\auto-grader\\sample-lab3-submission";
 	File submissionDirectory = new File(path);

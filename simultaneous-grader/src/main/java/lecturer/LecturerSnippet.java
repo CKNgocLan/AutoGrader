@@ -17,7 +17,7 @@ import model.component.testSuite.factory.Lab3Problem1TestSuiteFactory;
 import model.exception.TesterGotNoClassNameException;
 import model.service.ProblemGradingTask;
 
-public class Snippet {
+public class LecturerSnippet {
 	static String selectedLab = LabName.L3;
 	static String path = "D:\\eclipse-wksp\\AutoGrader\\auto-grader\\sample-lab3-submission";
 	static String csvPath = "D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv";

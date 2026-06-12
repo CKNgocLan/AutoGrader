@@ -59,7 +59,7 @@ import common.util.StringUtils;
 import model.component.StudentList;
 import model.component.TestCase;
 
-public class Grader extends JFrame {
+public class LecturerGrader extends JFrame {
 	private static final long serialVersionUID = 3700796113357733984L;
 	
 	private JTextField folderPathField;
@@ -73,7 +73,7 @@ public class Grader extends JFrame {
     
     private Map<String, List<String>> labQuestionsMap = new LinkedHashMap<>();
 
-    public Grader() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
+    public LecturerGrader() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
         setTitle("Grader - 253");
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -680,7 +680,7 @@ public class Grader extends JFrame {
 		StudentList.setFilePath("D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv");
         SwingUtilities.invokeLater(() -> {
         	try {
-				new Grader().setVisible(true);
+				new LecturerGrader().setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
