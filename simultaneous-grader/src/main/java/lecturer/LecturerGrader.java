@@ -50,7 +50,6 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import common.constant.Constants;
 import common.constant.FileExtension;
 import common.constant.TopicName;
-import common.constant.Midterm;
 import common.constant.ProblemName;
 import common.constant.TestingResult;
 import common.message.GradingMessage;
@@ -221,7 +220,7 @@ public class LecturerGrader extends JFrame {
 		// Format: Lab Name -> List of Questions
 //		labQuestionsMap.put(FinalExam.FINAL_253, Arrays.asList(Question.SECTION_2, Question.SECTION_1));
 //		labQuestionsMap.put(Lab.L4, Arrays.asList(Question.Q1, Question.Q4));
-		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(ProblemName.P1));
+		labQuestionsMap.put(TopicName.MIDTERM_253, Arrays.asList(ProblemName.P1));
 	}
     
     private void initializeComboBoxes() {

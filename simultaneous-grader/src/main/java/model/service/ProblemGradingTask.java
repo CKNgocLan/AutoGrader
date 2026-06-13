@@ -6,39 +6,65 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import common.constant.Constants;
 import common.constant.FileExtension;
-import common.constant.TopicName;
 import common.constant.ProblemName;
-import common.constant.TestingResult;
+import common.constant.TopicName;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
+import common.util.ThreadServiceUtils;
+import model.component.Student;
+import model.component.StudentList;
 import model.component.TestCase;
 import model.component.testSuite.TestSuite;
 import model.component.testSuite.TestSuiteFactory;
+import model.resultReport.ProblemResult;
 import model.resultReport.TestCaseResult;
 
-public class ProblemGradingTask implements Runnable {
+public class ProblemGradingTask implements Callable<ProblemResult> {
 	private File directory;
-	private SingleThreadStudentExecutor studentService;
 	private TestSuite testSuite;
-
-	public ProblemGradingTask(SingleThreadStudentExecutor studentService) {
-		this.studentService = studentService;
-	}
+	private Student student;
+//	private StudentThreadPool studentService;
+//
+//	public ProblemGradingTask(StudentThreadPool studentService) {
+//		this.studentService = studentService;
+//	}
 
 	public ProblemGradingTask(File problemDir, TestSuiteFactory testSuiteFactory) {
 		this.directory = problemDir;
 		this.testSuite = testSuiteFactory.createTestSuite();
-	}
-
-	public Thread toThread() {
-		return new Thread(this);
+		this.student = StudentList.findByStudentDirectory(this.directory.getParentFile());
 	}
 
 	@Override
+	public ProblemResult call() throws Exception {
+		System.out.println("Running Problem Task: %s".formatted(this.directory.getName()));
+
+		// TODO declare grading step order
+		// Step 1: Compile all student's .java files
+		combineJavaFiles();
+
+		// Step 2: Retrieve test cases
+		List<TestCase> testCases = retrieveTestCases();
+		if (testCases == null || testCases.isEmpty()) {
+			// TODO throw exception when test case list is invalid
+			return ThreadServiceUtils.createUnexpectedProblemResult(student);
+		}
+
+		// Step 3: Run test cases
+		List<TestCaseResult> results = runTestCases(testCases);
+
+		// Step 4: Save results into CSV file
+		saveResults(results);
+		
+		return new ProblemResult(student, results.stream().filter(result -> result.passed()).toList().size(), results);
+	}
+
+//	@Override
 	public void run() {
 		System.out.println("Running Problem Task: %s".formatted(this.directory.getName()));
 
@@ -57,7 +83,7 @@ public class ProblemGradingTask implements Runnable {
 		List<TestCaseResult> results = runTestCases(testCases);
 
 		// Step 4: Save results into CSV file
-		saveResultsAsCSV(results);
+		saveResults(results);
 	}
 
 	/**
@@ -131,7 +157,7 @@ public class ProblemGradingTask implements Runnable {
 	/**
 	 * Step 4: Save result into Excel file
 	 */
-	private void saveResultsAsCSV(List<TestCaseResult> results) {
+	private void saveResults(List<TestCaseResult> results) {
 		ReportUtils.generateExcelReport(directory.getName(), TopicName.L3, ProblemName.P1, results);
 	}
 

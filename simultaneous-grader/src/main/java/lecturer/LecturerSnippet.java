@@ -1,48 +1,73 @@
 package lecturer;
 
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import common.constant.FileExtension;
-import common.constant.ProblemName;
 import common.constant.TopicName;
-import common.constant.csv.TopicHeader;
 import common.util.PathUtils;
-import common.util.ReportUtils;
-import common.util.StringUtils;
-import model.component.Student;
 import model.component.StudentList;
-import model.component.testSuite.TestSuiteFactory;
 import model.component.testSuite.factory.Lab3Problem1TestSuiteFactory;
+import model.component.testSuite.factory.Lab3Problem2TestSuiteFactory;
 import model.exception.TesterGotNoClassNameException;
+import model.resultReport.ProblemResult;
 import model.service.ProblemGradingTask;
+import model.service.StudentThreadPool;
 
 public class LecturerSnippet {
 	static String selectedLab = TopicName.L3;
 	static String submissionDirectoryName = "sample-lab3-submission";
 	static String path = Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toString();
-	static String csvPath = Path.of(PathUtils.currentFolderPath(), "cse203-participants-253.csv").toString();
+	static String csvPath = Path.of(PathUtils.currentFolderPath(), submissionDirectoryName, "cse203-participants-253.csv").toString();
 	static File submissionDirectory = new File(path);
 
 	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			NoSuchFieldException, TesterGotNoClassNameException {
-		File topicPath = Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toFile();
-		
-		Object[] row1 = { "2331220036", "Le Kieu Anh", 100, 100, 100, 100 };
-		Object[] row2 = { "2431200178", "Vu Quang Tung", 100, 100, 100, 100 };
-		ReportUtils.generateTopicCSVResult(topicPath, TopicName.L3, Arrays.asList(row1, row2));
+		gradeLab3();
 	}
+
+	private static void gradeLab3() {
+		StudentList.setFilePath(csvPath);
+		File studentDir = submissionDirectory.listFiles()[0];
+		StudentThreadPool threadPool1 = new StudentThreadPool(TopicName.L3, studentDir);
+		try {
+			List<Future<ProblemResult>> futureList = new ArrayList<>();
+			for (File studentDirectory : studentDir.listFiles()) {
+				threadPool1.submitTask(new ProblemGradingTask(studentDirectory, new Lab3Problem1TestSuiteFactory()));
+				threadPool1.submitTask(new ProblemGradingTask(studentDirectory, new Lab3Problem2TestSuiteFactory()));
+			}
+
+			while (futureList.stream().filter(thread -> !thread.isDone()).toList().size() > 0) {
+				System.out.println("Calculating...");
+			}
+			List<ProblemResult> problemResultList = futureList.stream().map(future -> {
+				try {
+					return future.get();
+				} catch (Exception e) {
+					e.printStackTrace();
+					return null;
+				} finally {
+					threadPool1.shutdownService();
+				}
+			}).toList();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		threadPool1.shutdownService();
+	}
+
+//	private static void generateCSVResult() {
+//		File topicPath = Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toFile();
+//		Object[] row1 = { "2331220036", "Le Kieu Anh", 100, 100, 100, 100 };
+//		Object[] row2 = { "2431200178", "Vu Quang Tung", 100, 100, 100, 100 };
+//		ReportUtils.generateTopicCSVResult(topicPath, TopicName.L3, Arrays.asList(row1, row2));
+//	}
 
 //	public void gradeLab3Problem1() {
 //		File student = submissionDirectory.listFiles()[0];

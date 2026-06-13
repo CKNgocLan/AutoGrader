@@ -34,4 +34,22 @@ public class ProblemName {
 		}
 		return result;
 	}
+
+	public static List<String> getProblems(String topic) {
+		switch (topic) {
+			case TopicName.L1:
+			case TopicName.L2:
+			case TopicName.L3:
+			case TopicName.L4:
+			case TopicName.L5:
+			case TopicName.L6:
+			case TopicName.L7:
+				return Arrays.asList(P1, P2, P3, P4, P5);
+			case TopicName.MIDTERM_EXAM:
+				return Arrays.asList(SECTION_1);
+			case TopicName.FINAL_EXAM:
+				return Arrays.asList(SECTION_1, SECTION_2);
+		}
+		return List.of();
+	}
 }

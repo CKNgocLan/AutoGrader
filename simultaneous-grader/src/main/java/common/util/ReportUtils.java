@@ -174,11 +174,10 @@ public class ReportUtils {
 //			String safeQ = StringUtils.toSafeName(problem);
 
 			String fileName = Constants.OOP + Constants.UNDERSCORE + YearQuarter.Y25Q3
-					+ Symbol.HYPHEN + StringUtils.toSafeName(selectedDirectoryName)
 					+ Symbol.HYPHEN + StringUtils.toSafeName(topic)
-					+ Symbol.HYPHEN + StringUtils.toSafeName(problem)
+					+ Symbol.HYPHEN + StringUtils.toSafeName(selectedDirectoryName)
 					+ Constants.UNDERSCORE + timestamp
-					+ FileExtension.XLSX;
+					+ FileExtension.XLSX.extension();
 
 			String excelFile = Constants.REPORTS_DIR + Symbol.FORE_SLASH + fileName;
 
