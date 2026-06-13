@@ -14,11 +14,9 @@ import model.component.StudentList;
  * Student Thread Pool
  */
 public abstract class SingleThreadStudentExecutor implements StudentService {
-	private String topic;
 	private Student student;
 
 	public SingleThreadStudentExecutor(File studentDir) {
-		this.topic = studentDir.getParentFile().getName();
 		this.student = StudentList.findByStudentDirectory(studentDir);
 	}
 

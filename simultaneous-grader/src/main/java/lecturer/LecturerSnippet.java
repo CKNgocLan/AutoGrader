@@ -1,9 +1,11 @@
 package lecturer;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -12,11 +14,12 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import com.opencsv.CSVWriter;
-
 import common.constant.FileExtension;
+import common.constant.ProblemName;
 import common.constant.TopicName;
+import common.constant.csv.TopicHeader;
 import common.util.PathUtils;
+import common.util.ReportUtils;
 import common.util.StringUtils;
 import model.component.Student;
 import model.component.StudentList;
@@ -27,88 +30,105 @@ import model.service.ProblemGradingTask;
 
 public class LecturerSnippet {
 	static String selectedLab = TopicName.L3;
-	static String path = "E:\\eclipse-workspace\\AutoGrader\\auto-grader\\sample-lab3-submission";
-	static String csvPath = "E:\\eclipse-workspace\\AutoGrader\\cse203-participants-253.csv";
-	static File submissionDirectory = new File(path);
 	static String submissionDirectoryName = "sample-lab3-submission";
+	static String path = Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toString();
+	static String csvPath = Path.of(PathUtils.currentFolderPath(), "cse203-participants-253.csv").toString();
+	static File submissionDirectory = new File(path);
 
 	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			NoSuchFieldException, TesterGotNoClassNameException {
-		Path topicPath = Path.of(PathUtils.currentFolderPath(), submissionDirectoryName);
-		File file = new File(Path.of(topicPath.toString(), topicPath.toFile().getName() + FileExtension.CSV).toString());
+		File topicPath = Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toFile();
 		
-		System.out.println(FileExtension.CSV.toResultName(StringUtils.toLowerCaseNoSpace(TopicName.L3)));
-		System.out.println(FileExtension.CSV.toAbsoluteFileResultPath(path, StringUtils.toLowerCaseNoSpace(TopicName.L3)));
+		Object[] row1 = { "2331220036", "Le Kieu Anh", 100, 100, 100, 100 };
+		Object[] row2 = { "2431200178", "Vu Quang Tung", 100, 100, 100, 100 };
+		ReportUtils.generateTopicCSVResult(topicPath, TopicName.L3, Arrays.asList(row1, row2));
 	}
 
-	public void gradeLab3Problem1() {
-		File student = submissionDirectory.listFiles()[0];
-		File[] problems = student.listFiles();
-		File problem1 = problems[0];
-		TestSuiteFactory testSuiteFactory = new Lab3Problem1TestSuiteFactory(); 
-		new ProblemGradingTask(problem1, testSuiteFactory).toThread().start();
-	}
+//	public void gradeLab3Problem1() {
+//		File student = submissionDirectory.listFiles()[0];
+//		File[] problems = student.listFiles();
+//		File problem1 = problems[0];
+//		TestSuiteFactory testSuiteFactory = new Lab3Problem1TestSuiteFactory(); 
+//		new ProblemGradingTask(problem1, testSuiteFactory).toThread().start();
+//	}
 
-	public static void writeDataLineByLine(File submissionDir, String topic)
-	{
-	    // first create file object for file placed at location specified by filepath
-	    File file = new File(Path.of(submissionDirectoryName, topic + FileExtension.CSV).toString());
+//	public static void generateTopicCSVResult(File topicDirFile, String topic, List<Object[]> rows) {
+//	    // first create file object for file placed at location specified by filepath
+//	    File file = new File(FileExtension.CSV.toAbsoluteFileResultPath(topicDirFile.toString(), StringUtils.toLowerCaseNoSpace(topic)));
+//
+//	    try {
+//	        // create FileWriter object with file as parameter
+//	        FileWriter outputfile = new FileWriter(file);
+//	        BufferedWriter writer = new BufferedWriter(outputfile);
+//
+//	        // 1. Write the header row
+//	        String[] headers = TopicHeader.withProblems(ProblemName.P1, ProblemName.P2, ProblemName.P3);
+//            writer.write(convertToCsvRow(headers));
+//            writer.newLine();
+//	        	
+//            // 2. Write the data rows
+//            for (Object[] row : rows) {
+//            	writer.write(convertToCsvRow(row));
+//                writer.newLine();
+//            }
+//
+//            writer.close();
+//            System.out.println("CSV report successfully created at: " + topicDirFile.getAbsolutePath());
+//	    }
+//	    catch (IOException e) {
+//	        e.printStackTrace();
+//	    }
+//	}
 
-	    try {
-	        // create FileWriter object with file as parameter
-	        FileWriter outputfile = new FileWriter(file);
-
-	        // create CSVWriter object filewriter object as parameter
-	        CSVWriter writer = new CSVWriter(outputfile);
-
-	        // adding header to csv
-	        String[] header = { "Name", "Class", "Marks" };
-	        writer.writeNext(header);
-
-	        // add data to csv
-	        String[] data1 = { "Aman", "10", "620" };
-	        writer.writeNext(data1);
-	        String[] data2 = { "Suraj", "10", "630" };
-	        writer.writeNext(data2);
-
-	        // closing writer connection
-	        writer.close();
-	    }
-	    catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	}
+    // Safely escapes fields that contain commas or double quotes
+//    private static String convertToCsvRow(Object[] fields) {
+//        StringBuilder row = new StringBuilder();
+//        for (int i = 0; i < fields.length; i++) {
+//            String field = String.valueOf(fields[i]);
+//            
+//            // If the text contains a comma, quote, or newline, wrap it in double quotes
+//            if (field.contains(",") || field.contains("\"") || field.contains("\n")) {
+//                field = "\"" + field.replace("\"", "\"\"") + "\"";
+//            }
+//            
+//            row.append(field);
+//            if (i < fields.length - 1) {
+//                row.append(","); // Separate with a comma
+//            }
+//        }
+//        return row.toString();
+//    }
 	
-	private static void findStudentByDirectory() {
-		for (File studentDir : submissionDirectory.listFiles()) {
-			if (!studentDir.isDirectory()) {
-				continue;
-			}
-			System.out.println(StudentList.findByStudentDirectory(studentDir));
-		}
-	}
+//	private static void findStudentByDirectory() {
+//		for (File studentDir : submissionDirectory.listFiles()) {
+//			if (!studentDir.isDirectory()) {
+//				continue;
+//			}
+//			System.out.println(StudentList.findByStudentDirectory(studentDir));
+//		}
+//	}
 
-	private static void findStudent() {
-		StudentList.setFilePath("D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv");
-		List<Student> students = StudentList.getList();
-		Student s = students.stream().filter(stu -> "2331200033".equals(stu.idNumber())).findFirst().orElseThrow();
-		System.out.println(s);
-	}
+//	private static void findStudent() {
+//		StudentList.setFilePath("D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv");
+//		List<Student> students = StudentList.getList();
+//		Student s = students.stream().filter(stu -> "2331200033".equals(stu.idNumber())).findFirst().orElseThrow();
+//		System.out.println(s);
+//	}
 
-	private static void future() {
-		ExecutorService executor = Executors.newSingleThreadExecutor();
-		Future<Integer> future5 = executor.submit(() -> {
-			return 5 * 5;
-		});
-
-		try {
-			while (!future5.isDone()) {
-				System.out.println("Calculating...");
-			}
-			System.out.println(future5.get(500, TimeUnit.MILLISECONDS));
-		} catch (InterruptedException | ExecutionException | TimeoutException e) {
-			e.printStackTrace();
-		}
-		executor.shutdown();
-	}
+//	private static void future() {
+//		ExecutorService executor = Executors.newSingleThreadExecutor();
+//		Future<Integer> future5 = executor.submit(() -> {
+//			return 5 * 5;
+//		});
+//
+//		try {
+//			while (!future5.isDone()) {
+//				System.out.println("Calculating...");
+//			}
+//			System.out.println(future5.get(500, TimeUnit.MILLISECONDS));
+//		} catch (InterruptedException | ExecutionException | TimeoutException e) {
+//			e.printStackTrace();
+//		}
+//		executor.shutdown();
+//	}
 }

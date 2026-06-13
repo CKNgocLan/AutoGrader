@@ -1,5 +1,7 @@
 package common.util;
 
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -32,7 +34,9 @@ import common.constant.Symbol;
 import common.constant.TestingResult;
 import common.constant.TopicName;
 import common.constant.YearQuarter;
+import common.constant.csv.TopicHeader;
 import common.message.ExceptionMessage;
+import common.message.GradingMessage;
 import model.resultReport.TestCaseResult;
 
 public class ReportUtils {
@@ -190,30 +194,52 @@ public class ReportUtils {
 		}
 	}
 
-	public static void generateSummaryCSV(List<TestCaseResult> results, String fileName) {
-		try {
-            String csvFile = Constants.REPORTS_DIR + Symbol.FORE_SLASH + fileName + FileExtension.CSV;
-            try (PrintWriter pw = new PrintWriter(new FileWriter(csvFile))) {
+	public static void generateTopicCSVResult(File topicDirFile, String topic, List<Object[]> rows) {
+	    // first create file object for file placed at location specified by filepath
+	    File file = new File(FileExtension.CSV.toAbsoluteFileResultPath(topicDirFile.toString(), StringUtils.toLowerCaseNoSpace(topic)));
 
-                // Header
-                pw.println("Student ID Number,Student Full Name,Score,Percentage,Status,Graded On");
+	    try {
+	        // create FileWriter object with file as parameter
+	        FileWriter outputfile = new FileWriter(file);
+	        BufferedWriter writer = new BufferedWriter(outputfile);
 
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DateTimeFormatters.yyyy_MM_dd_HH_mm);
-
-                for (TestCaseResult r : results) {
-//                    String line = String.format("\"%s\",%d,%.1f%%,\"%s\",\"%s\"",
-//                            escapeCsv(r.studentName),
-//                            r.score,
-//                            (r.score / 100.0) * 100,
-//                            r.status,
-//                            LocalDateTime.now().format(dtf));
-//                    pw.println(line);
-                }
+	        // 1. Write the header row
+	        String[] headers = TopicHeader.withProblems(ProblemName.P1, ProblemName.P2, ProblemName.P3);
+            writer.write(convertToCsvRow(headers));
+            writer.newLine();
+	        	
+            // 2. Write the data rows
+            for (Object[] row : rows) {
+            	writer.write(convertToCsvRow(row));
+                writer.newLine();
             }
-        } catch (Exception e) {
-            System.out.println("Warning: Could not create CSV summary: " + e.getMessage());
-        }
+
+            writer.close();
+            System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(topicDirFile.getAbsolutePath(), file.getName()));
+	    }
+	    catch (IOException e) {
+	        e.printStackTrace();
+	    }
 	}
+
+	public static String convertToCsvRow(Object[] fields) {
+        StringBuilder row = new StringBuilder();
+        for (int i = 0; i < fields.length; i++) {
+            String field = String.valueOf(fields[i]);
+            
+            // If the text contains a comma, quote, or newline, wrap it in double quotes
+            if (field.contains(Symbol.COMMA) || field.contains(Symbol.DOUBLE_QUOTE) || field.contains(Symbol.NEWLINE)) {
+                field = Symbol.DOUBLE_QUOTE + field.replace(Symbol.DOUBLE_QUOTE, Symbol.DOUBLE_DOUBLE_QUOTE) + Symbol.DOUBLE_QUOTE;
+            }
+            
+            row.append(field);
+            // Separate with a comma
+            if (i < fields.length - 1) {
+                row.append(Symbol.COMMA);
+            }
+        }
+        return row.toString();
+    }
 
     // Helper styles
     private static CellStyle createHeaderStyle(Workbook wb) {

@@ -4,8 +4,8 @@ public class FieldName {
 	/*
 	 * common
 	 */
-	public static final String STUDENT_ID_NUMBER = "studentIDNumber";
-	public static final String STUDENT_NAME = "studentName";
+	public static final String STUDENT_ID_NUMBER = "student ID Number";
+	public static final String STUDENT_FULL_NAME = "student Full Name";
 	public static final String TOPIC = "topic";
 
 	/*
