@@ -1,6 +1,7 @@
 package common.constant;
 
 public class Constants {
+	public static final String OOP = "OOP";
 	public static final String SRC = "src";
 	public static final String MAIN = "main";
 	public static final String JAVA = "java";
@@ -22,6 +23,7 @@ public class Constants {
 
 	public static final String DOLLAR_SIGN = "$";
 	public static final String ESCAPE_DOLLAR_SIGN = "\\$";
+	public static final String SAFE_STRING_REGEX = "[^a-zA-Z0-9._-]";
 	
 	public static final String EMPTY_STRING = "";
 

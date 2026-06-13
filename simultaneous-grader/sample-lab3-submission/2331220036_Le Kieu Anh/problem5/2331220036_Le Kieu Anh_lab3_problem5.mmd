@@ -1,0 +1,46 @@
+classDiagram
+    class ParkedCar {
+        -make : String
+        -model : String
+        -color : String
+        -licenseNumber : String
+        -parkedMinutes : int
+        +ParkedCar(make :String, model: String, color: String, licenseNumber :String, parkedMinutes :int)
+        +getter()
+        +setter()
+    }
+
+    class ParkingMeter {
+        -purchasedMinutes : int
+        +ParkingMeter(purchasedMinutes: int)
+        +getPurchasedMinutes() int
+    }
+
+    class PoliceOfficer {
+        -name : String
+        -badgeNumber : String
+        +PoliceOfficer(name: String, badgeNumber :String)
+        +examineCar(parkedCar :ParkedCar, parkingMeter: ParkingMeter) boolean
+        +issueTicket(car: ParkedCar, meter: ParkingMeter) ParkingTicket
+        +getter()
+        +setter()
+    }
+
+    class ParkingTicket {
+        -car : ParkedCar
+        -officer : PoliceOfficer
+        -fineAmount : double
+        +ParkingTicket(car: ParkedCar, officer: PoliceOfficer, fineAmount: double)
+        +getter()
+        +setter()
+    }
+
+    class Const {
+        +FIRST_HOUR_FINE : int$
+        +ADDITIONAL_HOUR_FINE : int$
+    }
+
+   PoliceOfficer ..> ParkedCar
+    PoliceOfficer ..> ParkingMeter
+ParkedCar --|> ParkingTicket
+    PoliceOfficer o-- ParkingTicket

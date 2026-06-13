@@ -5,7 +5,7 @@ import java.util.concurrent.ExecutorService;
 
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 
-import common.constant.LabName;
+import common.constant.TopicName;
 import common.message.ExceptionMessage;
 import model.component.Student;
 import model.component.StudentList;

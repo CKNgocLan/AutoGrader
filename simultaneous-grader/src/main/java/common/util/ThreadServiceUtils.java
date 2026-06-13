@@ -1,9 +1,9 @@
 package common.util;
 
-import common.constant.LabName;
+import common.constant.TopicName;
 
 public class ThreadServiceUtils {
 	public static boolean isTopicValid(String topic) {
-		return LabName.getLabList().contains(topic);
+		return TopicName.getLabList().contains(topic);
 	}
 }

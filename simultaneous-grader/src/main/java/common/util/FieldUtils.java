@@ -2,6 +2,8 @@ package common.util;
 
 import java.util.stream.Stream;
 
+import common.constant.Constants;
+import common.constant.ProblemName;
 import model.element.TestingField;
 
 
@@ -13,6 +15,4 @@ public class FieldUtils {
 				.toArray(TestingField[]::new)
 				;
 	}
-
-//	public static TestingField[] fromSolutionEnum(Cla)
 }

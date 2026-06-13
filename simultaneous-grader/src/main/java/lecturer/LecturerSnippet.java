@@ -9,7 +9,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import common.constant.LabName;
+import common.constant.TopicName;
 import model.component.Student;
 import model.component.StudentList;
 import model.component.testSuite.TestSuiteFactory;
@@ -18,9 +18,9 @@ import model.exception.TesterGotNoClassNameException;
 import model.service.ProblemGradingTask;
 
 public class LecturerSnippet {
-	static String selectedLab = LabName.L3;
-	static String path = "D:\\eclipse-wksp\\AutoGrader\\auto-grader\\sample-lab3-submission";
-	static String csvPath = "D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv";
+	static String selectedLab = TopicName.L3;
+	static String path = "E:\\eclipse-workspace\\AutoGrader\\auto-grader\\sample-lab3-submission";
+	static String csvPath = "E:\\eclipse-workspace\\AutoGrader\\cse203-participants-253.csv";
 	static File submissionDirectory = new File(path);
 
 	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
@@ -29,8 +29,7 @@ public class LecturerSnippet {
 		File[] problems = student.listFiles();
 		File problem1 = problems[0];
 		TestSuiteFactory testSuiteFactory = new Lab3Problem1TestSuiteFactory(); 
-		Thread thread = new Thread(new ProblemGradingTask(problem1, testSuiteFactory));
-		thread.start();
+		new ProblemGradingTask(problem1, testSuiteFactory).toThread().start();
 	}
 	
 	private static void findStudentByDirectory() {

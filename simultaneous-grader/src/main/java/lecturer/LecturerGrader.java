@@ -49,7 +49,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import common.constant.Constants;
 import common.constant.FileExtension;
-import common.constant.LabName;
+import common.constant.TopicName;
 import common.constant.Midterm;
 import common.constant.ProblemName;
 import common.constant.TestingResult;
@@ -115,9 +115,9 @@ public class LecturerGrader extends JFrame {
         gradeButton.setBackground(new Color(208, 18, 18));
         gradeButton.setForeground(Color.WHITE);
 
-        lab1Button = createGradingLabButton(LabName.L1);
-        lab2Button = createGradingLabButton(LabName.L2);
-        lab3Button = createGradingLabButton(LabName.L3);
+        lab1Button = createGradingLabButton(TopicName.L1);
+        lab2Button = createGradingLabButton(TopicName.L2);
+        lab3Button = createGradingLabButton(TopicName.L3);
         
         // Lab and Question drop down
         labComboBox = new JComboBox<>();
@@ -273,7 +273,7 @@ public class LecturerGrader extends JFrame {
     	}
 
     	String path = folderPathField.getText().trim();
-		String selectedLab = LabName.L3;
+		String selectedLab = TopicName.L3;
 
 		// Clear previous log
         logArea.setText(Constants.EMPTY_STRING);

@@ -9,7 +9,7 @@ import java.util.List;
 
 import common.constant.Constants;
 import common.constant.FileExtension;
-import common.constant.LabName;
+import common.constant.TopicName;
 import common.constant.ProblemName;
 import common.constant.TestingResult;
 import common.message.GradingMessage;
@@ -129,9 +129,13 @@ public class ProblemGradingTask implements Runnable {
 	}
 
 	/**
-	 * Step 4: Save results into CSV file
+	 * Step 4: Save result into Excel file
 	 */
 	private void saveResultsAsCSV(List<TestCaseResult> results) {
-		ReportUtils.generateExcelReport(directory.getName(), LabName.L3, ProblemName.P1, results);
+		ReportUtils.generateExcelReport(directory.getName(), TopicName.L3, ProblemName.P1, results);
 	}
+
+	/**
+	 * Step 5: Save result into CSV file
+	 */
 }

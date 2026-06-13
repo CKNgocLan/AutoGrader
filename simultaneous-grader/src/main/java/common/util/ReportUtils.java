@@ -1,7 +1,9 @@
 package common.util;
 
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -23,8 +25,14 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import common.constant.Constants;
+import common.constant.DateTimeFormatters;
 import common.constant.FileExtension;
+import common.constant.ProblemName;
+import common.constant.Symbol;
 import common.constant.TestingResult;
+import common.constant.TopicName;
+import common.constant.YearQuarter;
+import common.message.ExceptionMessage;
 import model.component.TestCaseResult;
 
 public class ReportUtils {
@@ -51,6 +59,7 @@ public class ReportUtils {
     }
 
 	public static void generateExcelReport(String selectedDirectoryName, String topic, String problem, List<TestCaseResult> results) {
+//	public static void generateExcelReport(String selectedDirectoryName, String topic, String problem, List<TestCaseResult> results) {
 		createReportDir();
 
 		try (Workbook workbook = new XSSFWorkbook()) {
@@ -63,7 +72,6 @@ public class ReportUtils {
 
 			// Header row
 			Row headerRow = sheet.createRow(0);
-			//String[] headers = {"No.", "Test Case Name", "Max Points", "Earned Points", "Result", "Feedback"};
 			String[] headers = { "No.", "Test Case Name", "Result", "Feedback" };
 			for (int i = 0; i < headers.length; i++) {
 				Cell cell = headerRow.createCell(i);
@@ -154,16 +162,21 @@ public class ReportUtils {
 			}
 
 			// Generate dynamic filename: directory_lab_question_timestamp_report.xlsx
-			String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH.mm.ss"));
-			String safeDir = selectedDirectoryName.replaceAll("[^a-zA-Z0-9._-]", "_");
-			String safeLab = (topic == null || topic.isEmpty()) ? "(Empty Topic)"
-					: topic.replaceAll("[^a-zA-Z0-9._-]", "_");
-			String safeQ = (problem == null || problem.isEmpty()) ? "(Empty Problem)"
-					: problem.replaceAll("[^a-zA-Z0-9._-]", "_");
+			String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateTimeFormatters.yyyy_MM_dd_HH_mm_ss));
+//			String safeLab = (topic == null || topic.isEmpty()) ? TopicName.EMPTY : topic.replaceAll(Constants.SAFE_STRING_REGEX, Constants.UNDERSCORE);
+//			String safeQ = (problem == null || problem.isEmpty()) ? ProblemName.EMPTY : problem.replaceAll(Constants.SAFE_STRING_REGEX, Constants.UNDERSCORE);
+//			String safeDir = StringUtils.toSafeName(selectedDirectoryName);
+//			String safeLab = StringUtils.toSafeName(topic);
+//			String safeQ = StringUtils.toSafeName(problem);
 
-			String fileName = "OOP_253-" + safeDir + safeLab + safeQ + "_" + timestamp + FileExtension.XLSX;
+			String fileName = Constants.OOP + Constants.UNDERSCORE + YearQuarter.Y25Q3
+					+ Symbol.HYPHEN + StringUtils.toSafeName(selectedDirectoryName)
+					+ Symbol.HYPHEN + StringUtils.toSafeName(topic)
+					+ Symbol.HYPHEN + StringUtils.toSafeName(problem)
+					+ Constants.UNDERSCORE + timestamp
+					+ FileExtension.XLSX;
 
-			String excelFile = Constants.REPORTS_DIR + "/" + fileName;
+			String excelFile = Constants.REPORTS_DIR + Symbol.FORE_SLASH + fileName;
 
 			try (FileOutputStream fos = new FileOutputStream(excelFile)) {
 				workbook.write(fos);
@@ -172,9 +185,34 @@ public class ReportUtils {
 			System.out.println("Excel report generated: " + fileName);
 
 		} catch (Exception e) {
-			System.out.println("Error generating Excel report: " + e.getMessage());
+			System.out.println(ExceptionMessage.EXCEL_REPORT_GENERATION_ERROR.withMessage(e));
 			e.printStackTrace();
 		}
+	}
+
+	public static void generateSummaryCSV(List<TestCaseResult> results, String fileName) {
+		try {
+            String csvFile = Constants.REPORTS_DIR + Symbol.FORE_SLASH + fileName + FileExtension.CSV;
+            try (PrintWriter pw = new PrintWriter(new FileWriter(csvFile))) {
+
+                // Header
+                pw.println("Student ID Number,Student Full Name,Score,Percentage,Status,Graded On");
+
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+                for (TestCaseResult r : results) {
+                    String line = String.format("\"%s\",%d,%.1f%%,\"%s\",\"%s\"",
+                            escapeCsv(r.studentName),
+                            r.score,
+                            (r.score / 100.0) * 100,
+                            r.status,
+                            LocalDateTime.now().format(dtf));
+                    pw.println(line);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Warning: Could not create CSV summary: " + e.getMessage());
+        }
 	}
 
     // Helper styles

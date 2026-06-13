@@ -1,6 +1,7 @@
 package common.util;
 
 import common.constant.Constants;
+import common.constant.ProblemName;
 
 public class StringUtils {
 	public static String capitalizeFirstLetter(String str) {
@@ -54,5 +55,9 @@ public class StringUtils {
 
 	public static String toLowerCaseNoSpace(Object value) {
 		return removeWhiteSpace(value).toLowerCase();
+	}
+
+	public static String toSafeName(String value) {
+		return isNullOrEmpty(value) ? ProblemName.EMPTY : value.replaceAll(Constants.SAFE_STRING_REGEX, Constants.UNDERSCORE);
 	}
 }

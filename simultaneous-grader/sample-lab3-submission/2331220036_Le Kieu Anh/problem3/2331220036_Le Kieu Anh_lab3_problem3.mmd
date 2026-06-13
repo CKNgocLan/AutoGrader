@@ -1,0 +1,28 @@
+classDiagram
+    class Shape {
+        <<interface>>
+        +area()$ double
+    }
+
+    class Circle {
+        -radius : double
+        +Circle(radius : double)
+        +area() double
+    }
+
+    class Rectangle {
+        -width : double
+        -length : double
+        +Rectangle(width : double, length : double)
+        +area() double
+    }
+
+    class Cylinder {
+        -radius : double
+        -height : double
+        +Cylinder(radius : double, height : double)
+        +area() double
+    }
+   Shape <|.. Circle
+    Shape <|.. Rectangle
+    Shape <|.. Cylinder

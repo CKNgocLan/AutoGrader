@@ -14,6 +14,7 @@ public enum ExceptionMessage {
 	, PROPERTY_CANNOT_BE_NULL_OR_EMPTY("Property {0} of {1} cannot be null or empty.")
 	, NOT_IMPLEMENTED("{0} is NOT IMPLEMENTED.")
 	, CANNOT_CONSTRUCT_INSTANCES_DIRECTLY("Cannot construct {0} instances directly.")
+	, EXCEL_REPORT_GENERATION_ERROR("Error generating Excel report: {0}")
 	;
 	
 	private final String value;
@@ -28,5 +29,9 @@ public enum ExceptionMessage {
 	
 	public String getContent(Object... args) {
 		return MessageFormat.format(this.value, args);
+	}
+
+	public String withMessage(Exception e) {
+		return getContent(e.getMessage());
 	}
 }
