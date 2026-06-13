@@ -2,6 +2,13 @@ package common.constant;
 
 public class FieldName {
 	/*
+	 * common
+	 */
+	public static final String STUDENT_ID_NUMBER = "studentIDNumber";
+	public static final String STUDENT_NAME = "studentName";
+	public static final String TOPIC = "topic";
+
+	/*
 	 * Customer
 	 */
 	public static final String ID = "id";

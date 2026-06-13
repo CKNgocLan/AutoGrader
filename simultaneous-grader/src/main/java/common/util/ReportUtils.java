@@ -33,7 +33,7 @@ import common.constant.TestingResult;
 import common.constant.TopicName;
 import common.constant.YearQuarter;
 import common.message.ExceptionMessage;
-import model.component.TestCaseResult;
+import model.resultReport.TestCaseResult;
 
 public class ReportUtils {
 	public static List<CSVRecord> readCSV(String filePath) {
@@ -198,16 +198,16 @@ public class ReportUtils {
                 // Header
                 pw.println("Student ID Number,Student Full Name,Score,Percentage,Status,Graded On");
 
-                DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                DateTimeFormatter dtf = DateTimeFormatter.ofPattern(DateTimeFormatters.yyyy_MM_dd_HH_mm);
 
                 for (TestCaseResult r : results) {
-                    String line = String.format("\"%s\",%d,%.1f%%,\"%s\",\"%s\"",
-                            escapeCsv(r.studentName),
-                            r.score,
-                            (r.score / 100.0) * 100,
-                            r.status,
-                            LocalDateTime.now().format(dtf));
-                    pw.println(line);
+//                    String line = String.format("\"%s\",%d,%.1f%%,\"%s\",\"%s\"",
+//                            escapeCsv(r.studentName),
+//                            r.score,
+//                            (r.score / 100.0) * 100,
+//                            r.status,
+//                            LocalDateTime.now().format(dtf));
+//                    pw.println(line);
                 }
             }
         } catch (Exception e) {

@@ -16,9 +16,9 @@ import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
 import model.component.TestCase;
-import model.component.TestCaseResult;
 import model.component.testSuite.TestSuite;
 import model.component.testSuite.TestSuiteFactory;
+import model.resultReport.TestCaseResult;
 
 public class ProblemGradingTask implements Runnable {
 	private File directory;

@@ -15,6 +15,7 @@ public enum ExceptionMessage {
 	, NOT_IMPLEMENTED("{0} is NOT IMPLEMENTED.")
 	, CANNOT_CONSTRUCT_INSTANCES_DIRECTLY("Cannot construct {0} instances directly.")
 	, EXCEL_REPORT_GENERATION_ERROR("Error generating Excel report: {0}")
+	, ILLEGAL_CONSTRUCTOR_PARAMETER("Invalid Constructor Parameter named \"{0}\": {1}.")
 	;
 	
 	private final String value;

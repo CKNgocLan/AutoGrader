@@ -1,4 +1,4 @@
-package model.component;
+package model.resultReport;
 
 import common.constant.TestingResult;
 
