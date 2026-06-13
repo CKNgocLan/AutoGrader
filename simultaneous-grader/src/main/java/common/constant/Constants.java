@@ -2,6 +2,8 @@ package common.constant;
 
 public class Constants {
 	public static final String OOP = "OOP";
+	public static final int THREAD_POOL_SIZE = 5;
+	
 	public static final String SRC = "src";
 	public static final String MAIN = "main";
 	public static final String JAVA = "java";

@@ -12,6 +12,7 @@ import common.constant.Constants;
 import common.constant.FileExtension;
 import common.constant.ProblemName;
 import common.constant.TopicName;
+import common.constant.csv.StudentHeader;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
@@ -28,11 +29,6 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 	private File directory;
 	private TestSuite testSuite;
 	private Student student;
-//	private StudentThreadPool studentService;
-//
-//	public ProblemGradingTask(StudentThreadPool studentService) {
-//		this.studentService = studentService;
-//	}
 
 	public ProblemGradingTask(File problemDir, TestSuiteFactory testSuiteFactory) {
 		this.directory = problemDir;
@@ -42,29 +38,13 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 
 	@Override
 	public ProblemResult call() throws Exception {
-		System.out.println("Running Problem Task: %s".formatted(this.directory.getName()));
-
-		// TODO declare grading step order
-		// Step 1: Compile all student's .java files
-		combineJavaFiles();
-
-		// Step 2: Retrieve test cases
-		List<TestCase> testCases = retrieveTestCases();
-		if (testCases == null || testCases.isEmpty()) {
-			// TODO throw exception when test case list is invalid
-			return ThreadServiceUtils.createUnexpectedProblemResult(student);
-		}
-
-		// Step 3: Run test cases
-		List<TestCaseResult> results = runTestCases(testCases);
-
-		// Step 4: Save results into CSV file
-		saveResults(results);
+		List<TestCaseResult> results = gradeTestCases();
+		saveResultAsCSV(results.stream().map(result -> result.toCSVRow()).toList());
 		
 		return new ProblemResult(student, results.stream().filter(result -> result.passed()).toList().size(), results);
 	}
 
-//	@Override
+	@Deprecated
 	public void run() {
 		System.out.println("Running Problem Task: %s".formatted(this.directory.getName()));
 
@@ -82,8 +62,24 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 		// Step 3: Run test cases
 		List<TestCaseResult> results = runTestCases(testCases);
 
-		// Step 4: Save results into CSV file
-		saveResults(results);
+		// Step 4: Save results into Excel file
+		saveResultAsExcel(results);
+	}
+
+	private List<TestCaseResult> gradeTestCases() {
+		System.out.println("Grading Test Cases of: %s".formatted(this.directory.getName()));
+
+		// Step 1: Compile all student's .java files
+		combineJavaFiles();
+
+		// Step 2: Retrieve test cases
+		List<TestCase> testCases = retrieveTestCases();
+		if (testCases == null || testCases.isEmpty()) {
+			return List.of();
+		}
+
+		// Step 3: Run test cases
+		return runTestCases(testCases);
 	}
 
 	/**
@@ -157,11 +153,14 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 	/**
 	 * Step 4: Save result into Excel file
 	 */
-	private void saveResults(List<TestCaseResult> results) {
+	private void saveResultAsExcel(List<TestCaseResult> results) {
 		ReportUtils.generateExcelReport(directory.getName(), TopicName.L3, ProblemName.P1, results);
 	}
 
 	/**
 	 * Step 5: Save result into CSV file
 	 */
+	private void saveResultAsCSV(List<String> resultRow) {
+		ReportUtils.generateTopicCSVResult(directory, new String[] {ProblemName.P1, ProblemName.P2}, resultRow);
+	}
 }

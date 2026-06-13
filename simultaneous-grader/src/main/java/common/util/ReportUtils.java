@@ -13,6 +13,7 @@ import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -193,9 +194,13 @@ public class ReportUtils {
 		}
 	}
 
-	public static void generateTopicCSVResult(File topicDirFile, String topic, List<Object[]> rows) {
+//	public static void generateTopicCSVResult(File topicDirFile, String[] problemHeaders, List<Object[]> rows) {
+//		return generateTopicCSVResult(topicDirFile, problemHeaders, Stream.of(rows).map(row -> ReportUtils.convertToCsvRow(row)).toList());
+//	}
+
+	public static void generateTopicCSVResult(File topicDirFile, String[] headers, List<String> dataRows) {
 	    // first create file object for file placed at location specified by filepath
-	    File file = new File(FileExtension.CSV.toAbsoluteFileResultPath(topicDirFile.toString(), StringUtils.toLowerCaseNoSpace(topic)));
+	    File file = new File(FileExtension.CSV.toAbsoluteFileResultPath(topicDirFile.toString(), StringUtils.toLowerCaseNoSpace(topicDirFile.getName())));
 
 	    try {
 	        // create FileWriter object with file as parameter
@@ -203,13 +208,13 @@ public class ReportUtils {
 	        BufferedWriter writer = new BufferedWriter(outputfile);
 
 	        // 1. Write the header row
-	        String[] headers = TopicHeader.withProblems(ProblemName.P1, ProblemName.P2, ProblemName.P3);
+//	        Object[] headers = TopicHeader.withProblems(headers);
             writer.write(convertToCsvRow(headers));
             writer.newLine();
 	        	
             // 2. Write the data rows
-            for (Object[] row : rows) {
-            	writer.write(convertToCsvRow(row));
+            for (String row : dataRows) {
+            	writer.write(row);
                 writer.newLine();
             }
 
@@ -221,7 +226,7 @@ public class ReportUtils {
 	    }
 	}
 
-	public static String convertToCsvRow(Object[] fields) {
+	public static String convertToCsvRow(Object... fields) {
         StringBuilder row = new StringBuilder();
         for (int i = 0; i < fields.length; i++) {
             String field = String.valueOf(fields[i]);
