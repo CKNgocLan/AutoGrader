@@ -66,7 +66,7 @@ public class ProblemGradingTask implements Runnable {
 	private boolean combineJavaFiles() {
 		try {
 			List<String> javaFiles = new ArrayList<>();
-			Files.walk(directory.toPath()).filter(p -> p.toString().endsWith(FileExtension.JAVA))
+			Files.walk(directory.toPath()).filter(p -> p.toString().endsWith(FileExtension.JAVA.extension()))
 					.forEach(p -> javaFiles.add(p.toString()));
 
 			if (javaFiles.isEmpty()) {

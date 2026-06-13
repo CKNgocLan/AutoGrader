@@ -418,7 +418,7 @@ public class LecturerGrader extends JFrame {
         try {
             List<String> javaFiles = new ArrayList<>();
             Files.walk(folder.toPath())
-                 .filter(p -> p.toString().endsWith(FileExtension.JAVA))
+                 .filter(p -> p.toString().endsWith(FileExtension.JAVA.extension()))
                  .forEach(p -> javaFiles.add(p.toString()));
 
             if (javaFiles.isEmpty()) {
