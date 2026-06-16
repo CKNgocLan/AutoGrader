@@ -1,4 +1,4 @@
-problem1,problem2,problem3,problem4,problem5
+Test Case,Max Points,Earned Points,Status,Feedback
 Check Class Existence: RetailItem,1,1,PASSED,"Class ""RetailItem"" was not found. Make sure RetailItem.java is in the submission folder."
 "Check Field(s) of Class RetailItem: description, unitsOnHand, price",5,5,PASSED,"Field(s) of class RetailItem NOT CORRECT or MISSING: description, unitsOnHand, price."
 Check Partial-Argument Constructor DECLARATION of Class: RetailItem,5,5,PASSED,"Partial-Argument constructor DECLARATION of RetailItem(null, null, null) is missing or does not set fields correctly."
@@ -17,3 +17,4 @@ Check Declaration of method getTax() in Class CashRegister,5,5,PASSED,Method get
 Check Operation of method getTax() in Class CashRegister,5,5,PASSED,Method getTax() of class CashRegister OPERATED NOT CORRECTLY.
 Check Declaration of method getTotal() in Class CashRegister,5,5,PASSED,Method getTotal() of class CashRegister NOT CORRECT or MISSING.
 Check Operation of method getTotal() in Class CashRegister,5,5,PASSED,Method getTotal() of class CashRegister OPERATED NOT CORRECTLY.
+Percent: 100,82,82,,

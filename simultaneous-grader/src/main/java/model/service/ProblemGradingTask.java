@@ -13,10 +13,12 @@ import common.constant.Constants;
 import common.constant.FileExtension;
 import common.constant.ProblemName;
 import common.constant.TopicName;
+import common.constant.csv.ProblemResultHeader;
 import common.constant.csv.StudentHeader;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
+import common.util.StringUtils;
 import common.util.ThreadServiceUtils;
 import model.component.Student;
 import model.component.StudentList;
@@ -40,9 +42,14 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 	@Override
 	public ProblemResult call() throws Exception {
 		List<TestCaseResult> results = gradeTestCases();
+
+		// Save results into Excel file
+		saveResultAsExcel(results);
+
+		// Save results into CSV file
 		saveResultAsCSV(results.stream().map(result -> result.toCSVRow()).toList());
 		
-		return new ProblemResult(student, results.stream().filter(result -> result.passed()).toList().size(), results);
+		return new ProblemResult(student, results.stream().filter(result -> result.passed() != null && result.passed()).toList().size(), results);
 	}
 
 	@Deprecated
@@ -140,14 +147,22 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 	 */
 	private List<TestCaseResult> runTestCases(List<TestCase> testCases) {
 		List<TestCaseResult> results = new ArrayList<TestCaseResult>();
+		int totalMaxPoints = 0;
+		int totalEarnedPoints = 0;
+		int passedNumber = 0;
+
 		for (TestCase tc : testCases) {
 			if (tc.runTest()) {
 				results.add(new TestCaseResult(tc.getName(), tc.getPoints(), tc.getPoints(), true, tc.getFeedback()));
+				totalEarnedPoints += tc.getPoints();
+				passedNumber++;
 			} else {
 				results.add(new TestCaseResult(tc.getName(), tc.getPoints(), 0, false, tc.getFeedback()));
 			}
+			totalMaxPoints += tc.getPoints();
 		}
 
+		results.add(new TestCaseResult("Percent: %.0f".formatted(Double.valueOf(passedNumber)/results.size()*100), totalMaxPoints, totalEarnedPoints, null, Constants.EMPTY_STRING));
 		return results;
 	}
 
@@ -162,6 +177,7 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 	 * Step 5: Save result into CSV file
 	 */
 	private void saveResultAsCSV(List<String> resultRow) {
-		ReportUtils.generateStudentCSVResult(directory, Stream.of(directory.getParentFile().listFiles()).filter(f -> f.isDirectory()).map(dir -> dir.getName()).toArray(String[]::new), resultRow);
+		//	TODO ReportUtils.generateStudentCSVResult(directory, Stream.of(directory.getParentFile().listFiles()).filter(f -> f.isDirectory()).map(dir -> dir.getName()).toArray(String[]::new), resultRow);
+		ReportUtils.generateStudentCSVResult(directory, ProblemResultHeader.getHeaders(), resultRow);
 	}
 }
