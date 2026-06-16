@@ -7,28 +7,23 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
-import java.util.stream.Stream;
 
 import common.constant.Constants;
 import common.constant.FileExtension;
-import common.constant.ProblemName;
 import common.constant.TopicName;
 import common.constant.csv.ProblemResultHeader;
-import common.constant.csv.StudentHeader;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
-import common.util.StringUtils;
-import common.util.ThreadServiceUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.component.TestCase;
 import model.component.testSuite.TestSuite;
 import model.component.testSuite.TestSuiteFactory;
-import model.resultReport.ProblemResult;
+import model.resultReport.ProblemResultDetails;
 import model.resultReport.TestCaseResult;
 
-public class ProblemGradingTask implements Callable<ProblemResult> {
+public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 	private File directory;
 	private TestSuite testSuite;
 	private Student student;
@@ -40,16 +35,17 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 	}
 
 	@Override
-	public ProblemResult call() throws Exception {
+	public ProblemResultDetails call() throws Exception {
 		List<TestCaseResult> results = gradeTestCases();
 
-		// Save results into Excel file
+		// TODO Save results into Excel file
 		saveResultAsExcel(results);
 
-		// Save results into CSV file
+		// TODO Save results into CSV file
 		saveResultAsCSV(results.stream().map(result -> result.toCSVRow()).toList());
 		
-		return new ProblemResult(directory.getName(), student, results.stream().filter(result -> result.passed() != null && result.passed()).toList().size(), results);
+//		return new ProblemResult(directory.getName(), student, results.stream().filter(result -> result.passed() != null && result.passed()).toList().size(), results);
+		return new ProblemResultDetails(directory.getName(), student, results.stream().filter(result -> result.passed() != null && result.passed()).toList().size());
 	}
 
 	@Deprecated

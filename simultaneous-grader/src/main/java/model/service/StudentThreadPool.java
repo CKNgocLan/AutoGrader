@@ -19,7 +19,7 @@ import common.util.StringUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.component.testSuite.TestSuiteFactory;
-import model.resultReport.ProblemResult;
+import model.resultReport.ProblemResultDetails;
 
 /*
  * Student Thread Pool
@@ -64,17 +64,17 @@ public class StudentThreadPool {
 		return Stream.of(directory.listFiles()).filter(probDir -> probDir.isDirectory() && probDir.getName().equals(problemName)).findFirst().orElseThrow();
 	}
 
-	public List<ProblemResult> submit() {
+	public List<ProblemResultDetails> submit() {
 		addTaskThroughFactory();
-		List<Future<ProblemResult>> futureList = taskList.stream().map(task -> service.submit(task)).toList();
+		List<Future<ProblemResultDetails>> futureList = taskList.stream().map(task -> service.submit(task)).toList();
 		
 		while(futureList.stream().filter(future -> !future.isDone()).toList().size() > 0) {
 		}
 		System.out.println(ProgressMessage.GRADING_COMPLETE.getContent(StringUtils.encloseDoubleQuote(student.fullName())));
 
-		List<ProblemResult> resultList = new ArrayList<ProblemResult>();
+		List<ProblemResultDetails> resultList = new ArrayList<ProblemResultDetails>();
 		try {
-			for (Future<ProblemResult> future : futureList) {
+			for (Future<ProblemResultDetails> future : futureList) {
 				resultList.add(future.get());
 			}
 		} catch (Exception e) {
@@ -89,11 +89,12 @@ public class StudentThreadPool {
 		return resultList;
 	}
 
-	private void saveResultAsCSV(List<ProblemResult> resultList) {
+	private void saveResultAsCSV(List<ProblemResultDetails> resultList) {
+		// TODO write append passed percent
 		ReportUtils.generateAllStudentResultsToCSV(directory.getParentFile()
 				, topic
 				, TopicResultHeader.withProblems(resultList.stream().map(result -> result.name()).toArray(String[]::new))
-				, resultList.stream().map(result -> result.toCSVRow()).toList()
+				, ReportUtils.convertToCsvRow(student.idNumber(), student.fullName(), String.join(",", resultList.stream().map(result -> result.toCSVRow()).toList()))
 		);
 	}
 }
