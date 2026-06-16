@@ -1,10 +1,8 @@
 package common.util;
 
-import java.io.File;
-
+import common.constant.Constants;
 import common.constant.TopicName;
 import model.component.Student;
-import model.component.StudentList;
 import model.resultReport.ProblemResult;
 
 public class ThreadServiceUtils {
@@ -13,6 +11,6 @@ public class ThreadServiceUtils {
 	}
 
 	public static ProblemResult createUnexpectedProblemResult(Student student) {
-		return new ProblemResult(student, 0, 0, null);
+		return new ProblemResult(Constants.UNEXPECTED_PROBLEM_EXCEPTION, student, 0, 0, null);
 	}
 }

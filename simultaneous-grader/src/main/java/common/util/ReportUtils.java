@@ -30,6 +30,7 @@ import common.constant.DateTimeFormatters;
 import common.constant.FileExtension;
 import common.constant.Symbol;
 import common.constant.TestingResult;
+import common.constant.TopicName;
 import common.constant.YearQuarter;
 import common.message.ExceptionMessage;
 import common.message.GradingMessage;
@@ -224,8 +225,8 @@ public class ReportUtils {
 	    }
 	}
 
-	public static void generateStudentResultToCSV(File submissionDirFile, Student student, String[] headers, List<String> dataRows) {
-		 File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(), StringUtils.joinOriginal(student.idNumber(), student.fullName())));
+	public static void generateAllStudentResultsToCSV(File submissionDirFile, String topic, String[] headers, List<String> dataRows) {
+		 File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(), StringUtils.toLowerCaseNoSpace(topic)));
 		 try {
 		        // create FileWriter object with file as parameter
 		        FileWriter outputfile = new FileWriter(file);

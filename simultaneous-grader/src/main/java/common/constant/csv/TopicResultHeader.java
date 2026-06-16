@@ -3,7 +3,7 @@ package common.constant.csv;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopicHeader {
+public class TopicResultHeader {
 	public static final String AVERAGE = "Average";
 
 	public static String[] withProblems(String... problems) {

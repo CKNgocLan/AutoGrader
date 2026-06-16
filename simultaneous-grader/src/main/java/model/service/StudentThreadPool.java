@@ -12,7 +12,9 @@ import java.util.stream.Stream;
 
 import common.constant.Constants;
 import common.constant.ProblemName;
+import common.constant.csv.TopicResultHeader;
 import common.message.ProgressMessage;
+import common.util.ReportUtils;
 import common.util.StringUtils;
 import model.component.Student;
 import model.component.StudentList;
@@ -82,10 +84,16 @@ public class StudentThreadPool {
 
 		this.service.shutdown();
 
+		saveResultAsCSV(resultList);
+
 		return resultList;
 	}
 
 	private void saveResultAsCSV(List<ProblemResult> resultList) {
-		
+		ReportUtils.generateAllStudentResultsToCSV(directory.getParentFile()
+				, topic
+				, TopicResultHeader.withProblems(resultList.stream().map(result -> result.name()).toArray(String[]::new))
+				, resultList.stream().map(result -> result.toCSVRow()).toList()
+		);
 	}
 }

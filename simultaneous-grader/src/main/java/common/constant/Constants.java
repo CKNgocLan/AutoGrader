@@ -41,6 +41,7 @@ public class Constants {
 	public static final String DEFAULT_NAME = "default name";
 	public static final String DEFAULT_BADGE_NUMBER = "default badge number";
 	public static final String NOT_FOUND_STUDENT = "Not Found Student";
+	public static final String UNEXPECTED_PROBLEM_EXCEPTION = "Unexpected Problem Exception";
 
 	public static final String FILE_NAME = "File Name";
 }
