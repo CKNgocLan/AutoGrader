@@ -147,22 +147,22 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 	 */
 	private List<TestCaseResult> runTestCases(List<TestCase> testCases) {
 		List<TestCaseResult> results = new ArrayList<TestCaseResult>();
-		int totalMaxPoints = 0;
-		int totalEarnedPoints = 0;
-		int passedNumber = 0;
+//		int totalMaxPoints = 0;
+//		int totalEarnedPoints = 0;
+//		int passedNumber = 0;
 
 		for (TestCase tc : testCases) {
 			if (tc.runTest()) {
 				results.add(new TestCaseResult(tc.getName(), tc.getPoints(), tc.getPoints(), true, tc.getFeedback()));
-				totalEarnedPoints += tc.getPoints();
-				passedNumber++;
+//				totalEarnedPoints += tc.getPoints();
+//				passedNumber++;
 			} else {
 				results.add(new TestCaseResult(tc.getName(), tc.getPoints(), 0, false, tc.getFeedback()));
 			}
-			totalMaxPoints += tc.getPoints();
+//			totalMaxPoints += tc.getPoints();
 		}
 
-		results.add(new TestCaseResult("Percent: %.0f".formatted(Double.valueOf(passedNumber)/results.size()*100), totalMaxPoints, totalEarnedPoints, null, Constants.EMPTY_STRING));
+//		results.add(new TestCaseResult("Percent: %.0f".formatted(Double.valueOf(passedNumber)/results.size()*100), totalMaxPoints, totalEarnedPoints, null, Constants.EMPTY_STRING));
 		return results;
 	}
 
@@ -170,7 +170,8 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 	 * Step 4: Save result into Excel file
 	 */
 	private void saveResultAsExcel(List<TestCaseResult> results) {
-		ReportUtils.generateExcelReport(directory.getName(), TopicName.L3, ProblemName.P1, results);
+//		ReportUtils.generateProblemReportToExcel(directory.getName(), TopicName.L3, ProblemName.P1, results);
+		ReportUtils.generateProblemReportToExcel(student, TopicName.L3, directory.getName(), results);
 	}
 
 	/**
@@ -178,6 +179,6 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 	 */
 	private void saveResultAsCSV(List<String> resultRow) {
 		//	TODO ReportUtils.generateStudentCSVResult(directory, Stream.of(directory.getParentFile().listFiles()).filter(f -> f.isDirectory()).map(dir -> dir.getName()).toArray(String[]::new), resultRow);
-		ReportUtils.generateStudentCSVResult(directory, ProblemResultHeader.getHeaders(), resultRow);
+		ReportUtils.generateEachProblemResultToCSV(directory, ProblemResultHeader.getHeaders(), resultRow);
 	}
 }

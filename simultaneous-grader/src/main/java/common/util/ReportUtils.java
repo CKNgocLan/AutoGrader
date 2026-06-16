@@ -5,7 +5,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -13,7 +12,6 @@ import java.text.MessageFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
@@ -30,14 +28,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import common.constant.Constants;
 import common.constant.DateTimeFormatters;
 import common.constant.FileExtension;
-import common.constant.ProblemName;
 import common.constant.Symbol;
 import common.constant.TestingResult;
-import common.constant.TopicName;
 import common.constant.YearQuarter;
-import common.constant.csv.TopicHeader;
 import common.message.ExceptionMessage;
 import common.message.GradingMessage;
+import model.component.Student;
 import model.resultReport.TestCaseResult;
 
 public class ReportUtils {
@@ -63,7 +59,7 @@ public class ReportUtils {
     	}
     }
 
-	public static void generateExcelReport(String selectedDirectoryName, String topic, String problem, List<TestCaseResult> results) {
+	public static void generateProblemReportToExcel(Student student, String topic, String problem, List<TestCaseResult> results) {
 //	public static void generateExcelReport(String selectedDirectoryName, String topic, String problem, List<TestCaseResult> results) {
 		createReportDir();
 
@@ -106,7 +102,7 @@ public class ReportUtils {
 				
 				// Result + Color
 				Cell resultCell = row.createCell(col++);
-				if (result.passed()) {
+				if (result.passed() != null && result.passed()) {
 					passedCounter++;
 
 					// Result
@@ -175,8 +171,10 @@ public class ReportUtils {
 //			String safeQ = StringUtils.toSafeName(problem);
 
 			String fileName = Constants.OOP + Constants.UNDERSCORE + YearQuarter.Y25Q3
+					+ Symbol.HYPHEN + StringUtils.toSafeName(student.idNumber())
+					+ Symbol.HYPHEN + student.fullName()
 					+ Symbol.HYPHEN + StringUtils.toSafeName(topic)
-					+ Symbol.HYPHEN + StringUtils.toSafeName(selectedDirectoryName)
+					+ Symbol.HYPHEN + StringUtils.toSafeName(problem)
 					+ Constants.UNDERSCORE + timestamp
 					+ FileExtension.XLSX.extension();
 
@@ -198,9 +196,9 @@ public class ReportUtils {
 //		return generateTopicCSVResult(topicDirFile, problemHeaders, Stream.of(rows).map(row -> ReportUtils.convertToCsvRow(row)).toList());
 //	}
 
-	public static void generateStudentCSVResult(File studentProblemDirFile, String[] headers, List<String> dataRows) {
+	public static void generateEachProblemResultToCSV(File studentProblemDirFile, String[] headers, List<String> dataRows) {
 	    // first create file object for file placed at location specified by filepath
-	    File file = new File(FileExtension.CSV.toAbsoluteFileStudentResultPath(studentProblemDirFile.getParentFile().toString(), StringUtils.joinLowerCase(studentProblemDirFile.getParentFile().getName(), studentProblemDirFile.getName())));
+	    File file = new File(FileExtension.CSV.toAbsoluteFileStudentResultPath(studentProblemDirFile.getParentFile().toString(), StringUtils.joinOriginal(studentProblemDirFile.getParentFile().getName(), studentProblemDirFile.getName())));
 
 	    try {
 	        // create FileWriter object with file as parameter
@@ -224,6 +222,32 @@ public class ReportUtils {
 	    catch (IOException e) {
 	        e.printStackTrace();
 	    }
+	}
+
+	public static void generateStudentResultToCSV(File submissionDirFile, Student student, String[] headers, List<String> dataRows) {
+		 File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(), StringUtils.joinOriginal(student.idNumber(), student.fullName())));
+		 try {
+		        // create FileWriter object with file as parameter
+		        FileWriter outputfile = new FileWriter(file);
+		        BufferedWriter writer = new BufferedWriter(outputfile);
+
+		        // 1. Write the header row
+//		        Object[] headers = TopicHeader.withProblems(headers);
+	            writer.write(convertToCsvRow(headers));
+	            writer.newLine();
+		        	
+	            // 2. Write the data rows
+	            for (String row : dataRows) {
+	            	writer.write(row);
+	                writer.newLine();
+	            }
+
+	            writer.close();
+	            System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
+		    }
+		    catch (IOException e) {
+		        e.printStackTrace();
+		    }
 	}
 
 	public static String convertToCsvRow(Object... fields) {

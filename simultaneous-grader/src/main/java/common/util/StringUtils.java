@@ -4,6 +4,7 @@ import java.util.stream.Stream;
 
 import common.constant.Constants;
 import common.constant.ProblemName;
+import common.constant.Symbol;
 
 public class StringUtils {
 	public static String capitalizeFirstLetter(String str) {
@@ -60,7 +61,10 @@ public class StringUtils {
 	}
 
 	public static String joinLowerCase(Object... value) {
-		return String.join(Constants.UNDERSCORE, Stream.of(value).map(val -> toLowerCaseNoSpace(val)).toList());
+		return String.join(Symbol.HYPHEN, Stream.of(value).map(val -> toLowerCaseNoSpace(val)).toList());
+	}
+	public static String joinOriginal(Object... value) {
+		return String.join(Symbol.HYPHEN, Stream.of(value).map(val -> toString(val)).toList());
 	}
 
 	public static String toSafeName(String value) {

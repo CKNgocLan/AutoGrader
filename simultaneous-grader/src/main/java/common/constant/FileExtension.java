@@ -31,4 +31,8 @@ public enum FileExtension {
 	public String toAbsoluteFileStudentResultPath(String studentPath, String resultName) {
 		return Path.of(studentPath, this.toResultName(resultName)).toString();
 	}
+
+	public String toTopicAbsolutePath(String submissionPath, String resultName) {
+		return Path.of(submissionPath, this.toResultName(resultName)).toString();
+	}
 }

@@ -4,9 +4,12 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.HashMap;
 
+import common.constant.FileExtension;
 import common.constant.ProblemName;
 import common.constant.TopicName;
 import common.util.PathUtils;
+import common.util.StringUtils;
+import model.component.Student;
 import model.component.StudentList;
 import model.component.testSuite.TestSuiteFactory;
 import model.component.testSuite.factory.Lab3Problem1TestSuiteFactory;
@@ -27,6 +30,10 @@ public class LecturerSnippet {
 	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			NoSuchFieldException, TesterGotNoClassNameException {
 		gradeLab3();
+//		StudentList.setFilePath(csvPath);
+//		Student student = StudentList.findByStudentDirectory(submissionDirectory.listFiles()[0]);
+//		File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirectory.toString(), StringUtils.joinOriginal(student.idNumber(), student.fullName())));
+//		System.out.println(file.toString());
 	}
 
 	private static void gradeLab3() {
