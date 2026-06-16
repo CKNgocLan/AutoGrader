@@ -60,4 +60,8 @@ public class StringUtils {
 	public static String toSafeName(String value) {
 		return isNullOrEmpty(value) ? ProblemName.EMPTY : value.replaceAll(Constants.SAFE_STRING_REGEX, Constants.UNDERSCORE);
 	}
+
+	public static String encloseDoubleQuote(Object value) {
+		return String.format("\"%s\"", toString(value));
+	}
 }

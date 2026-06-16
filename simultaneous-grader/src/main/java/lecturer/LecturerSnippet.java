@@ -8,9 +8,11 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
+import java.util.stream.Stream;
 
 import common.constant.TopicName;
 import common.util.PathUtils;
+import common.util.StringUtils;
 import model.component.StudentList;
 import model.component.testSuite.factory.Lab3Problem1TestSuiteFactory;
 import model.component.testSuite.factory.Lab3Problem2TestSuiteFactory;
@@ -33,11 +35,20 @@ public class LecturerSnippet {
 
 	private static void gradeLab3() {
 		StudentList.setFilePath(csvPath);
-		File studentDir = submissionDirectory.listFiles()[0];
-		StudentThreadPool threadPool1 = new StudentThreadPool(TopicName.L3, studentDir);
-		threadPool1.addTask(new ProblemGradingTask(studentDir.listFiles()[0], new Lab3Problem1TestSuiteFactory()));
-		threadPool1.addTask(new ProblemGradingTask(studentDir.listFiles()[1], new Lab3Problem2TestSuiteFactory()));
-		List<ProblemResult> studentResult1 = threadPool1.submit();
+//		File studentDir = submissionDirectory.listFiles()[0];
+//		StudentThreadPool threadPool1 = new StudentThreadPool(TopicName.L3, studentDir);
+//		threadPool1.addTask(new ProblemGradingTask(studentDir.listFiles()[0], new Lab3Problem1TestSuiteFactory()));
+//		threadPool1.addTask(new ProblemGradingTask(studentDir.listFiles()[1], new Lab3Problem2TestSuiteFactory()));
+//		List<ProblemResult> studentResult1 = threadPool1.submit();
+
+		Lab3Problem1TestSuiteFactory l3p1Factory = new Lab3Problem1TestSuiteFactory();
+		Lab3Problem2TestSuiteFactory l3p2Factory = new Lab3Problem2TestSuiteFactory();
+		for (File studentDir : submissionDirectory.listFiles()) {
+			StudentThreadPool threadPool = new StudentThreadPool(TopicName.L3, studentDir);
+//			threadPool.addTask(new ProblemGradingTask(Stream.of(studentDir.listFiles()).filter(probDir -> probDir.getName().equals(l3p1Factory.getTopic())).findFirst().orElseThrow(), l3p1Factory));
+//			threadPool.addTask(new ProblemGradingTask(Stream.of(studentDir.listFiles()).filter(probDir -> probDir.getName().equals(l3p1Factory.getTopic())).findFirst().orElseThrow(), l3p2Factory));
+			threadPool.submit();
+		}
 
 //		try {
 //			List<Future<ProblemResult>> futureList = new ArrayList<>();
