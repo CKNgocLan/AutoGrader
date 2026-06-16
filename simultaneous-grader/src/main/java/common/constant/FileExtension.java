@@ -28,7 +28,7 @@ public enum FileExtension {
 		return MessageFormat.format("{0}-result{1}", fileName, this.extension);
 	}
 
-	public String toAbsoluteFileResultPath(String path, String name) {
-		return Path.of(path, this.toResultName(name)).toString();
+	public String toAbsoluteFileStudentResultPath(String studentPath, String resultName) {
+		return Path.of(studentPath, this.toResultName(resultName)).toString();
 	}
 }

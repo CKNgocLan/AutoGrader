@@ -16,6 +16,7 @@ public enum ExceptionMessage {
 	, CANNOT_CONSTRUCT_INSTANCES_DIRECTLY("Cannot construct {0} instances directly.")
 	, EXCEL_REPORT_GENERATION_ERROR("Error generating Excel report: {0}")
 	, ILLEGAL_CONSTRUCTOR_PARAMETER("Invalid Constructor Parameter named \"{0}\": {1}.")
+	, STUDENT_NOT_FOUND("Student not found with ID: {0}")
 	;
 	
 	private final String value;

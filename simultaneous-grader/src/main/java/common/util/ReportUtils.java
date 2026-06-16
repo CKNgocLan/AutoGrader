@@ -198,9 +198,9 @@ public class ReportUtils {
 //		return generateTopicCSVResult(topicDirFile, problemHeaders, Stream.of(rows).map(row -> ReportUtils.convertToCsvRow(row)).toList());
 //	}
 
-	public static void generateTopicCSVResult(File topicDirFile, String[] headers, List<String> dataRows) {
+	public static void generateStudentCSVResult(File studentProblemDirFile, String[] headers, List<String> dataRows) {
 	    // first create file object for file placed at location specified by filepath
-	    File file = new File(FileExtension.CSV.toAbsoluteFileResultPath(topicDirFile.toString(), StringUtils.toLowerCaseNoSpace(topicDirFile.getName())));
+	    File file = new File(FileExtension.CSV.toAbsoluteFileStudentResultPath(studentProblemDirFile.getParentFile().toString(), StringUtils.joinLowerCase(studentProblemDirFile.getParentFile().getName(), studentProblemDirFile.getName())));
 
 	    try {
 	        // create FileWriter object with file as parameter
@@ -219,7 +219,7 @@ public class ReportUtils {
             }
 
             writer.close();
-            System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(topicDirFile.getAbsolutePath(), file.getName()));
+            System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
 	    }
 	    catch (IOException e) {
 	        e.printStackTrace();

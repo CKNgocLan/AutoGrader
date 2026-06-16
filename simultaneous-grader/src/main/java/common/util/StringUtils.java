@@ -1,5 +1,7 @@
 package common.util;
 
+import java.util.stream.Stream;
+
 import common.constant.Constants;
 import common.constant.ProblemName;
 
@@ -55,6 +57,10 @@ public class StringUtils {
 
 	public static String toLowerCaseNoSpace(Object value) {
 		return removeWhiteSpace(value).toLowerCase();
+	}
+
+	public static String joinLowerCase(Object... value) {
+		return String.join(Constants.UNDERSCORE, Stream.of(value).map(val -> toLowerCaseNoSpace(val)).toList());
 	}
 
 	public static String toSafeName(String value) {

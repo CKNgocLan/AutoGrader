@@ -2,8 +2,10 @@ package model.component;
 
 import java.io.File;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import common.constant.Constants;
+import common.message.ExceptionMessage;
 import common.util.ReportUtils;
 
 public class StudentList {
@@ -20,7 +22,13 @@ public class StudentList {
 	}
 
 	public static Student findByID(String idNumber) {
-		return list.stream().filter(stu -> stu.idNumber().equals(idNumber)).findFirst().orElseThrow();
+		try {
+			return list.stream().filter(stu -> stu.idNumber().equals(idNumber)).findFirst().orElseThrow();
+		} catch (NoSuchElementException e) {
+			e.printStackTrace();
+			System.err.println(ExceptionMessage.STUDENT_NOT_FOUND.getContent(idNumber));
+			return new Student(idNumber, Constants.NOT_FOUND_STUDENT, null);
+		}
 	}
 
 	public static Student findByStudentDirectory(File submissionDir) {

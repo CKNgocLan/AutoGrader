@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
+import java.util.stream.Stream;
 
 import common.constant.Constants;
 import common.constant.FileExtension;
@@ -161,6 +162,6 @@ public class ProblemGradingTask implements Callable<ProblemResult> {
 	 * Step 5: Save result into CSV file
 	 */
 	private void saveResultAsCSV(List<String> resultRow) {
-		ReportUtils.generateTopicCSVResult(directory, new String[] {ProblemName.P1, ProblemName.P2}, resultRow);
+		ReportUtils.generateStudentCSVResult(directory, Stream.of(directory.getParentFile().listFiles()).filter(f -> f.isDirectory()).map(dir -> dir.getName()).toArray(String[]::new), resultRow);
 	}
 }
