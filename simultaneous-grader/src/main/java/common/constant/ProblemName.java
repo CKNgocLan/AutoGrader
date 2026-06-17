@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ProblemName {
+	public static final String EMPTY = "(Empty Problem)";
 	public static final String P0 = "problem0";
 	public static final String P1 = "problem1";
 	public static final String P2 = "problem2";
@@ -12,7 +13,6 @@ public class ProblemName {
 	public static final String P4 = "problem4";
 	public static final String P5 = "problem5";
 	public static final String P6 = "problem6";
-	public static final String EMPTY = "(Empty Problem)";
 
 	public static final String SECTION_1 = "Section 1";
 	public static final String SECTION_2 = "Section 2";

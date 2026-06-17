@@ -225,8 +225,8 @@ public class ReportUtils {
 	    }
 	}
 
-//	public static void generateAllStudentResultsToCSV(File submissionDirFile, String topic, String[] headers, List<String> dataRows) {
-	public static void generateAllStudentResultsToCSV(File submissionDirFile, String topic, String[] headers, String dataRow) {
+	public static void generateAllStudentResultsToCSV(File submissionDirFile, String topic, Student student, String[] headers, String dataRow) {
+//		 File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(), StringUtils.joinOriginal(topic, student.idNumber(), student.fullName())));
 		 File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(), StringUtils.toLowerCaseNoSpace(topic)));
 		 try {
 		        // create FileWriter object with file as parameter
@@ -234,17 +234,16 @@ public class ReportUtils {
 		        BufferedWriter writer = new BufferedWriter(outputfile);
 
 		        // 1. Write the header row
-//		        Object[] headers = TopicHeader.withProblems(headers);
-//	            writer.write(convertToCsvRow(headers));
-//	            writer.newLine();
-		        	
+		        if (headers != null) {
+		        	writer.write(convertToCsvRow(headers));
+		            writer.newLine();
+		        }
+
 	            // 2. Write the data rows
-	            writer.write(dataRow);
-	            writer.newLine();
-//	            for (String row : dataRows) {
-//	            	writer.write(row);
-//	                writer.newLine();
-//	            }
+	            if (!StringUtils.isNullOrEmpty(dataRow)) {
+	            	writer.write(dataRow);
+		            writer.newLine();
+	            }
 
 	            writer.close();
 	            System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));

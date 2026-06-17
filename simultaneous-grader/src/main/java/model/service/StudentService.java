@@ -1,5 +1,5 @@
-package model.service;
-
-public interface StudentService {
-
-}
+//package model.service;
+//
+//public interface StudentService {
+//
+//}

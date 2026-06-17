@@ -26,10 +26,12 @@ public class LecturerSnippet {
 	static String path = Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toString();
 	static String csvPath = Path.of(PathUtils.currentFolderPath(), "cse203-participants-253.csv").toString();
 	static File submissionDirectory = new File(path);
+	static String topic = TopicName.L3;
 
 	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
 			NoSuchFieldException, TesterGotNoClassNameException {
 		gradeLab3();
+		System.out.println("Finish Grading %s".formatted(topic));
 //		StudentList.setFilePath(csvPath);
 //		Student student = StudentList.findByStudentDirectory(submissionDirectory.listFiles()[0]);
 //		File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirectory.toString(), StringUtils.toLowerCaseNoSpace(TopicName.L3)));
