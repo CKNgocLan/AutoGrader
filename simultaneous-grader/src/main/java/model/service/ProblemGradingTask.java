@@ -10,7 +10,6 @@ import java.util.concurrent.Callable;
 
 import common.constant.Constants;
 import common.constant.FileExtension;
-import common.constant.TopicName;
 import common.constant.csv.ProblemResultHeader;
 import common.message.GradingMessage;
 import common.util.PathUtils;
@@ -27,11 +26,15 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 	private File directory;
 	private TestSuite testSuite;
 	private Student student;
+	private String topicName;
+	private String problemName;
 
 	public ProblemGradingTask(File problemDir, TestSuiteFactory testSuiteFactory) {
 		this.directory = problemDir;
 		this.testSuite = testSuiteFactory.createTestSuite();
 		this.student = StudentList.findByStudentDirectory(this.directory.getParentFile());
+		this.topicName = testSuiteFactory.getTopic();
+		this.problemName = testSuiteFactory.getProblem();
 	}
 
 	@Override
@@ -44,8 +47,7 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 		// TODO Save results into CSV file
 		saveResultAsCSV(results.stream().map(result -> result.toCSVRow()).toList());
 		
-//		return new ProblemResult(directory.getName(), student, results.stream().filter(result -> result.passed() != null && result.passed()).toList().size(), results);
-		return new ProblemResultDetails(directory.getName(), student, results.stream().filter(result -> result.passed() != null && result.passed()).toList().size());
+		return new ProblemResultDetails(problemName, student, results.stream().filter(result -> result.passed() != null && result.passed()).toList().size());
 	}
 
 	@Deprecated
@@ -100,8 +102,6 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 				return false;
 			}
 
-			// TODO check and remove package statement
-
 			ProcessBuilder pb = new ProcessBuilder();
 			List<String> cmd = new ArrayList<>();
 			cmd.add("javac");
@@ -118,7 +118,7 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 				try (BufferedReader br = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
 					String line;
 					while ((line = br.readLine()) != null) {
-						System.err.println(Constants.SPACE.repeat(3) + line);
+						System.err.println(Constants.SPACE.repeat(5) + line);
 					}
 				}
 				return false;
@@ -143,22 +143,15 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 	 */
 	private List<TestCaseResult> runTestCases(List<TestCase> testCases) {
 		List<TestCaseResult> results = new ArrayList<TestCaseResult>();
-//		int totalMaxPoints = 0;
-//		int totalEarnedPoints = 0;
-//		int passedNumber = 0;
 
 		for (TestCase tc : testCases) {
 			if (tc.runTest()) {
 				results.add(new TestCaseResult(tc.getName(), tc.getPoints(), tc.getPoints(), true, tc.getFeedback()));
-//				totalEarnedPoints += tc.getPoints();
-//				passedNumber++;
 			} else {
 				results.add(new TestCaseResult(tc.getName(), tc.getPoints(), 0, false, tc.getFeedback()));
 			}
-//			totalMaxPoints += tc.getPoints();
 		}
 
-//		results.add(new TestCaseResult("Percent: %.0f".formatted(Double.valueOf(passedNumber)/results.size()*100), totalMaxPoints, totalEarnedPoints, null, Constants.EMPTY_STRING));
 		return results;
 	}
 
@@ -166,15 +159,13 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 	 * Step 4: Save result into Excel file
 	 */
 	private void saveResultAsExcel(List<TestCaseResult> results) {
-//		ReportUtils.generateProblemReportToExcel(directory.getName(), TopicName.L3, ProblemName.P1, results);
-		ReportUtils.generateProblemReportToExcel(student, TopicName.L3, directory.getName(), results);
+		ReportUtils.generateProblemReportToExcel(student, topicName, problemName, results);
 	}
 
 	/**
 	 * Step 5: Save result into CSV file
 	 */
 	private void saveResultAsCSV(List<String> resultRow) {
-		//	TODO ReportUtils.generateStudentCSVResult(directory, Stream.of(directory.getParentFile().listFiles()).filter(f -> f.isDirectory()).map(dir -> dir.getName()).toArray(String[]::new), resultRow);
-		ReportUtils.generateEachProblemResultToCSV(directory, ProblemResultHeader.getHeaders(), resultRow);
+		ReportUtils.generateEachProblemResultToCSV(directory, ProblemResultHeader.getCSVHeaders(), resultRow);
 	}
 }

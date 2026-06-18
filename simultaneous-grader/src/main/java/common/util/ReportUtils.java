@@ -61,7 +61,6 @@ public class ReportUtils {
     }
 
 	public static void generateProblemReportToExcel(Student student, String topic, String problem, List<TestCaseResult> results) {
-//	public static void generateExcelReport(String selectedDirectoryName, String topic, String problem, List<TestCaseResult> results) {
 		createReportDir();
 
 		try (Workbook workbook = new XSSFWorkbook()) {

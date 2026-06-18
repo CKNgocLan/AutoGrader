@@ -1,14 +1,26 @@
 package common.constant.csv;
 
 public class ProblemResultHeader {
-	private static final String[] header = new String[] {
+	private static final String[] csvHeader = new String[] {
 			"Test Case"
 			, "Max Points"
 			, "Earned Points"
 			, "Status"
 			, "Feedback"
 	};
-	public static final String[] getHeaders() {
-		return header;
+
+	private static final String[] excelHeader = new String[] {
+			"No."
+			, "Test Case Name"
+			, "Result"
+			, "Feedback"
+	};
+
+	public static final String[] getExcelHeader() {
+		return excelHeader;
+	}
+	
+	public static final String[] getCSVHeaders() {
+		return csvHeader;
 	}
 }
