@@ -10,6 +10,14 @@ import tester.lab3.problem1.CashRegisterTester;
 import tester.lab3.problem1.RetailItemTester;
 
 public class Lab3Problem1TestSuite extends TestSuite {
+	private static Lab3Problem1TestSuite instance;
+
+	public static Lab3Problem1TestSuite getInstance() {
+		if (instance == null) {
+			instance = new Lab3Problem1TestSuite();
+		}
+		return instance;
+	}
 
 	@Override
 	public List<TestCase> getTestCases() {

@@ -1,15 +1,19 @@
 package model.component.testSuite.concrete;
 
-import java.util.Arrays;
 import java.util.List;
 
 import model.component.TestCase;
 import model.component.testSuite.TestSuite;
-import model.element.TestingParameter;
-import tester.lab3.problem1.CashRegisterTester;
-import tester.lab3.problem1.RetailItemTester;
 
 public class Lab3Problem2TestSuite extends TestSuite {
+	private static Lab3Problem2TestSuite instance;
+
+	public static Lab3Problem2TestSuite getInstance() {
+		if (instance == null) {
+			instance = new Lab3Problem2TestSuite();
+		}
+		return instance;
+	}
 
 	@Override
 	public List<TestCase> getTestCases() {

@@ -19,7 +19,7 @@ public class Lab3Problem2TestSuiteFactory implements TestSuiteFactory {
 
 	@Override
 	public TestSuite createTestSuite() {
-		return new Lab3Problem2TestSuite();
+		return Lab3Problem2TestSuite.getInstance();
 	}
 
 }
