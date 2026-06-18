@@ -31,7 +31,7 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 
 	public ProblemGradingTask(File problemDir, TestSuiteFactory testSuiteFactory) {
 		this.directory = problemDir;
-		this.testSuite = testSuiteFactory.createTestSuite();
+		this.testSuite = testSuiteFactory.getTestSuite();
 		this.student = StudentList.findByStudentDirectory(this.directory.getParentFile());
 		this.topicName = testSuiteFactory.getTopic();
 		this.problemName = testSuiteFactory.getProblem();

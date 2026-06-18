@@ -31,13 +31,14 @@ public class StudentThreadPool {
 	private List<ProblemGradingTask> taskList;
 	private HashMap<String, TestSuiteFactory> factoryMapper = new HashMap<String, TestSuiteFactory>();
 
-	public StudentThreadPool(String topic, File studentDir, HashMap<String, TestSuiteFactory> factoryMapper) {
+//	public StudentThreadPool(String topic, File studentDir, HashMap<String, TestSuiteFactory> factoryMapper) {
+	public StudentThreadPool(String topic, File studentDir) {
 		this.topic = topic;
 		this.student = StudentList.findByStudentDirectory(studentDir);
 		this.directory = studentDir;
 		this.service = Executors.newFixedThreadPool(Constants.THREAD_POOL_SIZE);
 		this.taskList = new ArrayList<ProblemGradingTask>();
-		this.factoryMapper = factoryMapper;
+		this.factoryMapper = TestSuiteFactoryMapper.getFactoryMapper(topic);
 	}
 
 	public String getTopic() {
@@ -48,10 +49,10 @@ public class StudentThreadPool {
 		this.taskList.add(task);
 	}
 
-	public StudentThreadPool putTestSuiteFactory(String problemName, TestSuiteFactory testSuiteFactory) {
-		this.factoryMapper.put(problemName, testSuiteFactory);
-		return this;
-	}
+//	public StudentThreadPool putTestSuiteFactory(String problemName, TestSuiteFactory testSuiteFactory) {
+//		this.factoryMapper.put(problemName, testSuiteFactory);
+//		return this;
+//	}
 
 	private void addTaskThroughFactory() throws NoSuchElementException {
 		for(String problemName: ProblemName.getProblems(topic)) {

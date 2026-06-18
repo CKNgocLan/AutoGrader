@@ -20,6 +20,7 @@ import model.component.testSuite.factory.Lab3Problem4TestSuiteFactory;
 import model.component.testSuite.factory.Lab3Problem5TestSuiteFactory;
 import model.exception.TesterGotNoClassNameException;
 import model.service.StudentThreadPool;
+import model.service.TestSuiteFactoryMapper;
 
 public class LecturerSnippet {
 	static String selectedLab = TopicName.L3;
@@ -47,19 +48,19 @@ public class LecturerSnippet {
 //		threadPool1.addTask(new ProblemGradingTask(studentDir.listFiles()[1], new Lab3Problem2TestSuiteFactory()));
 //		List<ProblemResult> studentResult1 = threadPool1.submit();
 
-		HashMap<String, TestSuiteFactory> factoryMapper = new HashMap<String, TestSuiteFactory>();
-		factoryMapper.put(ProblemName.P1, new Lab3Problem1TestSuiteFactory());
-		factoryMapper.put(ProblemName.P2, new Lab3Problem2TestSuiteFactory());
-		factoryMapper.put(ProblemName.P3, new Lab3Problem3TestSuiteFactory());
-		factoryMapper.put(ProblemName.P4, new Lab3Problem4TestSuiteFactory());
-		factoryMapper.put(ProblemName.P5, new Lab3Problem5TestSuiteFactory());
+//		HashMap<String, TestSuiteFactory> factoryMapper = new HashMap<String, TestSuiteFactory>();
+//		factoryMapper.put(ProblemName.P1, new Lab3Problem1TestSuiteFactory());
+//		factoryMapper.put(ProblemName.P2, new Lab3Problem2TestSuiteFactory());
+//		factoryMapper.put(ProblemName.P3, new Lab3Problem3TestSuiteFactory());
+//		factoryMapper.put(ProblemName.P4, new Lab3Problem4TestSuiteFactory());
+//		factoryMapper.put(ProblemName.P5, new Lab3Problem5TestSuiteFactory());
 
 		ReportUtils.createTopicResultToCSV(submissionDirectory, topic);
 		for (File studentDir : submissionDirectory.listFiles()) {
 			if(!studentDir.isDirectory()) {
 				continue;
 			}
-			StudentThreadPool threadPool = new StudentThreadPool(topic, studentDir, factoryMapper);
+			StudentThreadPool threadPool = new StudentThreadPool(topic, studentDir);
 //			threadPool.addTask(new ProblemGradingTask(Stream.of(studentDir.listFiles()).filter(probDir -> probDir.getName().equals(l3p1Factory.getTopic())).findFirst().orElseThrow(), l3p1Factory));
 //			threadPool.addTask(new ProblemGradingTask(Stream.of(studentDir.listFiles()).filter(probDir -> probDir.getName().equals(l3p1Factory.getTopic())).findFirst().orElseThrow(), l3p2Factory));
 			threadPool.submit();
