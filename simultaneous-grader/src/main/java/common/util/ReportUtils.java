@@ -164,11 +164,6 @@ public class ReportUtils {
 
 			// Generate dynamic filename: directory_lab_question_timestamp_report.xlsx
 			String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateTimeFormatters.yyyy_MM_dd_HH_mm_ss));
-//			String safeLab = (topic == null || topic.isEmpty()) ? TopicName.EMPTY : topic.replaceAll(Constants.SAFE_STRING_REGEX, Constants.UNDERSCORE);
-//			String safeQ = (problem == null || problem.isEmpty()) ? ProblemName.EMPTY : problem.replaceAll(Constants.SAFE_STRING_REGEX, Constants.UNDERSCORE);
-//			String safeDir = StringUtils.toSafeName(selectedDirectoryName);
-//			String safeLab = StringUtils.toSafeName(topic);
-//			String safeQ = StringUtils.toSafeName(problem);
 
 			String fileName = Constants.OOP + Constants.UNDERSCORE + YearQuarter.Y25Q3
 					+ Symbol.HYPHEN + StringUtils.toSafeName(student.idNumber())
@@ -192,10 +187,6 @@ public class ReportUtils {
 		}
 	}
 
-//	public static void generateTopicCSVResult(File topicDirFile, String[] problemHeaders, List<Object[]> rows) {
-//		return generateTopicCSVResult(topicDirFile, problemHeaders, Stream.of(rows).map(row -> ReportUtils.convertToCsvRow(row)).toList());
-//	}
-
 	public static void generateEachProblemResultToCSV(File studentProblemDirFile, String[] headers, List<String> dataRows) {
 	    // first create file object for file placed at location specified by filepath
 	    File file = new File(FileExtension.CSV.toAbsoluteFileStudentResultPath(studentProblemDirFile.getParentFile().toString(), StringUtils.joinOriginal(studentProblemDirFile.getParentFile().getName(), studentProblemDirFile.getName())));
@@ -206,7 +197,6 @@ public class ReportUtils {
 	        BufferedWriter writer = new BufferedWriter(outputfile);
 
 	        // 1. Write the header row
-//	        Object[] headers = TopicHeader.withProblems(headers);
             writer.write(convertToCsvRow(headers));
             writer.newLine();
 	        	
