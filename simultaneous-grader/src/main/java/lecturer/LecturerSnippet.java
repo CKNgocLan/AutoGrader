@@ -8,6 +8,7 @@ import common.constant.FileExtension;
 import common.constant.ProblemName;
 import common.constant.TopicName;
 import common.util.PathUtils;
+import common.util.ReportUtils;
 import common.util.StringUtils;
 import model.component.Student;
 import model.component.StudentList;
@@ -53,11 +54,12 @@ public class LecturerSnippet {
 		factoryMapper.put(ProblemName.P4, new Lab3Problem4TestSuiteFactory());
 		factoryMapper.put(ProblemName.P5, new Lab3Problem5TestSuiteFactory());
 
+		ReportUtils.createTopicResultToCSV(submissionDirectory, topic);
 		for (File studentDir : submissionDirectory.listFiles()) {
 			if(!studentDir.isDirectory()) {
 				continue;
 			}
-			StudentThreadPool threadPool = new StudentThreadPool(TopicName.L3, studentDir, factoryMapper);
+			StudentThreadPool threadPool = new StudentThreadPool(topic, studentDir, factoryMapper);
 //			threadPool.addTask(new ProblemGradingTask(Stream.of(studentDir.listFiles()).filter(probDir -> probDir.getName().equals(l3p1Factory.getTopic())).findFirst().orElseThrow(), l3p1Factory));
 //			threadPool.addTask(new ProblemGradingTask(Stream.of(studentDir.listFiles()).filter(probDir -> probDir.getName().equals(l3p1Factory.getTopic())).findFirst().orElseThrow(), l3p2Factory));
 			threadPool.submit();

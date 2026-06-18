@@ -225,32 +225,45 @@ public class ReportUtils {
 	    }
 	}
 
-	public static void generateAllStudentResultsToCSV(File submissionDirFile, String topic, Student student, String[] headers, String dataRow) {
-//		 File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(), StringUtils.joinOriginal(topic, student.idNumber(), student.fullName())));
-		 File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(), StringUtils.toLowerCaseNoSpace(topic)));
-		 try {
-		        // create FileWriter object with file as parameter
-		        FileWriter outputfile = new FileWriter(file, true);
-		        BufferedWriter writer = new BufferedWriter(outputfile);
+	public static void createTopicResultToCSV(File submissionDirFile, String topic) {
+		File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(),
+				StringUtils.toLowerCaseNoSpace(topic)));
+		try {
+			// create FileWriter object with file as parameter
+			FileWriter outputfile = new FileWriter(file, true);
+			BufferedWriter writer = new BufferedWriter(outputfile);
 
-		        // 1. Write the header row
-		        if (headers != null) {
-		        	writer.write(convertToCsvRow(headers));
-		            writer.newLine();
-		        }
+			// 1. Write the header row
+			writer.write(convertToCsvRow(TopicName.headerArray(topic)));
+			writer.newLine();
 
-	            // 2. Write the data rows
-	            if (!StringUtils.isNullOrEmpty(dataRow)) {
-	            	writer.write(dataRow);
-		            writer.newLine();
-	            }
+			writer.close();
+			System.out.println(
+					GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
-	            writer.close();
-	            System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
-		    }
-		    catch (IOException e) {
-		        e.printStackTrace();
-		    }
+	public static void writetudentResultToCSV(File submissionDirFile, String topic, Student student, String dataRow) {
+		File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(), StringUtils.toLowerCaseNoSpace(topic)));
+		try {
+			// create FileWriter object with file as parameter
+			FileWriter outputfile = new FileWriter(file, true);
+			BufferedWriter writer = new BufferedWriter(outputfile);
+
+			// 2. Write the data rows
+			if (!StringUtils.isNullOrEmpty(dataRow)) {
+				writer.write(dataRow);
+				writer.newLine();
+			}
+
+			writer.close();
+			System.out.println(
+					GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public static String convertToCsvRow(Object... fields) {

@@ -2,7 +2,6 @@ package model.service;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -13,8 +12,6 @@ import java.util.stream.Stream;
 
 import common.constant.Constants;
 import common.constant.ProblemName;
-import common.constant.csv.StudentHeader;
-import common.constant.csv.TopicResultHeader;
 import common.message.ProgressMessage;
 import common.util.ReportUtils;
 import common.util.StringUtils;
@@ -91,47 +88,20 @@ public class StudentThreadPool {
 		return resultList;
 	}
 
-	private void createTopicResultCSVFile(List<ProblemResultDetails> problemResultList) {
-		List<String> headerRow = new ArrayList<>();
-		headerRow.add(StudentHeader.ID_NUMBER);
-		headerRow.add(StudentHeader.FULL_NAME);
-		for (ProblemResultDetails problemResult : problemResultList) {
-			headerRow.add(problemResult.name());
-		}
-		headerRow.add(TopicResultHeader.AVERAGE);
-		ReportUtils.generateAllStudentResultsToCSV(directory.getParentFile()
-				, topic
-				, student
-				, headerRow.stream().toArray(String[]::new)
-				, null
-		);
-	}
-
 	private void saveResultAsCSV(List<ProblemResultDetails> problemResultList) {
-		createTopicResultCSVFile(problemResultList);
-		List<String> headerRow = new ArrayList<>();
-		headerRow.add(StudentHeader.ID_NUMBER);
-		headerRow.add(StudentHeader.FULL_NAME);
-
 		List<Object> dataRow = new ArrayList<>();
 		dataRow.add(student.idNumber());
 		dataRow.add(student.fullName());
+		dataRow.add(problemResultList.stream().mapToDouble(details -> details.passedPercent()).average().getAsDouble());
 
-		float totalPercentage = 0;
-		
 		for (ProblemResultDetails problemResult : problemResultList) {
-			totalPercentage += problemResult.passedPercent();
-			headerRow.add(problemResult.name());
 			dataRow.add(problemResult.passedPercent());
 		}
-		headerRow.add(TopicResultHeader.AVERAGE);
-		dataRow.add(Float.valueOf(totalPercentage/problemResultList.size()));
 
 		// TODO write append passed percent
-		ReportUtils.generateAllStudentResultsToCSV(directory.getParentFile()
+		ReportUtils.writetudentResultToCSV(directory.getParentFile()
 				, topic
 				, student
-				, null // headerRow.stream().toArray(String[]::new)
 				, ReportUtils.convertToCsvRow(dataRow.stream().toArray())
 		);
 	}
