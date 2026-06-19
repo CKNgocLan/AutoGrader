@@ -21,13 +21,13 @@ public class StudentList {
 		initializeList();
 	}
 
-	public static Student findByID(String idNumber) {
+	public static Student findByID(String number) {
 		try {
-			return list.stream().filter(stu -> stu.idNumber().equals(idNumber)).findFirst().orElseThrow();
+			return list.stream().filter(stu -> stu.number().equals(number)).findFirst().orElseThrow();
 		} catch (NoSuchElementException e) {
 			e.printStackTrace();
-			System.err.println(ExceptionMessage.STUDENT_NOT_FOUND.getContent(idNumber));
-			return new Student(idNumber, Constants.NOT_FOUND_STUDENT, null);
+			System.err.println(ExceptionMessage.STUDENT_NOT_FOUND.getContent(number));
+			return new Student(number, Constants.NOT_FOUND_STUDENT, null);
 		}
 	}
 

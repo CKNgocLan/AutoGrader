@@ -86,7 +86,7 @@ public class StudentThreadPool {
 
 	private void saveResultAsCSV(List<ProblemResultDetails> problemResultList) {
 		List<Object> dataRow = new ArrayList<>();
-		dataRow.add(student.idNumber());
+		dataRow.add(student.number());
 		dataRow.add(student.fullName());
 		dataRow.add(problemResultList.stream().mapToDouble(details -> details.passedPercent()).average().getAsDouble());
 

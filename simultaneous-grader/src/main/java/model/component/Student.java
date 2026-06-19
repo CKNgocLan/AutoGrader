@@ -4,9 +4,9 @@ import org.apache.commons.csv.CSVRecord;
 
 import common.constant.csv.StudentHeader;
 
-public record Student(String idNumber, String fullName, String groups, String emailAddress) {
-	public Student(String idNumber, String fullName, String groups) {
-		this(idNumber, fullName, groups, null);
+public record Student(String number, String fullName, String groups, String emailAddress) {
+	public Student(String number, String fullName, String groups) {
+		this(number, fullName, groups, null);
 	}
 
 	public Student(CSVRecord record) {
@@ -27,10 +27,14 @@ public record Student(String idNumber, String fullName, String groups, String em
 //			return false;
 //		}
 //
-//		return getByID(((Student)obj).idNumber);
+//		return getByID(((Student)obj).number);
 //	}
 
-	public boolean getByID(String idNumber) {
-		return this.idNumber.equals(idNumber);
+	public boolean equals(Student student) {
+		return this.number().equals(student.number());
+	}
+
+	public boolean getByID(String number) {
+		return this.number.equals(number);
 	}
 }

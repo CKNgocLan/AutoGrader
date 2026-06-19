@@ -166,7 +166,7 @@ public class ReportUtils {
 			String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateTimeFormatters.yyyy_MM_dd_HH_mm_ss));
 
 			String fileName = Constants.OOP + Constants.UNDERSCORE + YearQuarter.Y25Q3
-					+ Symbol.HYPHEN + StringUtils.toSafeName(student.idNumber())
+					+ Symbol.HYPHEN + StringUtils.toSafeName(student.number())
 					+ Symbol.HYPHEN + student.fullName()
 					+ Symbol.HYPHEN + StringUtils.toSafeName(topic)
 					+ Symbol.HYPHEN + StringUtils.toSafeName(problem)
@@ -221,6 +221,9 @@ public class ReportUtils {
 			// create FileWriter object with file as parameter
 			FileWriter outputfile = new FileWriter(file, true);
 			BufferedWriter writer = new BufferedWriter(outputfile);
+
+			// 0. Clear old content
+			writer.write(Constants.EMPTY_STRING);
 
 			// 1. Write the header row
 			writer.write(convertToCsvRow(TopicName.headerArray(topic)));

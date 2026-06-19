@@ -2,25 +2,19 @@ package lecturer;
 
 import java.io.File;
 import java.nio.file.Path;
-import java.util.HashMap;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.List;
+import java.util.stream.Stream;
 
-import common.constant.FileExtension;
-import common.constant.ProblemName;
 import common.constant.TopicName;
 import common.util.PathUtils;
 import common.util.ReportUtils;
 import common.util.StringUtils;
 import model.component.Student;
 import model.component.StudentList;
-import model.component.testSuite.TestSuiteFactory;
-import model.component.testSuite.factory.Lab3Problem1TestSuiteFactory;
-import model.component.testSuite.factory.Lab3Problem2TestSuiteFactory;
-import model.component.testSuite.factory.Lab3Problem3TestSuiteFactory;
-import model.component.testSuite.factory.Lab3Problem4TestSuiteFactory;
-import model.component.testSuite.factory.Lab3Problem5TestSuiteFactory;
 import model.exception.TesterGotNoClassNameException;
 import model.service.StudentThreadPool;
-import model.service.TestSuiteFactoryMapper;
 
 public class LecturerSnippet {
 	static String selectedLab = TopicName.L3;
@@ -28,6 +22,7 @@ public class LecturerSnippet {
 	static String path = Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toString();
 	static String csvPath = Path.of(PathUtils.currentFolderPath(), "cse203-participants-253.csv").toString();
 	static File submissionDirectory = new File(path);
+	static List<File> innerSubmissionDirectory = Stream.of(submissionDirectory.listFiles()).filter(file -> file.isDirectory()).toList();
 	static String topic = TopicName.L3;
 
 	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
@@ -43,12 +38,27 @@ public class LecturerSnippet {
 	private static void gradeLab3() {
 		StudentList.setFilePath(csvPath);
 		ReportUtils.createTopicResultToCSV(submissionDirectory, topic);
-		for (Student student: StudentList.getList()) {
+
+		// 1. Record start time
+		Instant start = Instant.now();
+
+        // 2. Find student submission
+		for (Student student : StudentList.getList()) {
 			
 		}
+		
+		// 3. Record end time
+		Instant end = Instant.now();
+
+        // 4. Calculate total duration
+		Duration timeElapsed = Duration.between(start, end);
+		
+		System.out.println("Time taken: " + timeElapsed.toSeconds() + " seconds");
+		System.out.println("Time taken: " + timeElapsed.toMillis() + " milliseconds");
 	}
 
 	private static File findStudentSubmission(Student student) {
+//		innerSubmissionDirectory.stream().filter(innerDir -> StudentList.findByStudentDirectory(innerDir))
 		return null;
 	}
 
@@ -179,7 +189,7 @@ public class LecturerSnippet {
 //	private static void findStudent() {
 //		StudentList.setFilePath("D:\\eclipse-wksp\\AutoGrader\\auto-grader\\cse203-participants-253.csv");
 //		List<Student> students = StudentList.getList();
-//		Student s = students.stream().filter(stu -> "2331200033".equals(stu.idNumber())).findFirst().orElseThrow();
+//		Student s = students.stream().filter(stu -> "2331200033".equals(stu.number())).findFirst().orElseThrow();
 //		System.out.println(s);
 //	}
 

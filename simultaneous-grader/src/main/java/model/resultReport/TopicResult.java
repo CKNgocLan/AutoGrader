@@ -7,8 +7,8 @@ import model.exception.IllegalConstructorParameterException;
 
 public record TopicResult(Student student, String topic, float percent) {
 	public TopicResult {
-		if (!StringUtils.isNullOrEmpty(student.idNumber())) {
-			throw new IllegalConstructorParameterException(FieldName.STUDENT_ID_NUMBER, student.idNumber());
+		if (!StringUtils.isNullOrEmpty(student.number())) {
+			throw new IllegalConstructorParameterException(FieldName.STUDENT_ID_NUMBER, student.number());
 		}
 
 		if (!StringUtils.isNullOrEmpty(student.fullName())) {
