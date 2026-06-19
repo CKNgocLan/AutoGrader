@@ -4,15 +4,17 @@ import java.io.File;
 import java.nio.file.Path;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
 import common.constant.TopicName;
+import common.message.ExceptionMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
-import common.util.StringUtils;
 import model.component.Student;
 import model.component.StudentList;
+import model.exception.NotFoundStudentException;
 import model.exception.TesterGotNoClassNameException;
 import model.service.StudentThreadPool;
 
@@ -41,10 +43,18 @@ public class LecturerSnippet {
 
 		// 1. Record start time
 		Instant start = Instant.now();
+		List<StudentThreadPool> threadPoolList = new ArrayList<StudentThreadPool>();
+		List<Student> notFoundStudentList = new ArrayList<Student>();
 
         // 2. Find student submission
 		for (Student student : StudentList.getList()) {
-			
+			try {
+//				threadPoolList.add(new StudentThreadPool(topic, findStudentSubmission(student)));
+				new StudentThreadPool(topic, findStudentSubmission(student)).submit();
+			} catch (NotFoundStudentException e) {
+				System.err.println(e.getMessage());
+				notFoundStudentList.add(student);
+			}
 		}
 		
 		// 3. Record end time
@@ -55,11 +65,15 @@ public class LecturerSnippet {
 		
 		System.out.println("Time taken: " + timeElapsed.toSeconds() + " seconds");
 		System.out.println("Time taken: " + timeElapsed.toMillis() + " milliseconds");
+		
+		System.out.println("Found Student Number: %d".formatted(threadPoolList.size()));
+		System.out.println("NOT Found Student Number: %d".formatted(notFoundStudentList.size()));
 	}
 
-	private static File findStudentSubmission(Student student) {
-//		innerSubmissionDirectory.stream().filter(innerDir -> StudentList.findByStudentDirectory(innerDir))
-		return null;
+	private static File findStudentSubmission(Student student) throws NotFoundStudentException {
+		return innerSubmissionDirectory.stream()
+				.filter(innerDir -> StudentList.findByStudentDirectory(innerDir).equals(student)).findFirst()
+				.orElseThrow(NotFoundStudentException.toSupplier(ExceptionMessage.STUDENT_NOT_FOUND.getContent(student.number(), student.fullName())));
 	}
 
 	private static void gradeLab3ViaSubmissionDirectory() {

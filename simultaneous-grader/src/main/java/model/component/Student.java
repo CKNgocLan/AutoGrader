@@ -31,7 +31,7 @@ public record Student(String number, String fullName, String groups, String emai
 //	}
 
 	public boolean equals(Student student) {
-		return this.number().equals(student.number());
+		return this.number.equals(student.number());
 	}
 
 	public boolean getByID(String number) {
