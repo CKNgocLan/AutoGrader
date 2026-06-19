@@ -12,15 +12,17 @@ import java.util.stream.Stream;
 
 import common.constant.Constants;
 import common.constant.ProblemName;
+import common.message.ExceptionMessage;
 import common.message.ProgressMessage;
 import common.util.ReportUtils;
 import common.util.StringUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.component.testSuite.TestSuiteFactory;
+import model.exception.NotFoundProblemSubmissionException;
 import model.resultReport.ProblemResultDetails;
 
-/*
+/**
  * Student Thread Pool
  */
 public class StudentThreadPool {
@@ -31,35 +33,25 @@ public class StudentThreadPool {
 	private List<ProblemGradingTask> taskList;
 	private HashMap<String, TestSuiteFactory> factoryMapper = new HashMap<String, TestSuiteFactory>();
 
-//	public StudentThreadPool(String topic, File studentDir, HashMap<String, TestSuiteFactory> factoryMapper) {
 	public StudentThreadPool(String topic, File studentDir) {
 		this.topic = topic;
-		this.student = StudentList.findByStudentDirectory(studentDir);
 		this.directory = studentDir;
+
+		this.student = StudentList.findByStudentDirectory(studentDir);
 		this.service = Executors.newFixedThreadPool(Constants.THREAD_POOL_SIZE);
 		this.taskList = new ArrayList<ProblemGradingTask>();
 		this.factoryMapper = TestSuiteFactoryMapper.getFactoryMapper(topic);
 	}
 
-	public String getTopic() {
-		return this.topic;
-	}
+//	public String getTopic() {
+//		return this.topic;
+//	}
+//
+//	public void addTask(ProblemGradingTask task) {
+//		this.taskList.add(task);
+//	}
 
-	public void addTask(ProblemGradingTask task) {
-		this.taskList.add(task);
-	}
-
-	private void addTaskThroughFactory() throws NoSuchElementException {
-		for(String problemName: ProblemName.getProblems(topic)) {
-			this.taskList.add(new ProblemGradingTask(matchProblemDirectory(problemName), factoryMapper.get(problemName)));
-		}
-	}
-
-	private File matchProblemDirectory(String problemName) {
-		return Stream.of(directory.listFiles()).filter(probDir -> probDir.isDirectory() && probDir.getName().equals(problemName)).findFirst().orElseThrow();
-	}
-
-	public List<ProblemResultDetails> submit() {
+	public List<ProblemResultDetails> submit() throws NoSuchElementException, NotFoundProblemSubmissionException {
 		addTaskThroughFactory();
 		List<Future<ProblemResultDetails>> futureList = taskList.stream().map(task -> service.submit(task)).toList();
 		
@@ -82,6 +74,19 @@ public class StudentThreadPool {
 		saveResultAsCSV(resultList);
 
 		return resultList;
+	}
+
+	private void addTaskThroughFactory() throws NoSuchElementException, NotFoundProblemSubmissionException {
+		for(String problemName: ProblemName.getProblems(topic)) {
+			this.taskList.add(new ProblemGradingTask(matchProblemDirectory(problemName), factoryMapper.get(problemName)));
+		}
+	}
+
+	private File matchProblemDirectory(String problemName) throws NotFoundProblemSubmissionException {
+		return Stream.of(directory.listFiles())
+				.filter(probDir -> probDir.isDirectory() && probDir.getName().equals(problemName)).findFirst()
+				.orElseThrow(NotFoundProblemSubmissionException
+						.toSupplier(student, problemName));
 	}
 
 	private void saveResultAsCSV(List<ProblemResultDetails> problemResultList) {

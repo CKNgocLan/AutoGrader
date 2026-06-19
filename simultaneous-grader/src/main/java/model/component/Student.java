@@ -18,7 +18,7 @@ public record Student(String number, String fullName, String groups, String emai
 	}
 
 //	@Override
-//	public boolean equals(Object obj) {
+//	TODO public boolean equals(Object obj) {
 //		if (this == obj) {
 //			return true;
 //		}

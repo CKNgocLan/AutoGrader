@@ -17,6 +17,7 @@ public enum ExceptionMessage {
 	, EXCEL_REPORT_GENERATION_ERROR("Error generating Excel report: {0}")
 	, ILLEGAL_CONSTRUCTOR_PARAMETER("Invalid Constructor Parameter named \"{0}\": {1}.")
 	, STUDENT_NOT_FOUND("Student NOT FOUND: {0} - {1}")
+	, PROBLEM_SUBMISSION_OF_STUDENT_NOT_FOUND("PROBLEM SUBMISION of Student {0} NOT FOUND: {1}")
 	;
 	
 	private final String value;

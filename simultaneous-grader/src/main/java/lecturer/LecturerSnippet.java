@@ -6,6 +6,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import common.constant.TopicName;
@@ -14,6 +15,7 @@ import common.util.PathUtils;
 import common.util.ReportUtils;
 import model.component.Student;
 import model.component.StudentList;
+import model.exception.NotFoundProblemSubmissionException;
 import model.exception.NotFoundStudentException;
 import model.exception.TesterGotNoClassNameException;
 import model.service.StudentThreadPool;
@@ -43,15 +45,13 @@ public class LecturerSnippet {
 
 		// 1. Record start time
 		Instant start = Instant.now();
-		List<StudentThreadPool> threadPoolList = new ArrayList<StudentThreadPool>();
 		List<Student> notFoundStudentList = new ArrayList<Student>();
 
         // 2. Find student submission
 		for (Student student : StudentList.getList()) {
 			try {
-//				threadPoolList.add(new StudentThreadPool(topic, findStudentSubmission(student)));
 				new StudentThreadPool(topic, findStudentSubmission(student)).submit();
-			} catch (NotFoundStudentException e) {
+			} catch (NotFoundStudentException | NoSuchElementException | NotFoundProblemSubmissionException e) {
 				System.err.println(e.getMessage());
 				notFoundStudentList.add(student);
 			}
@@ -66,14 +66,13 @@ public class LecturerSnippet {
 		System.out.println("Time taken: " + timeElapsed.toSeconds() + " seconds");
 		System.out.println("Time taken: " + timeElapsed.toMillis() + " milliseconds");
 		
-		System.out.println("Found Student Number: %d".formatted(threadPoolList.size()));
-		System.out.println("NOT Found Student Number: %d".formatted(notFoundStudentList.size()));
+		System.out.println("NOT FOUND Student Number: %d".formatted(notFoundStudentList.size()));
 	}
 
 	private static File findStudentSubmission(Student student) throws NotFoundStudentException {
 		return innerSubmissionDirectory.stream()
 				.filter(innerDir -> StudentList.findByStudentDirectory(innerDir).equals(student)).findFirst()
-				.orElseThrow(NotFoundStudentException.toSupplier(ExceptionMessage.STUDENT_NOT_FOUND.getContent(student.number(), student.fullName())));
+				.orElseThrow(NotFoundStudentException.toSupplier(student));
 	}
 
 	private static void gradeLab3ViaSubmissionDirectory() {
@@ -100,7 +99,11 @@ public class LecturerSnippet {
 //			threadPool.addTask(new ProblemGradingTask(Stream.of(studentDir.listFiles()).filter(probDir -> probDir.getName().equals(l3p1Factory.getTopic())).findFirst().orElseThrow(), l3p1Factory));
 //			threadPool.addTask(new ProblemGradingTask(Stream.of(studentDir.listFiles()).filter(probDir -> probDir.getName().equals(l3p1Factory.getTopic())).findFirst().orElseThrow(), l3p2Factory));
 //			threadPool.submit();
-			new StudentThreadPool(topic, studentDir).submit();
+			try {
+				new StudentThreadPool(topic, studentDir).submit();
+			} catch (NoSuchElementException | NotFoundProblemSubmissionException e) {
+				e.printStackTrace();
+			}
 		}
 
 //		try {
