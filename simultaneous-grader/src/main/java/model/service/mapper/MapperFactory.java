@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import model.component.testSuite.TestSuiteFactory;
 
+@Deprecated
 public interface MapperFactory {
-	public HashMap<String, TestSuiteFactory> createMapper(String topic);
+	public HashMap<String, TestSuiteFactory> getMapper(String topic);
 }
