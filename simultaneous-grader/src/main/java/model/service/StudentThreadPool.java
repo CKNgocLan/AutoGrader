@@ -49,11 +49,6 @@ public class StudentThreadPool {
 		this.taskList.add(task);
 	}
 
-//	public StudentThreadPool putTestSuiteFactory(String problemName, TestSuiteFactory testSuiteFactory) {
-//		this.factoryMapper.put(problemName, testSuiteFactory);
-//		return this;
-//	}
-
 	private void addTaskThroughFactory() throws NoSuchElementException {
 		for(String problemName: ProblemName.getProblems(topic)) {
 			this.taskList.add(new ProblemGradingTask(matchProblemDirectory(problemName), factoryMapper.get(problemName)));
@@ -99,7 +94,6 @@ public class StudentThreadPool {
 			dataRow.add(problemResult.passedPercent());
 		}
 
-		// TODO write append passed percent
 		ReportUtils.writetudentResultToCSV(directory.getParentFile()
 				, topic
 				, student

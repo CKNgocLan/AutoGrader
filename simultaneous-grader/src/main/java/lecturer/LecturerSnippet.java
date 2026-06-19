@@ -42,6 +42,18 @@ public class LecturerSnippet {
 
 	private static void gradeLab3() {
 		StudentList.setFilePath(csvPath);
+		ReportUtils.createTopicResultToCSV(submissionDirectory, topic);
+		for (Student student: StudentList.getList()) {
+			
+		}
+	}
+
+	private static File findStudentSubmission(Student student) {
+		return null;
+	}
+
+	private static void gradeLab3ViaSubmissionDirectory() {
+		StudentList.setFilePath(csvPath);
 //		File studentDir = submissionDirectory.listFiles()[0];
 //		StudentThreadPool threadPool1 = new StudentThreadPool(TopicName.L3, studentDir);
 //		threadPool1.addTask(new ProblemGradingTask(studentDir.listFiles()[0], new Lab3Problem1TestSuiteFactory()));
@@ -60,10 +72,11 @@ public class LecturerSnippet {
 			if(!studentDir.isDirectory()) {
 				continue;
 			}
-			StudentThreadPool threadPool = new StudentThreadPool(topic, studentDir);
+//			StudentThreadPool threadPool = new StudentThreadPool(topic, studentDir);
 //			threadPool.addTask(new ProblemGradingTask(Stream.of(studentDir.listFiles()).filter(probDir -> probDir.getName().equals(l3p1Factory.getTopic())).findFirst().orElseThrow(), l3p1Factory));
 //			threadPool.addTask(new ProblemGradingTask(Stream.of(studentDir.listFiles()).filter(probDir -> probDir.getName().equals(l3p1Factory.getTopic())).findFirst().orElseThrow(), l3p2Factory));
-			threadPool.submit();
+//			threadPool.submit();
+			new StudentThreadPool(topic, studentDir).submit();
 		}
 
 //		try {
