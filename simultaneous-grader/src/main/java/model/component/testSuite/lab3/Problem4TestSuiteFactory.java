@@ -18,7 +18,7 @@ public class Problem4TestSuiteFactory implements TestSuiteFactory {
 
 	@Override
 	public TestSuite getTestSuite() {
-		return new Problem2TestSuite();
+		return new Problem4TestSuite();
 	}
 
 }

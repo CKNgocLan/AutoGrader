@@ -13,12 +13,12 @@ public class Problem5TestSuiteFactory implements TestSuiteFactory {
 
 	@Override
 	public String getProblem() {
-		return ProblemName.P4;
+		return ProblemName.P5;
 	}
 
 	@Override
 	public TestSuite getTestSuite() {
-		return new Problem2TestSuite();
+		return new Problem5TestSuite();
 	}
 
 }
