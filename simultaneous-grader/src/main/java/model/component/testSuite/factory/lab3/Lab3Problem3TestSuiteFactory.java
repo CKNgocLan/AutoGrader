@@ -1,12 +1,12 @@
-package model.component.testSuite.factory;
+package model.component.testSuite.factory.lab3;
 
 import common.constant.ProblemName;
 import common.constant.TopicName;
 import model.component.testSuite.TestSuite;
 import model.component.testSuite.TestSuiteFactory;
-import model.component.testSuite.concrete.Lab3Problem2TestSuite;
+import model.component.testSuite.concrete.lab3.Lab3Problem3TestSuite;
 
-public class Lab3Problem5TestSuiteFactory implements TestSuiteFactory {
+public class Lab3Problem3TestSuiteFactory implements TestSuiteFactory {
 	@Override
 	public String getTopic() {
 		return TopicName.L3;
@@ -14,12 +14,12 @@ public class Lab3Problem5TestSuiteFactory implements TestSuiteFactory {
 
 	@Override
 	public String getProblem() {
-		return ProblemName.P4;
+		return ProblemName.P3;
 	}
 
 	@Override
 	public TestSuite getTestSuite() {
-		return new Lab3Problem2TestSuite();
+		return new Lab3Problem3TestSuite();
 	}
 
 }

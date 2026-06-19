@@ -1,10 +1,10 @@
-package model.component.testSuite.factory;
+package model.component.testSuite.factory.lab3;
 
 import common.constant.ProblemName;
 import common.constant.TopicName;
 import model.component.testSuite.TestSuite;
 import model.component.testSuite.TestSuiteFactory;
-import model.component.testSuite.concrete.Lab3Problem2TestSuite;
+import model.component.testSuite.concrete.lab3.Lab3Problem2TestSuite;
 
 public class Lab3Problem2TestSuiteFactory implements TestSuiteFactory {
 	@Override

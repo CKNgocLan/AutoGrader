@@ -1,4 +1,4 @@
-package model.component.testSuite.concrete;
+package model.component.testSuite.concrete.lab3;
 
 import java.util.List;
 

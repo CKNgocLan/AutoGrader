@@ -72,9 +72,7 @@ public class ShapeClassTester extends Tester {
 		return methodTester.declaredAsSpecialModifers(points, className, method(circleArgs()).asStatic());
 	}
 
-	public TestCase operateAreaCircle(int points, double radius, Object expected) throws ClassNotFoundException,
-			TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, NoSuchMethodException, SecurityException {
+	public TestCase operateAreaCircle(int points, double radius, Object expected) throws Exception {
 		return methodTester.checkOperationAsNumberic(points, method(circleArgs(radius))
 				.config(getCorrespondingClass(), instantiate()).expectedValue(expected));
 	}
