@@ -1,4 +1,4 @@
-package tester;
+package model.component.tester;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

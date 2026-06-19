@@ -1,4 +1,4 @@
-package tester.lab3.problem2;
+package model.component.tester.lab3.problem2;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -6,10 +6,10 @@ import common.constant.ClassName;
 import common.constant.FieldName;
 import common.constant.MethodName;
 import model.component.TestCase;
+import model.component.tester.Tester;
 import model.element.TestingMethod;
 import model.element.TestingParameter;
 import model.exception.TesterGotNoClassNameException;
-import tester.Tester;
 
 public class ShapeClassTester extends Tester {
 
@@ -75,8 +75,8 @@ public class ShapeClassTester extends Tester {
 	public TestCase operateAreaCircle(int points, double radius, Object expected) throws ClassNotFoundException,
 			TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException {
-		return methodTester.checkOperationAsNumberic(points,
-				method(circleArgs(radius)).config(getCorrespondingClass(), instantiate()).expectedValue(expected));
+		return methodTester.checkOperationAsNumberic(points, method(circleArgs(radius))
+				.config(getCorrespondingClass(), instantiate()).expectedValue(expected));
 	}
 
 	/*

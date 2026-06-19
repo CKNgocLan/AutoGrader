@@ -5,7 +5,7 @@ import java.util.List;
 
 import model.component.TestCase;
 import model.component.testSuite.TestSuite;
-import tester.lab3.problem2.ShapeClassTester;
+import model.component.tester.lab3.problem2.ShapeClassTester;
 
 public class Lab3Problem2TestSuite extends TestSuite {
 	private static Lab3Problem2TestSuite instance;

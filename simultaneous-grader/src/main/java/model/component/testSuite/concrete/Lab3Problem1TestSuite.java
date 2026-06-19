@@ -5,9 +5,9 @@ import java.util.List;
 
 import model.component.TestCase;
 import model.component.testSuite.TestSuite;
+import model.component.tester.lab3.problem1.CashRegisterTester;
+import model.component.tester.lab3.problem1.RetailItemTester;
 import model.element.TestingParameter;
-import tester.lab3.problem1.CashRegisterTester;
-import tester.lab3.problem1.RetailItemTester;
 
 public class Lab3Problem1TestSuite extends TestSuite {
 	private static Lab3Problem1TestSuite instance;
