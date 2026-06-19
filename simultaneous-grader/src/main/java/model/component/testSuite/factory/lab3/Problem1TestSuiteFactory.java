@@ -4,7 +4,7 @@ import common.constant.ProblemName;
 import common.constant.TopicName;
 import model.component.testSuite.TestSuite;
 import model.component.testSuite.TestSuiteFactory;
-import model.component.testSuite.concrete.lab3.Lab3Problem1TestSuite;
+import model.component.testSuite.concrete.lab3.Problem1TestSuite;
 
 public class Problem1TestSuiteFactory implements TestSuiteFactory {
 	@Override
@@ -19,7 +19,7 @@ public class Problem1TestSuiteFactory implements TestSuiteFactory {
 
 	@Override
 	public TestSuite getTestSuite() {
-		return Lab3Problem1TestSuite.getInstance();
+		return Problem1TestSuite.getInstance();
 	}
 
 }

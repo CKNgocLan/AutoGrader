@@ -5,7 +5,7 @@ import java.util.List;
 import model.component.TestCase;
 import model.component.testSuite.TestSuite;
 
-public class Lab3Problem3TestSuite extends TestSuite {
+public class Problem3TestSuite extends TestSuite {
 
 	@Override
 	public List<TestCase> getTestCases() {

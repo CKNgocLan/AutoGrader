@@ -7,12 +7,12 @@ import model.component.TestCase;
 import model.component.testSuite.TestSuite;
 import model.component.tester.lab3.problem2.ShapeClassTester;
 
-public class Lab3Problem2TestSuite extends TestSuite {
-	private static Lab3Problem2TestSuite instance;
+public class Problem2TestSuite extends TestSuite {
+	private static Problem2TestSuite instance;
 
-	public static Lab3Problem2TestSuite getInstance() {
+	public static Problem2TestSuite getInstance() {
 		if (instance == null) {
-			instance = new Lab3Problem2TestSuite();
+			instance = new Problem2TestSuite();
 		}
 		return instance;
 	}
