@@ -21,7 +21,7 @@ public class StudentList {
 		initializeList();
 	}
 
-	public static Student findByID(String number) {
+	public static Student findByNumber(String number) {
 		try {
 			return list.stream().filter(stu -> stu.number().equals(number)).findFirst().orElseThrow();
 		} catch (NoSuchElementException e) {
@@ -32,7 +32,7 @@ public class StudentList {
 	}
 
 	public static Student findByStudentDirectory(File submissionDir) {
-		return StudentList.findByID(submissionDir.getName().split(Constants.UNDERSCORE)[0]);
+		return StudentList.findByNumber(submissionDir.getName().split(Constants.UNDERSCORE)[0]);
 	}
 
 	private static List<Student> initializeList() {
