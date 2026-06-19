@@ -15,7 +15,6 @@ import common.constant.ProblemName;
 import common.message.ProgressMessage;
 import common.util.ReportUtils;
 import common.util.StringUtils;
-import common.util.ValueUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.component.testSuite.TestSuiteFactory;
@@ -43,14 +42,6 @@ public class StudentThreadPool {
 		this.taskList = new ArrayList<ProblemGradingTask>();
 		this.factoryMapper = TestSuiteFactoryMapper.getFactoryMapper(topic);
 	}
-
-//	public String getTopic() {
-//		return this.topic;
-//	}
-//
-//	public void addTask(ProblemGradingTask task) {
-//		this.taskList.add(task);
-//	}
 
 	public List<ProblemResultDetails> submit() throws NoSuchElementException, NotFoundProblemSubmissionException {
 		addTaskThroughFactory();

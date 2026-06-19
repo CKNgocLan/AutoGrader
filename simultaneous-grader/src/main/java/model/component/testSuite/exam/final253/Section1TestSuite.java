@@ -1,9 +1,21 @@
 package model.component.testSuite.exam.final253;
 
+import java.util.Arrays;
 import java.util.List;
 
 import model.component.TestCase;
 import model.component.testSuite.TestSuite;
+import model.component.tester.exam.final253.section1.BallpointPenFactoryTester;
+import model.component.tester.exam.final253.section1.BallpointPenTester;
+import model.component.tester.exam.final253.section1.BrandName;
+import model.component.tester.exam.final253.section1.BrandTester;
+import model.component.tester.exam.final253.section1.ColorEnum;
+import model.component.tester.exam.final253.section1.ColorTester;
+import model.component.tester.exam.final253.section1.FountainPenFactoryTester;
+import model.component.tester.exam.final253.section1.FountainPenTester;
+import model.component.tester.exam.final253.section1.ModelName;
+import model.component.tester.exam.final253.section1.PenFactoryTester;
+import model.component.tester.exam.final253.section1.PenTester;
 
 public class Section1TestSuite extends TestSuite {
 	private static Section1TestSuite instance;
@@ -18,7 +30,62 @@ public class Section1TestSuite extends TestSuite {
 	@Override
 	public List<TestCase> getTestCases() {
 		try {
-			return List.of();
+			ColorTester colorTester = new ColorTester();
+			BrandTester brandTester = new BrandTester();
+			
+			PenTester penTester = new PenTester()
+					.brandTester(brandTester)
+					.colorTester(colorTester);
+			BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester);
+			FountainPenTester fountainPenTester = new FountainPenTester(penTester);
+
+			Object brandInstance = brandTester.instantiate(BrandName.CONCOPENS);
+			Object redEnum = colorTester.valueFrom(ColorEnum.RED);
+			Object greyEnum = colorTester.valueFrom(ColorEnum.GREY);
+
+			PenFactoryTester penFactoryTester = new PenFactoryTester(penTester.getCorrespondingClass()).brandTester(brandTester).colorTester(colorTester);
+			BallpointPenFactoryTester ballpointPenFactoryTester = new BallpointPenFactoryTester(penFactoryTester);
+			FountainPenFactoryTester fountainPenFactoryTester = new FountainPenFactoryTester(penFactoryTester);
+
+			return Arrays.asList(
+					// color
+					colorTester.declare()
+					, colorTester.declareFields()
+
+					// brand
+					, brandTester.declare()
+					, brandTester.declareFields()
+
+					// penFactory
+					, penFactoryTester.declare()
+					, penFactoryTester.declareCreatePen()
+
+					// ballpointPen
+					, ballpointPenTester.declare()
+					, ballpointPenTester.declareSuper()
+					, ballpointPenTester.declareConstructor()
+					, ballpointPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
+					, ballpointPenTester.declareGetDescription()
+					, ballpointPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
+
+					// fountainPen
+					, fountainPenTester.declare()
+					, fountainPenTester.declareSuper()
+					, fountainPenTester.declareConstructor()
+					, fountainPenTester.operateConstructor(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
+					, fountainPenTester.declareGetDescription()
+					, fountainPenTester.operateGetDescription(brandInstance, ModelName.GOLDEN_LOTUS, greyEnum, 61.5)
+
+					// ballpointPenFactoryTester
+					, ballpointPenFactoryTester.declare()
+					, ballpointPenFactoryTester.implementInterface()
+					, ballpointPenFactoryTester.operateCreatePen(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
+
+					// fountainPenFactoryTester
+					, fountainPenFactoryTester.declare()
+					, fountainPenFactoryTester.implementInterface()
+					, fountainPenFactoryTester.operateCreatePen(brandInstance, ModelName.TUZU_FORGE, greyEnum, 65)
+			);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return List.of();
