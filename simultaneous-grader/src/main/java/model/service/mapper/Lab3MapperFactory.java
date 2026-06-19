@@ -5,11 +5,11 @@ import java.util.Map;
 
 import common.constant.ProblemName;
 import model.component.testSuite.TestSuiteFactory;
-import model.component.testSuite.factory.lab3.Problem1TestSuiteFactory;
-import model.component.testSuite.factory.lab3.Problem2TestSuiteFactory;
-import model.component.testSuite.factory.lab3.Problem3TestSuiteFactory;
-import model.component.testSuite.factory.lab3.Problem4TestSuiteFactory;
-import model.component.testSuite.factory.lab3.Problem5TestSuiteFactory;
+import model.component.testSuite.lab3.Problem1TestSuiteFactory;
+import model.component.testSuite.lab3.Problem2TestSuiteFactory;
+import model.component.testSuite.lab3.Problem3TestSuiteFactory;
+import model.component.testSuite.lab3.Problem4TestSuiteFactory;
+import model.component.testSuite.lab3.Problem5TestSuiteFactory;
 
 public class Lab3MapperFactory implements MapperFactory {
 	private TestSuiteFactory l3p1 = new Problem1TestSuiteFactory();

@@ -1,16 +1,16 @@
-package model.component.testSuite.concrete.exam.final253;
+package model.component.testSuite.exam.midterm253;
 
 import java.util.List;
 
 import model.component.TestCase;
 import model.component.testSuite.TestSuite;
 
-public class Section2TestSuite extends TestSuite {
-	private static Section2TestSuite instance;
+public class Section1TestSuite extends TestSuite {
+	private static Section1TestSuite instance;
 
-	public static Section2TestSuite getInstance() {
+	public static Section1TestSuite getInstance() {
 		if (instance == null) {
-			instance = new Section2TestSuite();
+			instance = new Section1TestSuite();
 		}
 		return instance;
 	}

@@ -1,4 +1,4 @@
-package model.component.testSuite.concrete.exam.midterm253;
+package model.component.testSuite.exam.final253;
 
 import java.util.List;
 

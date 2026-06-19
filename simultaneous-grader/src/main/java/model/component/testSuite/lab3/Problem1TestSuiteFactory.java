@@ -1,25 +1,24 @@
-package model.component.testSuite.factory.exam.final253;
+package model.component.testSuite.lab3;
 
 import common.constant.ProblemName;
 import common.constant.TopicName;
 import model.component.testSuite.TestSuite;
 import model.component.testSuite.TestSuiteFactory;
-import model.component.testSuite.concrete.exam.final253.Section2TestSuite;
 
-public class Section2TestSuiteFactory implements TestSuiteFactory {
+public class Problem1TestSuiteFactory implements TestSuiteFactory {
 	@Override
 	public String getTopic() {
-		return TopicName.FINAL_253;
+		return TopicName.L3;
 	}
 
 	@Override
 	public String getProblem() {
-		return ProblemName.SECTION_2;
+		return ProblemName.P1;
 	}
 
 	@Override
 	public TestSuite getTestSuite() {
-		return Section2TestSuite.getInstance();
+		return Problem1TestSuite.getInstance();
 	}
 
 }
