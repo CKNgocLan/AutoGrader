@@ -53,10 +53,10 @@ public class StudentThreadPool {
 
 	public List<ProblemResultDetails> submit() throws NoSuchElementException, NotFoundProblemSubmissionException {
 		addTaskThroughFactory();
-		List<Future<ProblemResultDetails>> futureList = taskList.stream().map(task -> service.submit(task)).toList();
 		
-		while(futureList.stream().filter(future -> !future.isDone()).toList().size() > 0) {
-		}
+		List<Future<ProblemResultDetails>> futureList = taskList.stream().map(task -> service.submit(task)).toList();
+		while(futureList.stream().filter(future -> !future.isDone()).toList().size() > 0) {}
+
 		System.out.println(ProgressMessage.GRADING_COMPLETE.getContent(StringUtils.encloseDoubleQuote(student.fullName())));
 
 		List<ProblemResultDetails> resultList = new ArrayList<ProblemResultDetails>();
