@@ -22,7 +22,7 @@ public class NotFoundStudentException extends Exception {
 		return () -> new NotFoundStudentException(student);
 	}
 
-	public void writeCSV(File submissionDirectory, String topic, Student student) {
+	public void writeCSV(File submissionDirectory, String topic, Student student) throws InvalidConfigurationException {
 		List<Object> dataRow = new ArrayList<>();
 		dataRow.add(student.number());
 		dataRow.add(student.fullName());

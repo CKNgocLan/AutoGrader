@@ -14,6 +14,7 @@ import common.util.PathUtils;
 import common.util.ReportUtils;
 import model.component.Student;
 import model.component.StudentList;
+import model.exception.InvalidConfigurationException;
 import model.exception.NotFoundProblemSubmissionException;
 import model.exception.NotFoundStudentException;
 import model.exception.TesterGotNoClassNameException;
@@ -50,7 +51,11 @@ public class LecturerSnippet {
 				System.err.println(e.getMessage());
 			} catch (NotFoundStudentException e) {
 				notFoundStudentList.add(student);
-				e.writeCSV(submissionDirectory, topic, student);
+				try {
+					e.writeCSV(submissionDirectory, topic, student);
+				} catch (InvalidConfigurationException e1) {
+					e1.printStackTrace();
+				}
 			}
 		}
 		

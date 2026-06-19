@@ -219,8 +219,7 @@ public class TestingMethod {
 
 	private boolean isConfigured() throws InvalidConfigurationException {
 		if (clazz == null) {
-			throw new InvalidConfigurationException(
-					ExceptionMessage.PROPERTY_NOT_CONFIGURED.getContent(PropertyName.CLASS));
+			throw new InvalidConfigurationException(PropertyName.CLASS);
 		}
 		if (instance == null) {
 			throw new InvalidConfigurationException(
