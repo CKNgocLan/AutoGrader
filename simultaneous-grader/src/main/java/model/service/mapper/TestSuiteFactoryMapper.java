@@ -27,18 +27,23 @@ public class TestSuiteFactoryMapper {
 			, ProblemName.P5, l3p5
 			));
 
-	public static HashMap<String, TestSuiteFactory> getFactoryMapper(String topic) {
+	private static HashMap<String, TestSuiteFactory> factoryMapper;
 
+	public static HashMap<String, TestSuiteFactory> getFactoryMapper(String topic) {
 		switch (topic) {
 			case TopicName.L3:
-				return labMapper3;
+				factoryMapper = labMapper3;
+				break;
 		}
 
-		return null;
+		return factoryMapper;
 	}
 
 	public static int getProblemNumber(String topic) {
-		return 5;
-//		return factoryMapper.size();
+		if (factoryMapper == null || factoryMapper.isEmpty()) {
+			getFactoryMapper(topic);
+		}
+
+		return factoryMapper.size();
 	}
 }

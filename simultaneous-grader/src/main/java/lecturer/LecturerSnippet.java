@@ -10,7 +10,6 @@ import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import common.constant.TopicName;
-import common.message.ExceptionMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
 import model.component.Student;
@@ -33,10 +32,6 @@ public class LecturerSnippet {
 			NoSuchFieldException, TesterGotNoClassNameException {
 		gradeLab3();
 		System.out.println("Finish Grading %s".formatted(topic));
-//		StudentList.setFilePath(csvPath);
-//		Student student = StudentList.findByStudentDirectory(submissionDirectory.listFiles()[0]);
-//		File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirectory.toString(), StringUtils.toLowerCaseNoSpace(TopicName.L3)));
-//		System.out.println(file.toString());
 	}
 
 	private static void gradeLab3() {

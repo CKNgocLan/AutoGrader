@@ -36,7 +36,7 @@ public class NotFoundStudentException extends Exception {
 		}
 
 		// note
-		dataRow.add(GradingMessage.INVALID_SUBMISSION.getContent());
+		dataRow.add(GradingMessage.INVALID_OR_NOT_FOUND_SUBMISSION.getContent());
 
 		ReportUtils.writeStudentResultToCSV(submissionDirectory, topic, student, ReportUtils.convertToCsvRow(dataRow.stream().toArray()));
 	}

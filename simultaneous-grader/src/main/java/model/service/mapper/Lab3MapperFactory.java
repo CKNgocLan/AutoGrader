@@ -27,7 +27,7 @@ public class Lab3MapperFactory implements MapperFactory {
 			));
 
 	@Override
-	public HashMap<String, TestSuiteFactory> getFactoryMapper(String topic) {
+	public HashMap<String, TestSuiteFactory> createMapper(String topic) {
 		return lab3Mapper;
 	}
 

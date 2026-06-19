@@ -219,7 +219,8 @@ public class ReportUtils {
 				StringUtils.toLowerCaseNoSpace(topic)));
 		try {
 			// create FileWriter object with file as parameter
-			FileWriter outputfile = new FileWriter(file, true);
+			FileWriter outputfile = new FileWriter(file, false);
+			outputfile.write(Constants.EMPTY_STRING);
 			BufferedWriter writer = new BufferedWriter(outputfile);
 
 			// 0. Clear old content
