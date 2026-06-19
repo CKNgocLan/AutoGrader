@@ -21,6 +21,7 @@ import model.component.StudentList;
 import model.component.testSuite.TestSuiteFactory;
 import model.exception.NotFoundProblemSubmissionException;
 import model.resultReport.ProblemResultDetails;
+import model.service.mapper.TestSuiteFactoryMapper;
 
 /**
  * Student Thread Pool
@@ -85,8 +86,7 @@ public class StudentThreadPool {
 	private File matchProblemDirectory(String problemName) throws NotFoundProblemSubmissionException {
 		return Stream.of(directory.listFiles())
 				.filter(probDir -> probDir.isDirectory() && probDir.getName().equals(problemName)).findFirst()
-				.orElseThrow(NotFoundProblemSubmissionException
-						.toSupplier(student, problemName));
+				.orElseThrow(NotFoundProblemSubmissionException.toSupplier(student, problemName));
 	}
 
 	private void saveResultAsCSV(List<ProblemResultDetails> problemResultList) {
@@ -99,7 +99,7 @@ public class StudentThreadPool {
 			dataRow.add(problemResult.passedPercent());
 		}
 
-		ReportUtils.writetudentResultToCSV(directory.getParentFile()
+		ReportUtils.writeStudentResultToCSV(directory.getParentFile()
 				, topic
 				, student
 				, ReportUtils.convertToCsvRow(dataRow.stream().toArray())

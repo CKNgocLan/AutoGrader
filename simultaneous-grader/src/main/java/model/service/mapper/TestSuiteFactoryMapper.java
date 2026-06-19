@@ -1,6 +1,7 @@
-package model.service;
+package model.service.mapper;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import common.constant.ProblemName;
 import common.constant.TopicName;
@@ -17,18 +18,27 @@ public class TestSuiteFactoryMapper {
 	private static TestSuiteFactory l3p3 = new Lab3Problem3TestSuiteFactory();
 	private static TestSuiteFactory l3p4 = new Lab3Problem4TestSuiteFactory();
 	private static TestSuiteFactory l3p5 = new Lab3Problem5TestSuiteFactory();
+	
+	private static HashMap<String, TestSuiteFactory> labMapper3 = new HashMap<>(Map.of(
+			ProblemName.P1, l3p1
+			, ProblemName.P2, l3p2
+			, ProblemName.P3, l3p3
+			, ProblemName.P4, l3p4
+			, ProblemName.P5, l3p5
+			));
 
 	public static HashMap<String, TestSuiteFactory> getFactoryMapper(String topic) {
-		HashMap<String, TestSuiteFactory> factoryMapper = new HashMap<String, TestSuiteFactory>();
+
 		switch (topic) {
-		case TopicName.L3:
-			factoryMapper.put(ProblemName.P1, l3p1);
-			factoryMapper.put(ProblemName.P2, l3p2);
-			factoryMapper.put(ProblemName.P3, l3p3);
-			factoryMapper.put(ProblemName.P4, l3p4);
-			factoryMapper.put(ProblemName.P5, l3p5);
-			break;
+			case TopicName.L3:
+				return labMapper3;
 		}
-		return factoryMapper;
+
+		return null;
+	}
+
+	public static int getProblemNumber(String topic) {
+		return 5;
+//		return factoryMapper.size();
 	}
 }

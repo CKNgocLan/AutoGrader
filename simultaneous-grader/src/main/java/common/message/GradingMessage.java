@@ -28,6 +28,8 @@ public enum GradingMessage {
 	, PERCENTAGE("Percentage: {0}")
 	, GRADING_COMPLETED_WITH_PASSED_TESTCASE("Grading Completed!\nYou have passed {0}/{1} testcase.")
 	, GENERATE_CSV_REPORT_SUCCESSFULLY("CSV report successfully created at:\n\t{0}\n\twith name: {1}")
+	, INVALID_SUBMISSION("Invalid Submission.")
+	, INVALID_SUBMISSION_OF("Invalid Submission of {0}.")
 	;
 
 	

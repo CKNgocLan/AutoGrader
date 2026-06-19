@@ -237,7 +237,7 @@ public class ReportUtils {
 		}
 	}
 
-	public static void writetudentResultToCSV(File submissionDirFile, String topic, Student student, String dataRow) {
+	public static void writeStudentResultToCSV(File submissionDirFile, String topic, Student student, String dataRow) {
 		File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(), StringUtils.toLowerCaseNoSpace(topic)));
 		try {
 			// create FileWriter object with file as parameter

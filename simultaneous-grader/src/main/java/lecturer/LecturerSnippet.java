@@ -51,9 +51,12 @@ public class LecturerSnippet {
 		for (Student student : StudentList.getList()) {
 			try {
 				new StudentThreadPool(topic, findStudentSubmission(student)).submit();
-			} catch (NotFoundStudentException | NoSuchElementException | NotFoundProblemSubmissionException e) {
+			} catch (NoSuchElementException | NotFoundProblemSubmissionException e) {
 				System.err.println(e.getMessage());
 				notFoundStudentList.add(student);
+			} catch (NotFoundStudentException e) {
+				e.printStackTrace();
+				e.writeCSV(submissionDirectory, topic, student);
 			}
 		}
 		

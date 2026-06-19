@@ -1,0 +1,6 @@
+package common.constant.csv;
+
+public class CommonCSVColumns {
+	public static final String AVERAGE = "Average";
+	public static final String NOTE = "Note";
+}
