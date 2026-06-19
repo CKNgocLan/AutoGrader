@@ -6,7 +6,7 @@ import model.component.testSuite.TestSuite;
 import model.component.testSuite.TestSuiteFactory;
 import model.component.testSuite.concrete.lab3.Lab3Problem2TestSuite;
 
-public class Lab3Problem2TestSuiteFactory implements TestSuiteFactory {
+public class Problem2TestSuiteFactory implements TestSuiteFactory {
 	@Override
 	public String getTopic() {
 		return TopicName.L3;

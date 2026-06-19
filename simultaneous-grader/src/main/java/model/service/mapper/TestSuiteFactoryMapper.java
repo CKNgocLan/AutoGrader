@@ -6,18 +6,18 @@ import java.util.Map;
 import common.constant.ProblemName;
 import common.constant.TopicName;
 import model.component.testSuite.TestSuiteFactory;
-import model.component.testSuite.factory.lab3.Lab3Problem1TestSuiteFactory;
-import model.component.testSuite.factory.lab3.Lab3Problem2TestSuiteFactory;
-import model.component.testSuite.factory.lab3.Lab3Problem3TestSuiteFactory;
-import model.component.testSuite.factory.lab3.Lab3Problem4TestSuiteFactory;
-import model.component.testSuite.factory.lab3.Lab3Problem5TestSuiteFactory;
+import model.component.testSuite.factory.lab3.Problem1TestSuiteFactory;
+import model.component.testSuite.factory.lab3.Problem2TestSuiteFactory;
+import model.component.testSuite.factory.lab3.Problem3TestSuiteFactory;
+import model.component.testSuite.factory.lab3.Problem4TestSuiteFactory;
+import model.component.testSuite.factory.lab3.Problem5TestSuiteFactory;
 
 public class TestSuiteFactoryMapper {
-	private static TestSuiteFactory l3p1 = new Lab3Problem1TestSuiteFactory();
-	private static TestSuiteFactory l3p2 = new Lab3Problem2TestSuiteFactory();
-	private static TestSuiteFactory l3p3 = new Lab3Problem3TestSuiteFactory();
-	private static TestSuiteFactory l3p4 = new Lab3Problem4TestSuiteFactory();
-	private static TestSuiteFactory l3p5 = new Lab3Problem5TestSuiteFactory();
+	private static TestSuiteFactory l3p1 = new Problem1TestSuiteFactory();
+	private static TestSuiteFactory l3p2 = new Problem2TestSuiteFactory();
+	private static TestSuiteFactory l3p3 = new Problem3TestSuiteFactory();
+	private static TestSuiteFactory l3p4 = new Problem4TestSuiteFactory();
+	private static TestSuiteFactory l3p5 = new Problem5TestSuiteFactory();
 	
 	private static HashMap<String, TestSuiteFactory> labMapper3 = new HashMap<>(Map.of(
 			ProblemName.P1, l3p1
