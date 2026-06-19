@@ -48,7 +48,7 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 		// saveResultAsCSV(results.stream().map(result -> result.toCSVRow()).toList());
 		
 		return new ProblemResultDetails(problemName, student, results == null || results.isEmpty() ?
-				0 : Double.valueOf(results.stream().filter(result -> result.passed() != null && result.passed()).toList().size()) / results.size());
+				0 : (results.stream().filter(result -> result.passed() != null && result.passed()).toList().size() / results.size()) * 100);
 	}
 
 	@Deprecated

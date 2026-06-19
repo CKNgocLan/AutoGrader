@@ -15,6 +15,7 @@ import common.constant.ProblemName;
 import common.message.ProgressMessage;
 import common.util.ReportUtils;
 import common.util.StringUtils;
+import common.util.ValueUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.component.testSuite.TestSuiteFactory;
@@ -92,7 +93,7 @@ public class StudentThreadPool {
 		List<Object> dataRow = new ArrayList<>();
 		dataRow.add(student.number());
 		dataRow.add(student.fullName());
-		dataRow.add(problemResultList.stream().mapToDouble(details -> details.passedPercent()).average().getAsDouble());
+		dataRow.add(problemResultList.stream().mapToInt(details -> details.passedPercent()).average().getAsDouble());
 
 		for (ProblemResultDetails problemResult : problemResultList) {
 			dataRow.add(problemResult.passedPercent());

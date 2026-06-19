@@ -48,9 +48,8 @@ public class LecturerSnippet {
 				new StudentThreadPool(topic, findStudentSubmission(student)).submit();
 			} catch (NoSuchElementException | NotFoundProblemSubmissionException e) {
 				System.err.println(e.getMessage());
-				notFoundStudentList.add(student);
 			} catch (NotFoundStudentException e) {
-				e.printStackTrace();
+				notFoundStudentList.add(student);
 				e.writeCSV(submissionDirectory, topic, student);
 			}
 		}
