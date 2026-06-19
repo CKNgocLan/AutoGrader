@@ -11,7 +11,7 @@ import model.component.testSuite.lab3.Problem3TestSuiteFactory;
 import model.component.testSuite.lab3.Problem4TestSuiteFactory;
 import model.component.testSuite.lab3.Problem5TestSuiteFactory;
 
-public class Lab5MapperFactory {
+public class Lab1FactoryMapper {
 	private static HashMap<String, TestSuiteFactory> mapper = new HashMap<>(Map.of(
 			ProblemName.P1, new Problem1TestSuiteFactory()
 			, ProblemName.P2, new Problem2TestSuiteFactory()
