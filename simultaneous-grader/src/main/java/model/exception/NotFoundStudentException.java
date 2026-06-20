@@ -27,16 +27,16 @@ public class NotFoundStudentException extends Exception {
 		dataRow.add(student.number());
 		dataRow.add(student.fullName());
 
+		// note
+		dataRow.add(GradingMessage.INVALID_OR_NOT_FOUND_SUBMISSION.getContent());
+
 		// average passed percentage
 		dataRow.add(0);
 
-		// problem number
-		for (int n = 0; n < TestSuiteFactoryMapper.getProblemNumber(topic); n++) {
-			dataRow.add(0);
-		}
-
-		// note
-		dataRow.add(GradingMessage.INVALID_OR_NOT_FOUND_SUBMISSION.getContent());
+		// TODO problem number
+//		for (int n = 0; n < TestSuiteFactoryMapper.getProblemNumber(topic); n++) {
+//			dataRow.add(0);
+//		}
 
 		ReportUtils.writeStudentResultToCSV(submissionDirectory, topic, student, ReportUtils.convertToCsvRow(dataRow.stream().toArray()));
 	}

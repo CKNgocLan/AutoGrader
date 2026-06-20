@@ -22,20 +22,62 @@ import model.service.StudentThreadPool;
 
 public class LecturerSnippet {
 	static String selectedLab = TopicName.L3;
-	static String submissionDirectoryName = "sample-lab3-submission";
-	static String path = Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toString();
 	static String csvPath = Path.of(PathUtils.currentFolderPath(), "cse203-participants-253.csv").toString();
-	static File submissionDirectory = new File(path);
+//	static String submissionDirectoryName = "sample-lab3-submission";
+	static String submissionDirectoryName = "final-253-submission";
+	static File submissionDirectory = new File(Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toString());
+	
 	static List<File> innerSubmissionDirectory = Stream.of(submissionDirectory.listFiles()).filter(file -> file.isDirectory()).toList();
-	static String topic = TopicName.L3;
 
-	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException,
-			NoSuchFieldException, TesterGotNoClassNameException {
-		gradeLab3();
+	public static void main(String[] args) throws Exception {
+		gradeFinalExam253();
+	}
+	private static void gradeFinalExam253() {
+		String topic = TopicName.FINAL_253;
+		StudentList.setFilePath(csvPath);
+		submissionDirectory = new File(Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toString());
+		ReportUtils.createTopicResultToCSV(submissionDirectory, topic);
+
+		// 1. Record start time
+		Instant start = Instant.now();
+		List<Student> notFoundStudentList = new ArrayList<Student>();
+
+
+        // 2. Find student submission
+		for (Student student : StudentList.getList()) {
+			try {
+				new StudentThreadPool(topic, findStudentSubmission(student)).submit();
+			} catch (NoSuchElementException | NotFoundProblemSubmissionException e) {
+				System.err.println(e.getMessage());
+			} catch (NotFoundStudentException e) {
+				notFoundStudentList.add(student);
+//				try {
+//					e.writeCSV(submissionDirectory, topic, student);
+//				} catch (InvalidConfigurationException e1) {
+//					e1.printStackTrace();
+//				}
+			}
+		}
+		
+		for (Student notFoundStudent : notFoundStudentList) {
+			notFoundStudent.writeToCSVAsNotFound(submissionDirectory, topic);
+		}
+		
+		// 3. Record end time
+		Instant end = Instant.now();
+
+        // 4. Calculate total duration
+		Duration timeElapsed = Duration.between(start, end);
+		
+		System.out.println("Time taken: " + timeElapsed.toSeconds() + " seconds");
+		System.out.println("Time taken: " + timeElapsed.toMillis() + " milliseconds");
+		
+		System.out.println("NOT FOUND Student Number: %d".formatted(notFoundStudentList.size()));
 		System.out.println("Finish Grading %s".formatted(topic));
 	}
 
 	private static void gradeLab3() {
+		String topic = TopicName.L3;
 		StudentList.setFilePath(csvPath);
 		ReportUtils.createTopicResultToCSV(submissionDirectory, topic);
 
@@ -69,6 +111,7 @@ public class LecturerSnippet {
 		System.out.println("Time taken: " + timeElapsed.toMillis() + " milliseconds");
 		
 		System.out.println("NOT FOUND Student Number: %d".formatted(notFoundStudentList.size()));
+		System.out.println("Finish Grading %s".formatted(topic));
 	}
 
 	private static File findStudentSubmission(Student student) throws NotFoundStudentException {
@@ -79,6 +122,7 @@ public class LecturerSnippet {
 
 	private static void gradeLab3ViaSubmissionDirectory() {
 		StudentList.setFilePath(csvPath);
+		String topic = TopicName.L3;
 //		File studentDir = submissionDirectory.listFiles()[0];
 //		StudentThreadPool threadPool1 = new StudentThreadPool(TopicName.L3, studentDir);
 //		threadPool1.addTask(new ProblemGradingTask(studentDir.listFiles()[0], new Lab3Problem1TestSuiteFactory()));

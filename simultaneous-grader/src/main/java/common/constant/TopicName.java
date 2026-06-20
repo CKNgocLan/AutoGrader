@@ -31,9 +31,9 @@ public class TopicName {
 		List<String> headerRow = new ArrayList<>();
 		headerRow.add(StudentHeader.ID_NUMBER);
 		headerRow.add(StudentHeader.FULL_NAME);
+		headerRow.add(CommonCSVColumns.NOTE);
 		headerRow.add(CommonCSVColumns.AVERAGE);
 		ProblemName.getProblems(topic).stream().forEach(problem -> headerRow.add(problem));
-		headerRow.add(CommonCSVColumns.NOTE);
 
 		return headerRow.stream().toArray(String[]::new);
 	

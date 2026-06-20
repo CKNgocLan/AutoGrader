@@ -84,6 +84,11 @@ public class StudentThreadPool {
 		List<Object> dataRow = new ArrayList<>();
 		dataRow.add(student.number());
 		dataRow.add(student.fullName());
+
+		// note
+		dataRow.add(Constants.EMPTY_STRING);
+
+		// average
 		dataRow.add(problemResultList.stream().mapToInt(details -> details.passedPercent()).average().getAsDouble());
 
 		for (ProblemResultDetails problemResult : problemResultList) {

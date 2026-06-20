@@ -45,9 +45,9 @@ public class ProblemName {
 			case TopicName.L6:
 			case TopicName.L7:
 				return Arrays.asList(P1, P2, P3, P4, P5);
-			case TopicName.MIDTERM_EXAM:
+			case TopicName.MIDTERM_253:
 				return Arrays.asList(SECTION_1);
-			case TopicName.FINAL_EXAM:
+			case TopicName.FINAL_253:
 				return Arrays.asList(SECTION_1, SECTION_2);
 		}
 		return List.of();

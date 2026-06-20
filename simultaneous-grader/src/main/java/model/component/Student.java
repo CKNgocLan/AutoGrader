@@ -1,8 +1,14 @@
 package model.component;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.csv.CSVRecord;
 
 import common.constant.csv.StudentHeader;
+import common.message.GradingMessage;
+import common.util.ReportUtils;
 
 public record Student(String number, String fullName, String groups, String emailAddress) {
 	public Student(String number, String fullName, String groups) {
@@ -36,5 +42,24 @@ public record Student(String number, String fullName, String groups, String emai
 
 	public boolean getByID(String number) {
 		return this.number.equals(number);
+	}
+
+	public void writeToCSVAsNotFound(File submissionDirectory, String topic) {
+		List<Object> dataRow = new ArrayList<>();
+		dataRow.add(number);
+		dataRow.add(fullName);
+
+		// note
+		dataRow.add(GradingMessage.INVALID_OR_NOT_FOUND_SUBMISSION.getContent());
+
+		// average passed percentage
+		dataRow.add(0);
+
+		// TODO problem number
+//		for (int n = 0; n < TestSuiteFactoryMapper.getProblemNumber(topic); n++) {
+//			dataRow.add(0);
+//		}
+
+		ReportUtils.writeStudentResultToCSV(submissionDirectory, topic, this, ReportUtils.convertToCsvRow(dataRow.stream().toArray()));
 	}
 }
