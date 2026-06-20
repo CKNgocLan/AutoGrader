@@ -49,6 +49,7 @@ public class LecturerSnippet {
 				new StudentThreadPool(topic, findStudentSubmission(student)).submit();
 			} catch (NoSuchElementException | NotFoundProblemSubmissionException e) {
 				System.err.println(e.getMessage());
+				e.printStackTrace();
 			} catch (NotFoundStudentException e) {
 				notFoundStudentList.add(student);
 //				try {
@@ -59,9 +60,9 @@ public class LecturerSnippet {
 			}
 		}
 		
-		for (Student notFoundStudent : notFoundStudentList) {
-			notFoundStudent.writeToCSVAsNotFound(submissionDirectory, topic);
-		}
+//		for (Student notFoundStudent : notFoundStudentList) {
+//			notFoundStudent.writeToCSVAsNotFound(submissionDirectory, topic);
+//		}
 		
 		// 3. Record end time
 		Instant end = Instant.now();

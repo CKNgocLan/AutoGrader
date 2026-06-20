@@ -60,6 +60,10 @@ public class StringUtils {
 		return removeWhiteSpace(value).toLowerCase();
 	}
 
+	public static boolean compareAsLowerCaseNoSpace(Object value1, Object value2) {
+		return toLowerCaseNoSpace(value1).equals(toLowerCaseNoSpace(value2));
+	}
+
 	public static String joinLowerCase(Object... value) {
 		return String.join(Symbol.HYPHEN, Stream.of(value).map(val -> toLowerCaseNoSpace(val)).toList());
 	}

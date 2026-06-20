@@ -76,7 +76,7 @@ public class StudentThreadPool {
 
 	private File matchProblemDirectory(String problemName) throws NotFoundProblemSubmissionException {
 		return Stream.of(directory.listFiles())
-				.filter(probDir -> probDir.isDirectory() && probDir.getName().equals(problemName)).findFirst()
+				.filter(probDir -> probDir.isDirectory() && StringUtils.compareAsLowerCaseNoSpace(probDir.getName(), problemName)).findFirst()
 				.orElseThrow(NotFoundProblemSubmissionException.toSupplier(student, problemName));
 	}
 
