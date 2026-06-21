@@ -59,7 +59,7 @@ public class LecturerSnippet {
 
 				new StudentThreadPool(topic, stuSubDir).submit();
 				System.out.println("Finish Grading for \"%s\"".formatted(student.fullName()));
-			} catch (NoSuchElementException | NotFoundProblemSubmissionException e) {
+			} catch (NoSuchElementException e) {
 				System.err.println(e.getMessage());
 //				e.printStackTrace();
 			} catch (NotFoundStudentException e) {
@@ -100,7 +100,7 @@ public class LecturerSnippet {
 				}
 
 				new StudentThreadPool(topic, stuSubDir).submit();
-			} catch (NoSuchElementException | NotFoundProblemSubmissionException e) {
+			} catch (NoSuchElementException e) {
 				System.err.println(e.getMessage());
 			} catch (NotFoundStudentException e) {
 				notFoundStudentList.add(student);
@@ -159,7 +159,7 @@ public class LecturerSnippet {
 //			threadPool.submit();
 			try {
 				new StudentThreadPool(topic, studentDir).submit();
-			} catch (NoSuchElementException | NotFoundProblemSubmissionException e) {
+			} catch (NoSuchElementException e) {
 				e.printStackTrace();
 			}
 		}

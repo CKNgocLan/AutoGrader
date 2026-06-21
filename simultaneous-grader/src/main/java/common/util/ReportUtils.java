@@ -227,7 +227,7 @@ public class ReportUtils {
 			writer.write(Constants.EMPTY_STRING);
 
 			// 1. Write the header row
-			writer.write(convertToCsvRow(TopicName.headerArray(topic)));
+			writer.write(convertToCsvRow(TopicName.problemHeaderArray(topic)));
 			writer.newLine();
 
 			writer.close();

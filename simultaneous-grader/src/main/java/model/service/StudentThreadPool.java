@@ -2,6 +2,7 @@ package model.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -12,6 +13,7 @@ import java.util.stream.Stream;
 
 import common.constant.Constants;
 import common.constant.ProblemName;
+import common.constant.TopicName;
 import common.message.ProgressMessage;
 import common.util.ReportUtils;
 import common.util.StringUtils;
@@ -44,15 +46,27 @@ public class StudentThreadPool {
 		this.factoryMapper = TestSuiteFactoryMapper.getFactoryMapper(topic);
 	}
 
-	public List<ProblemResultDetails> submit() throws NoSuchElementException, NotFoundProblemSubmissionException {
-		addTaskThroughFactory();
-		
-		List<Future<ProblemResultDetails>> futureList = taskList.stream().map(task -> service.submit(task)).toList();
-		while(futureList.stream().filter(future -> !future.isDone()).toList().size() > 0) {}
-
-		System.out.println(ProgressMessage.GRADING_COMPLETE.getContent(StringUtils.encloseDoubleQuote(student.fullName())));
+	public List<ProblemResultDetails> submit() throws NoSuchElementException {
+		// addTaskThroughFactory();
 
 		List<ProblemResultDetails> resultList = new ArrayList<ProblemResultDetails>();
+		for (String problemName : ProblemName.getProblems(topic)) {
+			File matchedFile = matchProblemDirectory(problemName);
+			if (matchedFile == null) {
+				resultList.add(ProblemResultDetails.notFoundSubmission(problemName, student));
+				continue;
+			}
+
+			this.taskList.add(new ProblemGradingTask(matchedFile
+					, factoryMapper.get(problemName)
+					, TestSuiteFactoryMapper.getWeights(topic).get(problemName)));
+		}
+
+		List<Future<ProblemResultDetails>> futureList = taskList.stream().map(task -> service.submit(task)).toList();
+		while (futureList.stream().filter(future -> !future.isDone()).toList().size() > 0) {}
+
+		System.out.println(ProgressMessage.GRADING_COMPLETE.getContent(student.fullName()));
+
 		try {
 			for (Future<ProblemResultDetails> future : futureList) {
 				resultList.add(future.get());
@@ -61,7 +75,9 @@ public class StudentThreadPool {
 			e.printStackTrace();
 			return null;
 		} finally {
-			this.service.shutdown();
+			if (!this.service.isShutdown()) {
+				this.service.shutdown();
+			}
 		}
 
 		saveResultAsCSV(resultList);
@@ -69,18 +85,25 @@ public class StudentThreadPool {
 		return resultList;
 	}
 
+	@Deprecated
 	private void addTaskThroughFactory() throws NoSuchElementException, NotFoundProblemSubmissionException {
-		for(String problemName: ProblemName.getProblems(topic)) {
-			this.taskList.add(new ProblemGradingTask(matchProblemDirectory(problemName)
+		for (String problemName : ProblemName.getProblems(topic)) {
+			File matchedFile = matchProblemDirectory(problemName);
+			if (matchedFile == null) {
+				continue;
+			}
+
+			this.taskList.add(new ProblemGradingTask(matchedFile
 					, factoryMapper.get(problemName)
 					, TestSuiteFactoryMapper.getWeights(topic).get(problemName)));
 		}
 	}
 
-	private File matchProblemDirectory(String problemName) throws NotFoundProblemSubmissionException {
-		return Stream.of(directory.listFiles())
-				.filter(probDir -> probDir.isDirectory() && StringUtils.compareAsLowerCaseNoSpace(probDir.getName(), problemName)).findFirst()
-				.orElseThrow(NotFoundProblemSubmissionException.toSupplier(student, problemName));
+	private File matchProblemDirectory(String problemName) {
+		return Stream.of(directory.listFiles()).filter(probDir -> probDir.isDirectory()
+				&& StringUtils.compareAsLowerCaseNoSpace(probDir.getName(), problemName)).findFirst()
+				.orElse(null);
+//				.orElseThrow(NotFoundProblemSubmissionException.toSupplier(student, problemName));
 	}
 
 	private void saveResultAsCSV(List<ProblemResultDetails> problemResultList) {
@@ -88,23 +111,18 @@ public class StudentThreadPool {
 		dataRow.add(student.number());
 		dataRow.add(student.fullName());
 
-		// note
-		dataRow.add(Constants.EMPTY_STRING);
-
-//		// average
-//		dataRow.add(problemResultList.stream().mapToInt(details -> details.passedPercent()).average().getAsDouble());
 		// total
-		dataRow.add(problemResultList.stream().mapToDouble(details -> details.getPassedPercent() * details.getWeight()).sum());
+		dataRow.add(problemResultList.stream().mapToDouble(details -> details.getPassedPercent() * details.getWeight())
+				.sum());
 
+		String[] headerArray = TopicName.problemHeaderArray(topic);
 		for (ProblemResultDetails problemResult : problemResultList) {
+//			Stream.of(headerArray).filter(problemHeader -> problemHeader.equals(problemResult.getName()));
 			dataRow.add(problemResult.getPassedPercent());
 			dataRow.add(problemResult.getNote());
 		}
 
-		ReportUtils.writeStudentResultToCSV(directory.getParentFile()
-				, topic
-				, student
-				, ReportUtils.convertToCsvRow(dataRow.stream().toArray())
-		);
+		ReportUtils.writeStudentResultToCSV(directory.getParentFile(), topic, student,
+				ReportUtils.convertToCsvRow(dataRow.stream().toArray()));
 	}
 }

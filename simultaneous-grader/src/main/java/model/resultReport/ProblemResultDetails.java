@@ -68,7 +68,11 @@ public class ProblemResultDetails {
 	}
 
 	public static ProblemResultDetails compilationError(String name, Student student) {
-		return new ProblemResultDetails(name, student, 0, 0, GradingMessage.COMPILATION_ERROR.getContent());
+		return new ProblemResultDetails(name, student, 0, 0, GradingMessage.COMPILATION_ERROR.getContent(name));
+	}
+
+	public static ProblemResultDetails notFoundSubmission(String problemName, Student student) {
+		return new ProblemResultDetails(problemName, student, 0, 0, GradingMessage.NOT_FOUND_SUBMISSION_OF.getContent(problemName));
 	}
 
 	public static ProblemResultDetails exception(String name, Student student, Exception exception) {

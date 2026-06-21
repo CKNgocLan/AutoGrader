@@ -27,15 +27,18 @@ public class TopicName {
 		return Arrays.asList(L1, L2, L3, L4, L5, L6, L7);
 	}
 
-	public static String[] headerArray(String topic) {
+	public static String problemNoteColumn(String problem) {
+		return "%s Note".formatted(problem);
+	}
+
+	public static String[] problemHeaderArray(String topic) {
 		List<String> headerRow = new ArrayList<>();
 		headerRow.add(StudentHeader.ID_NUMBER);
 		headerRow.add(StudentHeader.FULL_NAME);
-		headerRow.add(CommonCSVColumns.NOTE);
 		headerRow.add(CommonCSVColumns.TOTAL);
 		ProblemName.getProblems(topic).stream().forEach(problem -> {
 			headerRow.add(problem);
-			headerRow.add("%s Note".formatted(problem));
+			headerRow.add(problemNoteColumn(problem));
 		});
 
 		return headerRow.stream().toArray(String[]::new);

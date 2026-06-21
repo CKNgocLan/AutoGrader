@@ -4,7 +4,7 @@ import java.text.MessageFormat;
 
 public enum ProgressMessage {
 	STARTING_GRADING("Starting Grading {0} Submission of {1}...")
-	, GRADING_COMPLETE("Grading Complete for {0}!")
+	, GRADING_COMPLETE("Grading Complete for \"{0}\"!")
 	;
 	private final String template;
 

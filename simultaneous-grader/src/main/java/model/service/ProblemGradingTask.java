@@ -15,7 +15,6 @@ import common.constant.csv.ProblemResultHeader;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
-import common.util.ValueUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.component.TestCase;
@@ -44,6 +43,7 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 
 	@Override
 	public ProblemResultDetails call() {
+		System.out.println(GradingMessage.START_GRADING_PROBLEM_OF_STUDENT.getContent(problemName, student.fullName()));
 		List<TestCaseResult> results;
 		try {
 			results = gradeTestCases();
