@@ -14,6 +14,6 @@ public class ThreadServiceUtils {
 //		return new ProblemResult(Constants.UNEXPECTED_PROBLEM_EXCEPTION, student, 0, 0, null);
 //	}
 	public static ProblemResultDetails createUnexpectedProblemResult(Student student) {
-		return new ProblemResultDetails(Constants.UNEXPECTED_PROBLEM_EXCEPTION, student, 0);
+		return new ProblemResultDetails(Constants.UNEXPECTED_PROBLEM_EXCEPTION, student, 0, 0);
 	}
 }

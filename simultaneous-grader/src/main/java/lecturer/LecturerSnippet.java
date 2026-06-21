@@ -30,13 +30,14 @@ public class LecturerSnippet {
 	static List<File> innerSubmissionDirectory = Stream.of(submissionDirectory.listFiles()).filter(file -> file.isDirectory()).toList();
 
 	public static void main(String[] args) throws Exception {
-		gradeLab3();
-//		gradeFinalExam253();
+//		gradeLab3();
+		gradeFinalExam253();
 	}
 	private static void gradeFinalExam253() {
 		String topic = TopicName.FINAL_253;
 		StudentList.setFilePath(csvPath);
-		submissionDirectory = new File(Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toString());
+		String submissionDirectoryName = "final-253-submission";
+		File submissionDirectory = new File(Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toString());
 		ReportUtils.createTopicResultToCSV(submissionDirectory, topic);
 
 		// 1. Record start time
@@ -47,7 +48,13 @@ public class LecturerSnippet {
         // 2. Find student submission
 		for (Student student : StudentList.getList()) {
 			try {
-				new StudentThreadPool(topic, findStudentSubmission(student)).submit();
+				System.out.println("Grade Submission of %s".formatted(student.fullName()));
+				File stuSubDir = findStudentSubmission(student);
+				if (stuSubDir == null) {
+					continue;
+				}
+
+				new StudentThreadPool(topic, stuSubDir).submit();
 			} catch (NoSuchElementException | NotFoundProblemSubmissionException e) {
 				System.err.println(e.getMessage());
 				e.printStackTrace();
@@ -72,6 +79,8 @@ public class LecturerSnippet {
 	private static void gradeLab3() {
 		String topic = TopicName.L3;
 		StudentList.setFilePath(csvPath);
+		String submissionDirectoryName = "sample-lab3-submission";
+		File submissionDirectory = new File(Path.of(PathUtils.currentFolderPath(), submissionDirectoryName).toString());
 		ReportUtils.createTopicResultToCSV(submissionDirectory, topic);
 
 		// 1. Record start time
@@ -81,7 +90,12 @@ public class LecturerSnippet {
         // 2. Find student submission
 		for (Student student : StudentList.getList()) {
 			try {
-				new StudentThreadPool(topic, findStudentSubmission(student)).submit();
+				File stuSubDir = findStudentSubmission(student);
+				if (stuSubDir == null) {
+					continue;
+				}
+
+				new StudentThreadPool(topic, stuSubDir).submit();
 			} catch (NoSuchElementException | NotFoundProblemSubmissionException e) {
 				System.err.println(e.getMessage());
 			} catch (NotFoundStudentException e) {
@@ -110,7 +124,8 @@ public class LecturerSnippet {
 	private static File findStudentSubmission(Student student) throws NotFoundStudentException {
 		return innerSubmissionDirectory.stream()
 				.filter(innerDir -> StudentList.findByStudentDirectory(innerDir).equals(student)).findFirst()
-				.orElseThrow(NotFoundStudentException.toSupplier(student));
+				.orElse(null);
+//				.orElseThrow(NotFoundStudentException.toSupplier(student));
 	}
 
 	private static void gradeLab3ViaSubmissionDirectory() {

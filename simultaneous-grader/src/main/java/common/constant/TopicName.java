@@ -32,7 +32,7 @@ public class TopicName {
 		headerRow.add(StudentHeader.ID_NUMBER);
 		headerRow.add(StudentHeader.FULL_NAME);
 		headerRow.add(CommonCSVColumns.NOTE);
-		headerRow.add(CommonCSVColumns.AVERAGE);
+		headerRow.add(CommonCSVColumns.TOTAL);
 		ProblemName.getProblems(topic).stream().forEach(problem -> headerRow.add(problem));
 
 		return headerRow.stream().toArray(String[]::new);

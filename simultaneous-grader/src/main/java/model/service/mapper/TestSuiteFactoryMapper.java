@@ -8,7 +8,8 @@ import model.component.testSuite.TestSuiteFactory;
 import model.exception.InvalidConfigurationException;
 
 public class TestSuiteFactoryMapper {
-	private static HashMap<String, TestSuiteFactory> mapper;
+	private static HashMap<String, TestSuiteFactory> testSuiteFactoryMapper;
+	private static HashMap<String, Double> weightMapper;
 
 //	private static TestSuiteFactoryMapper instance;
 //
@@ -27,42 +28,60 @@ public class TestSuiteFactoryMapper {
 	public static HashMap<String, TestSuiteFactory> getFactoryMapper(String topic) {
 		switch (topic) {
 			case TopicName.L1:
-				mapper = Lab1FactoryMapper.getMapper();
+				testSuiteFactoryMapper = Lab1FactoryMapper.getMapper();
 				break;
 			case TopicName.L2:
-				mapper = Lab2FactoryMapper.getMapper();
+				testSuiteFactoryMapper = Lab2FactoryMapper.getMapper();
 				break;
 			case TopicName.L3:
-				mapper = Lab3FactoryMapper.getMapper();
+				testSuiteFactoryMapper = Lab3FactoryMapper.getMapper();
 				break;
 			case TopicName.L4:
-				mapper = Lab4FactoryMapper.getMapper();
+				testSuiteFactoryMapper = Lab4FactoryMapper.getMapper();
 				break;
 			case TopicName.L5:
-				mapper = Lab5FactoryMapper.getMapper();
+				testSuiteFactoryMapper = Lab5FactoryMapper.getMapper();
 				break;
 			case TopicName.L6:
-				mapper = Lab6FactoryMapper.getMapper();
+				testSuiteFactoryMapper = Lab6FactoryMapper.getMapper();
 				break;
 			case TopicName.L7:
-				mapper = Lab7FactoryMapper.getMapper();
+				testSuiteFactoryMapper = Lab7FactoryMapper.getMapper();
 				break;
 			case TopicName.MIDTERM_253:
-				mapper = Midterm253FactoryMapper.getMapper();
+				testSuiteFactoryMapper = Midterm253FactoryMapper.getMapper();
 				break;
 			case TopicName.FINAL_253:
-				mapper = Final253FactoryMapper.getMapper();
+				testSuiteFactoryMapper = Final253FactoryMapper.getMapper();
 				break;
 		}
 
-		return mapper;
+		return testSuiteFactoryMapper;
+	}
+
+	public static HashMap<String, Double> getWeights(String topic) {
+		switch (topic) {
+			case TopicName.L1:
+			case TopicName.L2:
+			case TopicName.L3:
+			case TopicName.L4:
+			case TopicName.L5:
+			case TopicName.L6:
+			case TopicName.L7:
+			case TopicName.MIDTERM_253:
+			case TopicName.FINAL_253:
+				weightMapper = Final253FactoryMapper.getWeightMapper();
+				break;
+		}
+	
+		return weightMapper;
 	}
 
 	public static int getProblemNumber(String topic) throws InvalidConfigurationException {
-		if (mapper == null || mapper.isEmpty()) {
+		if (testSuiteFactoryMapper == null || testSuiteFactoryMapper.isEmpty()) {
 			throw new InvalidConfigurationException(PropertyName.TEST_SUITE_FACTORY_MAPPER);
 		}
 
-		return mapper.size();
+		return testSuiteFactoryMapper.size();
 	}
 }

@@ -70,7 +70,9 @@ public class StudentThreadPool {
 
 	private void addTaskThroughFactory() throws NoSuchElementException, NotFoundProblemSubmissionException {
 		for(String problemName: ProblemName.getProblems(topic)) {
-			this.taskList.add(new ProblemGradingTask(matchProblemDirectory(problemName), factoryMapper.get(problemName)));
+			this.taskList.add(new ProblemGradingTask(matchProblemDirectory(problemName)
+					, factoryMapper.get(problemName)
+					, TestSuiteFactoryMapper.getWeights(topic).get(problemName)));
 		}
 	}
 
@@ -88,8 +90,10 @@ public class StudentThreadPool {
 		// note
 		dataRow.add(Constants.EMPTY_STRING);
 
-		// average
-		dataRow.add(problemResultList.stream().mapToInt(details -> details.passedPercent()).average().getAsDouble());
+//		// average
+//		dataRow.add(problemResultList.stream().mapToInt(details -> details.passedPercent()).average().getAsDouble());
+		// total
+		dataRow.add(problemResultList.stream().mapToDouble(details -> details.passedPercent() * details.weight()).sum());
 
 		for (ProblemResultDetails problemResult : problemResultList) {
 			dataRow.add(problemResult.passedPercent());

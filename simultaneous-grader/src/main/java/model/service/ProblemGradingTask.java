@@ -28,13 +28,15 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 	private Student student;
 	private String topicName;
 	private String problemName;
+	private double weight;
 
-	public ProblemGradingTask(File problemDir, TestSuiteFactory testSuiteFactory) {
+	public ProblemGradingTask(File problemDir, TestSuiteFactory testSuiteFactory, double weight) {
 		this.directory = problemDir;
 		this.testSuite = testSuiteFactory.getTestSuite();
 		this.student = StudentList.findByStudentDirectory(this.directory.getParentFile());
 		this.topicName = testSuiteFactory.getTopic();
 		this.problemName = testSuiteFactory.getProblem();
+		this.weight = weight;
 	}
 
 	@Override
@@ -48,7 +50,7 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 		// saveResultAsCSV(results.stream().map(result -> result.toCSVRow()).toList());
 		
 		return new ProblemResultDetails(problemName, student, results == null || results.isEmpty() ?
-				0 : (results.stream().filter(result -> result.passed() != null && result.passed()).toList().size() / results.size()) * 100);
+				0 : (results.stream().filter(result -> result.passed() != null && result.passed()).toList().size() / results.size()) * 100, weight);
 	}
 
 	@Deprecated
@@ -74,10 +76,12 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 	}
 
 	private List<TestCaseResult> gradeTestCases() {
-		System.out.println("Grading Test Cases of: %s".formatted(this.directory.getName()));
+		System.out.println("Grading Test Cases \"%s\" of %s".formatted(this.directory.getName(), student.fullName()));
 
 		// Step 1: Compile all student's .java files
-		combineJavaFiles();
+		if (!combineJavaFiles()) {
+			return List.of();
+		}
 
 		// Step 2: Retrieve test cases
 		List<TestCase> testCases = retrieveTestCases();
