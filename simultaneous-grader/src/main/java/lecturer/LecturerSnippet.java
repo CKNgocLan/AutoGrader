@@ -30,7 +30,8 @@ public class LecturerSnippet {
 	static List<File> innerSubmissionDirectory = Stream.of(submissionDirectory.listFiles()).filter(file -> file.isDirectory()).toList();
 
 	public static void main(String[] args) throws Exception {
-		gradeFinalExam253();
+		gradeLab3();
+//		gradeFinalExam253();
 	}
 	private static void gradeFinalExam253() {
 		String topic = TopicName.FINAL_253;
@@ -52,17 +53,8 @@ public class LecturerSnippet {
 				e.printStackTrace();
 			} catch (NotFoundStudentException e) {
 				notFoundStudentList.add(student);
-//				try {
-//					e.writeCSV(submissionDirectory, topic, student);
-//				} catch (InvalidConfigurationException e1) {
-//					e1.printStackTrace();
-//				}
 			}
 		}
-		
-//		for (Student notFoundStudent : notFoundStudentList) {
-//			notFoundStudent.writeToCSVAsNotFound(submissionDirectory, topic);
-//		}
 		
 		// 3. Record end time
 		Instant end = Instant.now();
@@ -94,11 +86,11 @@ public class LecturerSnippet {
 				System.err.println(e.getMessage());
 			} catch (NotFoundStudentException e) {
 				notFoundStudentList.add(student);
-				try {
-					e.writeCSV(submissionDirectory, topic, student);
-				} catch (InvalidConfigurationException e1) {
-					e1.printStackTrace();
-				}
+//				try {
+//					e.writeCSV(submissionDirectory, topic, student);
+//				} catch (InvalidConfigurationException e1) {
+//					e1.printStackTrace();
+//				}
 			}
 		}
 		

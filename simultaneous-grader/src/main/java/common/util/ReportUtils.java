@@ -207,7 +207,7 @@ public class ReportUtils {
             }
 
             writer.close();
-            System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
+//            System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
 	    }
 	    catch (IOException e) {
 	        e.printStackTrace();
@@ -231,8 +231,7 @@ public class ReportUtils {
 			writer.newLine();
 
 			writer.close();
-			System.out.println(
-					GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
+			System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -252,8 +251,7 @@ public class ReportUtils {
 			}
 
 			writer.close();
-			System.out.println(
-					GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
+//			System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
