@@ -28,10 +28,12 @@ public enum GradingMessage {
 	, PERCENTAGE("Percentage: {0}")
 	, GRADING_COMPLETED_WITH_PASSED_TESTCASE("Grading Completed!\nYou have passed {0}/{1} testcase.")
 	, GENERATE_CSV_REPORT_SUCCESSFULLY("CSV report successfully created at:\n\t{0}\n\twith name: {1}")
+	, WRITE_STUDENT_SUBMISSION_RESULT_TO_CSV("Write Submission for \"{0}\" of \"{1}\" to CSV.")
 	, INVALID_OR_NOT_FOUND_SUBMISSION("Invalid or Not Found Submission")
 	, INVALID_OR_NOT_FOUND_SUBMISSION_OF("Invalid or Not Found Submission: {0}")
 	, NOT_FOUND_SUBMISSION_OF("Not Found Submission of {0}")
 	, COMPILATION_ERROR("Compilation Error")
+	, FINISH_GRADING_SUBMISSION_OF_STUDENT("Finish Grading Submission \"{0}\" of \"{1}\"")
 	;
 
 	

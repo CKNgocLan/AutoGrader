@@ -251,7 +251,7 @@ public class ReportUtils {
 			}
 
 			writer.close();
-//			System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
+			System.out.println(GradingMessage.WRITE_STUDENT_SUBMISSION_RESULT_TO_CSV.getContent(topic, student.fullName()));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -7,11 +7,11 @@ import model.component.Student;
 public class ProblemResultDetails {
 	private String name;
 	private Student student;
-	private int passedPercent;
+	private double passedPercent;
 	private double weight;
 	private String note;
 
-	public ProblemResultDetails(String name, Student student, int passedPercent, double weight) {
+	public ProblemResultDetails(String name, Student student, double passedPercent, double weight) {
 		this.name = name;
 		this.student = student;
 		this.passedPercent = passedPercent;
@@ -19,7 +19,7 @@ public class ProblemResultDetails {
 		this.note = Constants.EMPTY_STRING;
 	}
 
-	public ProblemResultDetails(String name, Student student, int passedPercent, double weight, String note) {
+	public ProblemResultDetails(String name, Student student, double passedPercent, double weight, String note) {
 		this.name = name;
 		this.student = student;
 		this.passedPercent = passedPercent;
@@ -35,7 +35,7 @@ public class ProblemResultDetails {
 		return student;
 	}
 
-	public int getPassedPercent() {
+	public double getPassedPercent() {
 		return passedPercent;
 	}
 
@@ -51,7 +51,7 @@ public class ProblemResultDetails {
 		this.student = student;
 	}
 
-	public void setPassedPercent(int passedPercent) {
+	public void setPassedPercent(double passedPercent) {
 		this.passedPercent = passedPercent;
 	}
 

@@ -15,6 +15,7 @@ import common.constant.ProblemName;
 import common.message.ProgressMessage;
 import common.util.ReportUtils;
 import common.util.StringUtils;
+import common.util.ValueUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.component.testSuite.TestSuiteFactory;
@@ -62,7 +63,6 @@ public class StudentThreadPool {
 		} finally {
 			this.service.shutdown();
 		}
-
 
 		saveResultAsCSV(resultList);
 

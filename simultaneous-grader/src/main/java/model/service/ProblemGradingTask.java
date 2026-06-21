@@ -15,6 +15,7 @@ import common.constant.csv.ProblemResultHeader;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
+import common.util.ValueUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.component.TestCase;
@@ -47,10 +48,7 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 		try {
 			results = gradeTestCases();
 		} catch (CompilationErrorException e) {
-//			return new ProblemResultDetails(problemName, student, 0, weight, GradingMessage.COMPILATION_ERROR.getContent());
 			return ProblemResultDetails.compilationError(problemName, student);
-		} catch (Exception e) {
-			return ProblemResultDetails.exception(problemName, student, e);
 		}
 
 		// TODO Save results into Excel file
@@ -58,9 +56,14 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 
 		// TODO Save results into CSV file
 		// saveResultAsCSV(results.stream().map(result -> result.toCSVRow()).toList());
-		
-		return new ProblemResultDetails(problemName, student, results == null || results.isEmpty() ?
-				0 : (results.stream().filter(result -> result.passed() != null && result.passed()).toList().size() / results.size()) * 100, weight);
+
+		System.out.println(GradingMessage.FINISH_GRADING_SUBMISSION_OF_STUDENT.getContent(problemName, student.fullName()));
+		return new ProblemResultDetails(problemName, student, results == null || results.isEmpty() ? 0 : calculatePassedPercetage(results), weight);
+	}
+
+	private double calculatePassedPercetage(List<TestCaseResult> results) {
+		return Double.valueOf(results.stream().filter(result -> result.passed() != null && result.passed()).toList().size())
+				/ Double.valueOf(results.size()) * 100;
 	}
 
 	private List<TestCaseResult> gradeTestCases() throws CompilationErrorException {
@@ -100,7 +103,7 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 			cmd.add("javac");
 			cmd.add(CompilationConfigure.JAVAC_J_XMX128);
 			cmd.add("-d");
-			cmd.add(PathUtils.targetClasses());
+			cmd.add(PathUtils.appendStudentSubmissionToTargetClasses(student.number(), problemName));
 			cmd.addAll(javaFiles);
 			pb.command(cmd);
 			pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);

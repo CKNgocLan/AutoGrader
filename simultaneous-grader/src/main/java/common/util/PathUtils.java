@@ -15,4 +15,12 @@ public class PathUtils {
 	public static String targetClasses() {
 		return Paths.get(System.getProperty(Constants.USER_DIR), Constants.TARGET, Constants.CLASSES).toString();
 	}
+
+	public static String appendTargetClasses(String... more) {
+		return Paths.get(targetClasses(), more).toString();
+	}
+
+	public static String appendStudentSubmissionToTargetClasses(String studentFullName, String problemName) {
+		return appendTargetClasses(studentFullName, problemName);
+	}
 }
