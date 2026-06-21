@@ -40,10 +40,10 @@ public class BrandTester extends Tester {
 	 * field declared
 	 */
 	
-	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new TestingField[] { new TestingField(UUID.class, FieldName.ID),
-				new TestingField(String.class, FieldName.NAME), new TestingField(String.class, FieldName.COUNTRY) };
-	}
+//	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
+//		return new TestingField[] { new TestingField(UUID.class, FieldName.ID),
+//				new TestingField(String.class, FieldName.NAME), new TestingField(String.class, FieldName.COUNTRY) };
+//	}
 
 	/*
 	 * declaration

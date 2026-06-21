@@ -33,7 +33,10 @@ public class TopicName {
 		headerRow.add(StudentHeader.FULL_NAME);
 		headerRow.add(CommonCSVColumns.NOTE);
 		headerRow.add(CommonCSVColumns.TOTAL);
-		ProblemName.getProblems(topic).stream().forEach(problem -> headerRow.add(problem));
+		ProblemName.getProblems(topic).stream().forEach(problem -> {
+			headerRow.add(problem);
+			headerRow.add("%s Note".formatted(problem));
+		});
 
 		return headerRow.stream().toArray(String[]::new);
 	

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
+import common.constant.CompilationConfigure;
 import common.constant.Constants;
 import common.constant.FileExtension;
 import common.constant.csv.ProblemResultHeader;
@@ -19,6 +20,7 @@ import model.component.StudentList;
 import model.component.TestCase;
 import model.component.testSuite.TestSuite;
 import model.component.testSuite.TestSuiteFactory;
+import model.exception.CompilationErrorException;
 import model.resultReport.ProblemResultDetails;
 import model.resultReport.TestCaseResult;
 
@@ -40,8 +42,15 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 	}
 
 	@Override
-	public ProblemResultDetails call() throws Exception {
-		List<TestCaseResult> results = gradeTestCases();
+	public ProblemResultDetails call() {
+		List<TestCaseResult> results;
+		try {
+			results = gradeTestCases();
+		} catch (CompilationErrorException e) {
+			return new ProblemResultDetails(problemName, student, 0, weight, GradingMessage.COMPILATION_ERROR.getContent());
+		} catch (Exception e) {
+			return new ProblemResultDetails(problemName, student, 0, weight, GradingMessage.COMPILATION_ERROR.getContent());
+		}
 
 		// TODO Save results into Excel file
 		saveResultAsExcel(results);
@@ -53,34 +62,12 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 				0 : (results.stream().filter(result -> result.passed() != null && result.passed()).toList().size() / results.size()) * 100, weight);
 	}
 
-	@Deprecated
-	public void run() {
-		System.out.println("Running Problem Task: %s".formatted(this.directory.getName()));
-
-		// TODO declare grading step order
-		// Step 1: Compile all student's .java files
-		combineJavaFiles();
-
-		// Step 2: Retrieve test cases
-		List<TestCase> testCases = retrieveTestCases();
-		if (testCases == null || testCases.isEmpty()) {
-			// TODO throw exception when test case list is invalid
-			return;
-		}
-
-		// Step 3: Run test cases
-		List<TestCaseResult> results = runTestCases(testCases);
-
-		// Step 4: Save results into Excel file
-		saveResultAsExcel(results);
-	}
-
-	private List<TestCaseResult> gradeTestCases() {
+	private List<TestCaseResult> gradeTestCases() throws CompilationErrorException {
 		System.out.println("Grading Test Cases \"%s\" of %s".formatted(this.directory.getName(), student.fullName()));
 
 		// Step 1: Compile all student's .java files
 		if (!combineJavaFiles()) {
-			return List.of();
+			throw new CompilationErrorException();
 		}
 
 		// Step 2: Retrieve test cases
@@ -110,10 +97,13 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 			ProcessBuilder pb = new ProcessBuilder();
 			List<String> cmd = new ArrayList<>();
 			cmd.add("javac");
+			cmd.add(CompilationConfigure.JAVAC_J_XMX128);
 			cmd.add("-d");
 			cmd.add(PathUtils.targetClasses());
 			cmd.addAll(javaFiles);
 			pb.command(cmd);
+			pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);
+			pb.redirectError(ProcessBuilder.Redirect.INHERIT);
 
 			Process process = pb.start();
 			int exitCode = process.waitFor();

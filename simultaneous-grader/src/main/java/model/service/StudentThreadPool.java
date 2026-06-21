@@ -59,9 +59,10 @@ public class StudentThreadPool {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
+		} finally {
+			this.service.shutdown();
 		}
 
-		this.service.shutdown();
 
 		saveResultAsCSV(resultList);
 
@@ -93,10 +94,11 @@ public class StudentThreadPool {
 //		// average
 //		dataRow.add(problemResultList.stream().mapToInt(details -> details.passedPercent()).average().getAsDouble());
 		// total
-		dataRow.add(problemResultList.stream().mapToDouble(details -> details.passedPercent() * details.weight()).sum());
+		dataRow.add(problemResultList.stream().mapToDouble(details -> details.getPassedPercent() * details.getWeight()).sum());
 
 		for (ProblemResultDetails problemResult : problemResultList) {
-			dataRow.add(problemResult.passedPercent());
+			dataRow.add(problemResult.getPassedPercent());
+			dataRow.add(problemResult.getNote());
 		}
 
 		ReportUtils.writeStudentResultToCSV(directory.getParentFile()

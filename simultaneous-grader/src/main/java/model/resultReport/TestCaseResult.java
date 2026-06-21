@@ -2,6 +2,7 @@ package model.resultReport;
 
 import common.constant.Constants;
 import common.constant.TestingResult;
+import common.message.GradingMessage;
 import common.util.ReportUtils;
 
 public record TestCaseResult(String testName, int maxPoints, int earnedPoints, Boolean passed, String feedback) {
@@ -19,5 +20,9 @@ public record TestCaseResult(String testName, int maxPoints, int earnedPoints, B
 
 	public String toCSVRow() {
 		return ReportUtils.convertToCsvRow(testName, maxPoints, earnedPoints, passedFailed(), feedback);
+	}
+
+	public static TestCaseResult compilationErrorResult(String testName) {
+		return new TestCaseResult(testName, 0, 0, false, GradingMessage.COMPILATION_ERROR.getContent());
 	}
 }
