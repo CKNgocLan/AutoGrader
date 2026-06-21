@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -34,6 +35,7 @@ public class StudentThreadPool {
 	private File directory;
 	private String topic;
 	private List<ProblemGradingTask> taskList;
+	private List<String> problemList;
 	private HashMap<String, TestSuiteFactory> factoryMapper = new HashMap<String, TestSuiteFactory>();
 
 	public StudentThreadPool(String topic, File studentDir) {
@@ -44,16 +46,19 @@ public class StudentThreadPool {
 		this.service = Executors.newFixedThreadPool(Constants.THREAD_POOL_SIZE);
 		this.taskList = new ArrayList<ProblemGradingTask>();
 		this.factoryMapper = TestSuiteFactoryMapper.getFactoryMapper(topic);
+		this.problemList = ProblemName.getProblems(topic);
 	}
 
 	public List<ProblemResultDetails> submit() throws NoSuchElementException {
 		// addTaskThroughFactory();
 
 		List<ProblemResultDetails> resultList = new ArrayList<ProblemResultDetails>();
-		for (String problemName : ProblemName.getProblems(topic)) {
+		HashMap<String, ProblemResultDetails> resultMapper = new HashMap<String, ProblemResultDetails>();
+		for (String problemName : problemList) {
 			File matchedFile = matchProblemDirectory(problemName);
 			if (matchedFile == null) {
 				resultList.add(ProblemResultDetails.notFoundSubmission(problemName, student));
+				resultMapper.put(problemName, ProblemResultDetails.notFoundSubmission(problemName, student));
 				continue;
 			}
 
@@ -70,6 +75,7 @@ public class StudentThreadPool {
 		try {
 			for (Future<ProblemResultDetails> future : futureList) {
 				resultList.add(future.get());
+				resultMapper.put(future.get().getName(), future.get());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,14 +86,15 @@ public class StudentThreadPool {
 			}
 		}
 
-		saveResultAsCSV(resultList);
+//		saveResultAsCSV(resultList);
+		saveResultAsCSV(resultMapper);
 
 		return resultList;
 	}
 
 	@Deprecated
 	private void addTaskThroughFactory() throws NoSuchElementException, NotFoundProblemSubmissionException {
-		for (String problemName : ProblemName.getProblems(topic)) {
+		for (String problemName : problemList) {
 			File matchedFile = matchProblemDirectory(problemName);
 			if (matchedFile == null) {
 				continue;
@@ -106,6 +113,29 @@ public class StudentThreadPool {
 //				.orElseThrow(NotFoundProblemSubmissionException.toSupplier(student, problemName));
 	}
 
+	private void saveResultAsCSV(HashMap<String, ProblemResultDetails> resultMapper) {
+		List<Object> dataRow = new ArrayList<>();
+		dataRow.add(student.number());
+		dataRow.add(student.fullName());
+
+		// total
+		dataRow.add(resultMapper.values().stream().mapToDouble(details -> details.getPassedPercent() * details.getWeight()).sum());
+
+		// problem
+		for (String problem : problemList) {
+			resultMapper.entrySet().stream()
+					.filter(entry -> entry.getKey().contains(problem))
+					.forEach(entry -> {
+						dataRow.add(entry.getValue().getPassedPercent());
+						dataRow.add(entry.getValue().getNote());
+					});
+		}
+
+		ReportUtils.writeStudentResultToCSV(directory.getParentFile(), topic, student,
+				ReportUtils.convertToCsvRow(dataRow.stream().toArray()));
+	}
+
+	@Deprecated
 	private void saveResultAsCSV(List<ProblemResultDetails> problemResultList) {
 		List<Object> dataRow = new ArrayList<>();
 		dataRow.add(student.number());
@@ -117,7 +147,6 @@ public class StudentThreadPool {
 
 		String[] headerArray = TopicName.problemHeaderArray(topic);
 		for (ProblemResultDetails problemResult : problemResultList) {
-//			Stream.of(headerArray).filter(problemHeader -> problemHeader.equals(problemResult.getName()));
 			dataRow.add(problemResult.getPassedPercent());
 			dataRow.add(problemResult.getNote());
 		}
