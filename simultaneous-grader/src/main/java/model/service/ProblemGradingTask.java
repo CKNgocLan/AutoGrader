@@ -15,6 +15,7 @@ import common.constant.csv.ProblemResultHeader;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
+import common.util.ValueUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.component.TestCase;
@@ -62,8 +63,8 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 	}
 
 	private double calculatePassedPercetage(List<TestCaseResult> results) {
-		return Double.valueOf(results.stream().filter(result -> result.passed() != null && result.passed()).toList().size())
-				/ Double.valueOf(results.size()) * 100;
+		return ValueUtils.roundDouble(Double.valueOf(results.stream().filter(result -> result.passed() != null && result.passed()).toList().size())
+				/ Double.valueOf(results.size()) * 100);
 	}
 
 	private List<TestCaseResult> gradeTestCases() throws CompilationErrorException {

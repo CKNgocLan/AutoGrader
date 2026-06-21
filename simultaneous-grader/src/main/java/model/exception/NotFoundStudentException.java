@@ -9,7 +9,6 @@ import common.message.ExceptionMessage;
 import common.message.GradingMessage;
 import common.util.ReportUtils;
 import model.component.Student;
-import model.service.mapper.TestSuiteFactoryMapper;
 
 public class NotFoundStudentException extends Exception {
 	private static final long serialVersionUID = 8238765061354147623L;
@@ -28,7 +27,7 @@ public class NotFoundStudentException extends Exception {
 		dataRow.add(student.fullName());
 
 		// note
-		dataRow.add(GradingMessage.INVALID_OR_NOT_FOUND_SUBMISSION.getContent());
+		dataRow.add(GradingMessage.INVALID_SUBMISSION_FORMAT.getContent());
 
 		// average passed percentage
 		dataRow.add(0);

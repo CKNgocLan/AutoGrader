@@ -31,11 +31,12 @@ public enum GradingMessage {
 	, START_GRADING_PROBLEM_OF_STUDENT("Start grading \"{0}\" of \"{1}\"")
 	, GENERATE_CSV_REPORT_SUCCESSFULLY("CSV report successfully created at:\n\t{0}\n\twith name: {1}")
 	, WRITE_STUDENT_SUBMISSION_RESULT_TO_CSV("Write Submission for \"{0}\" of \"{1}\" to CSV.")
-	, INVALID_OR_NOT_FOUND_SUBMISSION("Invalid or Not Found Submission")
+	, INVALID_SUBMISSION_FORMAT("Invalid Submission Format")
 	, INVALID_OR_NOT_FOUND_SUBMISSION_OF("Invalid or Not Found Submission: {0}")
 	, NOT_FOUND_SUBMISSION("Not Found Submission")
 	, NOT_FOUND_SUBMISSION_OF("Not Found Submission: {0}")
-	, COMPILATION_ERROR("Compilation Error: {0}")
+	, COMPILATION_ERROR("Compilation Error")
+	, COMPILATION_ERROR_OF("Compilation Error: {0}")
 	, FINISH_GRADING_SUBMISSION_OF_STUDENT("Finish Grading Submission \"{0}\" of \"{1}\"")
 	;
 

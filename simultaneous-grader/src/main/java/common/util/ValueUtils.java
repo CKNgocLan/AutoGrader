@@ -1,6 +1,19 @@
 package common.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ValueUtils {
+	public static double roundDouble(double val) {
+		return roundDouble(val, 2);
+	}
+
+	public static double roundDouble(double val, int scale) {
+		return BigDecimal.valueOf(val)
+                .setScale(scale, RoundingMode.HALF_UP)
+                .doubleValue();
+	}
+
 	/*
 	 * double
 	 */

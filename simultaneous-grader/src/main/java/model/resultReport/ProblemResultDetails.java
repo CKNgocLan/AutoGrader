@@ -72,7 +72,11 @@ public class ProblemResultDetails {
 	}
 
 	public static ProblemResultDetails notFoundSubmission(String problemName, Student student) {
-		return new ProblemResultDetails(problemName, student, 0, 0, GradingMessage.NOT_FOUND_SUBMISSION_OF.getContent(problemName));
+		return new ProblemResultDetails(problemName, student, 0, 0, GradingMessage.NOT_FOUND_SUBMISSION.getContent(problemName));
+	}
+
+	public static ProblemResultDetails submissionInvalid(String problemName, Student student) {
+		return new ProblemResultDetails(problemName, student, 0, 0, GradingMessage.INVALID_SUBMISSION_FORMAT.getContent());
 	}
 
 	public static ProblemResultDetails exception(String name, Student student, Exception exception) {

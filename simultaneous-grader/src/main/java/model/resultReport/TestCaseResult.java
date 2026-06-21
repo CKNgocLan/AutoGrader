@@ -23,6 +23,6 @@ public record TestCaseResult(String testName, int maxPoints, int earnedPoints, B
 	}
 
 	public static TestCaseResult compilationErrorResult(String testName) {
-		return new TestCaseResult(testName, 0, 0, false, GradingMessage.COMPILATION_ERROR.getContent());
+		return new TestCaseResult(testName, 0, 0, false, GradingMessage.COMPILATION_ERROR_OF.getContent());
 	}
 }

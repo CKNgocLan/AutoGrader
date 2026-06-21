@@ -1,6 +1,8 @@
 package model.service;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -50,14 +52,12 @@ public class StudentThreadPool {
 	}
 
 	public List<ProblemResultDetails> submit() throws NoSuchElementException {
-		// addTaskThroughFactory();
-
 		List<ProblemResultDetails> resultList = new ArrayList<ProblemResultDetails>();
 		HashMap<String, ProblemResultDetails> resultMapper = new HashMap<String, ProblemResultDetails>();
 		for (String problemName : problemList) {
 			File matchedFile = matchProblemDirectory(problemName);
+
 			if (matchedFile == null) {
-				resultList.add(ProblemResultDetails.notFoundSubmission(problemName, student));
 				resultMapper.put(problemName, ProblemResultDetails.notFoundSubmission(problemName, student));
 				continue;
 			}
@@ -74,7 +74,6 @@ public class StudentThreadPool {
 
 		try {
 			for (Future<ProblemResultDetails> future : futureList) {
-				resultList.add(future.get());
 				resultMapper.put(future.get().getName(), future.get());
 			}
 		} catch (Exception e) {
@@ -86,31 +85,15 @@ public class StudentThreadPool {
 			}
 		}
 
-//		saveResultAsCSV(resultList);
 		saveResultAsCSV(resultMapper);
 
 		return resultList;
-	}
-
-	@Deprecated
-	private void addTaskThroughFactory() throws NoSuchElementException, NotFoundProblemSubmissionException {
-		for (String problemName : problemList) {
-			File matchedFile = matchProblemDirectory(problemName);
-			if (matchedFile == null) {
-				continue;
-			}
-
-			this.taskList.add(new ProblemGradingTask(matchedFile
-					, factoryMapper.get(problemName)
-					, TestSuiteFactoryMapper.getWeights(topic).get(problemName)));
-		}
 	}
 
 	private File matchProblemDirectory(String problemName) {
 		return Stream.of(directory.listFiles()).filter(probDir -> probDir.isDirectory()
 				&& StringUtils.compareAsLowerCaseNoSpace(probDir.getName(), problemName)).findFirst()
 				.orElse(null);
-//				.orElseThrow(NotFoundProblemSubmissionException.toSupplier(student, problemName));
 	}
 
 	private void saveResultAsCSV(HashMap<String, ProblemResultDetails> resultMapper) {
@@ -119,7 +102,7 @@ public class StudentThreadPool {
 		dataRow.add(student.fullName());
 
 		// total
-		dataRow.add(resultMapper.values().stream().mapToDouble(details -> details.getPassedPercent() * details.getWeight()).sum());
+		dataRow.add(ValueUtils.roundDouble(resultMapper.values().stream().mapToDouble(details -> details.getPassedPercent() * details.getWeight()).sum()));
 
 		// problem
 		for (String problem : problemList) {

@@ -50,7 +50,7 @@ public record Student(String number, String fullName, String groups, String emai
 		dataRow.add(fullName);
 
 		// note
-		dataRow.add(GradingMessage.INVALID_OR_NOT_FOUND_SUBMISSION.getContent());
+		dataRow.add(GradingMessage.INVALID_SUBMISSION_FORMAT.getContent());
 
 		// average passed percentage
 		dataRow.add(0);

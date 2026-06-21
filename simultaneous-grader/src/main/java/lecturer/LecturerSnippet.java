@@ -9,11 +9,13 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
+import common.constant.ProblemName;
 import common.constant.TopicName;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
 import common.util.StringUtils;
+import common.util.ValueUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.exception.InvalidConfigurationException;
@@ -61,10 +63,21 @@ public class LecturerSnippet {
 				System.out.println("Finish Grading for \"%s\"".formatted(student.fullName()));
 			} catch (NoSuchElementException e) {
 				System.err.println(e.getMessage());
-//				e.printStackTrace();
 			} catch (NotFoundStudentException e) {
 				notFoundStudentList.add(student);
 			}
+		}
+
+		for (Student student : notFoundStudentList) {
+			List<Object> dataRow = new ArrayList<>();
+			dataRow.add(student.number());
+			dataRow.add(student.fullName());
+
+			// total
+			dataRow.add(0);
+
+			ReportUtils.writeStudentResultToCSV(submissionDirectory, topic, student,
+					ReportUtils.convertToCsvRow(dataRow.stream().toArray()));
 		}
 		
 		// 3. Record end time
@@ -104,11 +117,6 @@ public class LecturerSnippet {
 				System.err.println(e.getMessage());
 			} catch (NotFoundStudentException e) {
 				notFoundStudentList.add(student);
-//				try {
-//					e.writeCSV(submissionDirectory, topic, student);
-//				} catch (InvalidConfigurationException e1) {
-//					e1.printStackTrace();
-//				}
 			}
 		}
 		
@@ -125,11 +133,10 @@ public class LecturerSnippet {
 		System.out.println("Finish Grading %s".formatted(topic));
 	}
 
-	private static File findStudentSubmission(Student student) throws NotFoundStudentException {
+	private static File findStudentSubmission(Student student) {
 		return innerSubmissionDirectory.stream()
 				.filter(innerDir -> StudentList.findByStudentDirectory(innerDir).equals(student)).findFirst()
 				.orElse(null);
-//				.orElseThrow(NotFoundStudentException.toSupplier(student));
 	}
 
 	private static void gradeLab3ViaSubmissionDirectory() {
