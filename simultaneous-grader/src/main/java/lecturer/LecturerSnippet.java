@@ -56,6 +56,7 @@ public class LecturerSnippet {
 				File stuSubDir = findStudentSubmission(student);
 				if (stuSubDir == null) {
 					GradingMessage.NOT_FOUND_SUBMISSION_OF.printErrorContent(StringUtils.encloseDoubleQuote(student.fullName()));
+					notFoundStudentList.add(student);
 					continue;
 				}
 
@@ -63,11 +64,10 @@ public class LecturerSnippet {
 				System.out.println("Finish Grading for \"%s\"".formatted(student.fullName()));
 			} catch (NoSuchElementException e) {
 				System.err.println(e.getMessage());
-			} catch (NotFoundStudentException e) {
-				notFoundStudentList.add(student);
 			}
 		}
 
+		List<String> problemList = ProblemName.getProblems(topic);
 		for (Student student : notFoundStudentList) {
 			List<Object> dataRow = new ArrayList<>();
 			dataRow.add(student.number());
@@ -75,6 +75,14 @@ public class LecturerSnippet {
 
 			// total
 			dataRow.add(0);
+
+			// problem
+			for (String problem : problemList) {
+				// passedPercent
+				dataRow.add(0);
+				// note
+				dataRow.add(GradingMessage.INVALID_SUBMISSION_FORMAT.getContent());
+			}
 
 			ReportUtils.writeStudentResultToCSV(submissionDirectory, topic, student,
 					ReportUtils.convertToCsvRow(dataRow.stream().toArray()));
@@ -115,8 +123,6 @@ public class LecturerSnippet {
 				new StudentThreadPool(topic, stuSubDir).submit();
 			} catch (NoSuchElementException e) {
 				System.err.println(e.getMessage());
-			} catch (NotFoundStudentException e) {
-				notFoundStudentList.add(student);
 			}
 		}
 		
