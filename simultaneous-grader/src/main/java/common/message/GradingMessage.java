@@ -30,6 +30,7 @@ public enum GradingMessage {
 	, GENERATE_CSV_REPORT_SUCCESSFULLY("CSV report successfully created at:\n\t{0}\n\twith name: {1}")
 	, INVALID_OR_NOT_FOUND_SUBMISSION("Invalid or Not Found Submission")
 	, INVALID_OR_NOT_FOUND_SUBMISSION_OF("Invalid or Not Found Submission: {0}")
+	, NOT_FOUND_SUBMISSION_OF("Not Found Submission of {0}")
 	, COMPILATION_ERROR("Compilation Error")
 	;
 

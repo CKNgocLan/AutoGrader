@@ -47,9 +47,10 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 		try {
 			results = gradeTestCases();
 		} catch (CompilationErrorException e) {
-			return new ProblemResultDetails(problemName, student, 0, weight, GradingMessage.COMPILATION_ERROR.getContent());
+//			return new ProblemResultDetails(problemName, student, 0, weight, GradingMessage.COMPILATION_ERROR.getContent());
+			return ProblemResultDetails.compilationError(problemName, student);
 		} catch (Exception e) {
-			return new ProblemResultDetails(problemName, student, 0, weight, GradingMessage.COMPILATION_ERROR.getContent());
+			return ProblemResultDetails.exception(problemName, student, e);
 		}
 
 		// TODO Save results into Excel file

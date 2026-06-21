@@ -1,6 +1,7 @@
 package model.resultReport;
 
 import common.constant.Constants;
+import common.message.GradingMessage;
 import model.component.Student;
 
 public class ProblemResultDetails {
@@ -64,5 +65,13 @@ public class ProblemResultDetails {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public static ProblemResultDetails compilationError(String name, Student student) {
+		return new ProblemResultDetails(name, student, 0, 0, GradingMessage.COMPILATION_ERROR.getContent());
+	}
+
+	public static ProblemResultDetails exception(String name, Student student, Exception exception) {
+		return new ProblemResultDetails(name, student, 0, 0, GradingMessage.UNEXPECTED_ERROR_WITH_MESSAGE.getContent(exception.getMessage()));
 	}
 }

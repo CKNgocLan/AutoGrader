@@ -10,8 +10,10 @@ import java.util.NoSuchElementException;
 import java.util.stream.Stream;
 
 import common.constant.TopicName;
+import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
+import common.util.StringUtils;
 import model.component.Student;
 import model.component.StudentList;
 import model.exception.InvalidConfigurationException;
@@ -48,16 +50,18 @@ public class LecturerSnippet {
         // 2. Find student submission
 		for (Student student : StudentList.getList()) {
 			try {
-				System.out.println("Grade Submission of %s".formatted(student.fullName()));
+				System.out.println("Grading Submission of %s...".formatted(student.fullName()));
 				File stuSubDir = findStudentSubmission(student);
 				if (stuSubDir == null) {
+					GradingMessage.NOT_FOUND_SUBMISSION_OF.printErrorContent(StringUtils.encloseDoubleQuote(student.fullName()));
 					continue;
 				}
 
 				new StudentThreadPool(topic, stuSubDir).submit();
+				System.out.println("Finish Grading for \"%s\"".formatted(student.fullName()));
 			} catch (NoSuchElementException | NotFoundProblemSubmissionException e) {
 				System.err.println(e.getMessage());
-				e.printStackTrace();
+//				e.printStackTrace();
 			} catch (NotFoundStudentException e) {
 				notFoundStudentList.add(student);
 			}
