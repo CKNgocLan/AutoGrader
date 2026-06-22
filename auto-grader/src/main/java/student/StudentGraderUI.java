@@ -51,14 +51,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import student.constant.Constants;
 import student.constant.FileExtension;
+import student.constant.FinalExam;
 import student.constant.GradingMessage;
-import student.constant.Midterm;
 import student.constant.Problem;
 import student.constant.TestCaseResult;
 import student.model.ITestCase;
 import student.model.TestResult;
 import student.util.PathUtils;
 import student.util.StringUtils;
+import student.util.ValueUtils;
 
 public class StudentGraderUI extends JFrame {
 	private static final long serialVersionUID = 3700796113357733984L;
@@ -198,9 +199,9 @@ public class StudentGraderUI extends JFrame {
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
-//		labQuestionsMap.put(FinalExam.FINAL_253, Arrays.asList(Question.SECTION_2, Question.SECTION_1));
+		labQuestionsMap.put(FinalExam.FINAL_253, Arrays.asList(Problem.SECTION_1, Problem.SECTION_2));
 //		labQuestionsMap.put(Lab.L4, Arrays.asList(Question.Q1, Question.Q4));
-		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Problem.P1));
+//		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Problem.P1));
 //		labQuestionsMap.put(Lab.L3, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
 //		labQuestionsMap.put(Lab.L2, Arrays.asList(Question.Q1, Question.Q2, Question.Q3, Question.Q4, Question.Q5));
 //		labQuestionsMap.put(Lab.L1, Arrays.asList(Question.Q0));
@@ -348,7 +349,7 @@ public class StudentGraderUI extends JFrame {
                 createReportDir();
                 
                 // Step 3: Generate Excel Report
-                generateExcelReport(submissionFolder.getName(), selectedLab, selectedQuestion, results);
+//                generateExcelReport(submissionFolder.getName(), selectedLab, selectedQuestion, results);
 
                 log(Constants.ASSIGN.repeat(60));
 
@@ -360,7 +361,7 @@ public class StudentGraderUI extends JFrame {
 
                 log("\n" + GradingMessage.DETAILED_REPORT_SAVED_IN_FOLDER.getContent(Constants.REPORTS_DIR));
                 log("\n" + GradingMessage.PASSED_TESTCASE_RATE.getContent(passedList.size(), tests.size()));
-                log("\n" + GradingMessage.PERCENTAGE.getContent(Double.valueOf(passedList.size()) / tests.size()));
+                log("\n" + GradingMessage.PERCENTAGE.getContent(ValueUtils.roundDouble((Double.valueOf(passedList.size()) / tests.size()))));
 
                 SwingUtilities.invokeLater(() -> {
                     JOptionPane.showMessageDialog(this,

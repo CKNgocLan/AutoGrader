@@ -10,8 +10,9 @@ import model.component.testSuite.exam.final253.Section2TestSuiteFactory;
 
 public class Final253FactoryMapper {
 
-	private static HashMap<String, TestSuiteFactory> mapper = new HashMap<>(Map.of(ProblemName.SECTION_1,
-			new Section1TestSuiteFactory(), ProblemName.SECTION_2, new Section2TestSuiteFactory()));
+	private static HashMap<String, TestSuiteFactory> mapper = new HashMap<>(Map.of(
+			ProblemName.SECTION_1, new Section1TestSuiteFactory()
+			, ProblemName.SECTION_2, new Section2TestSuiteFactory()));
 
 	private static HashMap<String, Double> weightMapper = new HashMap<>(Map.of(ProblemName.SECTION_1, 0.8, ProblemName.SECTION_2, 0.2));
 

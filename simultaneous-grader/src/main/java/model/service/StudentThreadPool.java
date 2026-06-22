@@ -51,8 +51,7 @@ public class StudentThreadPool {
 		this.problemList = ProblemName.getProblems(topic);
 	}
 
-	public List<ProblemResultDetails> submit() throws NoSuchElementException {
-		List<ProblemResultDetails> resultList = new ArrayList<ProblemResultDetails>();
+	public void submit() throws NoSuchElementException {
 		HashMap<String, ProblemResultDetails> resultMapper = new HashMap<String, ProblemResultDetails>();
 		for (String problemName : problemList) {
 			File matchedFile = matchProblemDirectory(problemName);
@@ -78,7 +77,6 @@ public class StudentThreadPool {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
 		} finally {
 			if (!this.service.isShutdown()) {
 				this.service.shutdown();
@@ -87,7 +85,7 @@ public class StudentThreadPool {
 
 		saveResultAsCSV(resultMapper);
 
-		return resultList;
+//		return resultList;
 	}
 
 	private File matchProblemDirectory(String problemName) {

@@ -3,7 +3,7 @@ package student.solution.final253.section1;
 import java.util.UUID;
 
 public class Brand {
-    private final UUID id;
+    private UUID id;
     private String name;
 
     public Brand(String name) {

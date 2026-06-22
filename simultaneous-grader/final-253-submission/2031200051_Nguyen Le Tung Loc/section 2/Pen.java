@@ -1,4 +1,3 @@
-package BuilderDesignPattern;
 import java.util.UUID;
 
 public class Pen {
@@ -32,5 +31,11 @@ public class Pen {
    public String toString() {
       String var10000 = String.valueOf(this.id);
       return "Pen{id=" + var10000 + "\n, brand='" + this.brand + "'\n, model='" + this.model + "'\n, price=" + this.price + "\n}";
+   }
+
+   public static class PenBuilder {
+      private String brand;
+      private String model;
+      private double price;
    }
 }

@@ -15,6 +15,7 @@ import common.constant.csv.ProblemResultHeader;
 import common.message.GradingMessage;
 import common.util.PathUtils;
 import common.util.ReportUtils;
+import common.util.StringUtils;
 import common.util.ValueUtils;
 import model.component.Student;
 import model.component.StudentList;
@@ -54,9 +55,6 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 
 		// TODO Save results into Excel file
 		saveResultAsExcel(results);
-
-		// TODO Save results into CSV file
-		// saveResultAsCSV(results.stream().map(result -> result.toCSVRow()).toList());
 
 		System.out.println(GradingMessage.FINISH_GRADING_SUBMISSION_OF_STUDENT.getContent(problemName, student.fullName()));
 		return new ProblemResultDetails(problemName, student, results == null || results.isEmpty() ? 0 : calculatePassedPercetage(results), weight);
@@ -104,7 +102,7 @@ public class ProblemGradingTask implements Callable<ProblemResultDetails> {
 			cmd.add("javac");
 			cmd.add(CompilationConfigure.JAVAC_J_XMX128);
 			cmd.add("-d");
-			cmd.add(PathUtils.appendStudentSubmissionToTargetClasses(student.number(), problemName));
+			cmd.add(PathUtils.appendStudentSubmissionToTargetClasses(student.number(), StringUtils.toLowerCaseNoSpace(problemName)));
 			cmd.addAll(javaFiles);
 			pb.command(cmd);
 			pb.redirectOutput(ProcessBuilder.Redirect.INHERIT);

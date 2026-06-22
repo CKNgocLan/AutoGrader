@@ -1,6 +1,15 @@
 package student.util;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class ValueUtils {
+	public static double roundDouble(double val) {
+		return BigDecimal.valueOf(val)
+                .setScale(5, RoundingMode.HALF_UP)
+                .doubleValue();
+	}
+
 	/*
 	 * double
 	 */

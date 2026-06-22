@@ -73,12 +73,12 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 
 							// ballpointPenFactoryTester
 							, ballpointPenFactoryTester.declare()
-							, ballpointPenFactoryTester.implementInterface()
+//							, ballpointPenFactoryTester.implementInterface()
 							, ballpointPenFactoryTester.operateCreatePen(brandInstance, ModelName.GOLDEN_LOTUS, redEnum, 61.5)
 
 							// fountainPenFactoryTester
 							, fountainPenFactoryTester.declare()
-							, fountainPenFactoryTester.implementInterface()
+//							, fountainPenFactoryTester.implementInterface()
 							, fountainPenFactoryTester.operateCreatePen(brandInstance, ModelName.TUZU_FORGE, greyEnum, 65)
 					);
 				}

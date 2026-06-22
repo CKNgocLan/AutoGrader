@@ -1,7 +1,6 @@
 package model.component.tester.exam.final253.section1;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.UUID;
 
 import common.constant.ClassName;
 import common.constant.FieldName;
@@ -9,7 +8,6 @@ import common.util.TestCaseUtils;
 import model.component.TestCase;
 import model.component.tester.Tester;
 import model.component.tester.exam.final253.section1.solution.Brand;
-import model.element.TestingField;
 import model.element.TestingParameter;
 import model.exception.TesterGotNoClassNameException;
 
@@ -35,15 +33,6 @@ public class BrandTester extends Tester {
 	private TestingParameter[] argument(String name) throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new TestingParameter[] { new TestingParameter(String.class, FieldName.NAME, name) };
 	}
-
-	/*
-	 * field declared
-	 */
-	
-//	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
-//		return new TestingField[] { new TestingField(UUID.class, FieldName.ID),
-//				new TestingField(String.class, FieldName.NAME), new TestingField(String.class, FieldName.COUNTRY) };
-//	}
 
 	/*
 	 * declaration
