@@ -29,3 +29,9 @@ simultaneous-grader/.classpath
 simultaneous-grader/reports/
 simultaneous-grader/final-253-submission - GRADED/
 simultaneous-grader/final-253-submission/
+grader-with-design-patterns/.classpath
+grader-with-design-patterns/.gitignore
+grader-with-design-patterns/.project
+grader-with-design-patterns/pom.xml
+grader-with-design-patterns/.settings/org.eclipse.jdt.core.prefs
+grader-with-design-patterns/.settings/org.eclipse.m2e.core.prefs

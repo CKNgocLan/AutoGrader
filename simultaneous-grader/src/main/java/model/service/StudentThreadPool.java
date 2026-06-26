@@ -94,7 +94,7 @@ public class StudentThreadPool {
 				.orElse(null);
 	}
 
-	private void saveResultAsCSV(HashMap<String, ProblemResultDetails> resultMapper) {
+	private synchronized void saveResultAsCSV(HashMap<String, ProblemResultDetails> resultMapper) {
 		List<Object> dataRow = new ArrayList<>();
 		dataRow.add(student.number());
 		dataRow.add(student.fullName());
