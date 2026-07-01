@@ -24,6 +24,7 @@ import student.constant.Problem;
 import student.exception.TesterGotNoClassNameException;
 import student.model.SingleGradingTask;
 import student.testSuite.lab4.problem1_3.EmployeeTester;
+import student.util.ValueUtils;
 
 public class StudentSnippet {
 	String selectedLab = Lab.L3;
@@ -31,6 +32,7 @@ public class StudentSnippet {
 	File submissionDirectory = new File(path);
     
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, NoSuchFieldException, TesterGotNoClassNameException {
+    	System.out.println(ValueUtils.toPercentage(19, 24) + "%");
     }
 
     private static void future() {

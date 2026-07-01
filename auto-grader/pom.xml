@@ -50,7 +50,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>student/StudentGraderUI.java</mainClass>
+							<mainClass>student/StudentGrader.java</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

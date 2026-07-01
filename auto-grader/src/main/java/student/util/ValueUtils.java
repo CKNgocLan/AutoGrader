@@ -4,15 +4,19 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class ValueUtils {
-	public static double roundDouble(double val) {
-		return BigDecimal.valueOf(val)
-                .setScale(5, RoundingMode.HALF_UP)
-                .doubleValue();
+	public static double toPercentage(double first, double second) {
+		return roundDouble(toDouble(first)/toDouble(second) * 100);
 	}
 
 	/*
 	 * double
 	 */
+	
+	public static double roundDouble(double val) {
+		return BigDecimal.valueOf(val)
+                .setScale(5, RoundingMode.HALF_UP)
+                .doubleValue();
+	}
 
 	public static Double toDouble(Object value) {
 		return Double.valueOf(StringUtils.toString(value));
