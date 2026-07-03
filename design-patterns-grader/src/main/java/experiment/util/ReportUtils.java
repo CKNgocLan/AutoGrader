@@ -1,0 +1,305 @@
+package experiment.util;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.MessageFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import experiment.common.constant.Constants;
+import experiment.common.constant.DateTimeFormatters;
+import experiment.common.constant.FileExtension;
+import experiment.common.constant.Symbols;
+import experiment.common.constant.TestingResult;
+import experiment.common.constant.TopicName;
+import experiment.common.constant.YearQuarter;
+import experiment.common.message.ExceptionMessage;
+import experiment.common.message.GradingMessage;
+import experiment.student.Student;
+import experiment.topic.challenge.TestCaseResult;
+
+public class ReportUtils {
+	public static List<CSVRecord> readCSV(String filePath) {
+		try {
+			return CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).setIgnoreEmptyLines(true)
+					.setTrim(true).get().parse(Files.newBufferedReader(Paths.get(filePath))).getRecords();
+
+		} catch (IOException e) {
+			e.printStackTrace();
+			return List.of();
+		}
+	}
+
+	public static void createReportDir() {
+    	Path dirPath = Paths.get(System.getProperty(Constants.USER_DIR), Constants.REPORTS_DIR);
+    	if (!Files.exists(dirPath)) {
+    		try {
+				Files.createDirectories(dirPath);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+    	}
+    }
+
+	public static void generateProblemReportToExcel(Student student, String topic, String problem, List<TestCaseResult> results) {
+		createReportDir();
+
+		try (Workbook workbook = new XSSFWorkbook()) {
+			Sheet sheet = workbook.createSheet(topic);
+
+			// Create styles
+			CellStyle headerStyle = createHeaderStyle(workbook);
+			CellStyle passedStyle = createPassedStyle(workbook); // Green
+			CellStyle failedStyle = createFailedStyle(workbook); // Red
+
+			// Header row
+			Row headerRow = sheet.createRow(0);
+			String[] headers = { "No.", "Test Case Name", "Result", "Feedback" };
+			for (int i = 0; i < headers.length; i++) {
+				Cell cell = headerRow.createCell(i);
+				cell.setCellValue(headers[i]);
+				cell.setCellStyle(headerStyle);
+			}
+
+			// Data rows - one test case per row (vertical)
+			int rowNum = 1;
+
+			int passedCounter = 0;
+			for (TestCaseResult result : results) {
+				Row row = sheet.createRow(rowNum++);
+				int col = 0;
+
+				// No.
+				row.createCell(col++).setCellValue(results.indexOf(result) + 1);
+
+				// Test Case Name
+				row.createCell(col++).setCellValue(result.testName());
+
+				// Max Points
+				// row.createCell(col++).setCellValue(result.maxPoints);
+				
+				// Earned Points
+				// row.createCell(col++).setCellValue(result.earnedPoints);
+				
+				// Result + Color
+				Cell resultCell = row.createCell(col++);
+				if (result.passed() != null && result.passed()) {
+					passedCounter++;
+
+					// Result
+					resultCell.setCellValue(TestingResult.PASSED);
+
+					// Apply color
+					resultCell.setCellStyle(passedStyle);
+				} else {
+					// Result
+					resultCell.setCellValue(TestingResult.FAILED);
+
+					resultCell.setCellStyle(failedStyle);
+
+					// Feedback
+					row.createCell(col++).setCellValue(result.feedback());
+				}
+			}
+
+			// create aggregation row
+			{
+				Row aggregationRow = sheet.createRow(rowNum);
+				int colIndex = 0;
+
+				// aggregation row style
+				org.apache.poi.ss.usermodel.Font resultFont = workbook.createFont();
+				resultFont.setBold(true);
+				resultFont.setItalic(true);
+				resultFont.setColor(IndexedColors.WHITE.getIndex());
+
+				CellStyle resultStyle = workbook.createCellStyle();
+				resultStyle.setAlignment(HorizontalAlignment.CENTER);
+				resultStyle.setFillForegroundColor(IndexedColors.DARK_GREEN.getIndex());
+				resultStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+				resultStyle.setFont(resultFont);
+
+				// No
+				colIndex++;
+
+				// Test Case Name
+				//colIndex++;
+				org.apache.poi.ss.usermodel.Cell testcaseCell = aggregationRow.createCell(colIndex++);
+				testcaseCell.setCellValue(MessageFormat.format("{0}/{1} testcases", passedCounter, results.size()));
+				testcaseCell.setCellStyle(resultStyle);
+
+				// Result
+				org.apache.poi.ss.usermodel.Cell resultCell = aggregationRow.createCell(colIndex++);
+				resultCell.setCellValue(
+						MessageFormat.format("{0}%", String.valueOf(((double) passedCounter / results.size()) * 100)));
+				resultCell.setCellStyle(resultStyle);
+
+				// Feedback
+				colIndex++;
+			}
+
+			// Auto-size columns
+			for (int i = 0; i < 5; i++) {
+				sheet.autoSizeColumn(i);
+			}
+
+			// Generate dynamic filename: directory_lab_question_timestamp_report.xlsx
+			String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern(DateTimeFormatters.yyyy_MM_dd_HH_mm_ss));
+
+			String fileName = Constants.OOP + Symbols.UNDERSCORE + YearQuarter.Y25Q4
+					+ Symbols.HYPHEN + StringUtils.toSafeName(student.getNumber())
+					+ Symbols.HYPHEN + student.getFullName()
+					+ Symbols.HYPHEN + StringUtils.toSafeName(topic)
+					+ Symbols.HYPHEN + StringUtils.toSafeName(problem)
+					+ Symbols.UNDERSCORE + timestamp
+					+ FileExtension.XLSX.extension();
+
+			String excelFile = Constants.REPORTS_DIR + Symbols.FORE_SLASH + fileName;
+
+			try (FileOutputStream fos = new FileOutputStream(excelFile)) {
+				workbook.write(fos);
+			}
+
+			System.out.println("Excel report generated: " + fileName);
+
+		} catch (Exception e) {
+			System.out.println(ExceptionMessage.EXCEL_REPORT_GENERATION_ERROR.withMessage(e));
+			e.printStackTrace();
+		}
+	}
+
+	public static void generateEachProblemResultToCSV(File studentProblemDirFile, String[] headers, List<String> dataRows) {
+	    // first create file object for file placed at location specified by filepath
+	    File file = new File(FileExtension.CSV.toAbsoluteFileStudentResultPath(studentProblemDirFile.getParentFile().toString(), StringUtils.joinOriginal(studentProblemDirFile.getParentFile().getName(), studentProblemDirFile.getName())));
+
+	    try {
+	        // create FileWriter object with file as parameter
+	        FileWriter outputfile = new FileWriter(file);
+	        BufferedWriter writer = new BufferedWriter(outputfile);
+
+	        // 1. Write the header row
+            writer.write(convertToCsvRow(headers));
+            writer.newLine();
+	        	
+            // 2. Write the data rows
+            for (String row : dataRows) {
+            	writer.write(row);
+                writer.newLine();
+            }
+
+            writer.close();
+//            System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
+	    }
+	    catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	public static void createTopicResultToCSV(File submissionDirFile, String topic) {
+		File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(),
+				StringUtils.toLowerCaseNoSpace(topic)));
+		try {
+			// create FileWriter object with file as parameter
+			FileWriter outputfile = new FileWriter(file, false);
+			outputfile.write(Constants.EMPTY_STRING);
+			BufferedWriter writer = new BufferedWriter(outputfile);
+
+			// 0. Clear old content
+			writer.write(Constants.EMPTY_STRING);
+
+			// 1. Write the header row
+			writer.write(convertToCsvRow(TopicName.problemHeaderArray(topic)));
+			writer.newLine();
+
+			writer.close();
+			System.out.println(GradingMessage.GENERATE_CSV_REPORT_SUCCESSFULLY.getContent(file.getAbsolutePath(), file.getName()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void writeStudentResultToCSV(File submissionDirFile, String topic, Student student, String dataRow) {
+		File file = new File(FileExtension.CSV.toTopicAbsolutePath(submissionDirFile.toString(), StringUtils.toLowerCaseNoSpace(topic)));
+		try {
+			// create FileWriter object with file as parameter
+			FileWriter outputfile = new FileWriter(file, true);
+			BufferedWriter writer = new BufferedWriter(outputfile);
+
+			// 2. Write the data rows
+			if (!StringUtils.isNullOrEmpty(dataRow)) {
+				writer.write(dataRow);
+				writer.newLine();
+			}
+
+			writer.close();
+			System.out.println(GradingMessage.WRITE_STUDENT_SUBMISSION_RESULT_TO_CSV.getContent(topic, student.getFullName()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static String convertToCsvRow(Object... fields) {
+        StringBuilder row = new StringBuilder();
+        for (int i = 0; i < fields.length; i++) {
+            String field = String.valueOf(fields[i]);
+            
+            // If the text contains a comma, quote, or newline, wrap it in double quotes
+            if (field.contains(Symbols.COMMA) || field.contains(Symbols.DOUBLE_QUOTE) || field.contains(Symbols.NEWLINE)) {
+                field = Symbols.DOUBLE_QUOTE + field.replace(Symbols.DOUBLE_QUOTE, Symbols.DOUBLE_DOUBLE_QUOTE) + Symbols.DOUBLE_QUOTE;
+            }
+            
+            row.append(field);
+            // Separate with a comma
+            if (i < fields.length - 1) {
+                row.append(Symbols.COMMA);
+            }
+        }
+        return row.toString();
+    }
+
+    // Helper styles
+    private static CellStyle createHeaderStyle(Workbook wb) {
+        CellStyle style = wb.createCellStyle();
+        style.setAlignment(HorizontalAlignment.CENTER);
+        style.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        return style;
+    }
+
+    // PASSED Cell Style
+    private static CellStyle createPassedStyle(Workbook wb) {
+        CellStyle style = wb.createCellStyle();
+        style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        return style;
+    }
+
+    // FAILED Cell Style
+    private static CellStyle createFailedStyle(Workbook wb) {
+        CellStyle style = wb.createCellStyle();
+        style.setFillForegroundColor(IndexedColors.RED.getIndex());   // Light red
+        style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        style.setAlignment(HorizontalAlignment.CENTER);
+        return style;
+    }
+}
