@@ -1,21 +1,9 @@
 package experiment.challenge.concrete.lab2;
 
-import experiment.challenge.Challenge;
-import experiment.common.constant.ChallengeName;
-import experiment.common.constant.TopicName;
-
-public class Challenge1 implements Challenge {
-	private final int index = 1;
-	public Challenge1() {
-	}
-	
-	@Override
-	public String getTopicName() {
-		return TopicName.L2;
-	}
+public class Challenge1 extends Lab2Challenges {
 
 	@Override
-	public String getName() {
-		return ChallengeName.withIndex(index);
+	public int getIndex() {
+		return 1;
 	}
 }
