@@ -1,4 +1,4 @@
-package experiment.topic.challenge;
+package experiment;
 
 import experiment.common.constant.Constants;
 import experiment.common.constant.TestingResult;

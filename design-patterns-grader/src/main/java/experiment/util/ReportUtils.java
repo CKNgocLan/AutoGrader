@@ -25,6 +25,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import experiment.TestCaseResult;
 import experiment.common.constant.Constants;
 import experiment.common.constant.DateTimeFormatters;
 import experiment.common.constant.FileExtension;
@@ -35,7 +36,6 @@ import experiment.common.constant.YearQuarter;
 import experiment.common.message.ExceptionMessage;
 import experiment.common.message.GradingMessage;
 import experiment.student.Student;
-import experiment.topic.challenge.TestCaseResult;
 
 public class ReportUtils {
 	public static List<CSVRecord> readCSV(String filePath) {
