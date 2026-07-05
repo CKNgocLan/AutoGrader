@@ -7,6 +7,7 @@ import experiment.topic.Topic;
 
 public class Lab1 extends Topic {
 	private ChallengeList challengeList;
+
 	public Lab1(ChallengeListFactory factory) {
 		super.name = TopicName.L1;
 		this.challengeList = factory.getChallengeList();

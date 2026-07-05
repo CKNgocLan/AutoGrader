@@ -15,6 +15,10 @@ public class ChallengeList {
 		return this;
 	}
 
+	public List<Challenge> getList() {
+		return this.challenges;
+	}
+
 	public static class Builder {
 		private List<Challenge> challenges = new ArrayList<>();
 

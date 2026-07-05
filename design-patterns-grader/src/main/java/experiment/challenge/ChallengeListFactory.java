@@ -1,5 +1,6 @@
 package experiment.challenge;
 
-public interface ChallengeListFactory {
-	public ChallengeList getChallengeList();
+public abstract class ChallengeListFactory {
+	protected ChallengeList challengeListInstance;
+	public abstract ChallengeList getChallengeList();
 }

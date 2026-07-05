@@ -10,4 +10,5 @@ public interface Challenge {
 	public default String getName() {
 		return ChallengeName.withIndex(getIndex());
 	}
+	
 }
