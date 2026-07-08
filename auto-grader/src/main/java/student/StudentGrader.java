@@ -49,6 +49,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import student.constant.CompilationConfigure;
 import student.constant.Constants;
 import student.constant.FileExtension;
 import student.constant.FinalExam;
@@ -204,8 +205,8 @@ public class StudentGrader extends JFrame {
 //		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Problem.P1));
 //		labQuestionsMap.put(Lab.L4, Arrays.asList(Problem.Q1, Problem.Q4));
 //		labQuestionsMap.put(Lab.L3, Arrays.asList(Problem.P1, Problem.P2, Problem.P3, Problem.P4, Problem.P5));
-		labQuestionsMap.put(Lab.L1, Arrays.asList(Problem.P0));
 		labQuestionsMap.put(Lab.L2, Arrays.asList(Problem.P1, Problem.P2, Problem.P3, Problem.P4, Problem.P5, Problem.P6));
+		labQuestionsMap.put(Lab.L1, Arrays.asList(Problem.P0));
 	}
     
     private void initializeComboBoxes() {
@@ -396,6 +397,7 @@ public class StudentGrader extends JFrame {
             ProcessBuilder pb = new ProcessBuilder();
             List<String> cmd = new ArrayList<>();
             cmd.add("javac");
+			cmd.add(CompilationConfigure.JAVAC_J_XMX128);
             cmd.add("-d");
             cmd.add(PathUtils.targetClasses());
             cmd.addAll(javaFiles);

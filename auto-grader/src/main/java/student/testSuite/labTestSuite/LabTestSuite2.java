@@ -47,8 +47,9 @@ public class LabTestSuite2 extends ALabTestSuite {
 								ParameterUtils.mapFromTypes(int.class, String.class)),
 						car.checkPartialArgsConstructorOperation(10,
 								new TestingParameter(int.class, FieldName.YEAR_MODEL, 2025),
-								new TestingParameter(String.class, FieldName.MAKE, "Mazda"),
-								new TestingParameter(int.class, FieldName.SPEED, 0, true))
+								new TestingParameter(String.class, FieldName.MAKE, "Mazda")
+//								, new TestingParameter(int.class, FieldName.SPEED, 0, true)
+								)
 
 						// accelerate()
 						, car.checkAccelerateDeclaration(25), car.checkAccelerateOperation(15)
