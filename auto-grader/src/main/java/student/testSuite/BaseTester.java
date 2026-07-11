@@ -232,6 +232,10 @@ public abstract class BaseTester {
 		return classTester.checkPartialArgsConstructorOperationViaGetter(points, className, params);
 	}
 
+	protected TestCase operateConstructor(int points, TestingParameter... params) {
+		return classTester.operateConstructor(points, className, params);
+	}
+
 	protected TestCase operateConstructorViaSuper(int points, TestingParameter... params) {
 		return classTester.operateConstructorViaSuper(points, className, params);
 	}

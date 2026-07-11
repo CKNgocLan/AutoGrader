@@ -33,6 +33,7 @@ public class TeaTester extends BaseTester {
 	/**
 	 * declare
 	 */
+
 	public TestCase declare() {
 		return super.declareAsInterface(defaultPoints);
 	}

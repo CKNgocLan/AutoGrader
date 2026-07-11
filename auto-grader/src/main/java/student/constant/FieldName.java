@@ -10,7 +10,14 @@ public class FieldName {
 	/**
 	 * Tea Tax
 	 */
+
 	public static final String UPPERCASE_TEA_TAX = "TEA_TAX";
+
+	/**
+	 * Ordered Item
+	 */
+
+	public static final String TEA = "tea";
 
 	/*
 	 * Customer

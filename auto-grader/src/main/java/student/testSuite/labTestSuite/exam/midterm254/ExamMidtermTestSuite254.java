@@ -5,6 +5,7 @@ import java.util.List;
 
 import student.model.ALabTestSuite;
 import student.model.TestCase;
+import student.testSuite.exam.midterm254.OrderedItemTester;
 import student.testSuite.exam.midterm254.TeaCategoryTester;
 import student.testSuite.exam.midterm254.TeaTaxTester;
 import student.testSuite.exam.midterm254.TeaTester;
@@ -16,6 +17,7 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 			TeaCategoryTester teaCategoryTester = new TeaCategoryTester();
 			TeaTester teaTester = new TeaTester().teaCategoryTester(teaCategoryTester);
 			TeaTaxTester teaTaxTester = new TeaTaxTester();
+			OrderedItemTester orderedItemTester = new OrderedItemTester().teaTester(teaTester);
 
 			return Arrays.asList(
 					/*** Tea Category ***/

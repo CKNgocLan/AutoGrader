@@ -382,6 +382,68 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
+	public TestCase operateConstructor(int points, String className, TestingParameter... args) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_HAVING_SUPERCLASS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@SuppressWarnings("unchecked")
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+
+					Object instance = clazz.getDeclaredConstructor(ParameterUtils.mapToConstructorType(args))
+							.newInstance(ParameterUtils.mapToConstructorValue(args));
+
+					for (Field actualField : clazz.getDeclaredFields()) {
+						if (!actualField.canAccess(instance)) {
+							actualField.setAccessible(true);
+						}
+
+						Optional<TestingParameter> paramTestingOptional = Arrays.stream(args)
+								.filter(arg -> arg.getName().equals(actualField.getName()))
+								.findFirst();
+
+						if (paramTestingOptional.isEmpty()) {
+							System.out.println("Element is not present: %s".formatted(actualField.getName()));
+							continue;
+						}
+						
+						if (actualField.getType().isEnum() && !paramTestingOptional.get().equalsEnumConstant(
+								(Class<? extends Enum<?>>) paramTestingOptional.get().getType().asSubclass(Enum.class),
+								actualField.get(instance))) {
+							return false;
+						}
+
+						if (!paramTestingOptional.get().getValue().equals(actualField.get(instance))) {
+							return false;
+						}
+					}
+
+					return true;
+				} catch (NoSuchElementException e) {
+					System.out.println("INVALID FIELDS: %s".formatted(e.getMessage()));
+					return false;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.ARGS_CONSTRUCTOR_AMONG_SUPERCLASS_OPERATION_NOT_CORRECT.getContent(className);
+			}
+		};
+	}
+	
 	public TestCase operateConstructorViaSuper(int points, String className, TestingParameter... args) {
 		return new TestCase() {
 			@Override

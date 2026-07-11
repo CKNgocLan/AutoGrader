@@ -9,6 +9,7 @@ public class ClassName {
 	public static final String TEA = "Tea";
 	public static final String TEA_CATEGORY = "TeaCategory";
 	public static final String TEA_TAX = "TeaTax";
+	public static final String ORDERED_ITEM = "OrderedItem";
 
 	/*
 	 * final 253

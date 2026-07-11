@@ -145,7 +145,7 @@ public class LabTestSuite4 extends ALabTestSuite {
 						, fountainPenTester.declareFields(defaultPoints)
 						, fountainPenTester.declareSuperClass(defaultPoints)
 						, fountainPenTester.declareConstructor(defaultPoints)
-						, fountainPenTester.operateConstructor(defaultPoints
+						, fountainPenTester.operatePenConstructor(defaultPoints
 								, PenName.GOLDEN_LOTUS
 								, concopensBrand
 								, 645.27)
