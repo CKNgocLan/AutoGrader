@@ -6,6 +6,8 @@ public class ClassName {
 	 * midterm 254
 	 */
 	public static final String CART = "Cart";
+	public static final String TEA = "Tea";
+	public static final String TEA_CATEGORY = "TeaCategory";
 
 	/*
 	 * final 253

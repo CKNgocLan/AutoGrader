@@ -141,7 +141,7 @@ public class StudentGrader extends JFrame {
 
         topPanel.add(labComboBox);
         // QUESTION drop down
-        topPanel.add(new JLabel("     Question:"));
+        topPanel.add(new JLabel("     Challenge:"));
         topPanel.add(questionComboBox);
         
         topPanel.add(gradeButton);
@@ -202,6 +202,7 @@ public class StudentGrader extends JFrame {
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
+		labQuestionsMap.put(Midterm.MIDTERM_254, Arrays.asList(Problem.SECTION_1));
 //		labQuestionsMap.put(FinalExam.FINAL_253, Arrays.asList(Problem.SECTION_1, Problem.SECTION_2));
 //		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Problem.P1));
 //		labQuestionsMap.put(Lab.L4, Arrays.asList(Problem.Q1, Problem.Q4));

@@ -6,11 +6,11 @@ import student.constant.ClassName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.IEnumTester;
 import student.model.TestCase;
-import student.solution.midterm254.Cart;
+import student.solution.midterm254.TeaCategory;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
-public class CartTester extends BaseTester implements IEnumTester {
+public class TeaCategoryTester extends BaseTester implements IEnumTester {
 	@SuppressWarnings("unchecked")
 	@Override
 	public Object valueFrom(String name) throws ClassNotFoundException, TesterGotNoClassNameException {
@@ -21,10 +21,10 @@ public class CartTester extends BaseTester implements IEnumTester {
 	 * instantiate
 	 */
 
-	public CartTester() throws ClassNotFoundException, TesterGotNoClassNameException {
-		super.className = ClassName.CART;
+	public TeaCategoryTester() throws ClassNotFoundException, TesterGotNoClassNameException {
+		super.className = ClassName.TEA_CATEGORY;
 		super.getCorrespondingClass();
-		super.solutionClass = Cart.class;
+		super.solutionClass = TeaCategory.class;
 	}
 
 	public Object instantiate() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {

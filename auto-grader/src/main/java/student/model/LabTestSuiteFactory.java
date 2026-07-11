@@ -7,13 +7,16 @@ import student.testSuite.labTestSuite.LabTestSuite1;
 import student.testSuite.labTestSuite.LabTestSuite2;
 import student.testSuite.labTestSuite.LabTestSuite3;
 import student.testSuite.labTestSuite.LabTestSuite4;
-import student.testSuite.labTestSuite.ExamFinalTestSuite253;
-import student.testSuite.labTestSuite.ExamMidtermTestSuite253;
+import student.testSuite.labTestSuite.exam.final253.ExamFinalTestSuite253;
+import student.testSuite.labTestSuite.exam.midterm253.ExamMidtermTestSuite253;
+import student.testSuite.labTestSuite.exam.midterm254.ExamMidtermTestSuite254;
 
 public class LabTestSuiteFactory {
 	public ALabTestSuite createSuite(String lab) {
 
 		switch (lab) {
+		case Midterm.MIDTERM_254:
+			return new ExamMidtermTestSuite254();
 		case FinalExam.FINAL_253:
 			return new ExamFinalTestSuite253();
 		case Midterm.MIDTERM_253:

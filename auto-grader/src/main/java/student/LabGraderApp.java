@@ -43,7 +43,7 @@ import javax.swing.table.DefaultTableModel;
 
 import student.constant.Problem;
 import student.model.TestCase;
-import student.testSuite.labTestSuite.ExamFinalTestSuite253;
+import student.testSuite.labTestSuite.exam.final253.ExamFinalTestSuite253;
 
 public class LabGraderApp extends JFrame {
 

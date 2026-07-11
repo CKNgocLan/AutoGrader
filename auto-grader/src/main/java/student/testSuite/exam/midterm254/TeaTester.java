@@ -1,0 +1,81 @@
+package student.testSuite.exam.midterm254;
+
+import student.constant.ClassName;
+import student.constant.FieldName;
+import student.constant.MethodName;
+import student.exception.TesterGotNoClassNameException;
+import student.model.TestCase;
+import student.model.TestingMethod;
+import student.solution.midterm254.Tea;
+import student.testSuite.BaseTester;
+import student.util.GetterUtils;
+import student.util.MethodUtils;
+
+public class TeaTester extends BaseTester {
+	protected TeaCategoryTester teaCategoryTester;
+
+	/**
+	 * instantiate
+	 */
+	public TeaTester() throws ClassNotFoundException, TesterGotNoClassNameException {
+		super.className = ClassName.TEA;
+		super.getCorrespondingClass();
+		super.solutionClass = Tea.class;
+	}
+
+	public TeaTester teaCategoryTester(TeaCategoryTester teaCategoryTester) {
+		this.teaCategoryTester = teaCategoryTester;
+		return this;
+	}
+
+	/**
+	 * declare
+	 */
+	public TestCase declare() {
+		return super.declareAsInterface(defaultPoints);
+	}
+
+	/**
+	 * getName()
+	 */
+	protected TestingMethod getName() {
+		return MethodUtils.fromSolution(solutionClass, GetterUtils.getGetterName(FieldName.NAME));
+	}
+
+	public TestCase declareGetName() {
+		return super.methodTester.declare(defaultPoints, className, getName());
+	}
+
+	/**
+	 * getFlavor()
+	 */
+	protected TestingMethod getFlavor() {
+		return MethodUtils.fromSolution(solutionClass, GetterUtils.getGetterName(FieldName.FLAVOR));
+	}
+
+	public TestCase declareGetFlavor() {
+		return super.methodTester.declare(defaultPoints, className, getFlavor());
+	}
+
+	/**
+	 * getPrice()
+	 */
+	protected TestingMethod getPrice() {
+		return MethodUtils.fromSolution(solutionClass, GetterUtils.getGetterName(FieldName.PRICE));
+	}
+
+	public TestCase declareGetPrice() {
+		return super.methodTester.declare(defaultPoints, className, getPrice());
+	}
+
+	/**
+	 * equals(Tea tea)
+	 */
+	protected TestingMethod equals() {
+		return MethodUtils.fromSolution(solutionClass, MethodName.EQUALS);
+	}
+
+	public TestCase declareEquals() {
+		return super.methodTester.declare(defaultPoints, className, equals());
+	}
+}

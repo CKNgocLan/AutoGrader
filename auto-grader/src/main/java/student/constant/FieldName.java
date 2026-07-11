@@ -1,6 +1,11 @@
 package student.constant;
 
 public class FieldName {
+	/**
+	 * Tea
+	 */
+	public static final String FLAVOR = "flavor";
+
 	/*
 	 * Customer
 	 */

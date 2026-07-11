@@ -1,4 +1,4 @@
-package student.testSuite.labTestSuite;
+package student.testSuite.labTestSuite.exam.final253;
 
 import java.util.Arrays;
 import java.util.List;
