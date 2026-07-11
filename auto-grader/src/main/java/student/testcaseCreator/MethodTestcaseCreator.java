@@ -75,7 +75,6 @@ public class MethodTestcaseCreator {
 		};
 	}
 
-
 	public TestCase declaredAsPublicAbstract(int points, String className, TestingMethod method) {
 		return new TestCase() {
 
@@ -93,6 +92,38 @@ public class MethodTestcaseCreator {
 			public boolean runTest() {
 				try {
 					return methodChecker.isPublicAbstract(Class.forName(className, true, targetClassesLoader), method);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				} finally {
+					
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_DECLARED_NOT_CORRECT.getContent(className, method.getName());
+			}
+		};
+	}
+
+	public TestCase declaredAsPublicDefault(int points, String className, TestingMethod method) {
+		return new TestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_EXISTENCE.getName(className, method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return methodChecker.isPublicDefault(Class.forName(className, true, targetClassesLoader), method);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					return false;

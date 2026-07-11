@@ -10,6 +10,7 @@ import student.solution.midterm254.Tea;
 import student.testSuite.BaseTester;
 import student.util.GetterUtils;
 import student.util.MethodUtils;
+import student.util.TestCaseUtils;
 
 public class TeaTester extends BaseTester {
 	protected TeaCategoryTester teaCategoryTester;
@@ -43,7 +44,7 @@ public class TeaTester extends BaseTester {
 	}
 
 	public TestCase declareGetName() {
-		return super.methodTester.declare(defaultPoints, className, getName());
+		return super.methodTester.declaredAsPublicAbstract(defaultPoints, className, getName());
 	}
 
 	/**
@@ -54,7 +55,7 @@ public class TeaTester extends BaseTester {
 	}
 
 	public TestCase declareGetFlavor() {
-		return super.methodTester.declare(defaultPoints, className, getFlavor());
+		return super.methodTester.declaredAsPublicAbstract(defaultPoints, className, getFlavor());
 	}
 
 	/**
@@ -65,7 +66,25 @@ public class TeaTester extends BaseTester {
 	}
 
 	public TestCase declareGetPrice() {
-		return super.methodTester.declare(defaultPoints, className, getPrice());
+		return super.methodTester.declaredAsPublicAbstract(defaultPoints, className, getPrice());
+	}
+
+	/**
+	 * getCategory()
+	 * @throws TesterGotNoClassNameException 
+	 * @throws ClassNotFoundException 
+	 */
+	protected TestingMethod getCategory() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingMethod(teaCategoryTester.getCorrespondingClass(), GetterUtils.getGetterName(FieldName.CATEGORY));
+	}
+
+	public TestCase declareGetCategory() {
+		try {
+			return super.methodTester.declaredAsPublicAbstract(defaultPoints, className, getCategory());
+		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+		}
 	}
 
 	/**
@@ -76,6 +95,6 @@ public class TeaTester extends BaseTester {
 	}
 
 	public TestCase declareEquals() {
-		return super.methodTester.declare(defaultPoints, className, equals());
+		return super.methodTester.declaredAsPublicDefault(defaultPoints, className, equals());
 	}
 }

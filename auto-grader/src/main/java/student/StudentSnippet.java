@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -20,9 +22,11 @@ import java.util.stream.Stream;
 import org.opentest4j.AssertionFailedError;
 
 import student.constant.Lab;
+import student.constant.MethodName;
 import student.constant.Problem;
 import student.exception.TesterGotNoClassNameException;
 import student.model.SingleGradingTask;
+import student.solution.midterm254.Tea;
 import student.testSuite.lab4.problem1_3.EmployeeTester;
 import student.util.ValueUtils;
 
@@ -32,7 +36,13 @@ public class StudentSnippet {
 	File submissionDirectory = new File(path);
     
     public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, NoSuchFieldException, TesterGotNoClassNameException {
-    	System.out.println(ValueUtils.toPercentage(19, 24) + "%");
+//    	Method equals = Tea.class.getDeclaredMethod(MethodName.EQUALS, Tea.class);
+//    	System.out.println("Default: " + equals.isDefault());
+
+    	Method getName = Tea.class.getDeclaredMethod("getName");
+    	System.out.println(getName.getReturnType());
+    	System.out.println(Modifier.isPublic(getName.getModifiers()));
+    	System.out.println(Modifier.isAbstract(getName.getModifiers()));
     }
 
     private static void future() {

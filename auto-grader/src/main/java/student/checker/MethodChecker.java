@@ -215,6 +215,16 @@ public class MethodChecker {
 		
 		return Modifier.isPublic(reflectMethod.getModifiers()) && Modifier.isAbstract(reflectMethod.getModifiers());
 	}
+	
+	public boolean isPublicDefault(Class<?> clazz, TestingMethod method) throws NoSuchMethodException {
+		Method reflectMethod = clazz.getDeclaredMethod(method.getName(), method.getParameterTypes());
+
+		if (!method.equalsButModifiers(reflectMethod)) {
+			return false;
+		}
+		
+		return Modifier.isPublic(reflectMethod.getModifiers()) && reflectMethod.isDefault();
+	}
 
 	/*
 	 * EXCLUDE

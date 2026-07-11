@@ -25,6 +25,7 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 					, teaTester.declareGetName()
 					, teaTester.declareGetFlavor()
 					, teaTester.declareGetPrice()
+					, teaTester.declareGetCategory()
 					, teaTester.declareEquals()
 			);
 		} catch (Exception e) {

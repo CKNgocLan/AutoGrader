@@ -5,6 +5,7 @@ public class FieldName {
 	 * Tea
 	 */
 	public static final String FLAVOR = "flavor";
+	public static final String CATEGORY = "category";
 
 	/*
 	 * Customer
