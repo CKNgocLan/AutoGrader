@@ -19,6 +19,12 @@ public class FieldName {
 
 	public static final String TEA = "tea";
 
+	/**
+	 * Cart
+	 */
+
+	public static final String ORDERED_ITEMS = "orderedItems";
+
 	/*
 	 * Customer
 	 */

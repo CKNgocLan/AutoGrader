@@ -5,6 +5,7 @@ import java.util.List;
 
 import student.model.ALabTestSuite;
 import student.model.TestCase;
+import student.testSuite.exam.midterm254.CartTester;
 import student.testSuite.exam.midterm254.OrderedItemTester;
 import student.testSuite.exam.midterm254.TeaCategoryTester;
 import student.testSuite.exam.midterm254.TeaTaxTester;
@@ -18,6 +19,7 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 			TeaTester teaTester = new TeaTester().teaCategoryTester(teaCategoryTester);
 			TeaTaxTester teaTaxTester = new TeaTaxTester();
 			OrderedItemTester orderedItemTester = new OrderedItemTester().teaTester(teaTester);
+			CartTester cartTester = new CartTester().orderedItemTester(orderedItemTester);
 
 			return Arrays.asList(
 					/*** Tea Category ***/
@@ -44,6 +46,15 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 					, orderedItemTester.declareGetPriceAfterTax()
 					, orderedItemTester.checkToStringDeclaration(defaultPoints)
 					, orderedItemTester.declareEqualsMethod(orderedItemTester.getCorrespondingClass())
+
+					/*** Cart ***/
+					, cartTester.declare()
+					, cartTester.declareFields()
+					, cartTester.declareConstructor()
+					, cartTester.declareAddOrderedItem()
+					, cartTester.declarePrintOrderedItems()
+					, cartTester.declareGetTotalPriceAfterTax()
+					, cartTester.haveOnlyOneConstructor()
 			);
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -7,6 +7,9 @@ public class Cart {
     public Cart() {
         this.orderedItems = new ArrayList<>();
     }
+    public Cart(int abc) {
+        
+    }
 
     public void add(OrderedItem item) {
         if (item == null) return;
