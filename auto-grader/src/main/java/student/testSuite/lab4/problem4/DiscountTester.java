@@ -10,13 +10,13 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
 public class DiscountTester extends BaseTester {
-	public List<ITestCase> getAllTestcases() {
+	public List<TestCase> getAllTestcases() {
 		return Arrays.asList(
 				declare(defaultPoints)
 				, declareFields(defaultPoints)
@@ -65,7 +65,7 @@ public class DiscountTester extends BaseTester {
 	/*
 	 * declaration
 	 */
-	public ITestCase declare(int points) {
+	public TestCase declare(int points) {
 		return super.declare(points);
 	}
 
@@ -73,7 +73,7 @@ public class DiscountTester extends BaseTester {
 	 * field ***************
 	 */
 
-	public ITestCase declareFields(int points) {
+	public TestCase declareFields(int points) {
 		try {
 			return super.fieldTester.checkDeclarations(points, className, fields());
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
@@ -86,7 +86,7 @@ public class DiscountTester extends BaseTester {
 	 * constructor
 	 */
 
-	public ITestCase declareConstructor(int points) {
+	public TestCase declareConstructor(int points) {
 		try {
 			return super.checkConstructorDeclaration(points, double.class, LocalDate.class);
 		} catch (ClassNotFoundException e) {
@@ -95,7 +95,7 @@ public class DiscountTester extends BaseTester {
 		}
 	}
 
-	public ITestCase operateConstructor(int points, double percent, LocalDate endDate)
+	public TestCase operateConstructor(int points, double percent, LocalDate endDate)
 			throws ClassNotFoundException, TesterGotNoClassNameException {
 		return super.checkConstructorOperation(points, argument(percent, endDate));
 	}
@@ -103,21 +103,21 @@ public class DiscountTester extends BaseTester {
 	/*
 	 * getter
 	 */
-	public ITestCase declareGetters(int points) {
+	public TestCase declareGetters(int points) {
 		return super.methodTester.checkGetterDeclaration(points, className);
 	}
 
 	/*
 	 * setter
 	 */
-	public ITestCase declareSetters(int points) {
+	public TestCase declareSetters(int points) {
 		return super.methodTester.checkSetterDeclaration(points, className);
 	}
 
 	/*
 	 * toString
 	 */
-	public ITestCase declareToString(int points) {
+	public TestCase declareToString(int points) {
 		return super.checkToStringDeclaration(points);
 	}
 }

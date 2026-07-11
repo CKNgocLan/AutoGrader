@@ -10,7 +10,7 @@ import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
@@ -65,7 +65,7 @@ public class PoliceOfficerTester extends BaseTester {
 	/*
 	 * declare
 	 */
-	public ITestCase declare(int points) {
+	public TestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -73,7 +73,7 @@ public class PoliceOfficerTester extends BaseTester {
 	 * fields
 	 */
 	
-	public ITestCase declareFields(int points) {
+	public TestCase declareFields(int points) {
 		return fieldTester.checkDeclarations(points, className
 				, new TestingField(String.class, FieldName.NAME)
 				, new TestingField(String.class, FieldName.BADGE_NUMBER)
@@ -84,11 +84,11 @@ public class PoliceOfficerTester extends BaseTester {
 	 * constructor
 	 */
 	
-	public ITestCase declareConstructor(int points) {
+	public TestCase declareConstructor(int points) {
 		return super.classTester.checkPartialArgsConstructorDeclaration(points, className, String.class, String.class);
 	}
 
-	public ITestCase operateConstructor(int points, String name, String badgeNumber) {
+	public TestCase operateConstructor(int points, String name, String badgeNumber) {
 		return super.classTester.checkPartialArgsConstructorOperationViaGetter(points, className, constructorArgs(name, badgeNumber));
 	}
 
@@ -110,7 +110,7 @@ public class PoliceOfficerTester extends BaseTester {
 		);
 	}
 	
-	public ITestCase declareExamineCar(int points) {
+	public TestCase declareExamineCar(int points) {
 		try {
 			return super.methodTester.declare(points, className, examineCarMethod());
 		} catch (Exception e) {
@@ -119,11 +119,11 @@ public class PoliceOfficerTester extends BaseTester {
 		}
 	}
 	
-	public ITestCase operateExamineCar(int points, int parkedMinutes, int purchasedMinutes) {
+	public TestCase operateExamineCar(int points, int parkedMinutes, int purchasedMinutes) {
 		return operateExamineCar(points, Constants.DEFAULT_NAME, Constants.DEFAULT_BADGE_NUMBER, parkedMinutes, purchasedMinutes);
 	}
 	
-	public ITestCase operateExamineCar(int points, String name, String badgeNumber, int parkedMinutes, int purchasedMinutes) {
+	public TestCase operateExamineCar(int points, String name, String badgeNumber, int parkedMinutes, int purchasedMinutes) {
 		try {
 			return super.methodTester.returnBoolean(points, examineCarMethod(parkedMinutes, purchasedMinutes)
 						.config(getCorrespondingClass(), instantiate(name, badgeNumber))
@@ -170,7 +170,7 @@ public class PoliceOfficerTester extends BaseTester {
         return fine;
 	}
 	
-	public ITestCase declareIssueTicket(int points) {
+	public TestCase declareIssueTicket(int points) {
 		try {
 			return super.methodTester.declare(points, className, issueTicketMethod());
 		} catch (Exception e) {
@@ -179,11 +179,11 @@ public class PoliceOfficerTester extends BaseTester {
 		}
 	}
 	
-	public ITestCase operateIssueTicket(int points, int parkedMinutes, int purchasedMinutes) {
+	public TestCase operateIssueTicket(int points, int parkedMinutes, int purchasedMinutes) {
 		return operateIssueTicket(points, Constants.DEFAULT_NAME, Constants.DEFAULT_BADGE_NUMBER, parkedMinutes, purchasedMinutes);
 	}
 	
-	public ITestCase operateIssueTicket(int points, String name, String badgeNumber, int parkedMinutes, int purchasedMinutes) {
+	public TestCase operateIssueTicket(int points, String name, String badgeNumber, int parkedMinutes, int purchasedMinutes) {
 		TestingMethod method;
 		try {
 			method = issueTicketMethod(parkedMinutes, purchasedMinutes);
@@ -192,7 +192,7 @@ public class PoliceOfficerTester extends BaseTester {
 			return TestCaseUtils.errorTestcase(points, className, e);
 		}
 
-		return new ITestCase() {
+		return new TestCase() {
 
 			@Override
 			public String getName() {

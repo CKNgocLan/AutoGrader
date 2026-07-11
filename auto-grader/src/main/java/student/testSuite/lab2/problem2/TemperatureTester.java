@@ -6,7 +6,7 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.InvalidConfigurationException;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
@@ -37,7 +37,7 @@ public class TemperatureTester {
 	 * Existence **********
 	 */
 
-	public ITestCase checkExistence(int points) {
+	public TestCase checkExistence(int points) {
 		return classTest.checkExistence(points, className);
 	}
 
@@ -45,7 +45,7 @@ public class TemperatureTester {
 	 * Field: ftemp **********
 	 */
 
-	public ITestCase checkField(int points, String fieldName, Class<?> type) {
+	public TestCase checkField(int points, String fieldName, Class<?> type) {
 		return fieldTester.checkDeclaration(points, className, fieldName, type);
 	}
 
@@ -53,19 +53,19 @@ public class TemperatureTester {
 	 * Constructor **********
 	 */
 
-	public ITestCase checkFullArgsConstructorDeclaration(int points, TestingParameter... params) {
+	public TestCase checkFullArgsConstructorDeclaration(int points, TestingParameter... params) {
 		return classTest.checkFullArgsConstructorDeclaration(points, className, params);
 	}
 
-	public ITestCase checkFullArgsConstructorOperation(int points, TestingParameter... params) {
+	public TestCase checkFullArgsConstructorOperation(int points, TestingParameter... params) {
 		return classTest.checkFullArgsConstructorOperation(points, className, params);
 	}
 
 	/*
 	 * setFahrenheit/ getFahrenheit **********
 	 */
-	public ITestCase checkSetgetFahrenheit(int points, double fahrenheit) {
-		return new ITestCase() {
+	public TestCase checkSetgetFahrenheit(int points, double fahrenheit) {
+		return new TestCase() {
 			String invalidMethodName;
 
 			@Override
@@ -118,8 +118,8 @@ public class TemperatureTester {
 	/*
 	 * getCelsius **********
 	 */
-	public ITestCase checkGetCelsius(int points, double fahrenheit, double celsius) {
-		return new ITestCase() {
+	public TestCase checkGetCelsius(int points, double fahrenheit, double celsius) {
+		return new TestCase() {
 			TestingMethod testedMethod = new TestingMethod(double.class, MethodName.GET_CELSIUS);
 
 			@Override
@@ -163,8 +163,8 @@ public class TemperatureTester {
 	/*
 	 * getKelvin **********
 	 */
-	public ITestCase checkGetKelvin(int points, double fahrenheit, double kelvin) {
-		return new ITestCase() {
+	public TestCase checkGetKelvin(int points, double fahrenheit, double kelvin) {
+		return new TestCase() {
 			TestingMethod testedMethod = new TestingMethod(double.class, MethodName.GET_KELVIN);
 
 			@Override

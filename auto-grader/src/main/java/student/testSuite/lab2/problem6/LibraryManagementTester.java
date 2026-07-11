@@ -10,7 +10,7 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.model.ClassLoader;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
@@ -62,7 +62,7 @@ public class LibraryManagementTester {
 	 * existence ***************
 	 */
 
-	public ITestCase checkExistence(int points) {
+	public TestCase checkExistence(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -70,7 +70,7 @@ public class LibraryManagementTester {
 	 * fields ***************
 	 */
 	
-	public ITestCase checkFields(int points) {
+	public TestCase checkFields(int points) {
 		return fieldTester.checkDeclarations(points, className
 				, new TestingField(List.class, FieldName.USERS)
 				, new TestingField(List.class, FieldName.BOOKS)
@@ -81,14 +81,14 @@ public class LibraryManagementTester {
     /*
      * getter ***************
      */
-    public ITestCase checkGetterDeclaration(int points) {
+    public TestCase checkGetterDeclaration(int points) {
         return methodTester.checkGetterDeclaration(points, className);
     }
 
     /*
      * setter ***************
      */
-    public ITestCase checkSetterDeclaration(int points) {
+    public TestCase checkSetterDeclaration(int points) {
         return methodTester.checkSetterDeclaration(points, className);
     }
 
@@ -96,7 +96,7 @@ public class LibraryManagementTester {
      * addUser ***************
      */
 
-	public ITestCase addUserDeclaration(int points) throws ClassNotFoundException {
+	public TestCase addUserDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.ADD_USER,
 				new TestingParameter(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
@@ -105,7 +105,7 @@ public class LibraryManagementTester {
      * addBook ***************
      */
 
-	public ITestCase addBookDeclaration(int points) throws ClassNotFoundException {
+	public TestCase addBookDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.ADD_BOOK,
 				new TestingParameter(BookTester.getCorrespondingClass(), FieldName.BOOK)));
 	}
@@ -114,7 +114,7 @@ public class LibraryManagementTester {
      * addBorrowingRecord ***************
      */
 
-	public ITestCase addBorrowingRecordDeclaration(int points) throws ClassNotFoundException {
+	public TestCase addBorrowingRecordDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.ADD_BORROWING_RECORD,
 				new TestingParameter(BorrowingRecordTester.getCorrespondingClass(), FieldName.BORROWING_RECORD)));
 	}
@@ -123,7 +123,7 @@ public class LibraryManagementTester {
      * getBorrowingBooks ***************
      */
 
-	public ITestCase getBorrowingBooksDeclaration(int points) throws ClassNotFoundException {
+	public TestCase getBorrowingBooksDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, new TestingMethod(List.class, MethodName.GET_BORROWING_BOOKS,
 				new TestingParameter(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
@@ -132,7 +132,7 @@ public class LibraryManagementTester {
      * isValidUser ***************
      */
 
-	public ITestCase isValidUserDeclaration(int points) throws ClassNotFoundException {
+	public TestCase isValidUserDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, new TestingMethod(Modifier.PRIVATE, boolean.class, MethodName.IS_VALID_USER,
 				new TestingParameter(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
@@ -141,7 +141,7 @@ public class LibraryManagementTester {
      * isUserEligibleToBorrow ***************
      */
 
-	public ITestCase isUserEligibleToBorrowDeclaration(int points) throws ClassNotFoundException {
+	public TestCase isUserEligibleToBorrowDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, new TestingMethod(Modifier.PRIVATE, boolean.class, MethodName.IS_USER_ELIGIBLE_TO_BORROW,
 				new TestingParameter(UserTester.getCorrespondingClass(), FieldName.USER)));
 	}
@@ -150,7 +150,7 @@ public class LibraryManagementTester {
      * showAllUsers ***************
      */
 
-	public ITestCase showAllUsersDeclaration(int points) throws ClassNotFoundException {
+	public TestCase showAllUsersDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_USERS));
 	}
     
@@ -158,7 +158,7 @@ public class LibraryManagementTester {
      * showAllBooks ***************
      */
 
-	public ITestCase showAllBooksDeclaration(int points) throws ClassNotFoundException {
+	public TestCase showAllBooksDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_BOOKS));
 	}
     
@@ -166,7 +166,7 @@ public class LibraryManagementTester {
      * showAllBorrowingRecords ***************
      */
 
-	public ITestCase showAllBorrowingRecordsDeclaration(int points) throws ClassNotFoundException {
+	public TestCase showAllBorrowingRecordsDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_BORROWING_RECORDS));
 	}
 }

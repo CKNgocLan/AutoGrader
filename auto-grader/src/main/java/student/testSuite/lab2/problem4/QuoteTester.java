@@ -10,7 +10,7 @@ import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.ClassLoader;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.lab2.CustomerTester;
@@ -44,7 +44,7 @@ public class QuoteTester {
 	 * Existence ***************************************************************************
 	 */
 
-	public ITestCase checkExistence(int points) {
+	public TestCase checkExistence(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -64,7 +64,7 @@ public class QuoteTester {
      * Constructor ***************
      */
     
-    public ITestCase checkPartialArgsConstructorDeclaration(int points, TestingParameter... params) throws ClassNotFoundException {
+    public TestCase checkPartialArgsConstructorDeclaration(int points, TestingParameter... params) throws ClassNotFoundException {
         return classTester.checkPartialArgsConstructorDeclaration(points, className, params);
     }
 
@@ -93,7 +93,7 @@ public class QuoteTester {
 	 * Fields ***************
 	 */
 	
-	public ITestCase checkFields(int points) throws ClassNotFoundException {
+	public TestCase checkFields(int points) throws ClassNotFoundException {
 		return fieldTester.checkDeclarations(points, className
 				, new TestingField(List.class, FieldName.INGREDIENT)
 				, new TestingField(double.class, FieldName.LABOR_CHARGE)
@@ -105,14 +105,14 @@ public class QuoteTester {
     /*
      * Getter ***************
      */
-    public ITestCase checkGetterDeclaration(int points) {
+    public TestCase checkGetterDeclaration(int points) {
         return methodTester.checkGetterDeclaration(points, className);
     }
 
     /*
      * Setter ***************
      */
-    public ITestCase checkSetterDeclaration(int points) {
+    public TestCase checkSetterDeclaration(int points) {
         return methodTester.checkSetterDeclaration(points, className);
     }
 
@@ -120,14 +120,14 @@ public class QuoteTester {
 	 * toString ***************
 	 */
 
-	public ITestCase checkToStringDeclaration(int points) {
+	public TestCase checkToStringDeclaration(int points) {
 		return methodTester.declare(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 	
-	public ITestCase checkToStringOperation(int points, List<String> ingredient, double laborCharge, double deliveryFee, Object cake) {
+	public TestCase checkToStringOperation(int points, List<String> ingredient, double laborCharge, double deliveryFee, Object cake) {
 		TestingMethod method = MethodUtils.createMethodToString();
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
@@ -173,15 +173,15 @@ public class QuoteTester {
 	 * getPriceAfterTax **********
 	 */
 
-	public ITestCase checkGetPriceAfterTaxDeclaration(int points) throws ClassNotFoundException {
+	public TestCase checkGetPriceAfterTaxDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className,
 				new TestingMethod(double.class, MethodName.GET_PRICE_AFTER_TAX));
 	}
 
-	public ITestCase checkGetPriceAfterTaxOperation(int points, double laborCharge, double deliveryFee, double priceAfterTax) throws ClassNotFoundException {
+	public TestCase checkGetPriceAfterTaxOperation(int points, double laborCharge, double deliveryFee, double priceAfterTax) throws ClassNotFoundException {
 		TestingMethod method = new TestingMethod(double.class, MethodName.GET_PRICE_AFTER_TAX);
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());

@@ -12,7 +12,7 @@ import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.ClassLoader;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.lab2.CustomerTester;
@@ -66,7 +66,7 @@ public class PetShopTester {
 	 * Existence **********
 	 */
 
-	public ITestCase checkExistence(int points) {
+	public TestCase checkExistence(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -74,7 +74,7 @@ public class PetShopTester {
 	 * Field **********
 	 */
 
-	public ITestCase checkFields(int points) throws ClassNotFoundException {
+	public TestCase checkFields(int points) throws ClassNotFoundException {
 		return fieldTester.checkDeclarations(points, className,
 				new TestingField(List.class, student.model.ClassLoader.retrieveClass(ClassName.CUSTOMER),
 						FieldName.CUSTOMERS),
@@ -87,21 +87,21 @@ public class PetShopTester {
 	 * Constructor **********
 	 */
 
-	public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
+	public TestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
 		return classTester.checkNoArgConstructorDeclaration(points, className);
 	}
 
 	/*
 	 * Getter **********
 	 */
-	public ITestCase checkGetterDeclaration(int points) {
+	public TestCase checkGetterDeclaration(int points) {
 		return methodTester.checkGetterDeclaration(points, className);
 	}
 
 	/*
 	 * Setter **********
 	 */
-	public ITestCase checkSetterDeclaration(int points) {
+	public TestCase checkSetterDeclaration(int points) {
 		return methodTester.checkSetterDeclaration(points, className);
 	}
 
@@ -109,17 +109,17 @@ public class PetShopTester {
 	 * addCustomer **********
 	 */
 
-	public ITestCase checkAddCustomerDeclaration(int points) throws ClassNotFoundException {
+	public TestCase checkAddCustomerDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className,
 				new TestingMethod(ClassLoader.retrieveClass(ClassName.CUSTOMER), MethodName.ADD_CUSTOMER,
 						new TestingParameter(ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMERS)));
 	}
 
-	public ITestCase checkAddCustomerOperation(int points) throws ClassNotFoundException {
+	public TestCase checkAddCustomerOperation(int points) throws ClassNotFoundException {
 		TestingMethod method = new TestingMethod(ClassLoader.retrieveClass(ClassName.CUSTOMER),
 				MethodName.ADD_CUSTOMER);
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
@@ -155,13 +155,13 @@ public class PetShopTester {
 	 * showAllCustomers **********
 	 */
 
-	public ITestCase checkShowAllCustomersDeclaration(int points) {
+	public TestCase checkShowAllCustomersDeclaration(int points) {
 		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_CUSTOMERS));
 	}
 
-	public ITestCase checkShowAllCustomersOperation(int points) {
+	public TestCase checkShowAllCustomersOperation(int points) {
 		String customerName = "Alice";
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, MethodName.SHOW_ALL_CUSTOMERS);
@@ -218,15 +218,15 @@ public class PetShopTester {
 	 * addPet **********
 	 */
 
-	public ITestCase checkAddPetDeclaration(int points) throws ClassNotFoundException {
+	public TestCase checkAddPetDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, new TestingMethod(void.class,
 				MethodName.ADD_PET, new TestingParameter(PetTester.getCorrespondingClass(), FieldName.PETS)));
 	}
 
-	public ITestCase checkAddPetOperation(int points) throws ClassNotFoundException {
+	public TestCase checkAddPetOperation(int points) throws ClassNotFoundException {
 		TestingMethod method = new TestingMethod(ClassLoader.retrieveClass(ClassName.PET), MethodName.ADD_PET);
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
@@ -265,15 +265,15 @@ public class PetShopTester {
 	 * showAllPets **********
 	 */
 
-	public ITestCase checkShowAllPetsDeclaration(int points) {
+	public TestCase checkShowAllPetsDeclaration(int points) {
 		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.SHOW_ALL_PETS));
 	}
 
-	public ITestCase checkShowAllPetsOperation(int points) throws ClassNotFoundException {
+	public TestCase checkShowAllPetsOperation(int points) throws ClassNotFoundException {
 		TestingMethod method = new TestingMethod(PetTester.getCorrespondingClass(), MethodName.SHOW_ALL_PETS);
 		final String customerName = "Old Man Hac";
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
@@ -325,16 +325,16 @@ public class PetShopTester {
 	 * addServiceEstimate **********
 	 */
 
-	public ITestCase checkAddServiceEstimateDeclaration(int points) throws ClassNotFoundException {
+	public TestCase checkAddServiceEstimateDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, new TestingMethod(void.class, MethodName.ADD_SERVICE_ESTIMATE,
 				new TestingParameter(ServiceEstimateTester.getCorrespondingClass(), FieldName.SERVICE_ESTIMATES)));
 	}
 
-	public ITestCase checkAddServiceEstimateOperation(int points) throws ClassNotFoundException {
+	public TestCase checkAddServiceEstimateOperation(int points) throws ClassNotFoundException {
 		TestingMethod method = new TestingMethod(void.class, MethodName.ADD_SERVICE_ESTIMATE,
 				new TestingParameter(ServiceEstimateTester.getCorrespondingClass(), FieldName.SERVICE_ESTIMATE));
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
@@ -369,16 +369,16 @@ public class PetShopTester {
 	 * showAllServiceEstimates **********
 	 */
 
-	public ITestCase checkShowAllServiceEstimatesDeclaration(int points) {
+	public TestCase checkShowAllServiceEstimatesDeclaration(int points) {
 		return methodTester.declare(points, className,
 				new TestingMethod(void.class, MethodName.SHOW_ALL_SERVICE_ESTIMATES));
 	}
 
-	public ITestCase checkShowAllServiceEstimatesOperation(int points) throws ClassNotFoundException {
+	public TestCase checkShowAllServiceEstimatesOperation(int points) throws ClassNotFoundException {
 		TestingMethod method = new TestingMethod(PetTester.getCorrespondingClass(), MethodName.SHOW_ALL_SERVICE_ESTIMATES);
 		final String customerName = "Old Man Hac";
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());

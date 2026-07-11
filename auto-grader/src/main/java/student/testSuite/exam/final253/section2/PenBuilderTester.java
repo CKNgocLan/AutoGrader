@@ -6,7 +6,7 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.solution.final253.section2.Pen;
@@ -63,7 +63,7 @@ public class PenBuilderTester extends BaseTester {
 	 * declare
 	 */
 
-	public ITestCase declare() {
+	public TestCase declare() {
 		return super.declareAsInnerStaticClass(defaultPoints);
 	}
 
@@ -71,7 +71,7 @@ public class PenBuilderTester extends BaseTester {
 	 * field
 	 */
 
-	public ITestCase declareFields() {
+	public TestCase declareFields() {
 		return super.fieldTester.checkDeclarations(defaultPoints, className, getSolutionFields());
 	}
 
@@ -87,7 +87,7 @@ public class PenBuilderTester extends BaseTester {
 		return createSetBrandMethod().updateParameter(new TestingParameter(String.class, FieldName.BRAND, brand));
 	}
 
-	public ITestCase declareSetBrand() {
+	public TestCase declareSetBrand() {
 		try {
 			return super.methodTester.declare(defaultPoints, className, createSetBrandMethod());
 		} catch (Exception e) {
@@ -96,7 +96,7 @@ public class PenBuilderTester extends BaseTester {
 		}
 	}
 
-	public ITestCase operateSetBrand(String brand) {
+	public TestCase operateSetBrand(String brand) {
 		try {
 			Class<?> clazz = getCorrespondingClass();
 			Object instance = instantiate();
@@ -125,7 +125,7 @@ public class PenBuilderTester extends BaseTester {
 		return createSetModelMethod().updateParameter(new TestingParameter(String.class, FieldName.MODEL, model));
 	}
 
-	public ITestCase declareSetModel() {
+	public TestCase declareSetModel() {
 		try {
 			return super.methodTester.declare(defaultPoints, className, createSetModelMethod());
 		} catch (Exception e) {
@@ -134,7 +134,7 @@ public class PenBuilderTester extends BaseTester {
 		}
 	}
 
-	public ITestCase operateSetModel(String model) {
+	public TestCase operateSetModel(String model) {
 		try {
 			Class<?> clazz = getCorrespondingClass();
 			Object instance = instantiate();
@@ -163,7 +163,7 @@ public class PenBuilderTester extends BaseTester {
 		return createSetPriceMethod().updateParameter(new TestingParameter(double.class, FieldName.PRICE, price));
 	}
 
-	public ITestCase declareSetPrice() {
+	public TestCase declareSetPrice() {
 		try {
 			return super.methodTester.declare(defaultPoints, className, createSetPriceMethod());
 		} catch (Exception e) {
@@ -172,7 +172,7 @@ public class PenBuilderTester extends BaseTester {
 		}
 	}
 
-	public ITestCase operateSetPrice(double price) {
+	public TestCase operateSetPrice(double price) {
 		try {
 			Class<?> clazz = getCorrespondingClass();
 			Object instance = instantiate();
@@ -197,7 +197,7 @@ public class PenBuilderTester extends BaseTester {
 		return new TestingMethod(retriveClass(containingClassName), MethodName.BUILD);
 	}
 
-	public ITestCase declareBuild() {
+	public TestCase declareBuild() {
 		try {
 			return super.methodTester.declare(defaultPoints, className, createBuildMethod());
 		} catch (Exception e) {
@@ -206,7 +206,7 @@ public class PenBuilderTester extends BaseTester {
 		}
 	}
 
-	public ITestCase operateBuild(String brand, String model, double price) {
+	public TestCase operateBuild(String brand, String model, double price) {
 		try {
 			TestingMethod method = createBuildMethod();
 			Object penInstance = buildPen(brand, model, price, method);

@@ -34,7 +34,7 @@ public abstract class ATester {
 	 * @Check: Field, Constructor(s), Getter/Setter
 	 * @param points {existence, fields, getter, setter}
 	 */
-	public List<ITestCase> checkEssentialDeclarations(int[] points) {
+	public List<TestCase> checkEssentialDeclarations(int[] points) {
 		return Arrays.asList(
 				checkExistence(5)
 				, checkFields(5)
@@ -46,22 +46,22 @@ public abstract class ATester {
 	/*
 	 * Existence ***************************************************************************
 	 */
-	public abstract ITestCase checkExistence(int points);
+	public abstract TestCase checkExistence(int points);
 	
 	/*
 	 * Fields ***************************************************************************
 	 */
-	public abstract ITestCase checkFields(int points);
+	public abstract TestCase checkFields(int points);
 
     /*
      * Getter ***************************************************************************
      */
-    public abstract ITestCase checkGetterDeclaration(int points);
+    public abstract TestCase checkGetterDeclaration(int points);
 
     /*
      * Setter ***************************************************************************
      */
-    public abstract ITestCase checkSetterDeclaration(int points);
+    public abstract TestCase checkSetterDeclaration(int points);
 
 	/*
 	 * Constructor ***************************************************************************

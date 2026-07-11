@@ -6,7 +6,7 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.model.ClassLoader;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -58,7 +58,7 @@ public class BookTester {
 	 * existence ***************
 	 */
 
-	public ITestCase checkExistence(int points) {
+	public TestCase checkExistence(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -66,7 +66,7 @@ public class BookTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase checkFullArgsConstructorDeclaration(int points, TestingParameter... params) {
+	public TestCase checkFullArgsConstructorDeclaration(int points, TestingParameter... params) {
 		return classTester.checkFullArgsConstructorDeclaration(points, className, params);
 	}
 
@@ -74,7 +74,7 @@ public class BookTester {
 	 * fields ***************
 	 */
 	
-	public ITestCase checkFields(int points) {
+	public TestCase checkFields(int points) {
 		return fieldTester.checkDeclarations(points, className
 				, new TestingField(String.class, FieldName.ISBN)
 				, new TestingField(String.class, FieldName.TITLE)
@@ -85,7 +85,7 @@ public class BookTester {
      * getter ***************
      */
 	
-    public ITestCase checkGetterDeclaration(int points) {
+    public TestCase checkGetterDeclaration(int points) {
         return methodTester.checkGetterDeclaration(points, className);
     }
 
@@ -93,7 +93,7 @@ public class BookTester {
      * setter ***************
      */
     
-    public ITestCase checkSetterDeclaration(int points) {
+    public TestCase checkSetterDeclaration(int points) {
         return methodTester.checkSetterDeclaration(points, className);
     }
 
@@ -101,7 +101,7 @@ public class BookTester {
      * equals ***************
      */
 
-	public ITestCase checkEqualsDeclaration(int points) throws ClassNotFoundException {
+	public TestCase checkEqualsDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className,
 				MethodUtils.createMethodEquals(FieldName.BOOK, BookTester.getCorrespondingClass()));
 	}

@@ -7,12 +7,12 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
 public class PenTypeTester extends BaseTester {
-	public List<ITestCase> getAllTestcases() {
+	public List<TestCase> getAllTestcases() {
 		return Arrays.asList(
 				declare(defaultPoints)
 				, declareFields(defaultPoints)
@@ -41,7 +41,7 @@ public class PenTypeTester extends BaseTester {
 	/*
 	 * declaration
 	 */
-	public ITestCase declare(int points) {
+	public TestCase declare(int points) {
 		return super.declareAsEnum(points);
 	}
 	
@@ -49,7 +49,7 @@ public class PenTypeTester extends BaseTester {
 	 * field ***************
 	 */
 	
-	public ITestCase declareFields(int points) {
+	public TestCase declareFields(int points) {
 		try {
 			return super.fieldTester.checkDeclarationsAsPublicStaticFinal(points, className, fields());
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {

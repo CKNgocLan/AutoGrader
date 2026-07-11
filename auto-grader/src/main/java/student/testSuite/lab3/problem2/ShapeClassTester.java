@@ -6,7 +6,7 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
@@ -26,7 +26,7 @@ public class ShapeClassTester extends BaseTester {
 	 * declare
 	 */
 
-	public ITestCase declare() {
+	public TestCase declare() {
 		return super.declare(defaultPoints);
 	}
 
@@ -68,11 +68,11 @@ public class ShapeClassTester extends BaseTester {
 	 * circle ***************
 	 */
 
-	public ITestCase declareAreaCircle(int points) {
+	public TestCase declareAreaCircle(int points) {
 		return methodTester.declaredAsSpecialModifers(points, className, method(circleArgs()).asStatic());
 	}
 
-	public ITestCase operateAreaCircle(int points, double radius, Object expected) throws ClassNotFoundException,
+	public TestCase operateAreaCircle(int points, double radius, Object expected) throws ClassNotFoundException,
 			TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException {
 		return methodTester.checkOperationAsNumberic(points,
@@ -83,11 +83,11 @@ public class ShapeClassTester extends BaseTester {
 	 * rectangle ***************
 	 */
 
-	public ITestCase declareAreaRectangle(int points) {
+	public TestCase declareAreaRectangle(int points) {
 		return methodTester.declaredAsSpecialModifers(points, className, method(rectangleArgs()).asStatic());
 	}
 
-	public ITestCase operateAreaRectangle(int points, long width, long length, Object expected)
+	public TestCase operateAreaRectangle(int points, long width, long length, Object expected)
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException, TesterGotNoClassNameException {
 		return methodTester.checkOperationAsNumberic(points, method(rectangleArgs(width, length))
@@ -98,11 +98,11 @@ public class ShapeClassTester extends BaseTester {
 	 * cylinder ***************
 	 */
 
-	public ITestCase declareAreaCylinder(int points) {
+	public TestCase declareAreaCylinder(int points) {
 		return methodTester.declaredAsSpecialModifers(points, className, method(cylinderArgs()).asStatic());
 	}
 
-	public ITestCase operateAreaCylinder(int points, double radius, double height, Object expected)
+	public TestCase operateAreaCylinder(int points, double radius, double height, Object expected)
 			throws ClassNotFoundException, TesterGotNoClassNameException, InstantiationException,
 			IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException,
 			SecurityException {

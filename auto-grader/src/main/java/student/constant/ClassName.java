@@ -1,6 +1,12 @@
 package student.constant;
 
 public class ClassName {
+	
+	/**
+	 * midterm 254
+	 */
+	public static final String CART = "Cart";
+
 	/*
 	 * final 253
 	 */

@@ -7,7 +7,7 @@ import java.util.List;
 import student.constant.Country;
 import student.constant.Problem;
 import student.model.ALabTestSuite;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.testSuite.exam.midterm253.BallpointPenTester;
 import student.testSuite.exam.midterm253.BrandName;
 import student.testSuite.exam.midterm253.BrandTester;
@@ -21,7 +21,7 @@ import student.testSuite.exam.midterm253.TaxTester;
 
 public class ExamMidtermTestSuite253 extends ALabTestSuite {
 	@Override
-	public List<ITestCase> getAllTests(String question) {
+	public List<TestCase> getAllTests(String question) {
 		int defaultPoints = 5;
 		try {
 			switch (question) {

@@ -3,7 +3,7 @@ package student.testSuite.exam.final253.section1;
 import student.constant.ClassName;
 import student.constant.ExceptionMessage;
 import student.exception.TesterGotNoClassNameException;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.solution.final253.section1.BallpointPenFactory;
 import student.testSuite.BaseTester;
 
@@ -25,11 +25,11 @@ public class BallpointPenFactoryTester extends BaseTester {
 	 * declare
 	 */
 
-	public ITestCase declare() {
+	public TestCase declare() {
 		return super.declare(defaultPoints);
 	}
 	
-	public ITestCase implementInterface() {
+	public TestCase implementInterface() {
 		try {
 			return super.implementInterface(defaultPoints, penFactoryTester.getCorrespondingClass());
 		} catch (Exception e) {
@@ -42,7 +42,7 @@ public class BallpointPenFactoryTester extends BaseTester {
 	 * createPen
 	 */
 
-	public ITestCase operateCreatePen(Object brand, String model, Object color, double price) {
+	public TestCase operateCreatePen(Object brand, String model, Object color, double price) {
 		try {
 			Class<?> subclass = getCorrespondingClass();
 			return penFactoryTester.operateCreatePen(subclass, penFactoryTester.createPen(subclass, brand, model, color, price)

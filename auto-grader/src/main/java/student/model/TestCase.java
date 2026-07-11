@@ -4,7 +4,7 @@ package student.model;
 /**
  * // Interface for your test cases
  */
-public interface ITestCase {
+public interface TestCase {
 	String getName();
 
 	int getPoints(); // points for this test case (e.g., 20)

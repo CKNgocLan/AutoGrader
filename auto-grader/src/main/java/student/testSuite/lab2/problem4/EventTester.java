@@ -6,7 +6,7 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.model.ClassLoader;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -56,7 +56,7 @@ public class EventTester {
 	 * Existence ***************************************************************************
 	 */
 
-	public ITestCase checkDeclaration(int points) {
+	public TestCase checkDeclaration(int points) {
 		return classTester.checkExistenceAsEnum(points, className);
 	}
 
@@ -64,7 +64,7 @@ public class EventTester {
 	 * Fields ***************************************************************************
 	 */
 	
-	public ITestCase checkFields(int points) throws ClassNotFoundException {
+	public TestCase checkFields(int points) throws ClassNotFoundException {
 		return fieldTester.checkDeclarationsAsPublicStaticFinal(points, className
 				, new TestingField(student.model.ClassLoader.retrieveClass(ClassName.EVENT), FieldName.UPPERCASE_WEDDING)
 				, new TestingField(student.model.ClassLoader.retrieveClass(ClassName.EVENT), FieldName.UPPERCASE_BIRTHDAY)
@@ -75,7 +75,7 @@ public class EventTester {
      * Getter ***************************************************************************
      */
     
-    public ITestCase checkGetterDeclaration(int points) {
+    public TestCase checkGetterDeclaration(int points) {
         return methodTester.checkGetterDeclaration(points, className);
     }
 
@@ -83,7 +83,7 @@ public class EventTester {
      * Setter ***************************************************************************
      */
     
-    public ITestCase checkSetterDeclaration(int points) {
+    public TestCase checkSetterDeclaration(int points) {
         return methodTester.checkSetterDeclaration(points, className);
     }
 }

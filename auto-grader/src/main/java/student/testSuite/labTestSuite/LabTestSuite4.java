@@ -8,7 +8,7 @@ import student.constant.Constants;
 import student.constant.Country;
 import student.constant.Problem;
 import student.model.ALabTestSuite;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.testSuite.exam.midterm253.BallpointPenTester;
 import student.testSuite.exam.midterm253.BrandName;
 import student.testSuite.exam.midterm253.BrandTester;
@@ -24,7 +24,7 @@ import student.testSuite.lab4.problem1_3.EmployeeTester;
 public class LabTestSuite4 extends ALabTestSuite {
 
 	@Override
-	public List<ITestCase> getAllTests(String question) {
+	public List<TestCase> getAllTests(String question) {
 		try {
 
 			switch (question) {

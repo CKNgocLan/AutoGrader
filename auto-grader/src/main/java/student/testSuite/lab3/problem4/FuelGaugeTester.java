@@ -8,7 +8,7 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
@@ -50,7 +50,7 @@ public class FuelGaugeTester extends BaseTester {
 	/*
 	 * declare
 	 */
-	public ITestCase declare(int points) {
+	public TestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -58,7 +58,7 @@ public class FuelGaugeTester extends BaseTester {
 	 * fields
 	 */
 	
-	public ITestCase fields(int points) {
+	public TestCase fields(int points) {
 		return fieldTester.checkDeclarations(points, className
 				, new TestingField(int.class, FieldName.GALLON)
 		);
@@ -68,11 +68,11 @@ public class FuelGaugeTester extends BaseTester {
 	 * constructor
 	 */
 	
-	public ITestCase declareConstructor(int points) {
+	public TestCase declareConstructor(int points) {
 		return super.classTester.checkPartialArgsConstructorDeclaration(points, className, int.class);
 	}
 
-	public ITestCase operateConstructor(int points, int gallon) {
+	public TestCase operateConstructor(int points, int gallon) {
 		return super.classTester.checkPartialArgsConstructorOperationViaGetter(points, className, constructorArgs(gallon));
 	}
 	
@@ -84,7 +84,7 @@ public class FuelGaugeTester extends BaseTester {
 		return new TestingMethod(void.class, MethodName.INCREASE_GALLON);
 	}
 	
-	public ITestCase operateIncreaseGallon(int points, int gallon) {
+	public TestCase operateIncreaseGallon(int points, int gallon) {
 		try {
 			return super.methodTester.operationAsVoidAndCompareIntField(points
 					, increaseGallonMethod()
@@ -105,7 +105,7 @@ public class FuelGaugeTester extends BaseTester {
 		return new TestingMethod(void.class, MethodName.DECREMENT_GALLON);
 	}
 	
-	public ITestCase operateDecrementGallon(int points, int gallon) {
+	public TestCase operateDecrementGallon(int points, int gallon) {
 		try {
 			return super.methodTester.operationAsVoidAndCompareIntField(points
 					, decrementGallonMethod()

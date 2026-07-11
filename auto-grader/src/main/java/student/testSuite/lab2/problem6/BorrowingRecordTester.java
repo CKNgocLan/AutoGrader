@@ -7,7 +7,7 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.model.ClassLoader;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -61,7 +61,7 @@ public class BorrowingRecordTester {
 	 * existence ***************
 	 */
 
-	public ITestCase checkExistence(int points) {
+	public TestCase checkExistence(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -69,7 +69,7 @@ public class BorrowingRecordTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase checkPartialArgsConstructorDeclaration(int points, TestingParameter... params) {
+	public TestCase checkPartialArgsConstructorDeclaration(int points, TestingParameter... params) {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
 
@@ -77,7 +77,7 @@ public class BorrowingRecordTester {
 	 * fields ***************
 	 */
 	
-	public ITestCase checkFields(int points) throws ClassNotFoundException {
+	public TestCase checkFields(int points) throws ClassNotFoundException {
 		return fieldTester.checkDeclarations(points, className
 				, new TestingField(UserTester.getCorrespondingClass(), FieldName.USER)
 				, new TestingField(BookTester.getCorrespondingClass(), FieldName.BOOK)
@@ -90,7 +90,7 @@ public class BorrowingRecordTester {
      * getter ***************
      */
 	
-    public ITestCase checkGetterDeclaration(int points) {
+    public TestCase checkGetterDeclaration(int points) {
         return methodTester.checkGetterDeclaration(points, className);
     }
 
@@ -98,7 +98,7 @@ public class BorrowingRecordTester {
      * setter ***************
      */
     
-    public ITestCase checkSetterDeclaration(int points) {
+    public TestCase checkSetterDeclaration(int points) {
         return methodTester.checkSetterDeclaration(points, className);
     }
 
@@ -106,7 +106,7 @@ public class BorrowingRecordTester {
      * equals ***************
      */
 
-	public ITestCase checkEqualsDeclaration(int points) throws ClassNotFoundException {
+	public TestCase checkEqualsDeclaration(int points) throws ClassNotFoundException {
 		return methodTester.declare(points, className, MethodUtils.createMethodEquals(FieldName.BORROWING_RECORD,
 				BorrowingRecordTester.getCorrespondingClass()));
 	}

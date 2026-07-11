@@ -9,7 +9,7 @@ import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ClassLoader;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingField;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
@@ -89,11 +89,11 @@ public abstract class BaseTester {
 	 * default testcase
 	 */
 
-	protected ITestCase exceptionTestCase(Exception e) {
+	protected TestCase exceptionTestCase(Exception e) {
 		return TestCaseUtils.errorTestcase(defaultPoints, className, e);
 	}
 
-	protected ITestCase passByDefault() {
+	protected TestCase passByDefault() {
 		return TestCaseUtils.passByDefault(defaultPoints, className);
 	}
 
@@ -113,21 +113,21 @@ public abstract class BaseTester {
 //		return TestCaseUtils.fail(defaultPoints, className, testcaseType, feedback);
 //	}
 
-	protected ITestCase pass(String type, String feedback) {
+	protected TestCase pass(String type, String feedback) {
 		return TestCaseUtils.pass(defaultPoints, className, type, feedback);
 	}
 
-	protected ITestCase fail(String type, String feedback) {
+	protected TestCase fail(String type, String feedback) {
 		return TestCaseUtils.fail(defaultPoints, className, type, feedback);
 	}
 
-	protected ITestCase passMethodOperation(String methodName) {
+	protected TestCase passMethodOperation(String methodName) {
 		return TestCaseUtils.pass(defaultPoints, className,
 				TestcaseType.CHECK_METHOD_OPERATION.getName(className, methodName),
 				Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, methodName));
 	}
 
-	protected ITestCase failMethodOperation(String methodName) {
+	protected TestCase failMethodOperation(String methodName) {
 		return TestCaseUtils.fail(defaultPoints, className,
 				TestcaseType.CHECK_METHOD_OPERATION.getName(className, methodName),
 				Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, methodName));
@@ -175,27 +175,27 @@ public abstract class BaseTester {
 	 * declare ***************
 	 */
 
-	protected ITestCase declare(int points) {
+	protected TestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
-	protected ITestCase declareAsInnerStaticClass(int points) {
+	protected TestCase declareAsInnerStaticClass(int points) {
 		return classTester.declareAsInnerStaticClass(points, className);
 	}
 
-	protected ITestCase declareAsInterface(int points) {
+	protected TestCase declareAsInterface(int points) {
 		return classTester.declareAsInterface(points, className);
 	}
 
-	protected ITestCase declareAsEnum(int points) {
+	protected TestCase declareAsEnum(int points) {
 		return classTester.declareAsEnum(points, className);
 	}
 
-	protected ITestCase declareAsAbstract(int points) {
+	protected TestCase declareAsAbstract(int points) {
 		return classTester.declareAsAbstract(points, className);
 	}
 
-	protected ITestCase declareAsStaticClass(int points) {
+	protected TestCase declareAsStaticClass(int points) {
 		return classTester.declareAsStaticClass(points, className);
 	}
 
@@ -203,7 +203,7 @@ public abstract class BaseTester {
 	 * super class
 	 */
 
-	protected ITestCase declareSuperClass(int points, Class<?> superclass) {
+	protected TestCase declareSuperClass(int points, Class<?> superclass) {
 		return classTester.declareSuperclass(points, className, superclass);
 	}
 
@@ -211,7 +211,7 @@ public abstract class BaseTester {
 	 * interface
 	 */
 
-	protected ITestCase implementInterface(int points, Class<?> interfaze) {
+	protected TestCase implementInterface(int points, Class<?> interfaze) {
 		return classTester.implementInterface(points, className, interfaze);
 	}
 
@@ -219,24 +219,24 @@ public abstract class BaseTester {
 	 * constructor ***************
 	 */
 
-	protected ITestCase checkConstructor(int points) throws ClassNotFoundException {
+	protected TestCase checkConstructor(int points) throws ClassNotFoundException {
 		return classTester.checkNoArgConstructorDeclaration(points, className);
 	}
 
-	protected ITestCase checkConstructorDeclaration(int points, Class<?>... paramTypes) throws ClassNotFoundException {
+	protected TestCase checkConstructorDeclaration(int points, Class<?>... paramTypes) throws ClassNotFoundException {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, paramTypes);
 	}
 
-	protected ITestCase checkConstructorOperation(int points, TestingParameter... params)
+	protected TestCase checkConstructorOperation(int points, TestingParameter... params)
 			throws ClassNotFoundException {
 		return classTester.checkPartialArgsConstructorOperationViaGetter(points, className, params);
 	}
 
-	protected ITestCase operateConstructorViaSuper(int points, TestingParameter... params) {
+	protected TestCase operateConstructorViaSuper(int points, TestingParameter... params) {
 		return classTester.operateConstructorViaSuper(points, className, params);
 	}
 
-	protected ITestCase declareConstructorAsPrivate(int points, Class<?>... parammeterTypes) {
+	protected TestCase declareConstructorAsPrivate(int points, Class<?>... parammeterTypes) {
 		return classTester.declareConstructorAsPrivate(points, className, parammeterTypes);
 	}
 
@@ -246,11 +246,11 @@ public abstract class BaseTester {
 	 * field ***************
 	 */
 
-	protected ITestCase checkFields(int points, TestingField... fieldTestings) {
+	protected TestCase checkFields(int points, TestingField... fieldTestings) {
 		return fieldTester.checkDeclarations(points, className, fieldTestings);
 	}
 
-	public ITestCase checkFieldsAsSpecialModifiers(int points, TestingField... fieldTestings) {
+	public TestCase checkFieldsAsSpecialModifiers(int points, TestingField... fieldTestings) {
 		return fieldTester.checkDeclarationsAsSpecialModifiers(points, className, fieldTestings);
 	}
 
@@ -258,14 +258,14 @@ public abstract class BaseTester {
 	 * getter ***************
 	 */
 
-	public ITestCase checkGetterDeclaration(int points) {
+	public TestCase checkGetterDeclaration(int points) {
 		return methodTester.checkGetterDeclaration(points, className);
 	}
 
 	/*
 	 * setter ***************
 	 */
-	public ITestCase checkSetterDeclaration(int points) {
+	public TestCase checkSetterDeclaration(int points) {
 		return methodTester.checkSetterDeclaration(points, className);
 	}
 
@@ -273,14 +273,14 @@ public abstract class BaseTester {
 	 * toString ***************
 	 */
 
-	public ITestCase checkToStringDeclaration(int points) {
+	public TestCase checkToStringDeclaration(int points) {
 		return methodTester.declare(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 
-	public ITestCase checkToStringOperation(int points, TestingParameter... args) throws ClassNotFoundException {
+	public TestCase checkToStringOperation(int points, TestingParameter... args) throws ClassNotFoundException {
 		TestingMethod method = MethodUtils.createMethodToString();
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());

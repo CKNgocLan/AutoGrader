@@ -9,7 +9,7 @@ import student.constant.Constants;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.util.ClassUtils;
 
 public class FieldTestcaseCreator {
@@ -33,8 +33,8 @@ public class FieldTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkDeclaration(int points, String className, String fieldName, Class<?> type) {
-		return new ITestCase() {
+	public TestCase checkDeclaration(int points, String className, String fieldName, Class<?> type) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_FIELD.getName(className, fieldName);
@@ -65,10 +65,10 @@ public class FieldTestcaseCreator {
 		};
 	}
 	
-	public ITestCase checkDeclarations(int points, String className, TestingField... fields) {
+	public TestCase checkDeclarations(int points, String className, TestingField... fields) {
 		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
 		
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_FIELD.getName(className, fieldNames);
@@ -108,8 +108,8 @@ public class FieldTestcaseCreator {
 		};
 	}
 	
-	public ITestCase noField(int points, String className) {
-		return new ITestCase() {
+	public TestCase noField(int points, String className) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_NO_FIELD.getName(className);
@@ -147,10 +147,10 @@ public class FieldTestcaseCreator {
 		};
 	}
 	
-	public ITestCase checkDeclarationsAsSpecialModifiers(int points, String className, TestingField... fields) {
+	public TestCase checkDeclarationsAsSpecialModifiers(int points, String className, TestingField... fields) {
 		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
 		
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_FIELD.getName(className, fieldNames);
@@ -199,10 +199,10 @@ public class FieldTestcaseCreator {
 		};
 	}
 	
-	public ITestCase checkDeclarationsAsPublicStaticFinal(int points, String className, TestingField... fields) {
+	public TestCase checkDeclarationsAsPublicStaticFinal(int points, String className, TestingField... fields) {
 		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
 		
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_FIELD.getName(className, fieldNames);
@@ -253,10 +253,10 @@ public class FieldTestcaseCreator {
 		};
 	}
 	
-	public ITestCase declareInEnum(int points, String className, TestingField... fields) {
+	public TestCase declareInEnum(int points, String className, TestingField... fields) {
 		String fieldNames = String.join(Constants.COMMA_WITH_SPACE, Stream.of(fields).map(f -> f.getName()).toList());
 		
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_FIELD.getName(className, fieldNames);

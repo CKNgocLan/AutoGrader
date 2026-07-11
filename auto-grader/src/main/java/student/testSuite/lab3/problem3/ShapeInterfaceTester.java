@@ -3,7 +3,7 @@ package student.testSuite.lab3.problem3;
 import student.constant.ClassName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.testSuite.BaseTester;
 
@@ -28,7 +28,7 @@ public class ShapeInterfaceTester extends BaseTester {
 	/*
 	 * declaration
 	 */
-	public ITestCase declare(int points) {
+	public TestCase declare(int points) {
 		return super.declareAsInterface(points);
 	}
 	
@@ -36,7 +36,7 @@ public class ShapeInterfaceTester extends BaseTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase constructor(int points) throws ClassNotFoundException {
+	public TestCase constructor(int points) throws ClassNotFoundException {
 		return super.checkConstructorDeclaration(points, String.class, int.class, double.class);
 	}
 	
@@ -44,7 +44,7 @@ public class ShapeInterfaceTester extends BaseTester {
 	 * area()
 	 */
 	
-	public ITestCase declareArea(int points) {
+	public TestCase declareArea(int points) {
 		return super.methodTester.declaredAsSpecialModifers(points, className, defineArea());
 	}
 }

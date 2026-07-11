@@ -4,7 +4,7 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.solution.final253.section1.PenFactory;
@@ -37,7 +37,7 @@ public class PenFactoryTester extends BaseTester {
 	/*
 	 * declaration
 	 */
-	public ITestCase declare() {
+	public TestCase declare() {
 		return super.declareAsInterface(defaultPoints);
 	}
 
@@ -61,7 +61,7 @@ public class PenFactoryTester extends BaseTester {
 		};
 	}
 
-	public ITestCase declareCreatePen() {
+	public TestCase declareCreatePen() {
 		try {
 			return declareCreatePen(getCorrespondingClass());
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
@@ -70,7 +70,7 @@ public class PenFactoryTester extends BaseTester {
 		}
 	}
 
-	public ITestCase declareCreatePen(Class<?> clazz) {
+	public TestCase declareCreatePen(Class<?> clazz) {
 		try {
 			return super.methodTester.declare(defaultPoints, clazz.getName(), createPen(clazz));
 		} catch (Exception e) {
@@ -79,7 +79,7 @@ public class PenFactoryTester extends BaseTester {
 		}
 	}
 
-	protected ITestCase operateCreatePen(Class<?> subclass, TestingMethod method) {
+	protected TestCase operateCreatePen(Class<?> subclass, TestingMethod method) {
 		return super.methodTester.operationAsCasting(defaultPoints
 				, method
 				, penClass);

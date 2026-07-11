@@ -7,7 +7,7 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
@@ -42,7 +42,7 @@ public class CashRegisterTester extends BaseTester {
 	 * field ***************
 	 */
 
-	public ITestCase checkFields(int points) throws ClassNotFoundException, TesterGotNoClassNameException {
+	public TestCase checkFields(int points) throws ClassNotFoundException, TesterGotNoClassNameException {
 		return super.checkFieldsAsSpecialModifiers(points,
 				new TestingField(retailItemTester.getCorrespondingClass(), FieldName.RETAIL_ITEM),
 				new TestingField(int.class, FieldName.QUANTITY),
@@ -53,7 +53,7 @@ public class CashRegisterTester extends BaseTester {
 	 * declare
 	 */
 
-	public ITestCase declare() {
+	public TestCase declare() {
 		return super.declare(defaultPoints);
 	}
 
@@ -61,12 +61,12 @@ public class CashRegisterTester extends BaseTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase checkConstructorDeclaration(int points)
+	public TestCase checkConstructorDeclaration(int points)
 			throws ClassNotFoundException, TesterGotNoClassNameException {
 		return super.checkConstructorDeclaration(points, this.retailItemTester.getCorrespondingClass(), int.class);
 	}
 	
-	public ITestCase checkConstructorOperation(int points, TestingParameter... params) throws ClassNotFoundException {
+	public TestCase checkConstructorOperation(int points, TestingParameter... params) throws ClassNotFoundException {
 		return super.checkConstructorOperation(points, params);
 	}
 	
@@ -74,11 +74,11 @@ public class CashRegisterTester extends BaseTester {
 	 * getSubtotal
 	 */
 	
-	public ITestCase declareGetSubtotal(int points) {
+	public TestCase declareGetSubtotal(int points) {
 		return super.methodTester.declare(points, className, new TestingMethod(double.class, MethodName.GET_SUBTOTAL));
 	}
 	
-	public ITestCase operateGetSubtotal(int points, double expected, TestingParameter[] args)
+	public TestCase operateGetSubtotal(int points, double expected, TestingParameter[] args)
 			throws ClassNotFoundException, TesterGotNoClassNameException,
 			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		return super.methodTester.checkOperationAsNumberic(points,
@@ -90,11 +90,11 @@ public class CashRegisterTester extends BaseTester {
 	 * getTax
 	 */
 	
-	public ITestCase declareGetTax(int points) {
+	public TestCase declareGetTax(int points) {
 		return super.methodTester.declare(points, className, new TestingMethod(double.class, MethodName.GET_TAX));
 	}
 	
-	public ITestCase operateGetTax(int points, double expected, TestingParameter[] args) throws ClassNotFoundException,
+	public TestCase operateGetTax(int points, double expected, TestingParameter[] args) throws ClassNotFoundException,
 			TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException {
 		return super.methodTester.checkOperationAsNumberic(points,
@@ -106,11 +106,11 @@ public class CashRegisterTester extends BaseTester {
 	 * getTotal
 	 */
 	
-	public ITestCase declareGetTotal(int points) {
+	public TestCase declareGetTotal(int points) {
 		return super.methodTester.declare(points, className, new TestingMethod(double.class, MethodName.GET_TOTAL));
 	}
 	
-	public ITestCase operateGetTotal(int points, double expected, TestingParameter[] args) throws ClassNotFoundException,
+	public TestCase operateGetTotal(int points, double expected, TestingParameter[] args) throws ClassNotFoundException,
 			TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException {
 		return super.methodTester.checkOperationAsNumberic(points,

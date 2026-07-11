@@ -41,10 +41,8 @@ import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import org.apache.xmlbeans.impl.xb.ltgfmt.TestCase;
-
 import student.constant.Problem;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.testSuite.labTestSuite.ExamFinalTestSuite253;
 
 public class LabGraderApp extends JFrame {
@@ -286,9 +284,9 @@ public class LabGraderApp extends JFrame {
                 return new StudentResult(studentName, 0, "Compilation Failed");
             }
 
-            List<ITestCase> tests = new ExamFinalTestSuite253().getAllTests(Problem.SECTION_1);
+            List<TestCase> tests = new ExamFinalTestSuite253().getAllTests(Problem.SECTION_1);
             int total = 0;
-            for (ITestCase t : tests) {
+            for (TestCase t : tests) {
                 if (t.runTest()) total += t.getPoints();
             }
 

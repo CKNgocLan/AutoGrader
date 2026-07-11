@@ -11,7 +11,7 @@ import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
@@ -57,7 +57,7 @@ public class OdometerTester extends BaseTester {
 	/*
 	 * declare
 	 */
-	public ITestCase declare(int points) {
+	public TestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -65,7 +65,7 @@ public class OdometerTester extends BaseTester {
 	 * fields
 	 */
 	
-	public ITestCase fields(int points) {
+	public TestCase fields(int points) {
 		try {
 			return fieldTester.checkDeclarations(points, className
 					, new TestingField(int.class, FieldName.MILEAGE)
@@ -81,7 +81,7 @@ public class OdometerTester extends BaseTester {
 	 * constructor
 	 */
 	
-	public ITestCase declareConstructor(int points) {
+	public TestCase declareConstructor(int points) {
 		try {
 			return super.classTester.checkPartialArgsConstructorDeclaration(points, className,
 					fuelGaugeTester.getCorrespondingClass());
@@ -91,8 +91,8 @@ public class OdometerTester extends BaseTester {
 		}
 	}
 
-	public ITestCase operateConstructor(int points, int fuelGaugeGallon) {
-		return new ITestCase() {
+	public TestCase operateConstructor(int points, int fuelGaugeGallon) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_PARTIAL_ARGS.getName(className);
@@ -151,7 +151,7 @@ public class OdometerTester extends BaseTester {
 		return new TestingMethod(void.class, MethodName.INCREMENT_MILEAGE);
 	}
 	
-	public ITestCase declareIncrementMileage(int points) {
+	public TestCase declareIncrementMileage(int points) {
 		return super.methodTester.declare(points, className, incrementMileageMethod());
 	}
 //	
@@ -159,7 +159,7 @@ public class OdometerTester extends BaseTester {
 //		return operateIncrementMileage(points, 1, expected);
 //	}
 	
-	public ITestCase operateIncrementMileage(int points, int expected) {
+	public TestCase operateIncrementMileage(int points, int expected) {
 		try {
 			Object fuelGauge = fuelGaugeTester.instantiate(1);
 			
@@ -174,9 +174,9 @@ public class OdometerTester extends BaseTester {
 		}
 	}
 	
-	public ITestCase operateIncrementMileage(int points, int fuelGaugeGallon, int mileage) {
+	public TestCase operateIncrementMileage(int points, int fuelGaugeGallon, int mileage) {
 		TestingMethod method = incrementMileageMethod();
-		return new ITestCase() {
+		return new TestCase() {
 
 			@Override
 			public String getName() {
@@ -235,11 +235,11 @@ public class OdometerTester extends BaseTester {
 		return new TestingMethod(int.class, MethodName.GET_MILEAGE);
 	}
 	
-	public ITestCase declareGetMileage(int points) {
+	public TestCase declareGetMileage(int points) {
 		return super.methodTester.declare(points, className, getMileageMethod());
 	}
 	
-	public ITestCase operateGetMileage(int points, int expected) {
+	public TestCase operateGetMileage(int points, int expected) {
 		try {
 			return super.methodTester.checkOperationAsNumberic(points, getMileageMethod()
 					.config(getCorrespondingClass(), instantiate(fuelGaugeTester.instantiate(1)))

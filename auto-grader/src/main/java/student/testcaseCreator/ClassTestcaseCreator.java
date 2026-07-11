@@ -11,7 +11,7 @@ import student.checker.FieldChecker;
 import student.constant.Constants;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingParameter;
 import student.util.ClassUtils;
 import student.util.ParameterUtils;
@@ -44,8 +44,8 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkExistence(int points, String className) {
-		return new ITestCase() {
+	public TestCase checkExistence(int points, String className) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(className);
@@ -81,8 +81,8 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase declareAsInterface(int points, String className) {
-		return new ITestCase() {
+	public TestCase declareAsInterface(int points, String className) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_INTERFACE_EXISTENCE.getName(className);
@@ -109,8 +109,8 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
-	public ITestCase declareAsEnum(int points, String className) {
-		return new ITestCase() {
+	public TestCase declareAsEnum(int points, String className) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_ENUM_EXISTENCE.getName(className);
@@ -137,8 +137,8 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
-	public ITestCase declareAsAbstract(int points, String className) {
-		return new ITestCase() {
+	public TestCase declareAsAbstract(int points, String className) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_ABSTRACT_CLASS_DECLARATION.getName(className);
@@ -165,8 +165,8 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
-	public ITestCase declareAsStaticClass(int points, String className) {
-		return new ITestCase() {
+	public TestCase declareAsStaticClass(int points, String className) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_STATIC_CLASS_DECLARATION.getName(className);
@@ -193,8 +193,8 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
-	public ITestCase declareConstructorAsPrivate(int points, String className, Class<?>... parammeterTypes) {
-		return new ITestCase() {
+	public TestCase declareConstructorAsPrivate(int points, String className, Class<?>... parammeterTypes) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_PRIVATE_CLASS_DECLARATION.getName(className);
@@ -227,9 +227,9 @@ public class ClassTestcaseCreator {
 		};
 	}
 
-	public ITestCase declareAsInnerStaticClass(int points, String className) {
+	public TestCase declareAsInnerStaticClass(int points, String className) {
 		Object[] classNameArgs = ClassUtils.splitInnerClassName(className);
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_DECLARED_STATIC_INNER_CLASS.getName(classNameArgs);
@@ -264,8 +264,8 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkExistenceAsEnum(int points, String className) {
-		return new ITestCase() {
+	public TestCase checkExistenceAsEnum(int points, String className) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_EXISTENCE.getName(className);
@@ -292,8 +292,8 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
-	public ITestCase checkImplementingInterface(int points, String className, String interfaceName) {
-		return new ITestCase() {
+	public TestCase checkImplementingInterface(int points, String className, String interfaceName) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_INTERFACE_IMPLEMENTED_BY_CLASS.getName(className, interfaceName);
@@ -326,8 +326,8 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
-	public ITestCase declareSuperclass(int points, String className, Class<?> superclass) {
-		return new ITestCase() {
+	public TestCase declareSuperclass(int points, String className, Class<?> superclass) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_SUPERCLASS_EXTENDED_BY_CLASS.getName(className, superclass.getSimpleName());
@@ -354,8 +354,8 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
-	public ITestCase implementInterface(int points, String className, Class<?> interfaze) {
-		return new ITestCase() {
+	public TestCase implementInterface(int points, String className, Class<?> interfaze) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_SUPERCLASS_EXTENDED_BY_CLASS.getName(className, interfaze.getSimpleName());
@@ -382,8 +382,8 @@ public class ClassTestcaseCreator {
 		};
 	}
 	
-	public ITestCase operateConstructorViaSuper(int points, String className, TestingParameter... args) {
-		return new ITestCase() {
+	public TestCase operateConstructorViaSuper(int points, String className, TestingParameter... args) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_HAVING_SUPERCLASS.getName(className);
@@ -455,8 +455,8 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkNoArgConstructorDeclaration(int points, String className) {
-		return new ITestCase() {
+	public TestCase checkNoArgConstructorDeclaration(int points, String className) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_NO_ARGS.getName(className);
@@ -491,8 +491,8 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkNoArgConstructorOperation(int points, String className, TestingParameter params) {
-		return new ITestCase() {
+	public TestCase checkNoArgConstructorOperation(int points, String className, TestingParameter params) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_NO_ARGS.getName(className);
@@ -529,8 +529,8 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkFullArgsConstructorDeclaration(int points, String className, TestingParameter... params) {
-		return new ITestCase() {
+	public TestCase checkFullArgsConstructorDeclaration(int points, String className, TestingParameter... params) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_FULL_ARGS.getName(className);
@@ -566,8 +566,8 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkFullArgsConstructorOperation(int points, String className, TestingParameter... params) {
-		return new ITestCase() {
+	public TestCase checkFullArgsConstructorOperation(int points, String className, TestingParameter... params) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_FULL_ARGS.getName(className);
@@ -607,7 +607,7 @@ public class ClassTestcaseCreator {
 	}
 	
 	
-	public ITestCase checkPartialArgsConstructorDeclaration(int points, String className, Class<?>... paramTypes) {
+	public TestCase checkPartialArgsConstructorDeclaration(int points, String className, Class<?>... paramTypes) {
 		return checkPartialArgsConstructorDeclaration(points, className, ParameterUtils.mapFromTypes(paramTypes));
 	}
 
@@ -618,8 +618,8 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkPartialArgsConstructorDeclaration(int points, String className, TestingParameter... params) {
-		return new ITestCase() {
+	public TestCase checkPartialArgsConstructorDeclaration(int points, String className, TestingParameter... params) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_PARTIAL_ARGS.getName(className);
@@ -656,8 +656,8 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkPartialArgsConstructorOperationViaGetter(int points, String className, TestingParameter... params) {
-		return new ITestCase() {
+	public TestCase checkPartialArgsConstructorOperationViaGetter(int points, String className, TestingParameter... params) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_PARTIAL_ARGS.getName(className);
@@ -701,8 +701,8 @@ public class ClassTestcaseCreator {
 	
 	// TODO operateConstructorHavingSuperclass
 	@Deprecated
-	public ITestCase operateConstructorHavingSuperclass(int points, String className, String superclassName, TestingParameter... params) {
-		return new ITestCase() {
+	public TestCase operateConstructorHavingSuperclass(int points, String className, String superclassName, TestingParameter... params) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_HAVING_SUPERCLASS.getName(className, superclassName);
@@ -751,8 +751,8 @@ public class ClassTestcaseCreator {
 	 * @param points
 	 * @return
 	 */
-	public ITestCase checkAttributes(int points, String className) {
-		return new ITestCase() {
+	public TestCase checkAttributes(int points, String className) {
+		return new TestCase() {
 			String invalidAttrName = null;
 
 			@Override

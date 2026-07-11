@@ -8,7 +8,7 @@ import student.constant.Constants;
 import student.constant.FieldName;
 import student.constant.Problem;
 import student.model.ALabTestSuite;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
@@ -23,7 +23,7 @@ public class LabTestSuite1 extends ALabTestSuite {
 	private MethodTestcaseCreator methodTest = MethodTestcaseCreator.getInstance();
 	
 	@Override
-	public List<ITestCase> getAllTests(String question) {
+	public List<TestCase> getAllTests(String question) {
 		switch (question) {
 		case Problem.P0:
 			return Arrays.asList(

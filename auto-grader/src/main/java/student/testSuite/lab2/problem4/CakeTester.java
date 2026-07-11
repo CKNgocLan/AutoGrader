@@ -10,7 +10,7 @@ import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.ClassLoader;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.lab2.CustomerTester;
@@ -72,7 +72,7 @@ public class CakeTester {
 	/*
 	 * Existence ***************************************************************************
 	 */
-	public ITestCase checkExistence(int points) {
+	public TestCase checkExistence(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -80,14 +80,14 @@ public class CakeTester {
      * Constructor ***************
      */
 
-	public ITestCase checkPartialArgsConstructors(int points, TestingParameter... params) {
+	public TestCase checkPartialArgsConstructors(int points, TestingParameter... params) {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
 
 	/*
 	 * Fields ***************************************************************************
 	 */
-	public ITestCase checkFields(int points) throws ClassNotFoundException {
+	public TestCase checkFields(int points) throws ClassNotFoundException {
 		return fieldTester.checkDeclarations(points, className
 				, new TestingField(int.class, FieldName.TIER_NUMBER)
 				, new TestingField(LocalDate.class, FieldName.EVENT_DATE)
@@ -100,14 +100,14 @@ public class CakeTester {
     /*
      * Getter ***************************************************************************
      */
-    public ITestCase checkGetterDeclaration(int points) {
+    public TestCase checkGetterDeclaration(int points) {
         return methodTester.checkGetterDeclaration(points, className);
     }
 
     /*
      * Setter ***************************************************************************
      */
-    public ITestCase checkSetterDeclaration(int points) {
+    public TestCase checkSetterDeclaration(int points) {
         return methodTester.checkSetterDeclaration(points, className);
     }
 
@@ -115,20 +115,20 @@ public class CakeTester {
 	 * toString ***************
 	 */
 	
-	public ITestCase checkToStringDeclaration(int points) {
+	public TestCase checkToStringDeclaration(int points) {
 		return methodTester.declare(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 	
-	public ITestCase checkToStringOperation(int points)
+	public TestCase checkToStringOperation(int points)
 			throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException,
 			InvocationTargetException, NoSuchMethodException, SecurityException {
 		return checkToStringOperation(points, CustomerTester.initObject("Lao Hac"), Class.forName(ClassName.EVENT).getEnumConstants()[0], 2, 2.555);
 	}
 	
-	public ITestCase checkToStringOperation(int points, Object customer, Object event, int tierNumber, double price) throws ClassNotFoundException {
+	public TestCase checkToStringOperation(int points, Object customer, Object event, int tierNumber, double price) throws ClassNotFoundException {
 		TestingMethod method = MethodUtils.createMethodToString();
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());

@@ -41,7 +41,7 @@ public class SingleGradingTask implements IRunnableSingleGradingTask {
 			GradingMessage.FOLDER_COMPILATION_SUCCESSFUL.printContent(subDirectory.getAbsolutePath());
 
 			// Step 2: Run tests
-			List<ITestCase> tests = testSuiteRouter.invokeAllTests(lab, subDirectory.getName());
+			List<TestCase> tests = testSuiteRouter.invokeAllTests(lab, subDirectory.getName());
 			if (tests == null) {
 				GradingMessage.ERROR_CHECK_TERMINAL.printErrorContent();
 				Thread.currentThread().interrupt();
@@ -57,7 +57,7 @@ public class SingleGradingTask implements IRunnableSingleGradingTask {
             List<Boolean> passedList = new ArrayList<>();
             List<TestResult> results = new ArrayList<>();
 
-            for (ITestCase test : tests) {
+            for (TestCase test : tests) {
 //                log("→ " + test.getName() + " (" + test.getPoints() + " pts) ... ");
 //                log("→ " + test.getName() + " ... ");
             	System.out.println("→ " + test.getName() + " ... ");

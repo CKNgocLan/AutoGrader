@@ -14,7 +14,7 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.solution.lab4.problem1_3.Employee;
@@ -57,7 +57,7 @@ public class EmployeeTester extends BaseTester {
 	 * declare
 	 */
 
-	public ITestCase declare(int points) {
+	public TestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -65,7 +65,7 @@ public class EmployeeTester extends BaseTester {
 	 * fields
 	 */
 
-	public ITestCase declareFields(int points) {
+	public TestCase declareFields(int points) {
 		return fieldTester.checkDeclarations(points, className, super.getSolutionFields());
 	}
 
@@ -73,11 +73,11 @@ public class EmployeeTester extends BaseTester {
 	 * constructor
 	 */
 	
-	public ITestCase declareConstructor(int points) {
+	public TestCase declareConstructor(int points) {
 		return super.classTester.checkPartialArgsConstructorDeclaration(points, className, super.uniqueConstructorParameterPrimitiveTypes());
 	}
 
-	public ITestCase operateConstructor(int points, String name, String number, LocalDate hireDate) {
+	public TestCase operateConstructor(int points, String name, String number, LocalDate hireDate) {
 		try {
 			return super.classTester.checkPartialArgsConstructorOperationViaGetter(points, className, constructorArgs(name, number, hireDate));
 		} catch (Exception e) {
@@ -86,7 +86,7 @@ public class EmployeeTester extends BaseTester {
 		}
 	}
 	
-	public ITestCase invalidNumberInConstructor(int points, String number) {
+	public TestCase invalidNumberInConstructor(int points, String number) {
 		TestingMethod method;
 		try {
 			method = isValidNumberMethod();
@@ -95,7 +95,7 @@ public class EmployeeTester extends BaseTester {
 			return TestCaseUtils.errorTestcase(points, className, e);
 		}
 		
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_PARTIAL_ARGS.getName(className);

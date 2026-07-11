@@ -9,7 +9,7 @@ import student.constant.Constants;
 import student.constant.Feedback;
 import student.constant.TestcaseType;
 import student.model.Getter;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.Setter;
 import student.model.TestingMethod;
 import student.util.MethodUtils;
@@ -45,8 +45,8 @@ public class MethodTestcaseCreator {
 	 * existence ***************
 	 */
 
-	public ITestCase declare(int points, String className, TestingMethod method) {
-		return new ITestCase() {
+	public TestCase declare(int points, String className, TestingMethod method) {
+		return new TestCase() {
 
 			@Override
 			public String getName() {
@@ -76,8 +76,8 @@ public class MethodTestcaseCreator {
 	}
 
 
-	public ITestCase declaredAsPublicAbstract(int points, String className, TestingMethod method) {
-		return new ITestCase() {
+	public TestCase declaredAsPublicAbstract(int points, String className, TestingMethod method) {
+		return new TestCase() {
 
 			@Override
 			public String getName() {
@@ -108,8 +108,8 @@ public class MethodTestcaseCreator {
 		};
 	}
 
-	public ITestCase declaredAsSpecialModifers(int points, String className, TestingMethod method) {
-		return new ITestCase() {
+	public TestCase declaredAsSpecialModifers(int points, String className, TestingMethod method) {
+		return new TestCase() {
 
 			@Override
 			public String getName() {
@@ -144,8 +144,8 @@ public class MethodTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkGetterDeclaration(int points, String className) {
-		return new ITestCase() {
+	public TestCase checkGetterDeclaration(int points, String className) {
+		return new TestCase() {
 			List<Getter> invalid = new ArrayList<Getter>();
 
 			@Override
@@ -181,8 +181,8 @@ public class MethodTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkSetterDeclaration(int points, String className) {
-		return new ITestCase() {
+	public TestCase checkSetterDeclaration(int points, String className) {
+		return new TestCase() {
 			List<Setter> invalid = new ArrayList<Setter>();
 
 			@Override
@@ -218,8 +218,8 @@ public class MethodTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkGetterSetterOperation(int points, String className) {
-		return new ITestCase() {
+	public TestCase checkGetterSetterOperation(int points, String className) {
+		return new TestCase() {
 			List<Getter> invalidGetter = new ArrayList<Getter>();
 			String invalidField = "";
 
@@ -277,8 +277,8 @@ public class MethodTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkStringGetsetOperation(int points, String className, String fieldName, String testValue) {
-		return new ITestCase() {
+	public TestCase checkStringGetsetOperation(int points, String className, String fieldName, String testValue) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_SPECIFIC_GETTER_OPERATION.getName(className, fieldName);
@@ -311,8 +311,8 @@ public class MethodTestcaseCreator {
 	 * ***************************************************************************
 	 */
 
-	public ITestCase checkIntGetsetOperation(int points, String className, String fieldName, int testValue) {
-		return new ITestCase() {
+	public TestCase checkIntGetsetOperation(int points, String className, String fieldName, int testValue) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_SPECIFIC_GETTER_OPERATION.getName(className, fieldName);
@@ -345,8 +345,8 @@ public class MethodTestcaseCreator {
 	 * operate ***************
 	 */
 
-	public ITestCase checkOperationAsNumberic(int points, TestingMethod method) {
-		return new ITestCase() {
+	public TestCase checkOperationAsNumberic(int points, TestingMethod method) {
+		return new TestCase() {
 
 			@Override
 			public String getName() {
@@ -377,8 +377,8 @@ public class MethodTestcaseCreator {
 		};
 	}
 
-	public ITestCase returnBoolean(int points, TestingMethod method) {
-		return new ITestCase() {
+	public TestCase returnBoolean(int points, TestingMethod method) {
+		return new TestCase() {
 
 			@Override
 			public String getName() {
@@ -407,8 +407,8 @@ public class MethodTestcaseCreator {
 		};
 	}
 	
-	public ITestCase operationAsBooleanInPrivate(int points, TestingMethod method) {
-		return new ITestCase() {
+	public TestCase operationAsBooleanInPrivate(int points, TestingMethod method) {
+		return new TestCase() {
 
 			@Override
 			public String getName() {
@@ -437,8 +437,8 @@ public class MethodTestcaseCreator {
 		};
 	}
 
-	public ITestCase operationAsVoidAndCompareIntField(int points, TestingMethod method, String integerFieldName) {
-		return new ITestCase() {
+	public TestCase operationAsVoidAndCompareIntField(int points, TestingMethod method, String integerFieldName) {
+		return new TestCase() {
 
 			@Override
 			public String getName() {
@@ -469,8 +469,8 @@ public class MethodTestcaseCreator {
 		};
 	}
 
-	public ITestCase operationAsString(int points, String className, TestingMethod method) {
-		return new ITestCase() {
+	public TestCase operationAsString(int points, String className, TestingMethod method) {
+		return new TestCase() {
 
 			@Override
 			public String getName() {
@@ -506,8 +506,8 @@ public class MethodTestcaseCreator {
 		};
 	}
 
-	public ITestCase operationAsCasting(int points, TestingMethod method, Class<?> castingClass) {
-		return new ITestCase() {
+	public TestCase operationAsCasting(int points, TestingMethod method, Class<?> castingClass) {
+		return new TestCase() {
 
 			@Override
 			public String getName() {
@@ -538,8 +538,8 @@ public class MethodTestcaseCreator {
 		};
 	}
 
-	public ITestCase excludes(int points, Class<?> subclass, TestingMethod... method) {
-		return new ITestCase() {
+	public TestCase excludes(int points, Class<?> subclass, TestingMethod... method) {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_CLASS_EXCLUDING_METHOD.getName(subclass.getName(), MethodUtils.getJoinedName(Constants.COMMA_WITH_SPACE, method));

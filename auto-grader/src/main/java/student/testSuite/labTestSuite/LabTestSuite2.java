@@ -7,7 +7,7 @@ import java.util.List;
 import student.constant.FieldName;
 import student.constant.Problem;
 import student.model.ALabTestSuite;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingParameter;
 import student.testSuite.lab2.ConstTester;
 import student.testSuite.lab2.CustomerTester;
@@ -31,7 +31,7 @@ import student.util.ParameterUtils;
 public class LabTestSuite2 extends ALabTestSuite {
 
 	@Override
-	public List<ITestCase> getAllTests(String question) {
+	public List<TestCase> getAllTests(String question) {
 		try {
 			int defaultPoints = 5;
 

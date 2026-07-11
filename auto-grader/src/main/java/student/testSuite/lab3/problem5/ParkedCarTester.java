@@ -6,7 +6,7 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
@@ -62,7 +62,7 @@ public class ParkedCarTester extends BaseTester {
 	/*
 	 * declare
 	 */
-	public ITestCase declare(int points) {
+	public TestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -70,7 +70,7 @@ public class ParkedCarTester extends BaseTester {
 	 * fields
 	 */
 	
-	public ITestCase declareFields(int points) {
+	public TestCase declareFields(int points) {
 		return fieldTester.checkDeclarations(points, className
 				, new TestingField(String.class, FieldName.MAKE)
 				, new TestingField(String.class, FieldName.MODEL)
@@ -84,12 +84,12 @@ public class ParkedCarTester extends BaseTester {
 	 * constructor
 	 */
 	
-	public ITestCase declareConstructor(int points) {
+	public TestCase declareConstructor(int points) {
 		return super.classTester.checkPartialArgsConstructorDeclaration(points, className, String.class, String.class,
 				String.class, String.class, int.class);
 	}
 
-	public ITestCase operateConstructor(int points, String make, String model, String color, String licenseNumber, int parkedMinutes) {
+	public TestCase operateConstructor(int points, String make, String model, String color, String licenseNumber, int parkedMinutes) {
 		try {
 			return super.classTester.checkPartialArgsConstructorOperationViaGetter(points, className, constructorArgs(make, model, color, licenseNumber, parkedMinutes));
 		} catch (Exception e) {

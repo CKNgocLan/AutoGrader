@@ -57,7 +57,7 @@ import student.constant.Lab;
 import student.constant.Midterm;
 import student.constant.Problem;
 import student.constant.TestCaseResult;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.util.PathUtils;
 import student.util.StringUtils;
 
@@ -342,7 +342,7 @@ public class LecturerGrader extends JFrame {
                 log(GradingMessage.COMPILATION_SUCCESSFUL_NEWLINE.getContent());
 
                 // Step 2: Run tests
-                List<ITestCase> tests = testSuiteRouter.invokeAllTests(selectedLab, selectedQuestion);
+                List<TestCase> tests = testSuiteRouter.invokeAllTests(selectedLab, selectedQuestion);
                 if (tests == null) {
                 	SwingUtilities.invokeLater(() -> {
                         JOptionPane.showMessageDialog(this, 
@@ -368,7 +368,7 @@ public class LecturerGrader extends JFrame {
                 List<Boolean> passedList = new ArrayList<>();
                 List<TestResult> results = new ArrayList<>();
 
-                for (ITestCase test : tests) {
+                for (TestCase test : tests) {
 //                    log("→ " + test.getName() + " (" + test.getPoints() + " pts) ... ");
                     log("→ " + test.getName() + " ... ");
                     boolean passed = test.runTest();

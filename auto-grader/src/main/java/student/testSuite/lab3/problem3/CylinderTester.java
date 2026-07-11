@@ -7,7 +7,7 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
@@ -38,11 +38,11 @@ public class CylinderTester extends BaseTester {
 	 * declare
 	 */
 
-	public ITestCase declare() {
+	public TestCase declare() {
 		return super.declare(defaultPoints);
 	}
 	
-	public ITestCase implementShape(int points) {
+	public TestCase implementShape(int points) {
 		return super.classTester.checkImplementingInterface(points, className, ClassName.SHAPE);
 	}
 
@@ -50,7 +50,7 @@ public class CylinderTester extends BaseTester {
 	 * field ***************
 	 */
 
-	public ITestCase checkFields(int points) {
+	public TestCase checkFields(int points) {
 		return super.checkFields(points
 				, new TestingField(double.class, FieldName.RADIUS)
 				, new TestingField(double.class, FieldName.HEIGHT)
@@ -61,7 +61,7 @@ public class CylinderTester extends BaseTester {
 	 * constructor ***************
 	 */
 
-	public ITestCase constructor(int points) throws ClassNotFoundException {
+	public TestCase constructor(int points) throws ClassNotFoundException {
 		return super.checkConstructorDeclaration(points, double.class, double.class);
 	}
 	
@@ -69,11 +69,11 @@ public class CylinderTester extends BaseTester {
 	 * area()
 	 */
 	
-	public ITestCase declareArea(int points) {
+	public TestCase declareArea(int points) {
 		return super.methodTester.declare(points, className, method());
 	}
 
-	public ITestCase operateArea(int points, double radius, double height, double expected)
+	public TestCase operateArea(int points, double radius, double height, double expected)
 			throws ClassNotFoundException
 			, InstantiationException
 			, IllegalAccessException

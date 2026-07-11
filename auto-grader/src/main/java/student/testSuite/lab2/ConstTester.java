@@ -3,7 +3,7 @@ package student.testSuite.lab2;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 
@@ -29,7 +29,7 @@ public class ConstTester {
 	 * declaration ***************
 	 */
 
-	public ITestCase checkDeclaration(int points) {
+	public TestCase checkDeclaration(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -37,7 +37,7 @@ public class ConstTester {
 	 * Fields ***************
 	 */
 	
-	public ITestCase checkFields(int points) {
+	public TestCase checkFields(int points) {
 		return fieldTester.checkDeclarationsAsPublicStaticFinal(points, className
 				, new TestingField(double.class, FieldName.UPPERCASE_TAX)
 		);

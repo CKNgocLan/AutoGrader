@@ -6,7 +6,7 @@ import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 
@@ -46,7 +46,7 @@ public class ParkingMeterTester extends BaseTester {
 	/*
 	 * declare
 	 */
-	public ITestCase declare(int points) {
+	public TestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -54,7 +54,7 @@ public class ParkingMeterTester extends BaseTester {
 	 * fields
 	 */
 	
-	public ITestCase declareFields(int points) {
+	public TestCase declareFields(int points) {
 		return fieldTester.checkDeclarations(points, className
 				, new TestingField(int.class, FieldName.PURCHASED_MINUTES)
 		);
@@ -64,11 +64,11 @@ public class ParkingMeterTester extends BaseTester {
 	 * constructor
 	 */
 	
-	public ITestCase declareConstructor(int points) {
+	public TestCase declareConstructor(int points) {
 		return super.classTester.checkPartialArgsConstructorDeclaration(points, className, int.class);
 	}
 
-	public ITestCase operateConstructor(int points, int purchasedMinutes) {
+	public TestCase operateConstructor(int points, int purchasedMinutes) {
 		return super.classTester.checkPartialArgsConstructorOperationViaGetter(points, className, constructorArgs(purchasedMinutes));
 	}
 }

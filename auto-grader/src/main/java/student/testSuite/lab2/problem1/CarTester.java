@@ -6,7 +6,7 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
@@ -38,7 +38,7 @@ public class CarTester {
 	 * Existence **********
 	 */
 
-	public ITestCase checkExistence(int points) {
+	public TestCase checkExistence(int points) {
 		return classTest.checkExistence(points, className);
 	}
 
@@ -46,7 +46,7 @@ public class CarTester {
 	 * Fields **********
 	 */
 
-	public ITestCase checkFields(int points) {
+	public TestCase checkFields(int points) {
 		return fieldTester.checkDeclarations(points, className,
 				new TestingField(int.class, FieldName.YEAR_MODEL),
 				new TestingField(String.class, FieldName.MAKE), new TestingField(int.class, FieldName.SPEED)
@@ -57,11 +57,11 @@ public class CarTester {
 	 * Constructor **********
 	 */
 
-	public ITestCase checkPartialArgsConstructorDeclaration(int points, TestingParameter... params) {
+	public TestCase checkPartialArgsConstructorDeclaration(int points, TestingParameter... params) {
 		return classTest.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
 
-	public ITestCase checkPartialArgsConstructorOperation(int points, TestingParameter... params) {
+	public TestCase checkPartialArgsConstructorOperation(int points, TestingParameter... params) {
 		return classTest.checkPartialArgsConstructorOperationViaGetter(points, className, params);
 	}
 
@@ -69,14 +69,14 @@ public class CarTester {
 	 * Accelerate **********
 	 */
 
-	public ITestCase checkAccelerateDeclaration(int points) {
+	public TestCase checkAccelerateDeclaration(int points) {
 		return methodTester.declare(points, ClassName.CAR, new TestingMethod(int.class, MethodName.ACCELERATE));
 	}
 
-	public ITestCase checkAccelerateOperation(int points) {
+	public TestCase checkAccelerateOperation(int points) {
 		TestingMethod methodTesting = new TestingMethod(int.class, MethodName.ACCELERATE).expectedValue(5);
 
-		return new ITestCase() {
+		return new TestCase() {
 
 			@Override
 			public String getName() {
@@ -125,14 +125,14 @@ public class CarTester {
 	 * Brake **********
 	 */
 
-	public ITestCase checkBrakeDeclaration(int points) {
+	public TestCase checkBrakeDeclaration(int points) {
 		return methodTester.declare(points, ClassName.CAR, new TestingMethod(int.class, MethodName.BRAKE));
 	}
 
-	public ITestCase checkBrakeOperation(int points) {
+	public TestCase checkBrakeOperation(int points) {
 		TestingMethod methodTesting = new TestingMethod(int.class, MethodName.BRAKE).expectedValue(0);
 
-		return new ITestCase() {
+		return new TestCase() {
 
 			@Override
 			public String getName() {

@@ -8,7 +8,7 @@ import student.constant.FieldName;
 import student.constant.TestcaseType;
 import student.model.ClassLoader;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testcaseCreator.ClassTestcaseCreator;
@@ -74,7 +74,7 @@ public class CarRentalCustomerTester {
 	 * Existence ***************
 	 */
 
-	public ITestCase checkExistence(int points) {
+	public TestCase checkExistence(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -82,7 +82,7 @@ public class CarRentalCustomerTester {
 	 * Constructor ***************
 	 */
 
-	public ITestCase checkPartialArgsConstructors(int points, TestingParameter... params)
+	public TestCase checkPartialArgsConstructors(int points, TestingParameter... params)
 			throws ClassNotFoundException {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, params);
 	}
@@ -91,7 +91,7 @@ public class CarRentalCustomerTester {
 	 * Field ***************
 	 */
 
-	public ITestCase checkFields(int points) {
+	public TestCase checkFields(int points) {
 		return fieldTester.checkDeclarations(points, className, new TestingField(String.class, FieldName.NAME),
 				new TestingField(String.class, FieldName.ADDRESS),
 				new TestingField(String.class, FieldName.LICENSE_NUMBER));
@@ -100,14 +100,14 @@ public class CarRentalCustomerTester {
 	/*
 	 * Getter ***************
 	 */
-	public ITestCase checkGetterDeclaration(int points) {
+	public TestCase checkGetterDeclaration(int points) {
 		return methodTester.checkGetterDeclaration(points, className);
 	}
 
 	/*
 	 * Setter ***************
 	 */
-	public ITestCase checkSetterDeclaration(int points) {
+	public TestCase checkSetterDeclaration(int points) {
 		return methodTester.checkSetterDeclaration(points, className);
 	}
 
@@ -115,15 +115,15 @@ public class CarRentalCustomerTester {
 	 * toString ***************
 	 */
 
-	public ITestCase checkToStringDeclaration(int points) {
+	public TestCase checkToStringDeclaration(int points) {
 		return methodTester.declare(points, className, MethodUtils.createMethodToString());
 	}
 
-	public ITestCase checkToStringOperation(int points, String name, String address, String licenseNumber)
+	public TestCase checkToStringOperation(int points, String name, String address, String licenseNumber)
 			throws ClassNotFoundException {
 		TestingMethod method = MethodUtils.createMethodToString();
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());

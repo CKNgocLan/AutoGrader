@@ -7,7 +7,7 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
@@ -68,7 +68,7 @@ public class ParkingTicketTester extends BaseTester {
 	/*
 	 * declare
 	 */
-	public ITestCase declare(int points) {
+	public TestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -76,7 +76,7 @@ public class ParkingTicketTester extends BaseTester {
 	 * fields
 	 */
 	
-	public ITestCase declareFields(int points) {
+	public TestCase declareFields(int points) {
 		try {
 			return fieldTester.checkDeclarations(points, className
 					, new TestingField(parkedCarTester.getCorrespondingClass(), FieldName.CAR)
@@ -93,7 +93,7 @@ public class ParkingTicketTester extends BaseTester {
 	 * constructor
 	 */
 	
-	public ITestCase declareConstructor(int points) {
+	public TestCase declareConstructor(int points) {
 		try {
 			return super.classTester.checkPartialArgsConstructorDeclaration(points, className, parkedCarTester.getCorrespondingClass(), policeOfficerTester.getCorrespondingClass(), double.class);
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
@@ -102,7 +102,7 @@ public class ParkingTicketTester extends BaseTester {
 		}
 	}
 
-	public ITestCase operateConstructor(int points, Object car, Object officer, double fineAmount) {
+	public TestCase operateConstructor(int points, Object car, Object officer, double fineAmount) {
 		try {
 			return super.classTester.checkPartialArgsConstructorOperationViaGetter(points, className, constructorArgs(car, officer, fineAmount));
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {

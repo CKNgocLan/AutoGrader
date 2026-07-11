@@ -10,7 +10,7 @@ import student.constant.TestcaseType;
 import student.exception.InvalidConfigurationException;
 import student.model.ClassLoader;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -74,7 +74,7 @@ public class ServiceEstimateTester {
 	 * Existence **********
 	 */
 
-	public ITestCase checkExistence(int points) {
+	public TestCase checkExistence(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -82,7 +82,7 @@ public class ServiceEstimateTester {
 	 * Field **********
 	 */
 
-	public ITestCase checkFields(int points) throws ClassNotFoundException {
+	public TestCase checkFields(int points) throws ClassNotFoundException {
 		return fieldTester.checkDeclarations(points, className, new TestingField(double.class, FieldName.GROOMING_COST),
 				new TestingField(double.class, FieldName.ADDITIONAL_CARE_COST),
 				new TestingField(double.class, FieldName.TAX),
@@ -93,7 +93,7 @@ public class ServiceEstimateTester {
 	 * Constructor **********
 	 */
 
-	public ITestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
+	public TestCase checkNoArgsConstructors(int points) throws ClassNotFoundException {
 		return classTester.checkNoArgConstructorDeclaration(points, className);
 	}
 
@@ -101,18 +101,18 @@ public class ServiceEstimateTester {
 	 * toString **********
 	 */
 
-	public ITestCase checkToStringExistence(int points) {
+	public TestCase checkToStringExistence(int points) {
 		return methodTester.declare(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 	
-	public ITestCase checkToStringOperation(int points) {
+	public TestCase checkToStringOperation(int points) {
 		return checkToStringOperation(points, 1.2, 2.3, TAX);
 	}
 	
-	public ITestCase checkToStringOperation(int points, double groomingCost, double additionalCareCost, double tax) {
+	public TestCase checkToStringOperation(int points, double groomingCost, double additionalCareCost, double tax) {
 		TestingMethod method = MethodUtils.createMethodToString();
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
@@ -153,19 +153,19 @@ public class ServiceEstimateTester {
 	 * getTotalCostAfterTax **********
 	 */
 
-	public ITestCase checkGetTotalCostAfterTaxExistence(int points) {
+	public TestCase checkGetTotalCostAfterTaxExistence(int points) {
 		return methodTester.declare(points, className,
 				new TestingMethod(double.class, MethodName.GET_TOTAL_COST_AFTER_TAX));
 	}
 	
-	public ITestCase checkGetTotalCostAfterTaxOperation(int points) {
+	public TestCase checkGetTotalCostAfterTaxOperation(int points) {
 		return checkGetTotalCostAfterTaxOperation(points, 2.484, 1.5, 0.8, TAX);
 	}
 	
-	public ITestCase checkGetTotalCostAfterTaxOperation(int points, double expected, double groomingCost, double additionalCareCost, double tax) {
+	public TestCase checkGetTotalCostAfterTaxOperation(int points, double expected, double groomingCost, double additionalCareCost, double tax) {
 		TestingMethod method = new TestingMethod(double.class, MethodName.GET_TOTAL_COST_AFTER_TAX);
 
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());

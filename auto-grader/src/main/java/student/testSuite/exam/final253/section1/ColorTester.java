@@ -5,7 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import student.constant.ClassName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.IEnumTester;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.solution.final253.section1.Color;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
@@ -34,7 +34,7 @@ public class ColorTester extends BaseTester implements IEnumTester {
 	/*
 	 * declaration
 	 */
-	public ITestCase declare() {
+	public TestCase declare() {
 		return super.declareAsEnum(defaultPoints);
 	}
 	
@@ -42,7 +42,7 @@ public class ColorTester extends BaseTester implements IEnumTester {
 	 * field ***************
 	 */
 	
-	public ITestCase declareFields() {
+	public TestCase declareFields() {
 		try {
 			return super.fieldTester.declareInEnum(defaultPoints, className, super.getSolutionFields());
 		} catch (Exception e) {

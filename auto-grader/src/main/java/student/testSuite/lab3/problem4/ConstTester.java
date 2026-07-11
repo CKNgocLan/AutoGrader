@@ -5,7 +5,7 @@ import student.constant.Constants;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestingField;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.testSuite.BaseTester;
 
 public class ConstTester extends BaseTester {
@@ -18,7 +18,7 @@ public class ConstTester extends BaseTester {
 	/*
 	 * declare
 	 */
-	public ITestCase declare(int points) {
+	public TestCase declare(int points) {
 		return classTester.checkExistence(points, className);
 	}
 
@@ -26,7 +26,7 @@ public class ConstTester extends BaseTester {
 	 * fields
 	 */
 	
-	public ITestCase fields(int points) {
+	public TestCase fields(int points) {
 		return fieldTester.checkDeclarationsAsPublicStaticFinal(points, className
 				, new TestingField(int.class, FieldName.UPPERCASE_CAR_MAX_GALLON).setValue(Constants.CAR_MAX_GALLON)
 				, new TestingField(int.class, FieldName.UPPERCASE_ODOMETER_MAXIMUM_MILEAGE_MILES).setValue(Constants.ODOMETER_MAXIMUM_MILEAGE_MILES)

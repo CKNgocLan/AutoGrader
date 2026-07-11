@@ -6,7 +6,7 @@ import java.util.UUID;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.model.TestingField;
 import student.model.TestingParameter;
 import student.solution.final253.section1.Brand;
@@ -48,7 +48,7 @@ public class BrandTester extends BaseTester {
 	/*
 	 * declaration
 	 */
-	public ITestCase declare() {
+	public TestCase declare() {
 		return super.declare(defaultPoints);
 	}
 
@@ -56,7 +56,7 @@ public class BrandTester extends BaseTester {
 	 * field ***************
 	 */
 
-	public ITestCase declareFields() {
+	public TestCase declareFields() {
 		try {
 			return super.fieldTester.checkDeclarations(defaultPoints, className, super.getSolutionFields());
 		} catch (Exception e) {
@@ -69,7 +69,7 @@ public class BrandTester extends BaseTester {
 	 * constructor
 	 */
 
-	public ITestCase declareConstructor() {
+	public TestCase declareConstructor() {
 		try {
 			return super.checkConstructorDeclaration(defaultPoints, String.class, String.class);
 		} catch (ClassNotFoundException e) {
@@ -81,21 +81,21 @@ public class BrandTester extends BaseTester {
 	/*
 	 * getter
 	 */
-	public ITestCase declareGetters(int points) {
+	public TestCase declareGetters(int points) {
 		return super.methodTester.checkGetterDeclaration(points, className);
 	}
 
 	/*
 	 * setter
 	 */
-	public ITestCase declareSetters(int points) {
+	public TestCase declareSetters(int points) {
 		return super.methodTester.checkSetterDeclaration(points, className);
 	}
 
 	/*
 	 * toString
 	 */
-	public ITestCase declareToString(int points) {
+	public TestCase declareToString(int points) {
 		return super.checkToStringDeclaration(points);
 	}
 }

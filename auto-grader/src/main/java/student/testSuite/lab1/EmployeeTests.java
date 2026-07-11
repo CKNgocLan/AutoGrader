@@ -3,12 +3,12 @@ package student.testSuite.lab1;
 import java.lang.reflect.*;
 import java.util.*;
 
-import student.model.ITestCase;
+import student.model.TestCase;
 
 public class EmployeeTests {
 
-	public static List<ITestCase> getAllTests() {
-		List<ITestCase> tests = new ArrayList<>();
+	public static List<TestCase> getAllTests() {
+		List<TestCase> tests = new ArrayList<>();
 
 		// Test 1: Class exists and can be loaded (10 pts)
 		tests.add(createTest("Test 1: Employee class exists", 10, () -> {
@@ -109,9 +109,9 @@ public class EmployeeTests {
 	}
 
 	// Helper to create TestCase
-	private static ITestCase createTest(String name, int points, java.util.function.BooleanSupplier testLogic,
+	private static TestCase createTest(String name, int points, java.util.function.BooleanSupplier testLogic,
 			String feedback) {
-		return new ITestCase() {
+		return new TestCase() {
 			@Override
 			public String getName() {
 				return name;

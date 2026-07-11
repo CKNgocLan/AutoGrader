@@ -8,7 +8,7 @@ import student.constant.ColorEnum;
 import student.constant.ModelName;
 import student.constant.Problem;
 import student.model.ALabTestSuite;
-import student.model.ITestCase;
+import student.model.TestCase;
 import student.testSuite.exam.final253.section1.BallpointPenFactoryTester;
 import student.testSuite.exam.final253.section1.BallpointPenTester;
 import student.testSuite.exam.final253.section1.BrandTester;
@@ -20,7 +20,7 @@ import student.testSuite.exam.final253.section2.PenBuilderTester;
 
 public class ExamFinalTestSuite253 extends ALabTestSuite {
 	@Override
-	public List<ITestCase> getAllTests(String question) {
+	public List<TestCase> getAllTests(String question) {
 		try {
 			switch (question) {
 				case Problem.SECTION_1:
