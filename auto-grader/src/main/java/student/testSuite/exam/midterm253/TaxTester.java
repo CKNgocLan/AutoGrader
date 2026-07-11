@@ -29,7 +29,7 @@ public class TaxTester extends BaseTester {
 	}
 	
 	/*
-	 * 
+	 * field
 	 */
 	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new TestingField[] {

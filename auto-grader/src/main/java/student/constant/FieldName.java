@@ -7,6 +7,11 @@ public class FieldName {
 	public static final String FLAVOR = "flavor";
 	public static final String CATEGORY = "category";
 
+	/**
+	 * Tea Tax
+	 */
+	public static final String UPPERCASE_TEA_TAX = "TEA_TAX";
+
 	/*
 	 * Customer
 	 */

@@ -8,6 +8,7 @@ public class ClassName {
 	public static final String CART = "Cart";
 	public static final String TEA = "Tea";
 	public static final String TEA_CATEGORY = "TeaCategory";
+	public static final String TEA_TAX = "TeaTax";
 
 	/*
 	 * final 253
