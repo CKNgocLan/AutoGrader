@@ -1,4 +1,4 @@
-package student.testSuite.midterm253;
+package student.testSuite.exam.midterm253;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +11,7 @@ import student.model.ITestCase;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
-public class PenTypeTester extends BaseTester {
+public class TaxTester extends BaseTester {
 	public List<ITestCase> getAllTestcases() {
 		return Arrays.asList(
 				declare(defaultPoints)
@@ -23,8 +23,8 @@ public class PenTypeTester extends BaseTester {
 	 * instantiate ***************
 	 */
 
-	public PenTypeTester() throws ClassNotFoundException, TesterGotNoClassNameException {
-		super.className = ClassName.PEN_TYPE;
+	public TaxTester() throws ClassNotFoundException, TesterGotNoClassNameException {
+		super.className = ClassName.TAX;
 		super.getCorrespondingClass();
 	}
 	
@@ -33,8 +33,8 @@ public class PenTypeTester extends BaseTester {
 	 */
 	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new TestingField[] {
-				new TestingField(super.getCorrespondingClass(), FieldName.UPPERCASE_BALLPOINT)
-				, new TestingField(super.getCorrespondingClass(), FieldName.UPPERCASE_FOUNTAIN)
+				new TestingField(double.class, FieldName.UNDERSCORE_8)
+				, new TestingField(double.class, FieldName.UNDERSCORE_10)
 		};
 	}
 	
@@ -42,7 +42,7 @@ public class PenTypeTester extends BaseTester {
 	 * declaration
 	 */
 	public ITestCase declare(int points) {
-		return super.declareAsEnum(points);
+		return super.declare(points);
 	}
 	
 	/*
@@ -51,7 +51,7 @@ public class PenTypeTester extends BaseTester {
 	
 	public ITestCase declareFields(int points) {
 		try {
-			return super.fieldTester.declareInEnum(points, className, fields());
+			return super.fieldTester.checkDeclarationsAsPublicStaticFinal(points, className, fields());
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(points, className, e);

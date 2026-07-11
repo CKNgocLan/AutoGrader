@@ -8,16 +8,16 @@ import student.constant.Country;
 import student.constant.Problem;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
-import student.testSuite.midterm253.BallpointPenTester;
-import student.testSuite.midterm253.BrandName;
-import student.testSuite.midterm253.BrandTester;
-import student.testSuite.midterm253.CountryTester;
-import student.testSuite.midterm253.DiscountTester;
-import student.testSuite.midterm253.FountainPenTester;
-import student.testSuite.midterm253.PenName;
-import student.testSuite.midterm253.PenTester;
-import student.testSuite.midterm253.PenTypeTester;
-import student.testSuite.midterm253.TaxTester;
+import student.testSuite.exam.midterm253.BallpointPenTester;
+import student.testSuite.exam.midterm253.BrandName;
+import student.testSuite.exam.midterm253.BrandTester;
+import student.testSuite.exam.midterm253.CountryTester;
+import student.testSuite.exam.midterm253.DiscountTester;
+import student.testSuite.exam.midterm253.FountainPenTester;
+import student.testSuite.exam.midterm253.PenName;
+import student.testSuite.exam.midterm253.PenTester;
+import student.testSuite.exam.midterm253.PenTypeTester;
+import student.testSuite.exam.midterm253.TaxTester;
 
 public class ExamMidtermTestSuite253 extends ALabTestSuite {
 	@Override

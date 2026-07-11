@@ -1,4 +1,4 @@
-package student.testSuite.midterm253;
+package student.testSuite.exam.midterm253;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +11,7 @@ import student.model.ITestCase;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
-public class TaxTester extends BaseTester {
+public class CountryTester extends BaseTester {
 	public List<ITestCase> getAllTestcases() {
 		return Arrays.asList(
 				declare(defaultPoints)
@@ -23,8 +23,8 @@ public class TaxTester extends BaseTester {
 	 * instantiate ***************
 	 */
 
-	public TaxTester() throws ClassNotFoundException, TesterGotNoClassNameException {
-		super.className = ClassName.TAX;
+	public CountryTester() throws ClassNotFoundException, TesterGotNoClassNameException {
+		super.className = ClassName.COUNTRY;
 		super.getCorrespondingClass();
 	}
 	
@@ -33,8 +33,8 @@ public class TaxTester extends BaseTester {
 	 */
 	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new TestingField[] {
-				new TestingField(double.class, FieldName.UNDERSCORE_8)
-				, new TestingField(double.class, FieldName.UNDERSCORE_10)
+				new TestingField(String.class, FieldName.UPPERCASE_JAPAN)
+				, new TestingField(String.class, FieldName.UPPERCASE_VIETNAM)
 		};
 	}
 	

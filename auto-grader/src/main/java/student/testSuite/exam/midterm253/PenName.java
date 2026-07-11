@@ -1,4 +1,4 @@
-package student.testSuite.midterm253;
+package student.testSuite.exam.midterm253;
 
 public class PenName {
 	public static final String SHIKIORI = "Shikiori";

@@ -1,4 +1,4 @@
-package student.testSuite.midterm253;
+package student.testSuite.exam.midterm253;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,7 +11,7 @@ import student.model.ITestCase;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
-public class CountryTester extends BaseTester {
+public class PenTypeTester extends BaseTester {
 	public List<ITestCase> getAllTestcases() {
 		return Arrays.asList(
 				declare(defaultPoints)
@@ -23,8 +23,8 @@ public class CountryTester extends BaseTester {
 	 * instantiate ***************
 	 */
 
-	public CountryTester() throws ClassNotFoundException, TesterGotNoClassNameException {
-		super.className = ClassName.COUNTRY;
+	public PenTypeTester() throws ClassNotFoundException, TesterGotNoClassNameException {
+		super.className = ClassName.PEN_TYPE;
 		super.getCorrespondingClass();
 	}
 	
@@ -33,8 +33,8 @@ public class CountryTester extends BaseTester {
 	 */
 	public TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new TestingField[] {
-				new TestingField(String.class, FieldName.UPPERCASE_JAPAN)
-				, new TestingField(String.class, FieldName.UPPERCASE_VIETNAM)
+				new TestingField(super.getCorrespondingClass(), FieldName.UPPERCASE_BALLPOINT)
+				, new TestingField(super.getCorrespondingClass(), FieldName.UPPERCASE_FOUNTAIN)
 		};
 	}
 	
@@ -42,7 +42,7 @@ public class CountryTester extends BaseTester {
 	 * declaration
 	 */
 	public ITestCase declare(int points) {
-		return super.declare(points);
+		return super.declareAsEnum(points);
 	}
 	
 	/*
@@ -51,7 +51,7 @@ public class CountryTester extends BaseTester {
 	
 	public ITestCase declareFields(int points) {
 		try {
-			return super.fieldTester.checkDeclarationsAsPublicStaticFinal(points, className, fields());
+			return super.fieldTester.declareInEnum(points, className, fields());
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(points, className, e);
