@@ -35,6 +35,15 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 					, teaTester.declareGetPrice()
 					, teaTester.declareGetCategory()
 					, teaTester.declareEquals()
+
+					/*** Ordered Item ***/
+					, orderedItemTester.declare()
+					, orderedItemTester.declareFields()
+					, orderedItemTester.declareConstructor()
+					, orderedItemTester.checkGetterDeclaration(defaultPoints)
+					, orderedItemTester.declareGetPriceAfterTax()
+					, orderedItemTester.checkToStringDeclaration(defaultPoints)
+					, orderedItemTester.declareEqualsMethod(orderedItemTester.getCorrespondingClass())
 			);
 		} catch (Exception e) {
 			e.printStackTrace();

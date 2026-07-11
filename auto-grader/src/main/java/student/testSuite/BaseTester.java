@@ -324,4 +324,13 @@ public abstract class BaseTester {
 			}
 		};
 	}
+
+	/**
+	 * equals
+	 */
+
+	public TestCase declareEqualsMethod(Class<?> parameterType) {
+		return methodTester.declare(defaultPoints, className,
+				new TestingMethod(boolean.class, MethodName.EQUALS, new TestingParameter(parameterType)));
+	}
 }
