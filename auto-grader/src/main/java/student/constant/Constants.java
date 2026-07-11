@@ -1,6 +1,7 @@
 package student.constant;
 
 public class Constants {
+	public static final String OOP = "OOP";
 	public static final String SRC = "src";
 	public static final String MAIN = "main";
 	public static final String JAVA = "java";
@@ -13,6 +14,7 @@ public class Constants {
 
 	public static final String SUBMISSIONS = "submissions";
 
+	public static final String HYPHEN = "-";
 	public static final String UNDERSCORE = "_";
 	public static final String COMMA = ",";
 	public static final String ASSIGN = "=";

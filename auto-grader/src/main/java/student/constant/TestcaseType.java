@@ -12,7 +12,7 @@ public enum TestcaseType {
 	, CHECK_SUPERCLASS_EXTENDED_BY_CLASS("Check Super Class \"{1}\" EXTENDED by Class \"{0}\"")
 	, CHECK_INTERFACE_IMPLEMENTED_BY_CLASS("Check INTERFACE \"{1}\" Implemented by Class \"{0}\"")
 	, CHECK_DECLARATION_OF_CONSTRUCTOR_NO_ARGS("Check No-Argument Constructor DECLARATION of Class: {0}")
-	, CHECK_DECLARATION_OF_CONSTRUCTOR_ONLY_ONE("Check Constructor of Class \"{0}\" is declare ONLY ONE")
+	, CHECK_DECLARATION_OF_CONSTRUCTOR_ONLY_ONE("Check Constructor of Class \"{0}\" is DECLARED ONLY ONE")
 	, CHECK_DECLARATION_OF_CONSTRUCTOR_FULL_ARGS("Check Full-Argument Constructor DECLARATION of Class: {0}")
 	, CHECK_DECLARATION_OF_CONSTRUCTOR_PARTIAL_ARGS("Check Partial-Argument Constructor DECLARATION of Class: {0}")
 	, CHECK_OPERATION_OF_CONSTRUCTOR_NO_ARGS("Check No-Argument Constructor OPERATION of Class: {0}")

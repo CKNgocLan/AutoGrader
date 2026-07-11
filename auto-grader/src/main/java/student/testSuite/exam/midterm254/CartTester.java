@@ -70,37 +70,38 @@ public class CartTester extends BaseTester {
 	}
 
 	public TestCase haveOnlyOneConstructor() {
-		return new TestCase() {
-			@Override
-			public String getName() {
-				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_ONLY_ONE.getName(className);
-			}
-
-			@Override
-			public int getPoints() {
-				return defaultPoints;
-			}
-
-			@Override
-			public boolean runTest() {
-				try {
-					for (Constructor<?> constructor : getCorrespondingClass().getDeclaredConstructors()) {
-						if (constructor.getParameterTypes().length > 0) {
-							return false;
-						}
-					}
-
-					return true;
-				} catch (Exception e) {
-					return false;
-				}
-			}
-
-			@Override
-			public String getFeedback() {
-				return Feedback.CLASS_HAS_MORE_THAN_ONE_CONSTRUCTOR.getContent(className);
-			}
-		};
+		return super.classTester.haveOnlyOneConstructor(defaultPoints, className);
+//		return new TestCase() {
+//			@Override
+//			public String getName() {
+//				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_ONLY_ONE.getName(className);
+//			}
+//
+//			@Override
+//			public int getPoints() {
+//				return defaultPoints;
+//			}
+//
+//			@Override
+//			public boolean runTest() {
+//				try {
+//					for (Constructor<?> constructor : getCorrespondingClass().getDeclaredConstructors()) {
+//						if (constructor.getParameterTypes().length > 0) {
+//							return false;
+//						}
+//					}
+//
+//					return true;
+//				} catch (Exception e) {
+//					return false;
+//				}
+//			}
+//
+//			@Override
+//			public String getFeedback() {
+//				return Feedback.CLASS_HAS_MORE_THAN_ONE_CONSTRUCTOR.getContent(className);
+//			}
+//		};
 	}
 
 	/**

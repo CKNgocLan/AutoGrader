@@ -58,6 +58,7 @@ import student.constant.Lab;
 import student.constant.Midterm;
 import student.constant.Problem;
 import student.constant.TestCaseResult;
+import student.constant.YearQuarter;
 import student.model.TestCase;
 import student.model.TestResult;
 import student.util.PathUtils;
@@ -439,7 +440,7 @@ public class StudentGrader extends JFrame {
             String safeLab = (selectedLab == null || selectedLab.isEmpty()) ? "Lab" : selectedLab.replaceAll("[^a-zA-Z0-9._-]", "_");
             String safeQ = (selectedQuestion == null || selectedQuestion.isEmpty()) ? "Q" : selectedQuestion.replaceAll("[^a-zA-Z0-9._-]", "_");
             
-            String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "-" + safeLab + "-" + safeQ + "_" + timestamp + "_report.txt";
+            String fileName = Constants.REPORTS_DIR + "/" + Constants.OOP + Constants.UNDERSCORE + YearQuarter.Y25Q4 + safeDir + "-" + safeLab + "-" + safeQ + "_" + timestamp + "_report.txt";
             
 //            String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "_" + timestamp + "_report.txt";
             Files.write(Paths.get(fileName), content.getBytes("UTF-8"));
@@ -576,15 +577,13 @@ public class StudentGrader extends JFrame {
             String safeLab = (selectedLab == null || selectedLab.isEmpty()) ? "Lab" : selectedLab.replaceAll("[^a-zA-Z0-9._-]", "_");
             String safeQ = (selectedQuestion == null || selectedQuestion.isEmpty()) ? "Q" : selectedQuestion.replaceAll("[^a-zA-Z0-9._-]", "_");
 
-            String fileName = "OOP_253-" + safeDir + "-L" + safeLab + "-Q" + safeQ + "_" + timestamp + ".xlsx";
-
-            String excelFile = Constants.REPORTS_DIR + "/" + fileName;
+            String excelFile = Constants.REPORTS_DIR + "/" + Constants.OOP + Constants.UNDERSCORE + YearQuarter.Y25Q4 + Constants.HYPHEN + safeDir + "-L" + safeLab + "-Q" + safeQ + "_" + timestamp + ".xlsx";
 
             try (FileOutputStream fos = new FileOutputStream(excelFile)) {
                 workbook.write(fos);
             }
 
-            System.out.println("Excel report generated: " + fileName);
+            System.out.println("Excel report generated: " + excelFile);
 
         } catch (Exception e) {
             System.out.println("Error generating Excel report: " + e.getMessage());

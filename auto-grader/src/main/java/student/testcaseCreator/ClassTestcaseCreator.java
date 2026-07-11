@@ -1,5 +1,6 @@
 package student.testcaseCreator;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Arrays;
@@ -850,6 +851,40 @@ public class ClassTestcaseCreator {
 			@Override
 			public String getFeedback() {
 				return Feedback.ATTRIBUTE_DECLARED_NOT_CORRECT.getContent(className, invalidAttrName);
+			}
+		};
+	}
+
+	public TestCase haveOnlyOneConstructor(int points, String className, TestingParameter... args) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_DECLARATION_OF_CONSTRUCTOR_ONLY_ONE.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+
+					if (clazz.getDeclaredConstructors().length > 1) {
+						return false;
+					}
+
+					return Arrays.equals(clazz.getDeclaredConstructors()[0].getParameterTypes(), ParameterUtils.mapToConstructorType(args));
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_HAS_MORE_THAN_ONE_CONSTRUCTOR.getContent(className);
 			}
 		};
 	}
