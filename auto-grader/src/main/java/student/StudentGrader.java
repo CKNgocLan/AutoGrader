@@ -111,7 +111,7 @@ public class StudentGrader extends JFrame {
         topPanel.setBorder(BorderFactory.createTitledBorder("Your Submission Folder"));
 
         folderPathField = new JTextField(50);
-        folderPathField.setText(System.getProperty(Constants.USER_DIR)); // default hint
+        folderPathField.setText(Path.of(System.getProperty(Constants.USER_DIR), "midterm254").toString()); // default hint
 
         browseButton = new JButton("Browse Folder...");
         browseButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -353,7 +353,7 @@ public class StudentGrader extends JFrame {
                 createReportDir();
                 
                 // Step 3: Generate Excel Report
-//                generateExcelReport(submissionFolder.getName(), selectedLab, selectedQuestion, results);
+                generateExcelReport(submissionFolder.getName(), selectedLab, selectedQuestion, results);
 
                 log(Constants.ASSIGN.repeat(60));
 

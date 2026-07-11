@@ -6,6 +6,7 @@ import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestCase;
 import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.solution.midterm254.Tea;
 import student.testSuite.BaseTester;
 import student.util.GetterUtils;
@@ -89,12 +90,19 @@ public class TeaTester extends BaseTester {
 
 	/**
 	 * equals(Tea tea)
+	 * @throws TesterGotNoClassNameException 
+	 * @throws ClassNotFoundException 
 	 */
-	protected TestingMethod equals() {
-		return MethodUtils.fromSolution(solutionClass, MethodName.EQUALS);
+	protected TestingMethod equals() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingMethod(boolean.class, MethodName.EQUALS, new TestingParameter(getCorrespondingClass()));
 	}
 
 	public TestCase declareEquals() {
-		return super.methodTester.declaredAsPublicDefault(defaultPoints, className, equals());
+		try {
+			return super.methodTester.declaredAsPublicDefault(defaultPoints, className, equals());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+		}
 	}
 }
