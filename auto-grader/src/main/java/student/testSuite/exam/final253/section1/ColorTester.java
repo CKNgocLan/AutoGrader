@@ -1,4 +1,4 @@
-package student.testSuite.finalExam.final253.section1;
+package student.testSuite.exam.final253.section1;
 
 import java.lang.reflect.InvocationTargetException;
 

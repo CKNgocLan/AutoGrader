@@ -1,4 +1,4 @@
-package student.testSuite.finalExam.final253.section2;
+package student.testSuite.exam.final253.section2;
 
 import java.util.ArrayList;
 

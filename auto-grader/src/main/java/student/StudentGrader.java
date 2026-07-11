@@ -55,6 +55,7 @@ import student.constant.FileExtension;
 import student.constant.FinalExam;
 import student.constant.GradingMessage;
 import student.constant.Lab;
+import student.constant.Midterm;
 import student.constant.Problem;
 import student.constant.TestCaseResult;
 import student.model.ITestCase;
@@ -81,7 +82,7 @@ public class StudentGrader extends JFrame {
     public StudentGrader() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
     	initThemeColor();
     	
-        setTitle("Grader - 253");
+        setTitle(Midterm.MIDTERM_254);
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -205,8 +206,8 @@ public class StudentGrader extends JFrame {
 //		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Problem.P1));
 //		labQuestionsMap.put(Lab.L4, Arrays.asList(Problem.Q1, Problem.Q4));
 //		labQuestionsMap.put(Lab.L3, Arrays.asList(Problem.P1, Problem.P2, Problem.P3, Problem.P4, Problem.P5));
-		labQuestionsMap.put(Lab.L2, Arrays.asList(Problem.P1, Problem.P2, Problem.P3, Problem.P4, Problem.P5, Problem.P6));
-		labQuestionsMap.put(Lab.L1, Arrays.asList(Problem.P0));
+//		labQuestionsMap.put(Lab.L2, Arrays.asList(Problem.P1, Problem.P2, Problem.P3, Problem.P4, Problem.P5, Problem.P6));
+//		labQuestionsMap.put(Lab.L1, Arrays.asList(Problem.P0));
 	}
     
     private void initializeComboBoxes() {

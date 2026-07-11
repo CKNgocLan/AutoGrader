@@ -9,14 +9,14 @@ import student.constant.ModelName;
 import student.constant.Problem;
 import student.model.ALabTestSuite;
 import student.model.ITestCase;
-import student.testSuite.finalExam.final253.section1.BallpointPenFactoryTester;
-import student.testSuite.finalExam.final253.section1.BallpointPenTester;
-import student.testSuite.finalExam.final253.section1.BrandTester;
-import student.testSuite.finalExam.final253.section1.ColorTester;
-import student.testSuite.finalExam.final253.section1.FountainPenFactoryTester;
-import student.testSuite.finalExam.final253.section1.FountainPenTester;
-import student.testSuite.finalExam.final253.section1.PenFactoryTester;
-import student.testSuite.finalExam.final253.section2.PenBuilderTester;
+import student.testSuite.exam.final253.section1.BallpointPenFactoryTester;
+import student.testSuite.exam.final253.section1.BallpointPenTester;
+import student.testSuite.exam.final253.section1.BrandTester;
+import student.testSuite.exam.final253.section1.ColorTester;
+import student.testSuite.exam.final253.section1.FountainPenFactoryTester;
+import student.testSuite.exam.final253.section1.FountainPenTester;
+import student.testSuite.exam.final253.section1.PenFactoryTester;
+import student.testSuite.exam.final253.section2.PenBuilderTester;
 
 public class ExamFinalTestSuite253 extends ALabTestSuite {
 	@Override
@@ -28,7 +28,7 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 					ColorTester colorTester = new ColorTester();
 					BrandTester brandTester = new BrandTester();
 					
-					student.testSuite.finalExam.final253.section1.PenTester penTester = new student.testSuite.finalExam.final253.section1.PenTester()
+					student.testSuite.exam.final253.section1.PenTester penTester = new student.testSuite.exam.final253.section1.PenTester()
 							.brandTester(brandTester)
 							.colorTester(colorTester);
 					BallpointPenTester ballpointPenTester = new BallpointPenTester(penTester);
@@ -85,7 +85,7 @@ public class ExamFinalTestSuite253 extends ALabTestSuite {
 				case Problem.SECTION_2:
 				{
 					PenBuilderTester builderTester = new PenBuilderTester();
-					student.testSuite.finalExam.final253.section2.PenTester penTester = new student.testSuite.finalExam.final253.section2.PenTester(builderTester);
+					student.testSuite.exam.final253.section2.PenTester penTester = new student.testSuite.exam.final253.section2.PenTester(builderTester);
 
 					String brand = BrandName.CONCOPENS;
 					String model = ModelName.GOLDEN_LOTUS;
