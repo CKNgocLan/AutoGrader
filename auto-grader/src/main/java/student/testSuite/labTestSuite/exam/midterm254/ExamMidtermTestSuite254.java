@@ -6,7 +6,10 @@ import java.util.List;
 import student.model.ALabTestSuite;
 import student.model.TestCase;
 import student.testSuite.exam.midterm254.CartTester;
+import student.testSuite.exam.midterm254.DinhNgocTraTeaTester;
 import student.testSuite.exam.midterm254.GreenTeaTester;
+import student.testSuite.exam.midterm254.JasmineTeaTester;
+import student.testSuite.exam.midterm254.LotusTeaTester;
 import student.testSuite.exam.midterm254.MocCauTeaTester;
 import student.testSuite.exam.midterm254.OrderedItemTester;
 import student.testSuite.exam.midterm254.ScentedTeaTester;
@@ -22,15 +25,21 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 			TeaTester teaTester = new TeaTester()
 					.teaCategoryTester(teaCategoryTester);
 			TeaTaxTester teaTaxTester = new TeaTaxTester();
+
 			OrderedItemTester orderedItemTester = new OrderedItemTester()
 					.teaTester(teaTester);
 			CartTester cartTester = new CartTester()
 					.orderedItemTester(orderedItemTester);
+
 			GreenTeaTester greenTeaTester = new GreenTeaTester(teaTester)
 					.teaCategoryTester(teaCategoryTester);
 			ScentedTeaTester scentedTeaTester = new ScentedTeaTester(teaTester)
 					.teaCategoryTester(teaCategoryTester);
+
 			MocCauTeaTester mocCauTeaTester = new MocCauTeaTester(greenTeaTester);
+			DinhNgocTraTeaTester dinhNgocTraTeaTester = new DinhNgocTraTeaTester(greenTeaTester);
+			LotusTeaTester lotusTeaTester = new LotusTeaTester(scentedTeaTester);
+			JasmineTeaTester jasmineTeaTester = new JasmineTeaTester(scentedTeaTester);
 
 			return Arrays.asList(
 					/*** Tea Category ***/
@@ -88,6 +97,42 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 					, mocCauTeaTester.operateGetPrice()
 					, mocCauTeaTester.excludeGetCategory()
 					, mocCauTeaTester.operateGetCategory()
+
+					/*** Dinh Ngoc Tra Tea ***/
+					, dinhNgocTraTeaTester.declare()
+					, dinhNgocTraTeaTester.declareSuper()
+					, dinhNgocTraTeaTester.declareGetName()
+					, dinhNgocTraTeaTester.declareGetFlavor()
+					, dinhNgocTraTeaTester.declareGetPrice()
+					, dinhNgocTraTeaTester.operateGetName()
+					, dinhNgocTraTeaTester.operateGetFlavor()
+					, dinhNgocTraTeaTester.operateGetPrice()
+					, dinhNgocTraTeaTester.excludeGetCategory()
+					, dinhNgocTraTeaTester.operateGetCategory()
+
+					/*** Lotus Tea ***/
+					, lotusTeaTester.declare()
+					, lotusTeaTester.declareSuper()
+					, lotusTeaTester.declareGetName()
+					, lotusTeaTester.declareGetFlavor()
+					, lotusTeaTester.declareGetPrice()
+					, lotusTeaTester.operateGetName()
+					, lotusTeaTester.operateGetFlavor()
+					, lotusTeaTester.operateGetPrice()
+					, lotusTeaTester.excludeGetCategory()
+					, lotusTeaTester.operateGetCategory()
+
+					/*** Jasmine Tea ***/
+					, jasmineTeaTester.declare()
+					, jasmineTeaTester.declareSuper()
+					, jasmineTeaTester.declareGetName()
+					, jasmineTeaTester.declareGetFlavor()
+					, jasmineTeaTester.declareGetPrice()
+					, jasmineTeaTester.operateGetName()
+					, jasmineTeaTester.operateGetFlavor()
+					, jasmineTeaTester.operateGetPrice()
+					, jasmineTeaTester.excludeGetCategory()
+					, jasmineTeaTester.operateGetCategory()
 			);
 		} catch (Exception e) {
 			e.printStackTrace();

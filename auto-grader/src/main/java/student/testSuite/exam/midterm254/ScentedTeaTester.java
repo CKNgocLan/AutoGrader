@@ -5,16 +5,15 @@ import student.exception.TesterGotNoClassNameException;
 import student.model.TestCase;
 import student.model.TestingMethod;
 import student.testSuite.BaseTester;
-import student.util.TestCaseUtils;
 
 public class ScentedTeaTester extends BaseTester {
-	private TeaTester parentTester;
-	private TeaCategoryTester teaCategoryTester;
+	protected TeaTester teaTester;
+	protected TeaCategoryTester teaCategoryTester;
 
 	public ScentedTeaTester(TeaTester teaTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.SCENTED_TEA;
 		super.getCorrespondingClass();
-		this.parentTester = teaTester;
+		this.teaTester = teaTester;
 	}
 
 	public ScentedTeaTester teaCategoryTester(TeaCategoryTester teaCategoryTester) {
@@ -30,7 +29,7 @@ public class ScentedTeaTester extends BaseTester {
 	/** declare super */
 	public TestCase implementInterface() {
 		try {
-			return super.implementInterface(defaultPoints, parentTester.getCorrespondingClass());
+			return super.implementInterface(defaultPoints, teaTester.getCorrespondingClass());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return exceptionTestCase(e);
@@ -49,18 +48,7 @@ public class ScentedTeaTester extends BaseTester {
 	 * @throws TesterGotNoClassNameException
 	 * @throws ClassNotFoundException
 	 */
-	private TestingMethod getCategory() throws ClassNotFoundException, TesterGotNoClassNameException {
-		return parentTester.getCategory().expectedValue(teaCategoryTester.valueFrom(TeaCategoryTester.EnumValue.SCENTED_TEA.name()));
-	}
-
-	@SuppressWarnings("unchecked")
-	@Deprecated
-	public TestCase operateGetCategory() {
-		try {
-			return super.methodTester.operateAsEnum(defaultPoints, getCategory(), (Class<? extends Enum<?>>) teaCategoryTester.getCorrespondingClass());
-		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
-			e.printStackTrace();
-			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
-		}
+	protected TestingMethod getCategory() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return teaTester.getCategory().expectedValue(teaCategoryTester.valueFrom(TeaCategoryTester.EnumValue.SCENTED_TEA.name()));
 	}
 }

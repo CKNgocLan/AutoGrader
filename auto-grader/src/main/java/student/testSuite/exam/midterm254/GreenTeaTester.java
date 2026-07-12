@@ -5,7 +5,6 @@ import student.exception.TesterGotNoClassNameException;
 import student.model.TestCase;
 import student.model.TestingMethod;
 import student.testSuite.BaseTester;
-import student.util.TestCaseUtils;
 
 public class GreenTeaTester extends BaseTester {
 	protected TeaTester teaTester;
@@ -49,18 +48,7 @@ public class GreenTeaTester extends BaseTester {
 	 * @throws TesterGotNoClassNameException
 	 * @throws ClassNotFoundException
 	 */
-	private TestingMethod getCategory() throws ClassNotFoundException, TesterGotNoClassNameException {
+	protected TestingMethod getCategory() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return teaTester.getCategory().expectedValue(teaCategoryTester.valueFrom(TeaCategoryTester.EnumValue.GREEN_TEA.name()));
-	}
-
-	@SuppressWarnings("unchecked")
-	@Deprecated
-	public TestCase operateGetCategory() {
-		try {
-			return super.methodTester.operateAsEnum(defaultPoints, getCategory(), (Class<? extends Enum<?>>) teaCategoryTester.getCorrespondingClass());
-		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
-			e.printStackTrace();
-			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
-		}
 	}
 }

@@ -7,14 +7,14 @@ import student.model.TestingMethod;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
-public class MocCauTeaTester extends BaseTester {
+public class DinhNgocTraTeaTester extends BaseTester {
 	private GreenTeaTester greenTeaTester;
-	private final String name = "Moc Cau Tea";
-	private final String flavor = "Grassy, fresh corn aroma";
-	private final double price = 350000;
+	private final String name = "Dinh Ngoc Tra Tea";
+	private final String flavor = "Pure young bud aroma, gentle bitter";
+	private final double price = 2500000;
 
-	public MocCauTeaTester(GreenTeaTester parentTester) throws ClassNotFoundException, TesterGotNoClassNameException {
-		super.className = ClassName.MOC_CAU_TEA;
+	public DinhNgocTraTeaTester(GreenTeaTester parentTester) throws ClassNotFoundException, TesterGotNoClassNameException {
+		super.className = ClassName.DINH_NGOC_TRA_TEA;
 		super.getCorrespondingClass();
 		this.greenTeaTester = parentTester;
 	}
