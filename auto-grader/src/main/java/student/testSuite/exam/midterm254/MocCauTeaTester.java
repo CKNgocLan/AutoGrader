@@ -8,13 +8,15 @@ import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
 public class MocCauTeaTester extends BaseTester {
-	private GreenTeaTester parentTester;
+	private GreenTeaTester greenTeaTester;
 	private final String name = "Moc Cau Tea";
+	private final String flavor = "Grassy, fresh corn aroma";
+	private final double price = 350000;
 
 	public MocCauTeaTester(GreenTeaTester parentTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.MOC_CAU_TEA;
 		super.getCorrespondingClass();
-		this.parentTester = parentTester;
+		this.greenTeaTester = parentTester;
 	}
 
 	/* declare */
@@ -25,7 +27,7 @@ public class MocCauTeaTester extends BaseTester {
 	
 	public TestCase declareSuper() {
 		try {
-			return super.declareSuperClass(defaultPoints, parentTester.getCorrespondingClass());
+			return super.declareSuperClass(defaultPoints, greenTeaTester.getCorrespondingClass());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return exceptionTestCase(e);
@@ -41,15 +43,16 @@ public class MocCauTeaTester extends BaseTester {
 	/* getName() */
 
 	public TestCase declareGetName() {
-		return super.methodTester.declare(defaultPoints, className, parentTester.parentTester.getName());
+		return super.methodTester.declare(defaultPoints, className, greenTeaTester.teaTester.getName());
 	}
 
 	public TestCase operateGetName() {
 		try {
-			TestingMethod method = parentTester.parentTester.getName()
-					.config(getCorrespondingClass(), super.instantiate())
-					.expectedValue(name);
-			return super.methodTester.operationAsString(defaultPoints, className, method);
+			return super.methodTester.operationAsString(defaultPoints, className,
+					greenTeaTester.teaTester.getName()
+							.config(super.getCorrespondingClass(), super.instantiate())
+							.expectedValue(name)
+					);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
@@ -59,12 +62,61 @@ public class MocCauTeaTester extends BaseTester {
 	/* getFlavor() */
 
 	public TestCase declareGetFlavor() {
-		return super.methodTester.declare(defaultPoints, className, parentTester.parentTester.getFlavor());
+		return super.methodTester.declare(defaultPoints, className, greenTeaTester.teaTester.getFlavor());
+	}
+
+	public TestCase operateGetFlavor() {
+		try {
+			return super.methodTester.operationAsString(defaultPoints, className,
+					greenTeaTester.teaTester.getFlavor()
+							.config(super.getCorrespondingClass(), super.instantiate())
+							.expectedValue(flavor)
+					);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+		}
 	}
 
 	/* getPrice() */
 
 	public TestCase declareGetPrice() {
-		return super.methodTester.declare(defaultPoints, className, parentTester.parentTester.getPrice());
+		return super.methodTester.declare(defaultPoints, className, greenTeaTester.teaTester.getPrice());
+	}
+
+	public TestCase operateGetPrice() {
+		try {
+			return super.methodTester.operateAsDouble(defaultPoints, className,
+					greenTeaTester.teaTester.getPrice()
+							.config(super.getCorrespondingClass(), super.instantiate())
+							.expectedValue(price)
+					);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+		}
+	}
+
+	/* getCategory() */
+
+	public TestCase excludeGetCategory() {
+		try {
+			return super.methodTester.excludes(defaultPoints, className, greenTeaTester.teaTester.getCategory());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, name, e);
+		}
+	}
+
+	public TestCase operateGetCategory() {
+		try {
+			TestingMethod method = greenTeaTester.teaTester.getCategory()
+					.config(greenTeaTester.getCorrespondingClass(), instantiate())
+					.expectedValue(greenTeaTester.teaCategoryTester.valueFrom(TeaCategoryTester.EnumValue.GREEN_TEA.name()));
+			return super.methodTester.operateAsEnum(defaultPoints, method, greenTeaTester.teaCategoryTester.getEnumClass());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, name, e);
+		}
 	}
 }

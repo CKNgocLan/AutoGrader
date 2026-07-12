@@ -84,6 +84,10 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 					, mocCauTeaTester.declareGetFlavor()
 					, mocCauTeaTester.declareGetPrice()
 					, mocCauTeaTester.operateGetName()
+					, mocCauTeaTester.operateGetFlavor()
+					, mocCauTeaTester.operateGetPrice()
+					, mocCauTeaTester.excludeGetCategory()
+					, mocCauTeaTester.operateGetCategory()
 			);
 		} catch (Exception e) {
 			e.printStackTrace();

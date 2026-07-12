@@ -8,13 +8,13 @@ import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
 public class GreenTeaTester extends BaseTester {
-	protected TeaTester parentTester;
-	private TeaCategoryTester teaCategoryTester;
+	protected TeaTester teaTester;
+	protected TeaCategoryTester teaCategoryTester;
 
 	public GreenTeaTester(TeaTester teaTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.GREEN_TEA;
 		super.getCorrespondingClass();
-		this.parentTester = teaTester;
+		this.teaTester = teaTester;
 	}
 
 	public GreenTeaTester teaCategoryTester(TeaCategoryTester teaCategoryTester) {
@@ -30,7 +30,7 @@ public class GreenTeaTester extends BaseTester {
 	/* declare parent interface */
 	public TestCase implementInterface() {
 		try {
-			return super.implementInterface(defaultPoints, parentTester.getCorrespondingClass());
+			return super.implementInterface(defaultPoints, teaTester.getCorrespondingClass());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return exceptionTestCase(e);
@@ -50,7 +50,7 @@ public class GreenTeaTester extends BaseTester {
 	 * @throws ClassNotFoundException
 	 */
 	private TestingMethod getCategory() throws ClassNotFoundException, TesterGotNoClassNameException {
-		return parentTester.getCategory().expectedValue(teaCategoryTester.valueFrom(TeaCategoryTester.EnumValue.GREEN_TEA.name()));
+		return teaTester.getCategory().expectedValue(teaCategoryTester.valueFrom(TeaCategoryTester.EnumValue.GREEN_TEA.name()));
 	}
 
 	@SuppressWarnings("unchecked")

@@ -294,6 +294,11 @@ public class TestingMethod {
 		isConfigured();
 		return StringUtils.toString(getDeclaredMethod().invoke(instance, getParameterValues()));
 	}
+
+	public double returnDoublePrimitive() throws Exception {
+		isConfigured();
+		return ValueUtils.toDoublePrimitive(getDeclaredMethod().invoke(instance, getParameterValues()));
+	}
 	
 	/*
 	 * *************************

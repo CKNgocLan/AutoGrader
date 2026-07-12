@@ -608,6 +608,70 @@ public class MethodTestcaseCreator {
 		};
 	}
 
+	public TestCase operateAsDouble(int points, String className, TestingMethod method) {
+		return new TestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					if (method.getExpectedValue() == null) {
+						throw new InvalidConfigurationException(ExceptionMessage.PROPERTY_NOT_CONFIGURED.getContent(PropertyName.EXPECTED_VALUE));
+					}
+
+					return ValueUtils.toDoublePrimitive(method.getExpectedValue()) == method.returnDoublePrimitive();
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+			}
+		};
+	}
+
+	public TestCase excludes(int points, String className, TestingMethod... method) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_CLASS_EXCLUDING_METHOD.getName(className, MethodUtils.getJoinedName(Constants.COMMA_WITH_SPACE, method));
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return methodChecker.isExluded(Class.forName(className, false, targetClassesLoader), method);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.CLASS_NOT_EXCLUDING_METHOD.getContent(className, MethodUtils.getJoinedName(Constants.COMMA_WITH_SPACE, method));
+			}
+		};
+	}
+
 	public TestCase excludes(int points, Class<?> subclass, TestingMethod... method) {
 		return new TestCase() {
 			@Override

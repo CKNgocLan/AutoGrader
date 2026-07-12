@@ -10,7 +10,6 @@ import student.model.TestingParameter;
 import student.solution.midterm254.Tea;
 import student.testSuite.BaseTester;
 import student.util.GetterUtils;
-import student.util.MethodUtils;
 import student.util.TestCaseUtils;
 
 public class TeaTester extends BaseTester {

@@ -22,6 +22,10 @@ public class TeaCategoryTester extends BaseTester implements IEnumTester {
 		SCENTED_TEA
 	}
 
+	public Class<? extends Enum<?>> getEnumClass() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return (Class<? extends Enum<?>>)getCorrespondingClass();
+	}
+
 	/**
 	 * instantiate
 	 */
