@@ -45,7 +45,7 @@ public class PenFactoryTester extends BaseTester {
 	 * createPen
 	 */
 	protected TestingMethod createPen(Class<?> subclass, Object brand, String model, Object color, double price) throws ClassNotFoundException, TesterGotNoClassNameException {
-		return createPen(subclass).updateParameter(createPenParameters(brand, model, color, price));
+		return createPen(subclass).overrideParameter(createPenParameters(brand, model, color, price));
 	}
 
 	protected TestingMethod createPen(Class<?> subclass) {

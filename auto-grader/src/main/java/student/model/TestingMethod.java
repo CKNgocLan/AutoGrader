@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -91,16 +92,17 @@ public class TestingMethod {
 		this.parameters = parameters;
 	}
 
-	public TestingMethod updateParameter(TestingParameter... parameters) {
+	public TestingMethod overrideParameter(TestingParameter... parameters) {
 		setParameter(parameters);
 		return this;
 	}
 
+	@Deprecated
 	public TestingMethod addParameter(TestingParameter parameter) {
 		if (this.parameters == null) {
 			this.parameters = Stream.of(parameter).toArray(TestingParameter[]::new);
 		} else {
-			List<TestingParameter> tempList = Stream.of(this.parameters).toList();
+			List<TestingParameter> tempList = new ArrayList<>(Stream.of(this.parameters).toList());
 			tempList.add(parameter);
 			this.parameters = tempList.stream().toArray(TestingParameter[]::new);
 		}

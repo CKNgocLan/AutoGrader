@@ -19,11 +19,11 @@ public class Cart {
     }
 
     public void printOrderedItems() {
-        if (orderedItems.isEmpty()) {
-            System.out.println("Your cart is empty.");
-            return;
-        }
-        System.out.println("--- Current Cart Items ---");
+        // if (orderedItems.isEmpty()) {
+        //     System.out.println("Your cart is empty.");
+        //     return;
+        // }
+        // System.out.println("--- Current Cart Items ---");
         for (OrderedItem item : orderedItems) {
             System.out.println(item);
         }

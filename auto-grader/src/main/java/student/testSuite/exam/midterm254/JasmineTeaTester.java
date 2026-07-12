@@ -11,6 +11,7 @@ public class JasmineTeaTester extends BaseTester {
 	private final String name = "Jasmine Tea";
 	private final String flavor = "Sweet jasmine floral, light & refreshing";
 	private final double price = 600000;
+	public final double weight = 1.0;
 
 	public JasmineTeaTester(ScentedTeaTester parentTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.JASMINE_TEA;

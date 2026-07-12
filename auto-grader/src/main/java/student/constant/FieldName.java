@@ -24,6 +24,7 @@ public class FieldName {
 	 */
 
 	public static final String ORDERED_ITEMS = "orderedItems";
+	public static final String ITEM = "item";
 
 	/*
 	 * Customer

@@ -1,5 +1,7 @@
 package student.testcaseCreator;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ import student.model.Getter;
 import student.model.Setter;
 import student.model.TestCase;
 import student.model.TestingMethod;
+import student.model.TestingParameter;
 import student.util.MethodUtils;
 import student.util.StringUtils;
 import student.util.ValueUtils;
@@ -27,6 +30,9 @@ public class MethodTestcaseCreator {
 	private static MethodTestcaseCreator instance = null;
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 	private MethodChecker methodChecker = MethodChecker.getInstance();
+	private PrintStream originalOut = System.out;
+	private ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+	private PrintStream testOut = new PrintStream(outputStream);
 
 	/*
 	 * ***************************************************************************
@@ -471,6 +477,55 @@ public class MethodTestcaseCreator {
 		};
 	}
 
+	public TestCase addElement(int points, TestingMethod method, TestingParameter testingParameter) {
+		return new TestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					if (testingParameter == null) {
+						throw new InvalidConfigurationException(ExceptionMessage.PROPERTY_NOT_CONFIGURED.getContent(PropertyName.PARAMETER_TESTING_VALUE));
+					}
+
+					Field orderedItemsField = method.getConfiguredClass().getDeclaredField(testingParameter.getName());
+					orderedItemsField.setAccessible(true);
+
+					List<?> before = ((List<?>)orderedItemsField.get(method.getConfiguredInstance()));
+
+					method.overrideParameter(testingParameter);
+					method.returnVoid();
+					
+					List<?> after = ((List<?>)orderedItemsField.get(method.getConfiguredInstance()));
+					
+					if (after.size() - before.size() == 1) {
+						return false;
+					}
+
+					return true;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+			}
+		};
+	}
+
 	public TestCase operationAsVoidAndCompareIntField(int points, TestingMethod method, String integerFieldName) {
 		return new TestCase() {
 
@@ -489,6 +544,48 @@ public class MethodTestcaseCreator {
 				try {
 					method.returnVoid();
 					return ValueUtils.toInteger(method.getExpectedValue()).equals(method.getUpdatedValue(integerFieldName));
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+			}
+		};
+	}
+
+	public TestCase printListThenReturnVoid(int points, String className, TestingMethod method) {
+		return new TestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					method.returnVoid();
+
+					// Redirect System.out to capture output
+					System.setOut(testOut);
+					
+					for (Object elem : method.getExpectedValue() == null ? List.of() : List.of(method.getExpectedValue())) {
+						if (!outputStream.toString().trim().contains(elem.toString())) {
+							return false;
+						}
+					}
+					
+					return true;
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					e.printStackTrace();

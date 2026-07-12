@@ -15,6 +15,7 @@ import student.util.TestCaseUtils;
 
 public class CartTester extends BaseTester {
 	private OrderedItemTester orderedItemTester;
+//	private MocCauTeaTester mocCauTeaTester;
 
 	public CartTester() throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.CART;
@@ -26,7 +27,12 @@ public class CartTester extends BaseTester {
 		return this;
 	}
 
-	/**
+//	public CartTester mocCauTeaTester(MocCauTeaTester mocCauTeaTester) {
+//		this.mocCauTeaTester = mocCauTeaTester;
+//		return this;
+//	}
+
+	/*
 	 * declare
 	 */
 
@@ -34,7 +40,7 @@ public class CartTester extends BaseTester {
 		return super.declare(defaultPoints);
 	}
 
-	/**
+	/*
 	 * field
 	 */
 
@@ -89,14 +95,21 @@ public class CartTester extends BaseTester {
 		}
 	}
 
-	public TestCase operateAddOrderedItem() {
+	public TestCase operateAddOrderedItem(Object teaInstance, double weight) {
 		try {
-			return super.methodTester.operate(defaultPoints, className, addOrderedItem());
+			return super.methodTester.addElement(defaultPoints
+					, addOrderedItem().config(getCorrespondingClass(), instantiate())
+					, new TestingParameter(orderedItemTester.getCorrespondingClass(), FieldName.ORDERED_ITEMS,
+							orderedItemTester.instantiateItem(teaInstance, weight)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
 		}
 	}
+	
+	/*
+	 * printOrderedItems()
+	 */
 
 	private TestingMethod printOrderedItems() {
 		return new TestingMethod(void.class, MethodName.PRINT_ORDERED_ITEMS);
@@ -111,6 +124,22 @@ public class CartTester extends BaseTester {
 		}
 	}
 
+	public TestCase operatePrintOrderedItems(Object... orderedItems) {
+		try {
+			Object cartInstance = instantiate();
+			TestingMethod method = printOrderedItems().config(getCorrespondingClass(), cartInstance);
+
+			return super.methodTester.printListThenReturnVoid(defaultPoints, className, method);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+		}
+	}
+
+	/*
+	 * getTotalPriceAfterTax()
+	 */
+
 	private TestingMethod getTotalPriceAfterTax() {
 		return new TestingMethod(double.class, MethodName.GET_TOTAL_PRICE_AFTER_TAX);
 	}
@@ -118,6 +147,15 @@ public class CartTester extends BaseTester {
 	public TestCase declareGetTotalPriceAfterTax() {
 		try {
 			return super.methodTester.declare(defaultPoints, className, getTotalPriceAfterTax());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+		}
+	}
+
+	public TestCase operateGetTotalPriceAfterTax(double expected) {
+		try {
+			return super.methodTester.operateAsDouble(defaultPoints, className, getTotalPriceAfterTax().config(getCorrespondingClass(), instantiate()).expectedValue(expected));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);

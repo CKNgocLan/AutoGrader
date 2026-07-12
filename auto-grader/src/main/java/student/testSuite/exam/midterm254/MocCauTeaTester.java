@@ -11,6 +11,7 @@ public class MocCauTeaTester extends BaseTester {
 	private final String name = "Moc Cau Tea";
 	private final String flavor = "Grassy, fresh corn aroma";
 	private final double price = 350000;
+	public final double weight = 1.5;
 
 	public MocCauTeaTester(GreenTeaTester parentTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.MOC_CAU_TEA;
@@ -37,6 +38,11 @@ public class MocCauTeaTester extends BaseTester {
 
 	public TestCase haveOnlyDefaultConstructor() {
 		return super.classTester.haveOnlyDefaultConstructor(defaultPoints, className);
+	}
+
+	
+	public Object instantiateTea() throws Exception {
+		return instantiate();
 	}
 
 	/* getName() */

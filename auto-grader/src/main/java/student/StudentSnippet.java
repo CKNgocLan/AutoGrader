@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -26,6 +27,7 @@ import student.constant.MethodName;
 import student.constant.Problem;
 import student.exception.TesterGotNoClassNameException;
 import student.model.SingleGradingTask;
+import student.model.TestingParameter;
 import student.solution.midterm254.Tea;
 import student.testSuite.lab4.problem1_3.EmployeeTester;
 import student.util.ValueUtils;
@@ -39,10 +41,8 @@ public class StudentSnippet {
 //    	Method equals = Tea.class.getDeclaredMethod(MethodName.EQUALS, Tea.class);
 //    	System.out.println("Default: " + equals.isDefault());
 
-    	Method getName = Tea.class.getDeclaredMethod("getName");
-    	System.out.println(getName.getReturnType());
-    	System.out.println(Modifier.isPublic(getName.getModifiers()));
-    	System.out.println(Modifier.isAbstract(getName.getModifiers()));
+    	System.out.println(List.of(new TestingParameter[] {}).size());
+    	System.out.println(Arrays.asList(new TestingParameter[] {}).size());
     }
 
     private static void future() {

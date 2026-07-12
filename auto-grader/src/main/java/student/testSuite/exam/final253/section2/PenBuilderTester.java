@@ -84,7 +84,7 @@ public class PenBuilderTester extends BaseTester {
 	}
 
 	private TestingMethod createSetBrandMethod(String brand) throws Exception {
-		return createSetBrandMethod().updateParameter(new TestingParameter(String.class, FieldName.BRAND, brand));
+		return createSetBrandMethod().overrideParameter(new TestingParameter(String.class, FieldName.BRAND, brand));
 	}
 
 	public TestCase declareSetBrand() {
@@ -122,7 +122,7 @@ public class PenBuilderTester extends BaseTester {
 	}
 
 	private TestingMethod createSetModelMethod(String model) throws Exception {
-		return createSetModelMethod().updateParameter(new TestingParameter(String.class, FieldName.MODEL, model));
+		return createSetModelMethod().overrideParameter(new TestingParameter(String.class, FieldName.MODEL, model));
 	}
 
 	public TestCase declareSetModel() {
@@ -160,7 +160,7 @@ public class PenBuilderTester extends BaseTester {
 	}
 
 	private TestingMethod createSetPriceMethod(double price) throws Exception {
-		return createSetPriceMethod().updateParameter(new TestingParameter(double.class, FieldName.PRICE, price));
+		return createSetPriceMethod().overrideParameter(new TestingParameter(double.class, FieldName.PRICE, price));
 	}
 
 	public TestCase declareSetPrice() {

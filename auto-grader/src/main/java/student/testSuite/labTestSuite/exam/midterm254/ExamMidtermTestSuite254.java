@@ -133,6 +133,10 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 					, jasmineTeaTester.operateGetPrice()
 					, jasmineTeaTester.excludeGetCategory()
 					, jasmineTeaTester.operateGetCategory()
+
+					, cartTester.operateAddOrderedItem(mocCauTeaTester.instantiateTea(), mocCauTeaTester.weight)
+					, cartTester.operatePrintOrderedItems()
+					, cartTester.operateGetTotalPriceAfterTax(0)
 			);
 		} catch (Exception e) {
 			e.printStackTrace();

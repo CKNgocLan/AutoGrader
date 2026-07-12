@@ -11,6 +11,7 @@ public class DinhNgocTraTeaTester extends BaseTester {
 	private final String name = "Dinh Ngoc Tra Tea";
 	private final String flavor = "Pure young bud aroma, gentle bitter";
 	private final double price = 2500000;
+	public final double weight = 0.5;
 
 	public DinhNgocTraTeaTester(GreenTeaTester parentTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.DINH_NGOC_TRA_TEA;
