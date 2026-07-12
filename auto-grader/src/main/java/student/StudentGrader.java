@@ -294,7 +294,6 @@ public class StudentGrader extends JFrame {
 			return;
 		}
 
-        // TODO loop through submission directory
         // Clear previous log
         logArea.setText(Constants.EMPTY_STRING);
         log(GradingMessage.STARTING_GRADING_FOR_FOLDER.getContent(submissionFolder.getName()));
@@ -403,8 +402,6 @@ public class StudentGrader extends JFrame {
                 return false;
             }
             
-            // TODO check and remove package statement
-
             ProcessBuilder pb = new ProcessBuilder();
             List<String> cmd = new ArrayList<>();
             cmd.add("javac");
