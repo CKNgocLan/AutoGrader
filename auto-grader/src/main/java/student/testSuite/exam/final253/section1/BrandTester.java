@@ -1,6 +1,5 @@
 package student.testSuite.exam.final253.section1;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.UUID;
 
 import student.constant.ClassName;
@@ -24,7 +23,7 @@ public class BrandTester extends BaseTester {
 		super.solutionClass = Brand.class;
 	}
 	
-	public Object instantiate(String name) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
+	public Object instantiate(String name) throws Exception {
 		return super.instantiateWithArgs(argument(name));
 	}
 	

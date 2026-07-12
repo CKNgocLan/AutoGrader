@@ -1,14 +1,10 @@
 package student.testSuite.lab3.problem5;
 
-import java.lang.reflect.InvocationTargetException;
-
 import student.constant.ClassName;
 import student.constant.FieldName;
-import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.TestingField;
 import student.model.TestCase;
-import student.model.TestingMethod;
+import student.model.TestingField;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
@@ -41,27 +37,11 @@ public class ParkingTicketTester extends BaseTester {
 	 * instantiate
 	 */
 	
-	public Object instantiate(double fineAmount)
-			throws InstantiationException
-			, IllegalAccessException
-			, IllegalArgumentException
-			, InvocationTargetException
-			, NoSuchMethodException
-			, SecurityException
-			, ClassNotFoundException
-			, TesterGotNoClassNameException {
+	public Object instantiate(double fineAmount) throws Exception {
 		return super.instantiateWithArgs(constructorArgs(null, null, fineAmount));
 	}
 	
-	public Object instantiate(Object car, Object officer, double fineAmount)
-			throws InstantiationException
-			, IllegalAccessException
-			, IllegalArgumentException
-			, InvocationTargetException
-			, NoSuchMethodException
-			, SecurityException
-			, ClassNotFoundException
-			, TesterGotNoClassNameException {
+	public Object instantiate(Object car, Object officer, double fineAmount) throws Exception {
 		return super.instantiateWithArgs(constructorArgs(car, officer, fineAmount));
 	}
 

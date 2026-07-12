@@ -1,7 +1,6 @@
 package student.testSuite.lab3.problem4;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 
 import student.constant.ClassName;
 import student.constant.Constants;
@@ -10,13 +9,13 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
-import student.model.TestingField;
 import student.model.TestCase;
+import student.model.TestingField;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
-import student.util.ValueUtils;
 import student.util.TestCaseUtils;
+import student.util.ValueUtils;
 
 public class OdometerTester extends BaseTester {
 	private FuelGaugeTester fuelGaugeTester;
@@ -42,15 +41,7 @@ public class OdometerTester extends BaseTester {
 	 * instantiate
 	 */
 	
-	public Object instantiate(Object fuelGauge)
-			throws InstantiationException
-			, IllegalAccessException
-			, IllegalArgumentException
-			, InvocationTargetException
-			, NoSuchMethodException
-			, SecurityException
-			, ClassNotFoundException
-			, TesterGotNoClassNameException {
+	public Object instantiate(Object fuelGauge) throws Exception {
 		return super.instantiateWithArgs(constructorArgs(fuelGauge));
 	}
 

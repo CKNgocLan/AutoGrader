@@ -1,14 +1,12 @@
 package student.testSuite.lab3.problem4;
 
-import java.lang.reflect.InvocationTargetException;
-
 import student.constant.ClassName;
 import student.constant.Constants;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.TestingField;
 import student.model.TestCase;
+import student.model.TestingField;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
@@ -35,15 +33,7 @@ public class FuelGaugeTester extends BaseTester {
 	 * instantiate
 	 */
 	
-	public Object instantiate(int gallon)
-			throws InstantiationException
-			, IllegalAccessException
-			, IllegalArgumentException
-			, InvocationTargetException
-			, NoSuchMethodException
-			, SecurityException
-			, ClassNotFoundException
-			, TesterGotNoClassNameException {
+	public Object instantiate(int gallon) throws Exception {
 		return super.instantiateWithArgs(constructorArgs(gallon));
 	}
 

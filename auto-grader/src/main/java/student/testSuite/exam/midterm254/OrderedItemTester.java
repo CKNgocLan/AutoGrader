@@ -24,6 +24,15 @@ public class OrderedItemTester extends BaseTester {
 		return this;
 	}
 
+	/*
+	 * instantiate
+	 */
+	public Object instantiateItem(Object teaInstance, double weight) throws Exception {
+		return instantiateWithArgs(
+				new TestingParameter(teaTester.getCorrespondingClass(), FieldName.TEA, teaInstance)
+				, new TestingParameter(double.class, FieldName.WEIGHT, weight));
+	}
+
 	/**
 	 * declare
 	 */

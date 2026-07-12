@@ -11,7 +11,7 @@ import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
 public class TeaCategoryTester extends BaseTester implements IEnumTester {
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Object valueFrom(String name) throws ClassNotFoundException, TesterGotNoClassNameException {
 		return Enum.valueOf((Class<? extends Enum>) getCorrespondingClass(), name);
@@ -22,6 +22,7 @@ public class TeaCategoryTester extends BaseTester implements IEnumTester {
 		SCENTED_TEA
 	}
 
+	@SuppressWarnings("unchecked")
 	public Class<? extends Enum<?>> getEnumClass() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return (Class<? extends Enum<?>>)getCorrespondingClass();
 	}

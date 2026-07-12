@@ -3,7 +3,6 @@ package student.testSuite.exam.midterm254;
 import student.constant.ClassName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestCase;
-import student.model.TestingMethod;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 

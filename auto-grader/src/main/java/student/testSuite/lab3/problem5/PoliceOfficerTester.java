@@ -1,7 +1,5 @@
 package student.testSuite.lab3.problem5;
 
-import java.lang.reflect.InvocationTargetException;
-
 import student.constant.ClassName;
 import student.constant.Constants;
 import student.constant.Feedback;
@@ -9,8 +7,8 @@ import student.constant.FieldName;
 import student.constant.MethodName;
 import student.constant.TestcaseType;
 import student.exception.TesterGotNoClassNameException;
-import student.model.TestingField;
 import student.model.TestCase;
+import student.model.TestingField;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
@@ -50,15 +48,7 @@ public class PoliceOfficerTester extends BaseTester {
 	 * instantiate
 	 */
 	
-	public Object instantiate(String name, String badgeNumber)
-			throws InstantiationException
-			, IllegalAccessException
-			, IllegalArgumentException
-			, InvocationTargetException
-			, NoSuchMethodException
-			, SecurityException
-			, ClassNotFoundException
-			, TesterGotNoClassNameException {
+	public Object instantiate(String name, String badgeNumber) throws Exception {
 		return super.instantiateWithArgs(constructorArgs(name, badgeNumber));
 	}
 
@@ -103,7 +93,7 @@ public class PoliceOfficerTester extends BaseTester {
 		);
 	}
 	
-	private TestingMethod examineCarMethod(int parkedMinutes, int purchasedMinutes) throws ClassNotFoundException, TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	private TestingMethod examineCarMethod(int parkedMinutes, int purchasedMinutes) throws Exception {
 		return new TestingMethod(boolean.class, MethodName.EXAMINE_CAR
 				, new TestingParameter(parkedCarTester.getCorrespondingClass(), FieldName.PARKED_CAR, parkedCarTester.instantiate(parkedMinutes))
 				, new TestingParameter(parkingMeterTester.getCorrespondingClass(), FieldName.PARKING_METER, parkingMeterTester.instantiate(purchasedMinutes))
@@ -147,7 +137,7 @@ public class PoliceOfficerTester extends BaseTester {
 		);
 	}
 	
-	private TestingMethod issueTicketMethod(int parkedMinutes, int purchasedMinutes) throws ClassNotFoundException, TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	private TestingMethod issueTicketMethod(int parkedMinutes, int purchasedMinutes) throws Exception {
 		return new TestingMethod(this.parkingTicketTester.getCorrespondingClass()
 				, MethodName.ISSUE_TICKET
 				, new TestingParameter(parkedCarTester.getCorrespondingClass(), FieldName.PARKED_CAR, parkedCarTester.instantiate(parkedMinutes))

@@ -1,6 +1,5 @@
 package student.testSuite.lab4.problem4;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -8,8 +7,8 @@ import java.util.UUID;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.TestingField;
 import student.model.TestCase;
+import student.model.TestingField;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
@@ -35,7 +34,7 @@ public class BrandTester extends BaseTester {
 		super.getCorrespondingClass();
 	}
 	
-	public Object instantiate(String name, String country) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
+	public Object instantiate(String name, String country) throws Exception {
 		return super.instantiateWithArgs(argument(name, country));
 	}
 	

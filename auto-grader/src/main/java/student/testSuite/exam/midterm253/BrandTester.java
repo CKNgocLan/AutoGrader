@@ -1,6 +1,5 @@
 package student.testSuite.exam.midterm253;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -8,8 +7,8 @@ import java.util.UUID;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.TestingField;
 import student.model.TestCase;
+import student.model.TestingField;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;

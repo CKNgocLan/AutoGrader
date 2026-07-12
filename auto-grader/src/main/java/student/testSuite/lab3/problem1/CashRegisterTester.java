@@ -1,13 +1,11 @@
 package student.testSuite.lab3.problem1;
 
-import java.lang.reflect.InvocationTargetException;
-
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.TestingField;
 import student.model.TestCase;
+import student.model.TestingField;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
@@ -78,9 +76,7 @@ public class CashRegisterTester extends BaseTester {
 		return super.methodTester.declare(points, className, new TestingMethod(double.class, MethodName.GET_SUBTOTAL));
 	}
 	
-	public TestCase operateGetSubtotal(int points, double expected, TestingParameter[] args)
-			throws ClassNotFoundException, TesterGotNoClassNameException,
-			InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public TestCase operateGetSubtotal(int points, double expected, TestingParameter[] args) throws Exception {
 		return super.methodTester.checkOperationAsNumberic(points,
 				new TestingMethod(double.class, MethodName.GET_SUBTOTAL)
 						.config(getCorrespondingClass(), instantiateWithArgs(args)).expectedValue(expected));
@@ -94,9 +90,7 @@ public class CashRegisterTester extends BaseTester {
 		return super.methodTester.declare(points, className, new TestingMethod(double.class, MethodName.GET_TAX));
 	}
 	
-	public TestCase operateGetTax(int points, double expected, TestingParameter[] args) throws ClassNotFoundException,
-			TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, NoSuchMethodException, SecurityException {
+	public TestCase operateGetTax(int points, double expected, TestingParameter[] args) throws Exception {
 		return super.methodTester.checkOperationAsNumberic(points,
 				new TestingMethod(double.class, MethodName.GET_TAX).config(getCorrespondingClass(),
 						instantiateWithArgs(args)).expectedValue(expected));
@@ -110,9 +104,7 @@ public class CashRegisterTester extends BaseTester {
 		return super.methodTester.declare(points, className, new TestingMethod(double.class, MethodName.GET_TOTAL));
 	}
 	
-	public TestCase operateGetTotal(int points, double expected, TestingParameter[] args) throws ClassNotFoundException,
-			TesterGotNoClassNameException, InstantiationException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, NoSuchMethodException, SecurityException {
+	public TestCase operateGetTotal(int points, double expected, TestingParameter[] args) throws Exception {
 		return super.methodTester.checkOperationAsNumberic(points,
 				new TestingMethod(double.class, MethodName.GET_TOTAL).config(getCorrespondingClass(),
 						instantiateWithArgs(args)).expectedValue(expected));

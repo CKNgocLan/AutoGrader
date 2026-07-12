@@ -1,13 +1,11 @@
 package student.testSuite.lab3.problem3;
 
-import java.lang.reflect.InvocationTargetException;
-
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.constant.MethodName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.TestingField;
 import student.model.TestCase;
+import student.model.TestingField;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
@@ -73,15 +71,7 @@ public class CylinderTester extends BaseTester {
 		return super.methodTester.declare(points, className, method());
 	}
 
-	public TestCase operateArea(int points, double radius, double height, double expected)
-			throws ClassNotFoundException
-			, InstantiationException
-			, IllegalAccessException
-			, IllegalArgumentException
-			, InvocationTargetException
-			, NoSuchMethodException
-			, SecurityException
-			, TesterGotNoClassNameException {
+	public TestCase operateArea(int points, double radius, double height, double expected) throws Exception {
 		return methodTester.checkOperationAsNumberic(points, method()
 				.config(getCorrespondingClass(), instantiateWithArgs(createArgs(radius, height)))
 				.expectedValue(expected));

@@ -1,6 +1,5 @@
 package student.testSuite.lab4.problem4;
 
-import java.lang.reflect.InvocationTargetException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -9,8 +8,8 @@ import java.util.UUID;
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.TestingField;
 import student.model.TestCase;
+import student.model.TestingField;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
@@ -37,7 +36,7 @@ public class DiscountTester extends BaseTester {
 		super.getCorrespondingClass();
 	}
 	
-	public Object instantiate(double percent, LocalDate endDate) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
+	public Object instantiate(double percent, LocalDate endDate) throws Exception {
 		return super.instantiateWithArgs(argument(percent, endDate));
 	}
 	

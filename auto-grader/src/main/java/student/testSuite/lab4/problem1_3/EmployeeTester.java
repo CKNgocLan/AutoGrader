@@ -8,7 +8,6 @@ import java.util.stream.Stream;
 
 import student.constant.ClassName;
 import student.constant.Constants;
-import student.constant.ExceptionMessage;
 import student.constant.Feedback;
 import student.constant.FieldName;
 import student.constant.MethodName;
@@ -19,7 +18,6 @@ import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.solution.lab4.problem1_3.Employee;
 import student.testSuite.BaseTester;
-import student.util.ParameterUtils;
 import student.util.TestCaseUtils;
 
 public class EmployeeTester extends BaseTester {
@@ -47,9 +45,7 @@ public class EmployeeTester extends BaseTester {
 	 * instantiate
 	 */
 
-	private Object instantiate(String name, String number, LocalDate hireDate)
-			throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-			NoSuchMethodException, SecurityException, ClassNotFoundException, TesterGotNoClassNameException {
+	private Object instantiate(String name, String number, LocalDate hireDate) throws Exception {
 		return super.instantiateWithArgs(constructorArgs(name, number, hireDate));
 	}
 

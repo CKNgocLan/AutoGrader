@@ -1,12 +1,10 @@
 package student.testSuite.lab3.problem5;
 
-import java.lang.reflect.InvocationTargetException;
-
 import student.constant.ClassName;
 import student.constant.FieldName;
 import student.exception.TesterGotNoClassNameException;
-import student.model.TestingField;
 import student.model.TestCase;
+import student.model.TestingField;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 
@@ -31,15 +29,7 @@ public class ParkingMeterTester extends BaseTester {
 	 * instantiate
 	 */
 	
-	public Object instantiate(int purchasedMinutes)
-			throws InstantiationException
-			, IllegalAccessException
-			, IllegalArgumentException
-			, InvocationTargetException
-			, NoSuchMethodException
-			, SecurityException
-			, ClassNotFoundException
-			, TesterGotNoClassNameException {
+	public Object instantiate(int purchasedMinutes) throws Exception {
 		return super.instantiateWithArgs(constructorArgs(purchasedMinutes));
 	}
 
