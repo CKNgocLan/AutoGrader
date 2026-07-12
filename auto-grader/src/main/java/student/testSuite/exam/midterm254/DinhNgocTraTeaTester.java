@@ -110,10 +110,9 @@ public class DinhNgocTraTeaTester extends BaseTester {
 
 	public TestCase operateGetCategory() {
 		try {
-			TestingMethod method = greenTeaTester.getCategory()
-					.config(greenTeaTester.getCorrespondingClass(), instantiate());
-
-			return super.methodTester.operateAsEnum(defaultPoints, method, greenTeaTester.teaCategoryTester.getEnumClass());
+			return super.methodTester.operateAsEnum(defaultPoints
+					, greenTeaTester.getCategory().config(greenTeaTester.getCorrespondingClass(), instantiate())
+					, greenTeaTester.teaCategoryTester.getEnumClass());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, name, e);

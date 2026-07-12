@@ -110,10 +110,9 @@ public class LotusTeaTester extends BaseTester {
 
 	public TestCase operateGetCategory() {
 		try {
-			TestingMethod method = scentedTeaTester.getCategory()
-					.config(scentedTeaTester.getCorrespondingClass(), instantiate());
-
-			return super.methodTester.operateAsEnum(defaultPoints, method, scentedTeaTester.teaCategoryTester.getEnumClass());
+			return super.methodTester.operateAsEnum(defaultPoints
+					, scentedTeaTester.getCategory().config(scentedTeaTester.getCorrespondingClass(), instantiate())
+					, scentedTeaTester.teaCategoryTester.getEnumClass());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, name, e);
