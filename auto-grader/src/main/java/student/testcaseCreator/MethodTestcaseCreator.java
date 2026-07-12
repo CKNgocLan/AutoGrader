@@ -6,11 +6,14 @@ import java.util.List;
 
 import student.checker.MethodChecker;
 import student.constant.Constants;
+import student.constant.ExceptionMessage;
 import student.constant.Feedback;
+import student.constant.PropertyName;
 import student.constant.TestcaseType;
+import student.exception.InvalidConfigurationException;
 import student.model.Getter;
-import student.model.TestCase;
 import student.model.Setter;
+import student.model.TestCase;
 import student.model.TestingMethod;
 import student.util.MethodUtils;
 import student.util.StringUtils;
@@ -516,13 +519,18 @@ public class MethodTestcaseCreator {
 			@Override
 			public boolean runTest() {
 				try {
-					String actualString = method.returnString();
-					for (Object testingValue : method.getParameterValues()) {
-						if(!actualString.contains(StringUtils.toString(testingValue))) {
-							return false;
-						}
+					if (method.getExpectedValue() == null) {
+						throw new InvalidConfigurationException(ExceptionMessage.PROPERTY_NOT_CONFIGURED.getContent(PropertyName.EXPECTED_VALUE));
 					}
-					return true;
+
+					// TODO check logic
+//					for (Object testingValue : method.getParameterValues()) {
+//						if(!actualString.contains(StringUtils.toString(testingValue))) {
+//							return false;
+//						}
+//					}
+
+					return StringUtils.toString(method.getExpectedValue()).equals(method.returnString());
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
 					e.printStackTrace();

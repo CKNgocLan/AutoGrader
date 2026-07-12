@@ -38,33 +38,33 @@ public class TeaTester extends BaseTester {
 		return super.declareAsInterface(defaultPoints);
 	}
 
-	/**
+	/*
 	 * getName()
 	 */
 	protected TestingMethod getName() {
-		return MethodUtils.fromSolution(solutionClass, GetterUtils.getGetterName(FieldName.NAME));
+		return new TestingMethod(String.class, GetterUtils.getGetterName(FieldName.NAME));
 	}
 
 	public TestCase declareGetName() {
 		return super.methodTester.declaredAsPublicAbstract(defaultPoints, className, getName());
 	}
 
-	/**
+	/*
 	 * getFlavor()
 	 */
 	protected TestingMethod getFlavor() {
-		return MethodUtils.fromSolution(solutionClass, GetterUtils.getGetterName(FieldName.FLAVOR));
+		return new TestingMethod(String.class, GetterUtils.getGetterName(FieldName.FLAVOR));
 	}
 
 	public TestCase declareGetFlavor() {
 		return super.methodTester.declaredAsPublicAbstract(defaultPoints, className, getFlavor());
 	}
 
-	/**
+	/*
 	 * getPrice()
 	 */
 	protected TestingMethod getPrice() {
-		return MethodUtils.fromSolution(solutionClass, GetterUtils.getGetterName(FieldName.PRICE));
+		return new TestingMethod(double.class, GetterUtils.getGetterName(FieldName.PRICE));
 	}
 
 	public TestCase declareGetPrice() {

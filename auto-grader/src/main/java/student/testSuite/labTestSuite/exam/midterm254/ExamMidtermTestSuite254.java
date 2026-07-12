@@ -7,6 +7,7 @@ import student.model.ALabTestSuite;
 import student.model.TestCase;
 import student.testSuite.exam.midterm254.CartTester;
 import student.testSuite.exam.midterm254.GreenTeaTester;
+import student.testSuite.exam.midterm254.MocCauTeaTester;
 import student.testSuite.exam.midterm254.OrderedItemTester;
 import student.testSuite.exam.midterm254.ScentedTeaTester;
 import student.testSuite.exam.midterm254.TeaCategoryTester;
@@ -29,6 +30,7 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 					.teaCategoryTester(teaCategoryTester);
 			ScentedTeaTester scentedTeaTester = new ScentedTeaTester(teaTester)
 					.teaCategoryTester(teaCategoryTester);
+			MocCauTeaTester mocCauTeaTester = new MocCauTeaTester(greenTeaTester);
 
 			return Arrays.asList(
 					/*** Tea Category ***/
@@ -74,6 +76,14 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 					, scentedTeaTester.declare()
 					, scentedTeaTester.implementInterface()
 					, scentedTeaTester.haveOnlyDefaultConstructor()
+
+					/*** Moc Cau Tea ***/
+					, mocCauTeaTester.declare()
+					, mocCauTeaTester.declareSuper()
+					, mocCauTeaTester.declareGetName()
+					, mocCauTeaTester.declareGetFlavor()
+					, mocCauTeaTester.declareGetPrice()
+					, mocCauTeaTester.operateGetName()
 			);
 		} catch (Exception e) {
 			e.printStackTrace();

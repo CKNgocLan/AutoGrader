@@ -8,7 +8,7 @@ import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
 public class GreenTeaTester extends BaseTester {
-	private TeaTester parentTester;
+	protected TeaTester parentTester;
 	private TeaCategoryTester teaCategoryTester;
 
 	public GreenTeaTester(TeaTester teaTester) throws ClassNotFoundException, TesterGotNoClassNameException {
@@ -22,12 +22,12 @@ public class GreenTeaTester extends BaseTester {
 		return this;
 	}
 
-	/** declare */
+	/* declare */
 	public TestCase declare() {
 		return super.declare(defaultPoints);
 	}
 
-	/** declare super */
+	/* declare parent interface */
 	public TestCase implementInterface() {
 		try {
 			return super.implementInterface(defaultPoints, parentTester.getCorrespondingClass());
@@ -37,7 +37,7 @@ public class GreenTeaTester extends BaseTester {
 		}
 	}
 
-	/** constructor */
+	/* constructor */
 
 	public TestCase haveOnlyDefaultConstructor() {
 		return super.classTester.haveOnlyDefaultConstructor(defaultPoints, className);

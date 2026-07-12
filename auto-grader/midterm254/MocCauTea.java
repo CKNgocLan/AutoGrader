@@ -1,7 +1,7 @@
 public class MocCauTea extends GreenTea {
 	@Override
 	public String getName() {
-		return "Moc Cau Tea";
+		return "Moc Cau Tea abc";
 	}
 
 	@Override
