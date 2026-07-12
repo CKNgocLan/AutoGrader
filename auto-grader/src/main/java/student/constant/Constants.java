@@ -15,6 +15,7 @@ public class Constants {
 	public static final String SUBMISSIONS = "submissions";
 
 	public static final String HYPHEN = "-";
+	public static final String FORESLASH = "/";
 	public static final String UNDERSCORE = "_";
 	public static final String COMMA = ",";
 	public static final String ASSIGN = "=";

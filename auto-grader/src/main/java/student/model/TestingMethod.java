@@ -181,13 +181,11 @@ public class TestingMethod {
 	 * *************************
 	 */
 
-	public String invokeToString()
-			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public String invokeToString() throws Exception {
 		return String.valueOf(clazz.getMethod(MethodName.TO_STRING).invoke(instance));
 	}
 
-	public Object invokeSetter() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
-			IllegalAccessException, InvocationTargetException {
+	public Object invokeSetter() throws Exception {
 		isConfigured();
 
 		return clazz.getDeclaredMethod(name, this.getParameterTypes()).invoke(instance,
@@ -249,19 +247,17 @@ public class TestingMethod {
 	 * *************************
 	 */
 
-	private Method getDeclaredMethod() throws NoSuchMethodException, SecurityException {
+	private Method getDeclaredMethod() throws Exception {
 		return clazz.getDeclaredMethod(name, getParameterTypes());
 	}
 
-	public Object returning() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
-			IllegalAccessException, InvocationTargetException {
+	public Object returning() throws Exception {
 		isConfigured();
 
 		return getDeclaredMethod().invoke(instance, getParameterValues());
 	}
 	
-	public Object returningInPrivate() throws NoSuchMethodException, SecurityException, InvalidConfigurationException,
-			IllegalAccessException, InvocationTargetException {
+	public Object returningInPrivate() throws Exception {
 		isConfigured();
 
 		java.lang.reflect.Method method = getDeclaredMethod();
@@ -269,33 +265,32 @@ public class TestingMethod {
 		return method.invoke(instance, getParameterValues());
 	}
 	
-	public Double returnNumbericAbs() throws NumberFormatException, NoSuchMethodException,
-			SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
+	public Double returnNumbericAbs() throws Exception {
 		return Math.abs(ValueUtils.toDouble(boxingReturnedType().cast(returning()))
 				- ValueUtils.toDouble(expectedValue));
 	}
 	
-	public Boolean returnBooleanInPrivate() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
+	public Boolean returnBooleanInPrivate() throws Exception {
 		return Boolean.valueOf(StringUtils.toString(returningInPrivate()));
 	}
 	
-	public boolean returnBooleanPrimitive() throws InvalidConfigurationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public boolean returnBooleanPrimitive() throws Exception {
 		isConfigured();
 
 		return ValueUtils.toBooleanPrimitive(getDeclaredMethod().invoke(instance, getParameterValues()));
 	}
 	
-	public boolean assertExpectedBoolean() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
+	public boolean assertExpectedBoolean() throws Exception {
 		return returnBooleanInPrivate().equals(expectedValue);
 	}
 	
-	public void returnVoid() throws InvalidConfigurationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public void returnVoid() throws Exception {
 		isConfigured();
 		
 		getDeclaredMethod().invoke(instance, getParameterValues());
 	}
 
-	public String returnString() throws InvalidConfigurationException, IllegalAccessException, InvocationTargetException, NoSuchMethodException, SecurityException {
+	public String returnString() throws Exception {
 		isConfigured();
 		return StringUtils.toString(getDeclaredMethod().invoke(instance, getParameterValues()));
 	}
@@ -304,7 +299,7 @@ public class TestingMethod {
 	 * *************************
 	 */
 	
-	public Object getUpdatedValue(String fieldName) throws IllegalArgumentException, IllegalAccessException, NoSuchFieldException, SecurityException {
+	public Object getUpdatedValue(String fieldName) throws Exception {
 		Field updatedField = clazz.getDeclaredField(fieldName);
 		updatedField.setAccessible(true);
 
@@ -312,7 +307,7 @@ public class TestingMethod {
 	}
 
 	@Deprecated
-	public void updateIntegerFieldValue(String fieldName, int value) throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
+	public void updateIntegerFieldValue(String fieldName, int value) throws Exception {
 		Field updatedField = clazz.getDeclaredField(fieldName);
 		boolean canAccessed = updatedField.canAccess(instance);
 		updatedField.setAccessible(true);
@@ -322,8 +317,7 @@ public class TestingMethod {
 	}
 
 	@Deprecated
-	public boolean assertExpectedValue(Object expected) throws NoSuchMethodException, SecurityException,
-			IllegalAccessException, InvocationTargetException, InvalidConfigurationException {
+	public boolean assertExpectedValue(Object expected) throws Exception {
 		return this.boxingReturnedType().cast(returning()).equals(expected);
 	}
 }

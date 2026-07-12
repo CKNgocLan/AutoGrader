@@ -569,6 +569,37 @@ public class MethodTestcaseCreator {
 		};
 	}
 
+	public TestCase operateAsEnum(int points, TestingMethod method, Class<? extends Enum<?>> castingClass) {
+		return new TestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					return castingClass.cast(method.returning()) == castingClass.cast(method.getExpectedValue());
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+			}
+		};
+	}
+
 	public TestCase excludes(int points, Class<?> subclass, TestingMethod... method) {
 		return new TestCase() {
 			@Override

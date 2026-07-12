@@ -359,7 +359,7 @@ public class ClassTestcaseCreator {
 		return new TestCase() {
 			@Override
 			public String getName() {
-				return TestcaseType.CHECK_SUPERCLASS_EXTENDED_BY_CLASS.getName(className, interfaze.getSimpleName());
+				return TestcaseType.CHECK_INTERFACE_IMPLEMENTED_BY_CLASS.getName(className, interfaze.getSimpleName());
 			}
 
 			@Override
@@ -378,7 +378,7 @@ public class ClassTestcaseCreator {
 
 			@Override
 			public String getFeedback() {
-				return Feedback.CLASS_NOT_EXTENDING_SUPERCLASS.getContent(className, interfaze.getSimpleName());
+				return Feedback.CLASS_NOT_IMPLEMENTING_INTERFACE.getContent(className, interfaze.getSimpleName());
 			}
 		};
 	}

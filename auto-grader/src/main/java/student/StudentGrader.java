@@ -577,7 +577,13 @@ public class StudentGrader extends JFrame {
             String safeLab = (selectedLab == null || selectedLab.isEmpty()) ? "Lab" : selectedLab.replaceAll("[^a-zA-Z0-9._-]", "_");
             String safeQ = (selectedQuestion == null || selectedQuestion.isEmpty()) ? "Q" : selectedQuestion.replaceAll("[^a-zA-Z0-9._-]", "_");
 
-            String excelFile = Constants.REPORTS_DIR + "/" + Constants.OOP + Constants.UNDERSCORE + YearQuarter.Y25Q4 + Constants.HYPHEN + safeDir + "-L" + safeLab + "-Q" + safeQ + "_" + timestamp + ".xlsx";
+			String excelFile = Constants.REPORTS_DIR + Constants.FORESLASH
+					+ Constants.OOP + Constants.UNDERSCORE + YearQuarter.Y25Q4
+					+ Constants.HYPHEN + safeDir
+					+ Constants.HYPHEN + safeLab
+					+ Constants.HYPHEN + safeQ
+					+ Constants.UNDERSCORE + timestamp
+					+ FileExtension.XLSX;
 
             try (FileOutputStream fos = new FileOutputStream(excelFile)) {
                 workbook.write(fos);

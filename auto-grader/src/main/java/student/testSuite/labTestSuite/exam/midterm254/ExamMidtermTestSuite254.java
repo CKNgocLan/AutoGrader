@@ -8,6 +8,7 @@ import student.model.TestCase;
 import student.testSuite.exam.midterm254.CartTester;
 import student.testSuite.exam.midterm254.GreenTeaTester;
 import student.testSuite.exam.midterm254.OrderedItemTester;
+import student.testSuite.exam.midterm254.ScentedTeaTester;
 import student.testSuite.exam.midterm254.TeaCategoryTester;
 import student.testSuite.exam.midterm254.TeaTaxTester;
 import student.testSuite.exam.midterm254.TeaTester;
@@ -17,11 +18,17 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 	public List<TestCase> getAllTests(String section) {
 		try {
 			TeaCategoryTester teaCategoryTester = new TeaCategoryTester();
-			TeaTester teaTester = new TeaTester().teaCategoryTester(teaCategoryTester);
+			TeaTester teaTester = new TeaTester()
+					.teaCategoryTester(teaCategoryTester);
 			TeaTaxTester teaTaxTester = new TeaTaxTester();
-			OrderedItemTester orderedItemTester = new OrderedItemTester().teaTester(teaTester);
-			CartTester cartTester = new CartTester().orderedItemTester(orderedItemTester);
-			GreenTeaTester greenTeaTester = new GreenTeaTester(teaTester);
+			OrderedItemTester orderedItemTester = new OrderedItemTester()
+					.teaTester(teaTester);
+			CartTester cartTester = new CartTester()
+					.orderedItemTester(orderedItemTester);
+			GreenTeaTester greenTeaTester = new GreenTeaTester(teaTester)
+					.teaCategoryTester(teaCategoryTester);
+			ScentedTeaTester scentedTeaTester = new ScentedTeaTester(teaTester)
+					.teaCategoryTester(teaCategoryTester);
 
 			return Arrays.asList(
 					/*** Tea Category ***/
@@ -60,7 +67,13 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 
 					/*** Green Tea ***/
 					, greenTeaTester.declare()
+					, greenTeaTester.implementInterface()
 					, greenTeaTester.haveOnlyDefaultConstructor()
+
+					/*** Scented Tea ***/
+					, scentedTeaTester.declare()
+					, scentedTeaTester.implementInterface()
+					, scentedTeaTester.haveOnlyDefaultConstructor()
 			);
 		} catch (Exception e) {
 			e.printStackTrace();

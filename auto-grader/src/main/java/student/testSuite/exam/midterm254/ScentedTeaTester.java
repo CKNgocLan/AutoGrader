@@ -7,17 +7,17 @@ import student.model.TestingMethod;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
-public class GreenTeaTester extends BaseTester {
+public class ScentedTeaTester extends BaseTester {
 	private TeaTester parentTester;
 	private TeaCategoryTester teaCategoryTester;
 
-	public GreenTeaTester(TeaTester teaTester) throws ClassNotFoundException, TesterGotNoClassNameException {
-		super.className = ClassName.GREEN_TEA;
+	public ScentedTeaTester(TeaTester teaTester) throws ClassNotFoundException, TesterGotNoClassNameException {
+		super.className = ClassName.SCENTED_TEA;
 		super.getCorrespondingClass();
 		this.parentTester = teaTester;
 	}
 
-	public GreenTeaTester teaCategoryTester(TeaCategoryTester teaCategoryTester) {
+	public ScentedTeaTester teaCategoryTester(TeaCategoryTester teaCategoryTester) {
 		this.teaCategoryTester = teaCategoryTester;
 		return this;
 	}
@@ -50,7 +50,7 @@ public class GreenTeaTester extends BaseTester {
 	 * @throws ClassNotFoundException
 	 */
 	private TestingMethod getCategory() throws ClassNotFoundException, TesterGotNoClassNameException {
-		return parentTester.getCategory().expectedValue(teaCategoryTester.valueFrom(TeaCategoryTester.EnumValue.GREEN_TEA.name()));
+		return parentTester.getCategory().expectedValue(teaCategoryTester.valueFrom(TeaCategoryTester.EnumValue.SCENTED_TEA.name()));
 	}
 
 	@SuppressWarnings("unchecked")

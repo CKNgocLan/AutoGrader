@@ -17,6 +17,11 @@ public class TeaCategoryTester extends BaseTester implements IEnumTester {
 		return Enum.valueOf((Class<? extends Enum>) getCorrespondingClass(), name);
 	}
 
+	public static enum EnumValue {
+		GREEN_TEA,
+		SCENTED_TEA
+	}
+
 	/**
 	 * instantiate
 	 */
