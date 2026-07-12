@@ -855,6 +855,41 @@ public class ClassTestcaseCreator {
 		};
 	}
 
+	public TestCase haveOnlyDefaultConstructor(int points, String className) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_OPERATION_OF_CONSTRUCTOR_NO_ARGS.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					Class<?> clazz = Class.forName(className, true, targetClassesLoader);
+
+					if ((clazz.getDeclaredConstructors().length > 1)
+							|| clazz.getDeclaredConstructor().getParameterTypes().length > 0) {
+						return false;
+					}
+
+					return true;
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.NO_ARGS_CONSTRUCTOR_OPERATION_NOT_CORRECT.getContent(className);
+			}
+		};
+	}
+
 	public TestCase haveOnlyOneConstructor(int points, String className, TestingParameter... args) {
 		return new TestCase() {
 			@Override

@@ -6,6 +6,7 @@ import java.util.List;
 import student.model.ALabTestSuite;
 import student.model.TestCase;
 import student.testSuite.exam.midterm254.CartTester;
+import student.testSuite.exam.midterm254.GreenTeaTester;
 import student.testSuite.exam.midterm254.OrderedItemTester;
 import student.testSuite.exam.midterm254.TeaCategoryTester;
 import student.testSuite.exam.midterm254.TeaTaxTester;
@@ -20,6 +21,7 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 			TeaTaxTester teaTaxTester = new TeaTaxTester();
 			OrderedItemTester orderedItemTester = new OrderedItemTester().teaTester(teaTester);
 			CartTester cartTester = new CartTester().orderedItemTester(orderedItemTester);
+			GreenTeaTester greenTeaTester = new GreenTeaTester(teaTester);
 
 			return Arrays.asList(
 					/*** Tea Category ***/
@@ -55,6 +57,10 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 					, cartTester.declarePrintOrderedItems()
 					, cartTester.declareGetTotalPriceAfterTax()
 					, cartTester.haveOnlyOneConstructor()
+
+					/*** Green Tea ***/
+					, greenTeaTester.declare()
+					, greenTeaTester.haveOnlyDefaultConstructor()
 			);
 		} catch (Exception e) {
 			e.printStackTrace();

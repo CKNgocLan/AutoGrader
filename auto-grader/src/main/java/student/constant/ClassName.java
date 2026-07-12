@@ -10,6 +10,12 @@ public class ClassName {
 	public static final String TEA_CATEGORY = "TeaCategory";
 	public static final String TEA_TAX = "TeaTax";
 	public static final String ORDERED_ITEM = "OrderedItem";
+	public static final String GREEN_TEA = "GreenTea";
+	public static final String SCENTED_TEA = "ScentedTea";
+	public static final String MOC_CAU_TEA = "MocCauTea";
+	public static final String DINH_NGOC_TRA_TEA = "DinhNgocTraTea";
+	public static final String LOTUS_TEA = "LotusTea";
+	public static final String JASMINE_TEA = "JasmineTea";
 
 	/*
 	 * final 253

@@ -227,6 +227,10 @@ public abstract class BaseTester {
 		return classTester.checkPartialArgsConstructorDeclaration(points, className, paramTypes);
 	}
 
+	protected TestCase haveOnlyDefaultConstructor(int points) {
+		return classTester.haveOnlyDefaultConstructor(points, className);
+	}
+
 	protected TestCase checkConstructorOperation(int points, TestingParameter... params)
 			throws ClassNotFoundException {
 		return classTester.checkPartialArgsConstructorOperationViaGetter(points, className, params);
