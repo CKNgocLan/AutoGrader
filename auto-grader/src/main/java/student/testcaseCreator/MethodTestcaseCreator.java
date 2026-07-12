@@ -30,7 +30,6 @@ public class MethodTestcaseCreator {
 	private static MethodTestcaseCreator instance = null;
 	private ClassLoader targetClassesLoader = student.model.ClassLoader.getInstance();
 	private MethodChecker methodChecker = MethodChecker.getInstance();
-	private PrintStream originalOut = System.out;
 	private ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 	private PrintStream testOut = new PrintStream(outputStream);
 
@@ -466,6 +465,59 @@ public class MethodTestcaseCreator {
 					return method.assertExpectedBoolean();
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
+					return false;
+				}
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
+			}
+		};
+	}
+
+	public TestCase addNull(int points, TestingMethod method, TestingParameter testingParameter) {
+		return new TestCase() {
+
+			@Override
+			public String getName() {
+				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				try {
+					if (testingParameter == null) {
+						throw new InvalidConfigurationException(ExceptionMessage.PROPERTY_NOT_CONFIGURED.getContent(PropertyName.PARAMETER_TESTING_VALUE));
+					}
+
+					if (testingParameter.getValue() != null) {
+						throw new IllegalArgumentException(ExceptionMessage.INVALID_PROPERTY.getContent(PropertyName.PARAMETER_TESTING_VALUE));
+					}
+
+					Field orderedItemsField = method.getConfiguredClass().getDeclaredField(testingParameter.getName());
+					orderedItemsField.setAccessible(true);
+
+					List<?> before = ((List<?>)orderedItemsField.get(method.getConfiguredInstance()));
+
+					method.overrideParameter(testingParameter);
+					method.returnVoid();
+					
+					List<?> after = ((List<?>)orderedItemsField.get(method.getConfiguredInstance()));
+					
+					if (after.size() != before.size()) {
+						return false;
+					}
+
+					return true;
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					e.printStackTrace();
 					return false;
 				}
 			}

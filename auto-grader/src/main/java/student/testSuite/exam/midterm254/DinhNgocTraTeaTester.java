@@ -40,6 +40,12 @@ public class DinhNgocTraTeaTester extends BaseTester {
 		return super.classTester.haveOnlyDefaultConstructor(defaultPoints, className);
 	}
 
+	/* instantiate */
+
+	public Object instantiateTea() throws Exception {
+		return instantiate();
+	}
+
 	/* getName() */
 
 	public TestCase declareGetName() {

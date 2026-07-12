@@ -95,6 +95,17 @@ public class CartTester extends BaseTester {
 		}
 	}
 
+	public TestCase operateAddOrderedItem() {
+		try {
+			return super.methodTester.addNull(defaultPoints
+					, addOrderedItem().config(getCorrespondingClass(), instantiate())
+					, new TestingParameter(orderedItemTester.getCorrespondingClass(), FieldName.ORDERED_ITEMS, null));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+		}
+	}
+
 	public TestCase operateAddOrderedItem(Object teaInstance, double weight) {
 		try {
 			return super.methodTester.addElement(defaultPoints
@@ -156,6 +167,26 @@ public class CartTester extends BaseTester {
 	public TestCase operateGetTotalPriceAfterTax(double expected) {
 		try {
 			return super.methodTester.operateAsDouble(defaultPoints, className, getTotalPriceAfterTax().config(getCorrespondingClass(), instantiate()).expectedValue(expected));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+		}
+	}
+
+	public TestCase operateGetTotalPriceAfterTax(double expected, Object... orderedItemList) {
+		try {
+			Class<?> clazz = getCorrespondingClass();
+			Object cartInstance = instantiate();
+
+			TestingMethod addMethod = addOrderedItem().config(clazz, cartInstance);
+
+			for (Object item : orderedItemList) {
+				addMethod.overrideParameter(new TestingParameter(orderedItemTester.getCorrespondingClass(), FieldName.ORDERED_ITEMS, item));
+				addMethod.returnVoid();
+			}
+
+			return super.methodTester.operateAsDouble(defaultPoints, className,
+					getTotalPriceAfterTax().config(clazz, cartInstance).expectedValue(expected));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
