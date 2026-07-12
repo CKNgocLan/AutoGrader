@@ -69,7 +69,7 @@ public class StudentGrader extends JFrame {
 	private static final long serialVersionUID = 3700796113357733984L;
 	
 	private JTextField folderPathField;
-    private JButton browseButton, gradeButton, openReportsButton;
+    private JButton browseButton, gradeButton, openReportsFolderButton, openReportFileButton;
     private JComboBox<String> labComboBox;
     private JComboBox<String> questionComboBox;
     private JTextArea logArea;
@@ -79,6 +79,8 @@ public class StudentGrader extends JFrame {
     
     private Map<String, List<String>> labQuestionsMap = new LinkedHashMap<>();
     private Map<String, ThemeColor> THEMES = new HashMap<String, ThemeColor>();
+
+    private File excelReportFile;
 
     public StudentGrader() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
     	initThemeColor();
@@ -112,7 +114,7 @@ public class StudentGrader extends JFrame {
         topPanel.setBorder(BorderFactory.createTitledBorder("Your Submission Folder"));
 
         folderPathField = new JTextField(50);
-        folderPathField.setText(Path.of(System.getProperty(Constants.USER_DIR), "midterm254").toString()); // default hint
+        folderPathField.setText(Path.of(System.getProperty(Constants.USER_DIR)).toString()); // default hint
 
         browseButton = new JButton("Browse Folder...");
         browseButton.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -160,15 +162,20 @@ public class StudentGrader extends JFrame {
         // ==================== BOTTOM PANEL ====================
         JPanel bottomPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         
-        openReportsButton = new JButton("📁 Open Reports Folder");
-        openReportsButton.setBackground(openReportsButtonBackgroundColor);
-        openReportsButton.setForeground(openReportsButtonForegroundColor);
+        openReportsFolderButton = new JButton("📁 Open Reports Folder");
+        openReportsFolderButton.setBackground(openReportsButtonBackgroundColor);
+        openReportsFolderButton.setForeground(openReportsButtonForegroundColor);
+        
+        openReportFileButton = new JButton("Open Report Excel File");
+        openReportFileButton.setBackground(openReportsButtonBackgroundColor);
+        openReportFileButton.setForeground(openReportsButtonForegroundColor);
         
         clearLogButton = new JButton("Clear Log");
         clearLogButton.setBackground(clearLogButtonBackgroundColor);
         clearLogButton.setForeground(clearLogButtonForegroundColor);
         
-        bottomPanel.add(openReportsButton);
+        bottomPanel.add(openReportFileButton);
+        bottomPanel.add(openReportsFolderButton);
         bottomPanel.add(clearLogButton);
 
         add(topPanel, BorderLayout.NORTH);
@@ -185,7 +192,8 @@ public class StudentGrader extends JFrame {
         // Event Listeners
         browseButton.addActionListener(this::browseFolder);
         gradeButton.addActionListener(this::startGrading);
-        openReportsButton.addActionListener(e -> openReportsFolder());
+        openReportFileButton.addActionListener(e -> openReportExcelFile());
+        openReportsFolderButton.addActionListener(e -> openReportsFolder());
         clearLogButton.addActionListener(e -> logArea.setText(""));
 
         log("Student Submission Grader Instructions:\n");
@@ -442,7 +450,6 @@ public class StudentGrader extends JFrame {
             
             String fileName = Constants.REPORTS_DIR + "/" + Constants.OOP + Constants.UNDERSCORE + YearQuarter.Y25Q4 + safeDir + "-" + safeLab + "-" + safeQ + "_" + timestamp + "_report.txt";
             
-//            String fileName = Constants.REPORTS_DIR + "/" + "OOP_253-" + safeDir + "_" + timestamp + "_report.txt";
             Files.write(Paths.get(fileName), content.getBytes("UTF-8"));
         } catch (Exception ignored) {}
     }
@@ -456,6 +463,17 @@ public class StudentGrader extends JFrame {
             JOptionPane.showMessageDialog(this, "Cannot open folder automatically.\nPath: " + reportsDir.getAbsolutePath(), 
                 "Info", JOptionPane.INFORMATION_MESSAGE);
         }
+    }
+
+    private void openReportExcelFile() {
+    	try {
+    		if (excelReportFile == null || !excelReportFile.isFile()) {
+    			return;
+    		}
+    		java.awt.Desktop.getDesktop().open(excelReportFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
     }
 
     private void log(String message) {
@@ -499,7 +517,7 @@ public class StudentGrader extends JFrame {
 				int col = 0;
 
 				// No.
-				row.createCell(col++).setCellValue(results.indexOf(result) + 1);
+				row.createCell(col++).setCellValue(rowNum - 1);
 
 				// Test Case Name
 				row.createCell(col++).setCellValue(result.testName());
@@ -585,6 +603,7 @@ public class StudentGrader extends JFrame {
 					+ Constants.UNDERSCORE + timestamp
 					+ FileExtension.XLSX;
 
+			excelReportFile = new File(excelFile);
             try (FileOutputStream fos = new FileOutputStream(excelFile)) {
                 workbook.write(fos);
             }
