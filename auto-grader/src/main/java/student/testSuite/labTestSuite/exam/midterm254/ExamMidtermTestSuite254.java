@@ -3,10 +3,8 @@ package student.testSuite.labTestSuite.exam.midterm254;
 import java.util.Arrays;
 import java.util.List;
 
-import student.constant.FieldName;
 import student.model.ALabTestSuite;
 import student.model.TestCase;
-import student.model.TestingParameter;
 import student.testSuite.exam.midterm254.CartTester;
 import student.testSuite.exam.midterm254.DinhNgocTraTeaTester;
 import student.testSuite.exam.midterm254.GreenTeaTester;
@@ -42,16 +40,6 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 			DinhNgocTraTeaTester dinhNgocTraTeaTester = new DinhNgocTraTeaTester(greenTeaTester);
 			LotusTeaTester lotusTeaTester = new LotusTeaTester(scentedTeaTester);
 			JasmineTeaTester jasmineTeaTester = new JasmineTeaTester(scentedTeaTester);
-
-			Object mocCauInstance = mocCauTeaTester.instantiateTea();
-			Object dinhNgocTraInstance = dinhNgocTraTeaTester.instantiateTea();
-			Object lotusInstance = lotusTeaTester.instantiateTea();
-			Object jasmineInstance = jasmineTeaTester.instantiateTea();
-
-			Object mocCauItem = orderedItemTester.instantiateItem(mocCauInstance, mocCauTeaTester.weight);
-			Object dinhNgocTraItem = orderedItemTester.instantiateItem(dinhNgocTraInstance, dinhNgocTraTeaTester.weight);
-			Object lotusItem = orderedItemTester.instantiateItem(lotusInstance, lotusTeaTester.weight);
-			Object jasmineItem = orderedItemTester.instantiateItem(jasmineInstance, jasmineTeaTester.weight);
 
 			return Arrays.asList(
 					/*** Tea Category ***/
@@ -147,15 +135,32 @@ public class ExamMidtermTestSuite254 extends ALabTestSuite {
 					, jasmineTeaTester.operateGetCategory()
 
 					, cartTester.operateAddOrderedItem()
-					, cartTester.operateAddOrderedItem(mocCauInstance, mocCauTeaTester.weight)
-					, cartTester.operateAddOrderedItem(dinhNgocTraInstance, dinhNgocTraTeaTester.weight)
-					, cartTester.operateAddOrderedItem(lotusInstance, lotusTeaTester.weight)
-					, cartTester.operateAddOrderedItem(jasmineInstance, jasmineTeaTester.weight)
+					, cartTester.operateAddOrderedItem(mocCauTeaTester.instantiateTea(), mocCauTeaTester.weight)
+					, cartTester.operateAddOrderedItem(dinhNgocTraTeaTester.instantiateTea(), dinhNgocTraTeaTester.weight)
+					, cartTester.operateAddOrderedItem(lotusTeaTester.instantiateTea(), lotusTeaTester.weight)
+					, cartTester.operateAddOrderedItem(jasmineTeaTester.instantiateTea(), jasmineTeaTester.weight)
 					, cartTester.operatePrintOrderedItems()
-					, cartTester.operatePrintOrderedItems(mocCauItem, dinhNgocTraItem, lotusItem, jasmineItem, jasmineItem)
+					, cartTester.operatePrintOrderedItems(
+							orderedItemTester.instantiateItem(mocCauTeaTester.instantiateTea(), mocCauTeaTester.weight)
+							, orderedItemTester.instantiateItem(dinhNgocTraTeaTester.instantiateTea(), dinhNgocTraTeaTester.weight)
+							, orderedItemTester.instantiateItem(lotusTeaTester.instantiateTea(), lotusTeaTester.weight)
+							, orderedItemTester.instantiateItem(jasmineTeaTester.instantiateTea(), jasmineTeaTester.weight)
+							, orderedItemTester.instantiateItem(jasmineTeaTester.instantiateTea(), jasmineTeaTester.weight)
+							)
 					, cartTester.operateGetTotalPriceAfterTax(0)
-					, cartTester.operateGetTotalPriceAfterTax(5805000.0, mocCauItem, dinhNgocTraItem, lotusItem, jasmineItem)
-					, cartTester.operateGetTotalPriceAfterTax(5805000.0, mocCauItem, dinhNgocTraItem, lotusItem, jasmineItem, jasmineItem)
+					, cartTester.operateGetTotalPriceAfterTax(5805000.0
+							, orderedItemTester.instantiateItem(mocCauTeaTester.instantiateTea(), mocCauTeaTester.weight)
+							, orderedItemTester.instantiateItem(dinhNgocTraTeaTester.instantiateTea(), dinhNgocTraTeaTester.weight)
+							, orderedItemTester.instantiateItem(lotusTeaTester.instantiateTea(), lotusTeaTester.weight)
+							, orderedItemTester.instantiateItem(jasmineTeaTester.instantiateTea(), jasmineTeaTester.weight)
+							)
+					, cartTester.operateGetTotalPriceAfterTax(5805000.0
+							, orderedItemTester.instantiateItem(mocCauTeaTester.instantiateTea(), mocCauTeaTester.weight)
+							, orderedItemTester.instantiateItem(dinhNgocTraTeaTester.instantiateTea(), dinhNgocTraTeaTester.weight)
+							, orderedItemTester.instantiateItem(lotusTeaTester.instantiateTea(), lotusTeaTester.weight)
+							, orderedItemTester.instantiateItem(jasmineTeaTester.instantiateTea(), jasmineTeaTester.weight)
+							, null
+							)
 			);
 		} catch (Exception e) {
 			e.printStackTrace();
