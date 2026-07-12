@@ -27,10 +27,19 @@ public class OrderedItemTester extends BaseTester {
 	/*
 	 * instantiate
 	 */
-	public Object instantiateItem(Object teaInstance, double weight) throws Exception {
-		return instantiateWithArgs(
+	private TestingParameter[] constructorParameter() throws ClassNotFoundException, TesterGotNoClassNameException {
+		return constructorParameter(null, 0);
+	}
+
+	private TestingParameter[] constructorParameter(Object teaInstance, double weight) throws ClassNotFoundException, TesterGotNoClassNameException {
+		return new TestingParameter[] {
 				new TestingParameter(teaTester.getCorrespondingClass(), FieldName.TEA, teaInstance)
-				, new TestingParameter(double.class, FieldName.WEIGHT, weight));
+				, new TestingParameter(double.class, FieldName.WEIGHT, weight)
+		};
+	}
+
+	public Object instantiateItem(Object teaInstance, double weight) throws Exception {
+		return instantiateWithArgs(constructorParameter(teaInstance, weight));
 	}
 
 	/**
@@ -78,10 +87,7 @@ public class OrderedItemTester extends BaseTester {
 
 	public TestCase operateConstructor() {
 		try {
-			return super.operateConstructor(defaultPoints,
-					new TestingParameter(teaTester.getCorrespondingClass(), FieldName.TEA)
-					, new TestingParameter(double.class, FieldName.WEIGHT)
-					);
+			return super.operateConstructor(defaultPoints, constructorParameter());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);

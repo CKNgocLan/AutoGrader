@@ -89,6 +89,15 @@ public class CartTester extends BaseTester {
 		}
 	}
 
+	public TestCase operateAddOrderedItem() {
+		try {
+			return super.methodTester.operate(defaultPoints, className, addOrderedItem());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+		}
+	}
+
 	private TestingMethod printOrderedItems() {
 		return new TestingMethod(void.class, MethodName.PRINT_ORDERED_ITEMS);
 	}
