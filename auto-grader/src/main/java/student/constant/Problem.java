@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class Problem {
-	public static final String P0 = "challenge0";
-	public static final String P1 = "challenge1";
-	public static final String P2 = "challenge2";
-	public static final String P3 = "challenge3";
-	public static final String P4 = "challenge4";
-	public static final String P5 = "challenge5";
-	public static final String P6 = "challenge6";
+	public static final String P0 = "Challenge 0";
+	public static final String P1 = "Challenge 1";
+	public static final String P2 = "Challenge 2";
+	public static final String P3 = "Challenge 3";
+	public static final String P4 = "Challenge 4";
+	public static final String P5 = "Challenge 5";
+	public static final String P6 = "Challenge 6";
 
 	public static final String SECTION_1 = "Section 1";
 	public static final String SECTION_2 = "Section 2";
