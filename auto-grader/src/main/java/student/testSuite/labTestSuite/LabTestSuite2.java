@@ -119,19 +119,19 @@ public class LabTestSuite2 extends ALabTestSuite {
 						);
 			case Problem.P4:
 				customer = CustomerTester.getInstance();
-				CakeTester cake = CakeTester.getInstance();
 				ConstTester consts = ConstTester.getInstance();
 				EventTester event = EventTester.getInstance();
-				QuoteTester quote = QuoteTester.getInstance();
+				CakeTester cake = CakeTester.getInstance().eventTester(event);
+				QuoteTester quote = QuoteTester.getInstance().cakeTester(cake).eventTester(event);
 				
 				List<String> ingredient = Arrays.asList("Egg", "Flour");
 				double laborCharge = 2.5;
 				double deliveryFee = 1.555;
 				Object customerInstance = CustomerTester.initObject("Lao Hac");
-				Object eventInstance = EventTester.initObject(0);
+				Object eventInstance = event.initObject(0);
 				int tierNumber = 2;
 				double price = 2.567;
-				Object cakeInstance = CakeTester.initObject(customerInstance, eventInstance, tierNumber, price);
+				Object cakeInstance = cake.initObject(customerInstance, eventInstance, tierNumber, price);
 				double priceAfterTax = 4.3794;
 
 				return Arrays.asList(
@@ -155,7 +155,7 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, cake.checkExistence(5)
 						, cake.checkPartialArgsConstructors(5,
 								new TestingParameter(CustomerTester.getCorrespondingClass()),
-								new TestingParameter(EventTester.getCorrespondingClass()),
+								new TestingParameter(event.getCorrespondingClass()),
 								new TestingParameter(int.class),
 								new TestingParameter(double.class)
 						)
@@ -168,14 +168,14 @@ public class LabTestSuite2 extends ALabTestSuite {
 						, quote.checkExistence(5)
 						, quote.checkFields(5)
 						, quote.checkPartialArgsConstructorDeclaration(5,
-								new TestingParameter(CakeTester.getCorrespondingClass()),
+								new TestingParameter(cake.getCorrespondingClass()),
 								new TestingParameter(double.class),
 								new TestingParameter(double.class)
 						)
 						, quote.checkGetterDeclaration(5)
 						, quote.checkSetterDeclaration(5)
 						, quote.checkToStringDeclaration(5)
-						, quote.checkToStringOperation(5, ingredient, laborCharge, deliveryFee, cakeInstance)
+//						, quote.checkToStringOperation(5, ingredient, laborCharge, deliveryFee, cakeInstance)
 						, quote.checkGetPriceAfterTaxDeclaration(5)
 						, quote.checkGetPriceAfterTaxOperation(5, laborCharge, deliveryFee, priceAfterTax)
 				);

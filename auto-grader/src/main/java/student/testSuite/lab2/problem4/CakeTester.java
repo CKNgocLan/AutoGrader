@@ -13,19 +13,25 @@ import student.model.TestingField;
 import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
+import student.testSuite.BaseTester;
 import student.testSuite.lab2.CustomerTester;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
 import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.MethodUtils;
 
-public class CakeTester {
+public class CakeTester extends BaseTester {
 	private static CakeTester instance = null;
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
     private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
-	private static String className = ClassName.CAKE;
-	private static Class<?> clazz;
+//	private static String className = ClassName.CAKE;
+//	private static Class<?> clazz;
+	private EventTester eventTester;
+
+	public CakeTester() {
+		super.className = ClassName.CAKE;
+	}
 
 	/*
 	 * Instance ***************************************************************************
@@ -38,17 +44,22 @@ public class CakeTester {
 		return instance;
 	}
 
+	public CakeTester eventTester(EventTester eventTester) {
+		this.eventTester = eventTester;
+		return this;
+	}
+
 	/*
 	 * class ***************
 	 */
 	
-	public static Class<?> getCorrespondingClass() throws ClassNotFoundException {
-		if (clazz == null) {
-			clazz = Class.forName(className, true, ClassLoader.getInstance());
-		}
-
-		return clazz;
-	}
+//	public static Class<?> getCorrespondingClass() throws ClassNotFoundException {
+//		if (clazz == null) {
+//			clazz = Class.forName(className, true, ClassLoader.getInstance());
+//		}
+//
+//		return clazz;
+//	}
 	
 	/*
 	 * initialize object ***************
@@ -59,11 +70,10 @@ public class CakeTester {
 //		return getCorrespondingClass().getDeclaredConstructor().newInstance();
 //	}
 	
-	public static Object initObject(Object customer, Object event, int tierNumber, double price) throws InstantiationException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+	public Object initObject(Object customer, Object event, int tierNumber, double price) throws Exception {
 		return getCorrespondingClass().getDeclaredConstructor(
 				CustomerTester.getCorrespondingClass()
-				, EventTester.getCorrespondingClass()
+				, eventTester.getCorrespondingClass()
 				, int.class
 				, double.class
 		).newInstance(customer, event, tierNumber, price);
@@ -87,12 +97,12 @@ public class CakeTester {
 	/*
 	 * Fields ***************************************************************************
 	 */
-	public TestCase checkFields(int points) throws ClassNotFoundException {
+	public TestCase checkFields(int points) throws Exception {
 		return fieldTester.checkDeclarations(points, className
 				, new TestingField(int.class, FieldName.TIER_NUMBER)
 				, new TestingField(LocalDate.class, FieldName.EVENT_DATE)
 				, new TestingField(double.class, FieldName.PRICE)
-				, new TestingField(EventTester.getCorrespondingClass(), FieldName.TYPE)
+				, new TestingField(eventTester.getCorrespondingClass(), FieldName.TYPE)
 				, new TestingField(ClassLoader.retrieveClass(ClassName.CUSTOMER), FieldName.CUSTOMER)
 		);
 	}

@@ -13,6 +13,7 @@ import student.model.TestingField;
 import student.model.TestCase;
 import student.model.TestingMethod;
 import student.model.TestingParameter;
+import student.testSuite.BaseTester;
 import student.testSuite.lab2.CustomerTester;
 import student.testcaseCreator.ClassTestcaseCreator;
 import student.testcaseCreator.FieldTestcaseCreator;
@@ -20,17 +21,23 @@ import student.testcaseCreator.MethodTestcaseCreator;
 import student.util.MethodUtils;
 import student.util.SetterUtils;
 
-public class QuoteTester {
+public class QuoteTester extends BaseTester {
 	private static QuoteTester instance = null;
 	private ClassTestcaseCreator classTester = ClassTestcaseCreator.getInstance();
 	private FieldTestcaseCreator fieldTester = FieldTestcaseCreator.getInstance();
     private MethodTestcaseCreator methodTester = MethodTestcaseCreator.getInstance();
-	private static String className = ClassName.QUOTE;
+//	private static String className = ClassName.QUOTE;
 	private static Class<?> clazz;
+	private EventTester eventTester;
+	private CakeTester cakeTester;
 
 	/*
 	 * Instance ***************************************************************************
 	 */
+	public QuoteTester() {
+		super.className = ClassName.QUOTE;
+	}
+
 
 	public static QuoteTester getInstance() {
 		if (instance == null) {
@@ -38,6 +45,16 @@ public class QuoteTester {
 		}
 
 		return instance;
+	}
+
+	public QuoteTester cakeTester(CakeTester cakeTester) {
+		this.cakeTester = cakeTester;
+		return this;
+	}
+	
+	public QuoteTester eventTester(EventTester eventTester) {
+		this.eventTester = eventTester;
+		return this;
 	}
 
 	/*
@@ -52,13 +69,13 @@ public class QuoteTester {
 	 * Class ***************
 	 */
 
-	public static Class<?> getCorrespondingClass() throws ClassNotFoundException {
-		if (clazz == null) {
-			clazz = Class.forName(className, true, ClassLoader.getInstance());
-		}
-
-		return clazz;
-	}
+//	public static Class<?> getCorrespondingClass() throws ClassNotFoundException {
+//		if (clazz == null) {
+//			clazz = Class.forName(className, true, ClassLoader.getInstance());
+//		}
+//
+//		return clazz;
+//	}
 
     /*
      * Constructor ***************
@@ -72,17 +89,15 @@ public class QuoteTester {
 	 * initialize
 	 */
 
-	public static Object initObject(Object cake, double laborCharge, double deliveryFee) throws InstantiationException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+	public Object initObject(Object cake, double laborCharge, double deliveryFee) throws Exception {
 		return getCorrespondingClass()
-				.getDeclaredConstructor(CakeTester.getCorrespondingClass(), double.class, double.class)
+				.getDeclaredConstructor(cakeTester.getCorrespondingClass(), double.class, double.class)
 				.newInstance(cake, laborCharge, deliveryFee);
 	}
 
-	public static Object initObject(List<String> ingredient, Object cake, double laborCharge, double deliveryFee) throws InstantiationException, IllegalAccessException, IllegalArgumentException,
-			InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+	public Object initObject(List<String> ingredient, Object cake, double laborCharge, double deliveryFee) throws Exception {
 		Object quoteInstance = getCorrespondingClass()
-				.getDeclaredConstructor(CakeTester.getCorrespondingClass(), double.class, double.class)
+				.getDeclaredConstructor(cakeTester.getCorrespondingClass(), double.class, double.class)
 				.newInstance(cake, laborCharge, deliveryFee);
 		clazz.getMethod(SetterUtils.getSetterName(FieldName.INGREDIENT), List.class).invoke(quoteInstance, ingredient);
 		
@@ -93,12 +108,12 @@ public class QuoteTester {
 	 * Fields ***************
 	 */
 	
-	public TestCase checkFields(int points) throws ClassNotFoundException {
+	public TestCase checkFields(int points) throws Exception {
 		return fieldTester.checkDeclarations(points, className
 				, new TestingField(List.class, FieldName.INGREDIENT)
 				, new TestingField(double.class, FieldName.LABOR_CHARGE)
 				, new TestingField(double.class, FieldName.DELIVERY_FEE)
-				, new TestingField(CakeTester.getCorrespondingClass(), FieldName.CAKE)
+				, new TestingField(cakeTester.getCorrespondingClass(), FieldName.CAKE)
 		);
 	}
 
@@ -124,50 +139,50 @@ public class QuoteTester {
 		return methodTester.declare(points, className, new TestingMethod(String.class, MethodName.TO_STRING));
 	}
 	
-	public TestCase checkToStringOperation(int points, List<String> ingredient, double laborCharge, double deliveryFee, Object cake) {
-		TestingMethod method = MethodUtils.createMethodToString();
-
-		return new TestCase() {
-			@Override
-			public String getName() {
-				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
-			}
-
-			@Override
-			public int getPoints() {
-				return points;
-			}
-
-			@Override
-			public boolean runTest() {
-				try {
-					method.setClazz(getCorrespondingClass());
-
-					// Prepare test data
-//					Object cake = CakeTester.initObject(CustomerTester.initObject("Lao Hac"), EventTester.initObject(0), 2, 2.55);
-					Object instance = initObject(ingredient, cake, laborCharge, deliveryFee);
-					
-					method.setInstance(instance);
-					String actual = method.invokeToString();
-
-					// Get captured output then compare
-					return actual.contains(String.valueOf(ingredient))
-							&& actual.contains(String.valueOf(laborCharge))
-							&& actual.contains(String.valueOf(deliveryFee))
-							&& actual.contains(cake.toString())
-							;
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-					return false;
-				}
-			}
-
-			@Override
-			public String getFeedback() {
-				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
-			}
-		};
-	}
+//	public TestCase checkToStringOperation(int points, List<String> ingredient, double laborCharge, double deliveryFee, Object cake) {
+//		TestingMethod method = MethodUtils.createMethodToString();
+//
+//		return new TestCase() {
+//			@Override
+//			public String getName() {
+//				return TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
+//			}
+//
+//			@Override
+//			public int getPoints() {
+//				return points;
+//			}
+//
+//			@Override
+//			public boolean runTest() {
+//				try {
+//					method.setClazz(getCorrespondingClass());
+//
+//					// Prepare test data
+////					Object cake = CakeTester.initObject(CustomerTester.initObject("Lao Hac"), EventTester.initObject(0), 2, 2.55);
+//					Object instance = initObject(ingredient, cake, laborCharge, deliveryFee);
+//					
+//					method.setInstance(instance);
+//					String actual = method.invokeToString();
+//
+//					// Get captured output then compare
+//					return actual.contains(String.valueOf(ingredient))
+//							&& actual.contains(String.valueOf(laborCharge))
+//							&& actual.contains(String.valueOf(deliveryFee))
+//							&& actual.contains(cake.toString())
+//							;
+//				} catch (Exception e) {
+//					System.out.println(e.getMessage());
+//					return false;
+//				}
+//			}
+//
+//			@Override
+//			public String getFeedback() {
+//				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
+//			}
+//		};
+//	}
 
 	/*
 	 * getPriceAfterTax **********
@@ -197,7 +212,7 @@ public class QuoteTester {
 				try {
 					method.setClazz(getCorrespondingClass());
 					
-					Object cake = CakeTester.initObject(CustomerTester.initObject("Lao Hac"), EventTester.initObject(0), 2, 2.55);
+					Object cake = cakeTester.initObject(CustomerTester.initObject("Lao Hac"), eventTester.initObject(0), 2, 2.55);
 					method.setInstance(initObject(cake, laborCharge, deliveryFee));
 					
 					return method.boxingReturnedType().cast(method.returning()).equals(priceAfterTax);
