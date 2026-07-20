@@ -241,4 +241,21 @@ public class FieldName {
 	 */
 	public static final String NUMBER = "number";
 	public static final String HIRE_DATE = "hireDate";
+
+	/*
+	 * Production Worker
+	 */
+	public static final String SHIFT = "shift";
+	public static final String SHIFT_NAME = "shiftName";
+	public static final String PAY_RATE = "payRate";
+
+	/*
+	 * Team Leader
+	 */
+	public static final String MONTHLY_BONUS = "monthlyBonus";
+	public static final String REQUIRED_TRAINING_HOURS = "requiredTrainingHours";
+	public static final String ATTENDED_TRAINING_HOURS = "attendedTrainingHours";
+	public static final String MONTHLY_HOURS = "monthlyHours";
+	public static final String ANNUAL_SALARY = "annualSalary";
+	public static final String ANNUAL_PRODUCTION_BONUS = "annualProductionBonus";
 }

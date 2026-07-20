@@ -90,4 +90,9 @@ public class ClassName {
 	public static final String PARKING_METER = "ParkingMeter";
 	public static final String PARKING_TICKET = "ParkingTicket";
 	public static final String POLICE_OFFICER = "PoliceOfficer";
+
+	/* lab 4 */
+	public static final String PRODUCTION_WORKER = "ProductionWorker";
+	public static final String TEAM_LEADER = "TeamLeader";
+	public static final String SHIFT_SUPERVISOR = "ShiftSupervisor";
 }

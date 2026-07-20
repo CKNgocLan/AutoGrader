@@ -58,7 +58,6 @@ public class LabTestSuite4 extends ALabTestSuite {
 				
 				Object sailorBrand = brandTester.instantiate(BrandName.SAILOR, Country.JAPAN);
 				Object concopensBrand = brandTester.instantiate(BrandName.CONCOPENS, Country.VIETNAM);
-//				Object discount = discountTester.instantiate(0.19, LocalDate.now().plusMonths(1));
 				
 				return Arrays.asList(
 						// pen type enum

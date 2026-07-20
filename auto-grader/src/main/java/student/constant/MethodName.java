@@ -67,4 +67,5 @@ public class MethodName {
 	public static final String ADD = "add";
 	public static final String PRINT_ORDERED_ITEMS = "printOrderedItems";
 	public static final String GET_TOTAL_PRICE_AFTER_TAX = "getTotalPriceAfterTax";
+	public static final String CALCULATE_TOTAL_SALARY = "calculateTotalSalary";
 }
