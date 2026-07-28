@@ -1,0 +1,89 @@
+classDiagram
+    direction BT
+
+    class TeaCategory {
+        <<enumeration>>
+        GREEN_TEA
+        SCENTED_TEA
+    }
+
+    class MocCauTea {
+        + getName() String
+        + getFlavor() String
+        + getPrice() double
+    }
+
+    class DinhNgocTraTea {
+        + getName() String
+        + getFlavor() String
+        + getPrice() double
+    }
+
+    class LotusTea {
+        + getName() String
+        + getFlavor() String
+        + getPrice() double
+    }
+
+    class JasmineTea {
+        + getName() String
+        + getFlavor() String
+        + getPrice() double
+    }
+
+    class GreenTea {
+        <<abstract>>
+        + getCategory() TeaCategory
+    }
+
+    class ScentedTea {
+        <<abstract>>
+        + getCategory() TeaCategory
+    }
+
+    class Tea {
+        <<interface>>
+        + getName() String*
+        + getFlavor() String*
+        + getPrice() double*
+        + getCategory() TeaCategory*
+        + equals(tea: Tea) boolean
+    }
+
+    class TeaTax {
+        + TEA_TAX: double$*
+    }
+
+    class OrderedItem {
+        - tea: Tea
+        - weight: double
+        + OrderedItem(tea: Tea, weight: double)
+        + getter()
+        + setter()
+        + getPriceAfterTax() double
+        + toString() String
+        + equals(orderedItem: OrderedItem) boolean
+    }
+
+    class Cart {
+        - orderedItems: List~OrderedItem~
+        + Cart()
+        + add(item: OrderedItem) void
+        + getTotalPriceAfterTax() double
+        + printOrderedItems() void
+    }
+
+    Tea <|.. GreenTea : implements
+    Tea <|.. ScentedTea : implements
+
+    GreenTea <|-- MocCauTea : extends
+    GreenTea <|-- DinhNgocTraTea : extends
+
+    ScentedTea <|-- LotusTea : extends
+    ScentedTea <|-- JasmineTea : extends
+
+    GreenTea --> TeaCategory : uses
+    ScentedTea --> TeaCategory : uses
+    OrderedItem --> TeaTax : uses
+    OrderedItem o-- Tea : contains
+    Cart o-- OrderedItem
