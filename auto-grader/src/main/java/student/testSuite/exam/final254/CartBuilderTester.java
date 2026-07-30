@@ -111,6 +111,11 @@ public class CartBuilderTester extends BaseTester {
 		}
 	}
 
+
+	public TestCase operateAddOrderedItem() {
+		return TestCaseUtils.failByDefault(defaultPoints, className);
+	}
+
 	/**
 	 * + build(): Cart
 	 * 
@@ -130,7 +135,7 @@ public class CartBuilderTester extends BaseTester {
 		}
 	}
 
-	public TestCase operateBuild(String brand, String model, double price) {
-		return TestCaseUtils.passByDefault(defaultPoints, className);
+	public TestCase operateBuild() {
+		return TestCaseUtils.failByDefault(defaultPoints, className);
 	}
 }

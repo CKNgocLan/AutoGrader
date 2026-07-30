@@ -211,13 +211,16 @@ public class StudentGrader extends JFrame {
 	private void initializeTestSuites() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
 		// === ADD YOUR LABS AND QUESTIONS HERE ===
 		// Format: Lab Name -> List of Questions
+		labQuestionsMap.put(FinalExam.FINAL_254, Arrays.asList(Problem.SECTION_1));
 //		labQuestionsMap.put(Midterm.MIDTERM_254, Arrays.asList(Problem.SECTION_1));
+		
 //		labQuestionsMap.put(FinalExam.FINAL_253, Arrays.asList(Problem.SECTION_1, Problem.SECTION_2));
 //		labQuestionsMap.put(Midterm.MIDTERM_253, Arrays.asList(Problem.P1));
-		labQuestionsMap.put(Lab.L4, Arrays.asList(Problem.P1, Problem.P4));
-		labQuestionsMap.put(Lab.L3, Arrays.asList(Problem.P1, Problem.P2, Problem.P3, Problem.P4, Problem.P5));
-		labQuestionsMap.put(Lab.L2, Arrays.asList(Problem.P1, Problem.P2, Problem.P3, Problem.P4, Problem.P5, Problem.P6));
-		labQuestionsMap.put(Lab.L1, Arrays.asList(Problem.P0));
+		
+//		labQuestionsMap.put(Lab.L4, Arrays.asList(Problem.P1, Problem.P4));
+//		labQuestionsMap.put(Lab.L3, Arrays.asList(Problem.P1, Problem.P2, Problem.P3, Problem.P4, Problem.P5));
+//		labQuestionsMap.put(Lab.L2, Arrays.asList(Problem.P1, Problem.P2, Problem.P3, Problem.P4, Problem.P5, Problem.P6));
+//		labQuestionsMap.put(Lab.L1, Arrays.asList(Problem.P0));
 	}
     
     private void initializeComboBoxes() {

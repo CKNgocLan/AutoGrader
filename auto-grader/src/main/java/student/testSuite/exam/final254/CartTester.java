@@ -30,6 +30,14 @@ public class CartTester extends BaseTester {
 	}
 
 	/**
+	 * declare
+	 */
+
+	public TestCase declare() {
+		return super.declare(defaultPoints);
+	}
+
+	/**
 	 * field
 	 */
 
@@ -50,13 +58,18 @@ public class CartTester extends BaseTester {
 	 * constructor
 	 */
 
-	public TestCase haveOnlyOneConstructor() {
-		return super.classTester.haveOnlyOneConstructor(defaultPoints, className);
-	}
-
 	public TestCase declareConstructor() {
 		try {
 			return super.declareConstructorAsPrivate(defaultPoints, builderTester.getCorrespondingClass());
+		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+		}
+	}
+
+	public TestCase haveOnlyOneConstructor() {
+		try {
+			return super.classTester.haveOnlyOneConstructor(defaultPoints, className, new TestingParameter(builderTester.getCorrespondingClass()));
 		} catch (ClassNotFoundException | TesterGotNoClassNameException e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
@@ -85,7 +98,7 @@ public class CartTester extends BaseTester {
 
 	public TestCase operateValidate() {
 		try {
-			return TestCaseUtils.passByDefault(defaultPoints, className);
+			return TestCaseUtils.failByDefault(defaultPoints, className);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
@@ -111,10 +124,11 @@ public class CartTester extends BaseTester {
 
 	public TestCase operatePrintOrderedItems(Object... orderedItems) {
 		try {
-			Object cartInstance = instantiate();
-			TestingMethod method = printOrderedItems().config(getCorrespondingClass(), cartInstance);
-
-			return super.methodTester.printListThenReturnVoid(defaultPoints, className, method);
+			return TestCaseUtils.failByDefault(defaultPoints, className);
+//			Object cartInstance = instantiate();
+//			TestingMethod method = printOrderedItems().config(getCorrespondingClass(), cartInstance);
+//
+//			return super.methodTester.printListThenReturnVoid(defaultPoints, className, method);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
@@ -140,10 +154,15 @@ public class CartTester extends BaseTester {
 
 	public TestCase operateGetTotalPriceAfterTax(double expected) {
 		try {
-			return super.methodTester.operateAsDouble(defaultPoints, className, getTotalPriceAfterTax().config(getCorrespondingClass(), instantiate()).expectedValue(expected));
+			return TestCaseUtils.failByDefault(defaultPoints, className);
+//			return super.methodTester.operateAsDouble(defaultPoints, className, getTotalPriceAfterTax().config(getCorrespondingClass(), instantiate()).expectedValue(expected));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
 		}
+	}
+
+	public TestCase operateGetTotalPriceAfterTax(double expected, Object... orderedItemList) {
+		return TestCaseUtils.failByDefault(defaultPoints, className);
 	}
 }

@@ -61,7 +61,7 @@ public class OrderedItemTester extends BaseTester {
 	 */
 
 	private TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
-		return new TestingField[] { new TestingField(teaFactoryTester.getCorrespondingClass(), FieldName.TEA),
+		return new TestingField[] { new TestingField(teaTester.getCorrespondingClass(), FieldName.TEA),
 				new TestingField(double.class, FieldName.WEIGHT) };
 	}
 

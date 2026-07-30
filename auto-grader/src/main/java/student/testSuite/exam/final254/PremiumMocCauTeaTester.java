@@ -4,21 +4,25 @@ import student.constant.ClassName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestCase;
 import student.testSuite.BaseTester;
-import student.testSuite.exam.midterm254.TeaCategoryTester;
 import student.util.TestCaseUtils;
 
 public class PremiumMocCauTeaTester extends BaseTester {
 	private TeaTester teaTester;
 	private TeaCategoryTester teaCategoryTester;
 
-	private final String name = "Moc Cau Tea";
-	private final double price = 350000;
+	private final String name = "Premium Moc Cau Tea";
+	private final double price = 450_000;
 	public final double weight = 1.5;
 
 	public PremiumMocCauTeaTester(TeaTester teaTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.PREMIUM_MOC_CAU_TEA;
 		super.getCorrespondingClass();
 		this.teaTester = teaTester;
+	}
+	
+	public PremiumMocCauTeaTester teaCategoryTester(TeaCategoryTester teaCategoryTester) {
+		this.teaCategoryTester = teaCategoryTester;
+		return this;
 	}
 
 	/* declare */
@@ -100,7 +104,9 @@ public class PremiumMocCauTeaTester extends BaseTester {
 	public TestCase operateGetCategory() {
 		try {
 			return super.methodTester.operateAsEnum(defaultPoints
-					, teaTester.getCategory().config(getCorrespondingClass(), instantiate())
+					, teaTester.getCategory()
+					.config(getCorrespondingClass(), instantiate())
+					.expectedValue(teaCategoryTester.valueFrom(TeaCategoryTester.EnumValue.GREEN_TEA.name()))
 					, teaCategoryTester.getEnumClass());
 		} catch (Exception e) {
 			e.printStackTrace();
