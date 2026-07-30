@@ -34,6 +34,7 @@ public enum Feedback {
 	
 	, FAILED_TESTCASE_DUE_TO_ERROR("TESTCASE FAILED with message: {0}")
 	, PASSED_TESTCASE_BUT_EXCEPTION("PASSED TESTCASE Exception while checking Class: {0}")
+	, FAILED_TESTCASE_BUT_EXCEPTION("FAILED TESTCASE Exception while checking Class: {0}")
 	;
 	
 	private final String value;

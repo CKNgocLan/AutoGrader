@@ -52,6 +52,30 @@ public class TestCaseUtils {
 			}
 		};
 	}
+
+	public static TestCase failByDefault(int points, String className) {
+		return new TestCase() {
+			@Override
+			public String getName() {
+				return TestcaseType.FAILED_TESTCASE.getName(className);
+			}
+
+			@Override
+			public int getPoints() {
+				return points;
+			}
+
+			@Override
+			public boolean runTest() {
+				return true;
+			}
+
+			@Override
+			public String getFeedback() {
+				return Feedback.FAILED_TESTCASE_BUT_EXCEPTION.getContent(className);
+			}
+		};
+	}
 	
 	public static TestCase pass(int points, String className, TestcaseType testcaseType, Feedback feedback) {
 		return new TestCase() {

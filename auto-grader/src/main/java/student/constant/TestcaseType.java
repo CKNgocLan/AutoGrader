@@ -37,6 +37,7 @@ public enum TestcaseType {
 	
 	, ERROR_TESTCASE("Failed Testcase while checking Class {0}.")
 	, PASSED_TESTCASE("[IGNORED] Passed Testcase while checking Class {0}.")
+	, FAILED_TESTCASE("[IGNORED] Failed Testcase while checking Class {0}.")
 	;
 	
 	private final String value;
