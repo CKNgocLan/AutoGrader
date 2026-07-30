@@ -19,6 +19,10 @@ public class FieldName {
 	 */
 
 	public static final String TEA = "tea";
+	public static final String TEA_FACTORY = "teaFactory";
+	public static final String ADDITIONAL_WEIGHT = "additionalWeight";
+	public static final String ITEM_OBJECT = "itemObject";
+	public static final String ORDERED_ITEM = "orderedItem";
 
 	/**
 	 * Cart

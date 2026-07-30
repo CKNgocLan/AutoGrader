@@ -2,11 +2,13 @@ package student.constant;
 
 public class ClassName {
 	
-	/**
-	 * midterm 254
+	/*
+	 * midterm - final 254
 	 */
 	public static final String CART = "Cart";
+	public static final String CART_BUILDER = "CartBuilder";
 	public static final String TEA = "Tea";
+	public static final String TEA_FACTORY = "TeaFactory";
 	public static final String TEA_CATEGORY = "TeaCategory";
 	public static final String TEA_TAX = "TeaTax";
 	public static final String ORDERED_ITEM = "OrderedItem";

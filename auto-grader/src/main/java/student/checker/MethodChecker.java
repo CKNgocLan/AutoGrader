@@ -205,24 +205,30 @@ public class MethodChecker {
 
 		return true;
 	}
-	
+
+	public boolean isDeclaredAsPrivateSpecialModifers(Class<?> clazz, TestingMethod method)
+			throws NoSuchMethodException, SecurityException {
+		return Modifier.isPrivate(clazz.getDeclaredMethod(method.getName(), method.getParameterTypes()).getModifiers())
+				&& isDeclaredAsSpecialModifers(clazz, method);
+	}
+
 	public boolean isPublicAbstract(Class<?> clazz, TestingMethod method) throws NoSuchMethodException {
 		Method reflectMethod = clazz.getDeclaredMethod(method.getName(), method.getParameterTypes());
 
 		if (!method.equalsButModifiers(reflectMethod)) {
 			return false;
 		}
-		
+
 		return Modifier.isPublic(reflectMethod.getModifiers()) && Modifier.isAbstract(reflectMethod.getModifiers());
 	}
-	
+
 	public boolean isPublicDefault(Class<?> clazz, TestingMethod method) throws NoSuchMethodException {
 		Method reflectMethod = clazz.getDeclaredMethod(method.getName(), method.getParameterTypes());
 
 		if (!method.equalsButModifiers(reflectMethod)) {
 			return false;
 		}
-		
+
 		return Modifier.isPublic(reflectMethod.getModifiers()) && reflectMethod.isDefault();
 	}
 
@@ -248,8 +254,9 @@ public class MethodChecker {
 	/*
 	 * build
 	 */
-	
+
 	public void buildInstance(Class<?> clazz, Object instance, TestingMethod method) throws Exception {
-		clazz.getDeclaredMethod(method.getName(), method.getParameterTypes()).invoke(instance, method.getParameterValues());
+		clazz.getDeclaredMethod(method.getName(), method.getParameterTypes()).invoke(instance,
+				method.getParameterValues());
 	}
 }
