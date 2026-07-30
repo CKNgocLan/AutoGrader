@@ -12,6 +12,7 @@ public class FieldName {
 	 */
 
 	public static final String UPPERCASE_TEA_TAX = "TEA_TAX";
+	public static final String UPPERCASE_TEA = "TEA";
 
 	/**
 	 * Ordered Item
@@ -47,12 +48,12 @@ public class FieldName {
 	public static final String MODEL = "model";
 	public static final String PERIOD = "period";
 	public static final String MILEAGE_LIMIT = "mileageLimit";
-	
+
 	/*
 	 * Temperature
 	 */
 	public static final String FTEMP = "ftemp";
-	
+
 	/*
 	 * Pet
 	 */
@@ -60,7 +61,7 @@ public class FieldName {
 	public static final String AGE = "age";
 	public static final String WEIGHT = "weight";
 	public static final String CUSTOMER = "customer";
-	
+
 	/*
 	 * Service Estimate
 	 */
@@ -69,7 +70,7 @@ public class FieldName {
 	public static final String TAX = "tax";
 	public static final String UPPERCASE_TAX = "TAX";
 	public static final String PET = "pet";
-	
+
 	/*
 	 * Pet Shop
 	 */
@@ -77,7 +78,7 @@ public class FieldName {
 	public static final String PETS = "pets";
 	public static final String SERVICE_ESTIMATE = "serviceEstimate";
 	public static final String SERVICE_ESTIMATES = "serviceEstimates";
-	
+
 	/*
 	 * Agreement
 	 */
@@ -85,7 +86,7 @@ public class FieldName {
 	public static final String BASE_RENTAL_FEE = "baseRentalFee";
 	public static final String MILEAGE_FEE = "mileageFee";
 	public static final String CAR = "car";
-	
+
 	/*
 	 * Cake
 	 */
@@ -95,7 +96,7 @@ public class FieldName {
 	public static final String TYPE = "type";
 	public static final String UPPERCASE_WEDDING = "WEDDING";
 	public static final String UPPERCASE_BIRTHDAY = "BIRTHDAY";
-	
+
 	/*
 	 * Quote
 	 */
@@ -103,25 +104,25 @@ public class FieldName {
 	public static final String LABOR_CHARGE = "laborCharge";
 	public static final String DELIVERY_FEE = "deliveryFee";
 	public static final String CAKE = "cake";
-	
+
 	/*
 	 * User
 	 */
 	public static final String EMAIL = "email";
-	
+
 	/*
 	 * Book
 	 */
 	public static final String ISBN = "isbn";
 	public static final String TITLE = "title";
-	
+
 	/*
 	 * Borrowing Record
 	 */
 	public static final String USER = "user";
 	public static final String BOOK = "book";
 	public static final String BORROWING_DATE = "borrowingDate";
-	public static final String BORROWING_RECORD= "borrowingRecord";
+	public static final String BORROWING_RECORD = "borrowingRecord";
 	public static final String DUE_DATE = "dueDate";
 
 	/*
@@ -130,20 +131,20 @@ public class FieldName {
 	public static final String USERS = "users";
 	public static final String BOOKS = "books";
 	public static final String BORROWING_RECORDS = "borrowingRecords";
-	
+
 	/*
 	 * RetailItem
 	 */
 	public static final String DESCRIPTION = "description";
 	public static final String UNITS_ON_HAND = "unitsOnHand";
-	
+
 	/*
 	 * CashRegister
 	 */
 	public static final String RETAIL_ITEM = "retailItem";
 	public static final String QUANTITY = "quantity";
 	public static final String UPPERCASE_TAX_RATE = "TAX_RATE";
-	
+
 	/*
 	 * Shape Class
 	 */
@@ -151,14 +152,14 @@ public class FieldName {
 	public static final String WIDTH = "width";
 	public static final String LENGTH = "length";
 	public static final String HEIGHT = "height";
-	
+
 	/*
 	 * Const - Fuel Gauge
 	 */
 	public static final String UPPERCASE_CAR_MAX_GALLON = "CAR_MAX_GALLON";
 	public static final String UPPERCASE_ODOMETER_MAXIMUM_MILEAGE_MILES = "ODOMETER_MAXIMUM_MILEAGE_MILES";
 	public static final String UPPERCASE_MILES_PER_ONE_GALLON = "MILES_PER_ONE_GALLON";
-	
+
 	/*
 	 * Const - Parking Ticket
 	 */
@@ -169,43 +170,43 @@ public class FieldName {
 	 * Fuel Gauge
 	 */
 	public static final String GALLON = "gallon";
-	
+
 	/*
 	 * Odometer
 	 */
 	public static final String MILEAGE = "mileage";
 	public static final String FUEL_GAUGE = "fuelGauge";
-	
+
 	/*
 	 * Pen Type
 	 */
 	public static final String UPPERCASE_BALLPOINT = "BALLPOINT";
 	public static final String UPPERCASE_FOUNTAIN = "FOUNTAIN";
-	
+
 	/*
 	 * Country
 	 */
 	public static final String UPPERCASE_JAPAN = "JAPAN";
 	public static final String UPPERCASE_VIETNAM = "VIETNAM";
-	
+
 	/*
 	 * Tax
 	 */
 	public static final String UNDERSCORE_8 = "_8";
 	public static final String UNDERSCORE_10 = "_10";
-	
+
 	/*
 	 * Brand
 	 */
 	public static final String COUNTRY = "country";
-	
+
 	/*
 	 * Discount
 	 */
 	public static final String PERCENT = "percent";
 	public static final String START_DATE = "startDate";
 	public static final String END_DATE = "endDate";
-	
+
 	/*
 	 * Pen
 	 */
@@ -221,7 +222,7 @@ public class FieldName {
 	 * ParkingMeter
 	 */
 	public static final String PURCHASED_MINUTES = "purchasedMinutes";
-	
+
 	/*
 	 * ParkingTicket
 	 */
@@ -229,15 +230,15 @@ public class FieldName {
 	public static final String FINE_AMOUNT = "fineAmount";
 	public static final String PARKED_CAR = "parkedCar";
 	public static final String PARKING_METER = "ParkingMeter";
-	
+
 	/*
 	 * ParkedCar
 	 */
 	public static final String COLOR = "color";
 	public static final String PARKED_MINUTES = "parkedMinutes";
-	
+
 	/*
-	 * Employee 
+	 * Employee
 	 */
 	public static final String NUMBER = "number";
 	public static final String HIRE_DATE = "hireDate";

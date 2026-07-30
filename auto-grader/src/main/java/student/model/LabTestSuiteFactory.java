@@ -8,6 +8,7 @@ import student.testSuite.labTestSuite.LabTestSuite2;
 import student.testSuite.labTestSuite.LabTestSuite3;
 import student.testSuite.labTestSuite.LabTestSuite4;
 import student.testSuite.labTestSuite.exam.final253.ExamFinalTestSuite253;
+import student.testSuite.labTestSuite.exam.final254.ExamFinalTestSuite254;
 import student.testSuite.labTestSuite.exam.midterm253.ExamMidtermTestSuite253;
 import student.testSuite.labTestSuite.exam.midterm254.ExamMidtermTestSuite254;
 
@@ -21,6 +22,8 @@ public class LabTestSuiteFactory {
 			return new ExamFinalTestSuite253();
 		case Midterm.MIDTERM_253:
 			return new ExamMidtermTestSuite253();
+		case FinalExam.FINAL_254:
+			return new ExamFinalTestSuite254();
 		case Lab.L1:
 			return new LabTestSuite1();
 		case Lab.L2:
