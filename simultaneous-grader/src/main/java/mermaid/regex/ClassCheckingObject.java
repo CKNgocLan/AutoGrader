@@ -1,4 +1,4 @@
-package mermaid;
+package mermaid.regex;
 
 import java.util.ArrayList;
 import java.util.List;

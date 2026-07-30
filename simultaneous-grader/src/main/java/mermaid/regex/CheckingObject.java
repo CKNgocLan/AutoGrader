@@ -1,4 +1,4 @@
-package mermaid;
+package mermaid.regex;
 
 public abstract class CheckingObject {
 	protected String name;

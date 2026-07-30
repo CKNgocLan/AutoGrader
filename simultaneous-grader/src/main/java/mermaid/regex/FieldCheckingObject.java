@@ -1,4 +1,4 @@
-package mermaid;
+package mermaid.regex;
 
 public class FieldCheckingObject extends CheckingObject {
 	private Scope scope;

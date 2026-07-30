@@ -1,8 +1,8 @@
-package mermaid;
+package mermaid.regex;
 
 import java.util.List;
 
-public class MermaidConvertor {
+public class MermaidDemo {
 	public static void main(String[] args) {
 //		String mermaidCode = "classDiagram\n" + "class BankAccount {\n" + "  <<abstract>>\n" + "  +String ownerName\n"
 //				+ "  -double balance = 0.0\n" + "  #static final int MAX_LIMIT = 1000\n"

@@ -1,4 +1,4 @@
-package mermaid;
+package mermaid.regex;
 
 public enum Scope {
 	PUBLIC("+"), PRIVATE("-"), PROTECTED("#"), PACKAGE("~"), DEFAULT("");

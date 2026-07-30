@@ -1,4 +1,4 @@
-package mermaid;
+package mermaid.regex;
 
 import java.io.IOException;
 import java.nio.file.Files;
