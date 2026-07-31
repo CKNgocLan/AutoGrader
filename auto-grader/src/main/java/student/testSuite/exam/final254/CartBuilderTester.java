@@ -1,5 +1,6 @@
 package student.testSuite.exam.final254;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -76,35 +77,26 @@ public class CartBuilderTester extends BaseTester {
 	}
 
 	/**
-	 * builder
-	 * 
-	 * @param brand
-	 * @return
-	 * @throws TesterGotNoClassNameException
-	 * @throws ClassNotFoundException
-	 */
-
-	public ArrayList<TestingParameter> add(Object orderedItem)
-			throws ClassNotFoundException, TesterGotNoClassNameException {
-		this.args.add(
-				new TestingParameter(orderedItemTester.getCorrespondingClass(), FieldName.ORDERED_ITEM, orderedItem));
-		return args;
-	}
-
-	/**
 	 * + add(orderedItem: OrderedItem): CartBuilder
 	 * 
 	 * @throws TesterGotNoClassNameException
 	 * @throws ClassNotFoundException
 	 */
-	private TestingMethod addOrderedItem() throws ClassNotFoundException, TesterGotNoClassNameException {
+	private TestingMethod add() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new TestingMethod(getCorrespondingClass(), MethodName.ADD,
 				new TestingParameter(orderedItemTester.getCorrespondingClass(), FieldName.ORDERED_ITEM));
 	}
 
+	private TestingMethod addMethod(Object concreteTeaFactoryInstance, double weight) throws Exception {
+		return new TestingMethod(getCorrespondingClass(), MethodName.ADD,
+				new TestingParameter(orderedItemTester.getCorrespondingClass(),
+						FieldName.ORDERED_ITEM,
+						orderedItemTester.instantiateItem(concreteTeaFactoryInstance, weight)));
+	}
+
 	public TestCase declareAddOrderedItem() {
 		try {
-			return super.methodTester.declare(defaultPoints, className, addOrderedItem());
+			return super.methodTester.declare(defaultPoints, className, add());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return exceptionTestCase(e);
@@ -112,8 +104,21 @@ public class CartBuilderTester extends BaseTester {
 	}
 
 
-	public TestCase operateAddOrderedItem() {
-		return TestCaseUtils.failByDefault(defaultPoints, className);
+	public TestCase operateAddOrderedItem(Object concreteTeaFactoryTester, double weight) {
+		try {
+			Class<?> builderClass = getCorrespondingClass();
+			Object builderInstance = instantiate();
+			Class<?> orderedItemClass = orderedItemTester.getCorrespondingClass();
+			Object orderedItemInstance = orderedItemTester.instantiateItem(concreteTeaFactoryTester, weight);
+
+			return super.methodTester.addElement(defaultPoints
+					, addMethod(concreteTeaFactoryTester, weight).config(builderClass, builderInstance)
+					, new TestingParameter(orderedItemClass, FieldName.ORDERED_ITEMS, orderedItemInstance)
+			);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, nestingClassName, e);
+		}
 	}
 
 	/**

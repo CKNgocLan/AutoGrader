@@ -16,11 +16,6 @@ public class PremiumMocCauTeaFactoryTester extends BaseTester {
 		this.teaFactoryTester = teaFactoryTester;
 	}
 
-//	public PremiumMocCauTeaFactoryTester teaTester(TeaTester teaTester) {
-//		this.teaTester = teaTester;
-//		return this;
-//	}
-
 	/* declare */
 
 	public TestCase declare() {

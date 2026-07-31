@@ -39,6 +39,7 @@ public class ExamFinalTestSuite254 extends ALabTestSuite {
 			PremiumMocCauTeaTester premiumMocCauTeaTester = new PremiumMocCauTeaTester(teaTester)
 					.teaCategoryTester(teaCategoryTester);
 			PremiumMocCauTeaFactoryTester premiumMocCauTeaFactoryTester = new PremiumMocCauTeaFactoryTester(teaFactoryTester);
+			Object premiumMocCauTeaFactoryInstance = premiumMocCauTeaFactoryTester.instantiateTeaFactory();
 			
 			return Arrays.asList(
 					/* category */
@@ -73,7 +74,8 @@ public class ExamFinalTestSuite254 extends ALabTestSuite {
 					, builderTester.declareConstructor()
 					, builderTester.declareFields()
 					, builderTester.declareAddOrderedItem()
-					, builderTester.operateAddOrderedItem()
+					, builderTester.operateAddOrderedItem(premiumMocCauTeaFactoryInstance, 1)
+					, builderTester.operateAddOrderedItem(premiumMocCauTeaFactoryInstance, 2)
 					, builderTester.declareBuild()
 					, builderTester.operateBuild()
 					
