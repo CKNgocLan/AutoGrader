@@ -20,6 +20,7 @@ import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.util.MethodUtils;
 import student.util.StringUtils;
+import student.util.TestCaseUtils;
 import student.util.ValueUtils;
 
 /**
@@ -562,52 +563,49 @@ public class MethodTestcaseCreator {
 	}
 
 	public TestCase addElement(int points, TestingMethod method, TestingParameter testingParameter) {
-		return new TestCase() {
+		String className = method.getCorrespondingClassName();
+		String testCaseType = TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
+		String feedback = Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
+		try {
+			return (differenceListSize(method, testingParameter) == 1)
+					? TestCaseUtils.pass(points, className, testCaseType, feedback)
+					: TestCaseUtils.fail(points, className, testCaseType, feedback);
+		} catch (Exception e) {
+			return TestCaseUtils.errorTestcase(points, className, e);
+		}
+	}
 
-			@Override
-			public String getName() {
-				return TestcaseType.CHECK_METHOD_OPERATION.getName(method.getCorrespondingClassName(), method.getName());
-			}
+	public TestCase invalidToAddElement(int points, TestingMethod method, TestingParameter testingParameter) {
+		String className = method.getCorrespondingClassName();
+		String testCaseType = TestcaseType.CHECK_METHOD_OPERATION.getName(className, method.getName());
+		String feedback = Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(className, method.getName());
+		try {
+			return (differenceListSize(method, testingParameter) == 0)
+					? TestCaseUtils.pass(points, className, testCaseType, feedback)
+					: TestCaseUtils.fail(points, className, testCaseType, feedback);
+		} catch (Exception e) {
+			return TestCaseUtils.errorTestcase(points, className, e);
+		}
+	}
 
-			@Override
-			public int getPoints() {
-				return points;
-			}
+	private int differenceListSize(TestingMethod method, TestingParameter testingParameter) throws Exception {
+		if (testingParameter == null) {
+			throw new InvalidConfigurationException(ExceptionMessage.PROPERTY_NOT_CONFIGURED.getContent(PropertyName.PARAMETER_TESTING_VALUE));
+		}
 
-			@Override
-			public boolean runTest() {
-				try {
-					if (testingParameter == null) {
-						throw new InvalidConfigurationException(ExceptionMessage.PROPERTY_NOT_CONFIGURED.getContent(PropertyName.PARAMETER_TESTING_VALUE));
-					}
+		Field orderedItemsField = method.getConfiguredClass().getDeclaredField(testingParameter.getName());
+		orderedItemsField.setAccessible(true);
 
-					Field orderedItemsField = method.getConfiguredClass().getDeclaredField(testingParameter.getName());
-					orderedItemsField.setAccessible(true);
+		// TODO List<?> before = ((List<?>)orderedItemsField.get(method.getConfiguredInstance()));
+		int beforeSize = List.class.cast(orderedItemsField.get(method.getConfiguredInstance())).size();
 
-					List<?> before = ((List<?>)orderedItemsField.get(method.getConfiguredInstance()));
-
-					method.overrideParameter(testingParameter);
-					method.returnVoid();
-					
-					List<?> after = ((List<?>)orderedItemsField.get(method.getConfiguredInstance()));
-					
-					if (after.size() - before.size() == 1) {
-						return false;
-					}
-
-					return true;
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-					e.printStackTrace();
-					return false;
-				}
-			}
-
-			@Override
-			public String getFeedback() {
-				return Feedback.METHOD_OPERATED_NOT_CORRECT.getContent(method.getCorrespondingClassName(), method.getName());
-			}
-		};
+		method.overrideParameter(testingParameter);
+		method.returnVoid();
+		
+		// TODO List<?> after = ((List<?>)orderedItemsField.get(method.getConfiguredInstance()));
+		int afterSize = List.class.cast(orderedItemsField.get(method.getConfiguredInstance())).size();
+		
+		return afterSize - beforeSize;
 	}
 
 	public TestCase operationAsVoidAndCompareIntField(int points, TestingMethod method, String integerFieldName) {

@@ -76,6 +76,9 @@ public class ExamFinalTestSuite254 extends ALabTestSuite {
 					, builderTester.declareAddOrderedItem()
 					, builderTester.operateAddOrderedItem(premiumMocCauTeaFactoryInstance, 1)
 					, builderTester.operateAddOrderedItem(premiumMocCauTeaFactoryInstance, 2)
+					, builderTester.operateAddNulldOrderedItem()
+					, builderTester.operateAddOrderedItemWithoutWeight(premiumMocCauTeaFactoryInstance)
+					, builderTester.operateAddOrderedItemDuplicated(premiumMocCauTeaFactoryInstance, 1, 2, 3)
 					, builderTester.declareBuild()
 					, builderTester.operateBuild()
 					
@@ -113,5 +116,37 @@ public class ExamFinalTestSuite254 extends ALabTestSuite {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	private List<TestCase> testCaseOfTeaCategoryT() {
+		return List.of();
+	}
+
+	private List<TestCase> testCaseOfTax() {
+		return List.of();
+	}
+	
+	private List<TestCase> testCaseOfTea() {
+		return List.of();
+	}
+	
+	private List<TestCase> testCaseOfOrderedItem() {
+		return List.of();
+	}
+	
+	private List<TestCase> testCaseOfCartBuilder() {
+		return List.of();
+	}
+	
+	private List<TestCase> testCaseOfCart() {
+		return List.of();
+	}
+	
+	private List<TestCase> testCaseOfPremiumMocCauTea() {
+		return List.of();
+	}
+	
+	private List<TestCase> testCaseOfPremiumMocCauTeaFactory() {
+		return List.of();
 	}
 }
