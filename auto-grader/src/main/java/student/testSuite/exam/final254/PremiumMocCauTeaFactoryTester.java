@@ -7,12 +7,14 @@ import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
 public class PremiumMocCauTeaFactoryTester extends BaseTester {
+	private TeaTester teaTester;
 	private TeaFactoryTester teaFactoryTester;
 	public final double defaultWeight = 1;
 
-	public PremiumMocCauTeaFactoryTester(TeaFactoryTester teaFactoryTester) throws ClassNotFoundException, TesterGotNoClassNameException {
+	public PremiumMocCauTeaFactoryTester(TeaTester teaTester, TeaFactoryTester teaFactoryTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.PREMIUM_MOC_CAU_TEA_FACTORY;
 		super.getCorrespondingClass();
+		this.teaTester = teaTester;
 		this.teaFactoryTester = teaFactoryTester;
 	}
 
@@ -56,6 +58,13 @@ public class PremiumMocCauTeaFactoryTester extends BaseTester {
 	}
 
 	public TestCase operateCreateTea() {
-		return TestCaseUtils.failByDefault(defaultPoints, className);
+		try {
+			return super.methodTester.operationAsCasting(defaultPoints
+					, teaFactoryTester.createTea().config(super.getCorrespondingClass(), super.instantiate())
+					, teaTester.getCorrespondingClass());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
+		}
 	}
 }
