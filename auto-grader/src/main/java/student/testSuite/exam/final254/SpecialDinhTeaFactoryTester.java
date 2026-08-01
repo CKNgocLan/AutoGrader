@@ -26,7 +26,7 @@ public class SpecialDinhTeaFactoryTester extends BaseTester {
 	
 	public TestCase implementInterface() {
 		try {
-			return super.declareSuperClass(defaultPoints, teaFactoryTester.getCorrespondingClass());
+			return super.implementInterface(defaultPoints, teaFactoryTester.getCorrespondingClass());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return exceptionTestCase(e);
@@ -41,7 +41,7 @@ public class SpecialDinhTeaFactoryTester extends BaseTester {
 
 	/* instantiate */
 
-	public Object instantiateTeaFactory() throws Exception {
+	public Object toFactory() throws Exception {
 		return instantiate();
 	}
 

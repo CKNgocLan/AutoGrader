@@ -16,7 +16,7 @@ public class SpecialDinhTeaTester extends BaseTester {
 	public final double price = 1_300_000;
 
 	public SpecialDinhTeaTester(TeaTester teaTester) throws ClassNotFoundException, TesterGotNoClassNameException {
-		super.className = ClassName.SPECIAL_DINH_TEA_FACTORY;
+		super.className = ClassName.SPECIAL_DINH_TEA;
 		super.getCorrespondingClass();
 		this.teaTester = teaTester;
 	}
