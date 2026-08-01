@@ -94,6 +94,7 @@ public class ExamFinalTestSuite254 extends ALabTestSuite {
 					, cartTester.operateGetTotalPriceAfterTax(premiumMocCauTeaTester.priceAfterTax(premiumMocCauTeaFactoryTester.defaultWeight)
 							, builderTester.add(premiumMocCauTeaFactoryInstance, premiumMocCauTeaFactoryTester.defaultWeight)
 						)
+					, cartTester.operatePrintOrderedItems(builderTester.add(premiumMocCauTeaFactoryInstance, premiumMocCauTeaFactoryTester.defaultWeight))
 					
 //					/* premium moc cau tea */
 //					, premiumMocCauTeaTester.declare()

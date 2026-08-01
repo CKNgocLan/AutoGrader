@@ -113,14 +113,10 @@ public class CartTester extends BaseTester {
 		}
 	}
 
-	// TODO Cart.operatePrintOrderedItems()
-	public TestCase operatePrintOrderedItems(Object... orderedItems) {
+	public TestCase operatePrintOrderedItems(TestingMethod... buildingMethods) {
 		try {
-			return TestCaseUtils.failByDefault(defaultPoints, className);
-//			Object cartInstance = instantiate();
-//			TestingMethod method = printOrderedItems().config(getCorrespondingClass(), cartInstance);
-//
-//			return super.methodTester.printListThenReturnVoid(defaultPoints, className, method);
+			return super.methodTester.printListThenReturnVoid(defaultPoints, className,
+					printOrderedItems().config(getCorrespondingClass(), toCartInstance(buildingMethods)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
@@ -144,24 +140,23 @@ public class CartTester extends BaseTester {
 		}
 	}
 
-	// TODO Cart.operateGetTotalPriceAfterTax()
 	public TestCase operateGetTotalPriceAfterTax(double expected, TestingMethod... buildingMethods) {
 		try {
-			Object cartInstance = super.buildNestingInstance(builderTester.getCorrespondingClass()
-					, builderTester.instantiateCart()
-					, builderTester.buildMethod()
-					, buildingMethods);
-
 			return super.methodTester.operateAsDouble(defaultPoints, className,
-					getTotalPriceAfterTax().config(super.getCorrespondingClass(), cartInstance).expectedValue(expected));
+					getTotalPriceAfterTax()
+							.config(super.getCorrespondingClass(), toCartInstance(buildingMethods))
+							.expectedValue(expected)
+			);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
 		}
 	}
 
-	// TODO Cart.operateGetTotalPriceAfterTax()
-	public TestCase operateGetTotalPriceAfterTax(double expected, Object... orderedItemList) {
-		return TestCaseUtils.failByDefault(defaultPoints, className);
+	private Object toCartInstance(TestingMethod... buildingMethods) throws Exception {
+		return super.buildNestingInstance(builderTester.getCorrespondingClass()
+				, builderTester.instantiateCart()
+				, builderTester.buildMethod()
+				, buildingMethods);
 	}
 }
