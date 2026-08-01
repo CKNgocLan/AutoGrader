@@ -37,6 +37,10 @@ public class TeaTester extends BaseTester {
 		return super.declareAsInterface(defaultPoints);
 	}
 
+	public double priceAfterTax(double price, double weight) {
+		return price * weight * (1 + TaxTester.tax());
+	}
+
 	/*
 	 * getName()
 	 */

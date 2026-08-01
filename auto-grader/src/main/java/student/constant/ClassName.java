@@ -18,8 +18,14 @@ public class ClassName {
 	public static final String PREMIUM_MOC_CAU_TEA = "PremiumMocCauTea";
 	public static final String PREMIUM_MOC_CAU_TEA_FACTORY = "PremiumMocCauTeaFactory";
 	public static final String DINH_NGOC_TRA_TEA = "DinhNgocTraTea";
+	public static final String SPECIAL_DINH_TEA = "SpecialDinhTea";
+	public static final String SPECIAL_DINH_TEA_FACTORY = "SpecialDinhTeaFactory";
 	public static final String LOTUS_TEA = "LotusTea";
+	public static final String PREMIUM_LOTUS_TEA = "PremiumLotusTea";
+	public static final String PREMIUM_LOTUS_TEA_FACTORY = "PremiumLotusTeaFactory";
 	public static final String JASMINE_TEA = "JasmineTea";
+	public static final String GRAPEFRUIT_TEA = "GrapefruitTea";
+	public static final String GRAPEFRUIT_TEA_FACTORY = "GrapefruitTeaFactory";
 
 	/*
 	 * final 253

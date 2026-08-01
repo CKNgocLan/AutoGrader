@@ -67,6 +67,26 @@ public class ExamFinalTestSuite254 extends ALabTestSuite {
 //					, orderedItemTester.checkToStringDeclaration(defaultPoints)
 //					, orderedItemTester.declareEqualsMethod(Object.class)
 //					, orderedItemTester.declareEqualsMethod(orderedItemTester.getCorrespondingClass())
+					
+//					/* premium moc cau tea */
+//					, premiumMocCauTeaTester.declare()
+//					, premiumMocCauTeaTester.implementInterface()
+//					, premiumMocCauTeaTester.haveOnlyDefaultConstructor()
+//					, premiumMocCauTeaTester.declareGetName()
+//					, premiumMocCauTeaTester.operateGetName()
+//					, premiumMocCauTeaTester.declareGetPrice()
+//					, premiumMocCauTeaTester.operateGetPrice()
+//					, premiumMocCauTeaTester.declareGetCategory()
+//					, premiumMocCauTeaTester.operateGetCategory()
+//
+//					/* premium moc cau tea factory */
+//					, premiumMocCauTeaFactoryTester.declare()
+//					, premiumMocCauTeaFactoryTester.implementInterface()
+//					, premiumMocCauTeaFactoryTester.haveOnlyDefaultConstructor()
+//					, premiumMocCauTeaFactoryTester.declareCreateTea()
+//					, premiumMocCauTeaFactoryTester.operateCreateTea()
+					
+					/* special dinh tea */
 //					
 //					/* cart builder */
 //					, builderTester.declare()
@@ -91,28 +111,13 @@ public class ExamFinalTestSuite254 extends ALabTestSuite {
 //					, cartTester.declarePrintOrderedItems()
 //					, cartTester.operatePrintOrderedItems()
 //					, cartTester.declareGetTotalPriceAfterTax()
-					, cartTester.operateGetTotalPriceAfterTax(premiumMocCauTeaTester.priceAfterTax(premiumMocCauTeaFactoryTester.defaultWeight)
-							, builderTester.add(premiumMocCauTeaFactoryInstance, premiumMocCauTeaFactoryTester.defaultWeight)
+					, cartTester.operateGetTotalPriceAfterTax()
+					, cartTester.operateGetTotalPriceAfterTax(builderTester.add(premiumMocCauTeaFactoryInstance
+							, premiumMocCauTeaFactoryTester.defaultWeight
+							, teaTester.priceAfterTax(premiumMocCauTeaTester.price, premiumMocCauTeaFactoryTester.defaultWeight))
 						)
-					, cartTester.operatePrintOrderedItems(builderTester.add(premiumMocCauTeaFactoryInstance, premiumMocCauTeaFactoryTester.defaultWeight))
-					
-//					/* premium moc cau tea */
-//					, premiumMocCauTeaTester.declare()
-//					, premiumMocCauTeaTester.implementInterface()
-//					, premiumMocCauTeaTester.haveOnlyDefaultConstructor()
-//					, premiumMocCauTeaTester.declareGetName()
-//					, premiumMocCauTeaTester.operateGetName()
-//					, premiumMocCauTeaTester.declareGetPrice()
-//					, premiumMocCauTeaTester.operateGetPrice()
-//					, premiumMocCauTeaTester.declareGetCategory()
-//					, premiumMocCauTeaTester.operateGetCategory()
-//
-//					/* premium moc cau tea factory */
-//					, premiumMocCauTeaFactoryTester.declare()
-//					, premiumMocCauTeaFactoryTester.implementInterface()
-//					, premiumMocCauTeaFactoryTester.haveOnlyDefaultConstructor()
-//					, premiumMocCauTeaFactoryTester.declareCreateTea()
-//					, premiumMocCauTeaFactoryTester.operateCreateTea()
+					, cartTester.operatePrintOrderedItems(builderTester.add(premiumMocCauTeaFactoryInstance
+							, premiumMocCauTeaFactoryTester.defaultWeight))
 					);
 		} catch (Exception e) {
 			e.printStackTrace();

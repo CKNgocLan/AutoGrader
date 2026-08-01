@@ -7,21 +7,21 @@ import student.testSuite.BaseTester;
 import student.testSuite.exam.final254.TeaCategoryTester.EnumValue;
 import student.util.TestCaseUtils;
 
-public class PremiumMocCauTeaTester extends BaseTester {
+public class PremiumLotusTeaTester extends BaseTester {
 	private TeaTester teaTester;
 	private TeaCategoryTester teaCategoryTester;
 
-	private final String name = "Premium Moc Cau Tea";
-	private final EnumValue category = TeaCategoryTester.EnumValue.GREEN_TEA; 
-	public final double price = 450_000;
+	private final String name = "Premium Lotus Tea";
+	private final EnumValue category = TeaCategoryTester.EnumValue.SCENTED_TEA; 
+	public final double price = 2_000_000;
 
-	public PremiumMocCauTeaTester(TeaTester teaTester) throws ClassNotFoundException, TesterGotNoClassNameException {
-		super.className = ClassName.PREMIUM_MOC_CAU_TEA;
+	public PremiumLotusTeaTester(TeaTester teaTester) throws ClassNotFoundException, TesterGotNoClassNameException {
+		super.className = ClassName.PREMIUM_LOTUS_TEA;
 		super.getCorrespondingClass();
 		this.teaTester = teaTester;
 	}
 	
-	public PremiumMocCauTeaTester teaCategoryTester(TeaCategoryTester teaCategoryTester) {
+	public PremiumLotusTeaTester teaCategoryTester(TeaCategoryTester teaCategoryTester) {
 		this.teaCategoryTester = teaCategoryTester;
 		return this;
 	}
