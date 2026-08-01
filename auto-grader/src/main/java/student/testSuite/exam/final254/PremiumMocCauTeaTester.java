@@ -4,6 +4,7 @@ import student.constant.ClassName;
 import student.exception.TesterGotNoClassNameException;
 import student.model.TestCase;
 import student.testSuite.BaseTester;
+import student.testSuite.exam.final254.TeaCategoryTester.EnumValue;
 import student.util.TestCaseUtils;
 
 public class PremiumMocCauTeaTester extends BaseTester {
@@ -12,7 +13,7 @@ public class PremiumMocCauTeaTester extends BaseTester {
 
 	private final String name = "Premium Moc Cau Tea";
 	private final double price = 450_000;
-	public final double weight = 1.5;
+	private final EnumValue category = TeaCategoryTester.EnumValue.GREEN_TEA; 
 
 	public PremiumMocCauTeaTester(TeaTester teaTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.PREMIUM_MOC_CAU_TEA;
@@ -106,7 +107,7 @@ public class PremiumMocCauTeaTester extends BaseTester {
 			return super.methodTester.operateAsEnum(defaultPoints
 					, teaTester.getCategory()
 					.config(getCorrespondingClass(), instantiate())
-					.expectedValue(teaCategoryTester.valueFrom(TeaCategoryTester.EnumValue.GREEN_TEA.name()))
+					.expectedValue(teaCategoryTester.valueFrom(category.name()))
 					, teaCategoryTester.getEnumClass());
 		} catch (Exception e) {
 			e.printStackTrace();
