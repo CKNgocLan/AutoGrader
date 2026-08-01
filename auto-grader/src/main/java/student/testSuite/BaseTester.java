@@ -6,7 +6,9 @@ import java.lang.reflect.InvocationTargetException;
 import student.constant.ExceptionMessage;
 import student.constant.Feedback;
 import student.constant.MethodName;
+import student.constant.PropertyName;
 import student.constant.TestcaseType;
+import student.exception.InvalidConfigurationException;
 import student.exception.TesterGotNoClassNameException;
 import student.model.ClassLoader;
 import student.model.TestCase;
@@ -83,6 +85,29 @@ public abstract class BaseTester {
 
 	protected void buildInstance(Class<?> clazz, Object instance, TestingMethod method) throws Exception {
 		this.methodTester.getMethodChecker().buildInstance(clazz, instance, method);
+	}
+	
+	/**
+	 * 
+	 * @param build build()
+	 * @return
+	 * @throws Exception
+	 */
+	protected Object buildNestingInstance(Class<?> builderClass, Object builderInstance, TestingMethod build, TestingMethod... buildingMethods) throws Exception {
+		if (builderClass == null) {
+			throw new InvalidConfigurationException(
+					ExceptionMessage.PROPERTY_NOT_CONFIGURED.getContent(PropertyName.BUILDER_CLASS));
+		}
+		if (builderInstance == null) {
+			throw new InvalidConfigurationException(
+					ExceptionMessage.PROPERTY_NOT_CONFIGURED.getContent(PropertyName.BUILDER_INSTANCE));
+		}
+
+		for (TestingMethod buildingMethod : buildingMethods) {
+			this.buildInstance(builderClass, builderInstance, buildingMethod);
+		}
+		
+		return build.config(builderClass, builderInstance).returning();
 	}
 
 	/*

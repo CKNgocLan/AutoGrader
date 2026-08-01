@@ -7,8 +7,8 @@ import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
 
 public class PremiumMocCauTeaFactoryTester extends BaseTester {
-//	private TeaTester teaTester;
 	private TeaFactoryTester teaFactoryTester;
+	public final double defaultWeight = 1;
 
 	public PremiumMocCauTeaFactoryTester(TeaFactoryTester teaFactoryTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.PREMIUM_MOC_CAU_TEA_FACTORY;

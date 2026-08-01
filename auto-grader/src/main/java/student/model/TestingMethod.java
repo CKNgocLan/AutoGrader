@@ -285,6 +285,12 @@ public class TestingMethod {
 		return returnBooleanInPrivate().equals(expectedValue);
 	}
 	
+	public boolean compareParameter(TestingMethod method) {
+		return this.parameters.length != method.getParameters().length
+				&& Arrays.equals(this.getParameterTypes(), method.getParameterTypes())
+				&& Arrays.equals(this.getParameterValues(), method.getParameterValues());
+	}
+	
 	public void returnVoid() throws Exception {
 		isConfigured();
 		

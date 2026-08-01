@@ -34,7 +34,7 @@ public class PremiumMocCauTeaTester extends BaseTester {
 	
 	public TestCase implementInterface() {
 		try {
-			return super.declareSuperClass(defaultPoints, teaTester.getCorrespondingClass());
+			return super.implementInterface(defaultPoints, teaTester.getCorrespondingClass());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return exceptionTestCase(e);

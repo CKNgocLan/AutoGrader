@@ -82,12 +82,12 @@ public class CartBuilderTester extends BaseTester {
 	 * @throws TesterGotNoClassNameException
 	 * @throws ClassNotFoundException
 	 */
-	private TestingMethod addMethod() throws ClassNotFoundException, TesterGotNoClassNameException {
+	private TestingMethod add() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new TestingMethod(getCorrespondingClass(), MethodName.ADD,
 				new TestingParameter(orderedItemTester.getCorrespondingClass(), FieldName.ORDERED_ITEM));
 	}
 
-	private TestingMethod addMethod(Object concreteTeaFactoryInstance, double weight) throws Exception {
+	public TestingMethod add(Object concreteTeaFactoryInstance, double weight) throws Exception {
 		return new TestingMethod(getCorrespondingClass(), MethodName.ADD,
 				new TestingParameter(orderedItemTester.getCorrespondingClass(),
 						FieldName.ORDERED_ITEM,
@@ -96,7 +96,7 @@ public class CartBuilderTester extends BaseTester {
 
 	public TestCase declareAddOrderedItem() {
 		try {
-			return super.methodTester.declare(defaultPoints, className, addMethod());
+			return super.methodTester.declare(defaultPoints, className, add());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return exceptionTestCase(e);
@@ -111,7 +111,7 @@ public class CartBuilderTester extends BaseTester {
 			Object orderedItemInstance = orderedItemTester.instantiateItem(concreteTeaFactoryInstance, weight);
 
 			return super.methodTester.addElement(defaultPoints
-					, addMethod(concreteTeaFactoryInstance, weight).config(builderClass, builderInstance)
+					, add(concreteTeaFactoryInstance, weight).config(builderClass, builderInstance)
 					, new TestingParameter(orderedItemClass, FieldName.ORDERED_ITEMS, orderedItemInstance)
 			);
 		} catch (Exception e) {
@@ -128,7 +128,7 @@ public class CartBuilderTester extends BaseTester {
 			Object orderedItemInstance = null;
 
 			return super.methodTester.invalidToAddElement(defaultPoints
-					, addMethod().config(builderClass, builderInstance)
+					, add().config(builderClass, builderInstance)
 					, new TestingParameter(orderedItemClass, FieldName.ORDERED_ITEMS, orderedItemInstance)
 			);
 		} catch (Exception e) {
@@ -145,7 +145,7 @@ public class CartBuilderTester extends BaseTester {
 			Object orderedItemInstance = orderedItemTester.instantiateItem(concreteTeaFactoryInstance, 0);
 
 			return super.methodTester.invalidToAddElement(defaultPoints
-					, addMethod().config(builderClass, builderInstance)
+					, add().config(builderClass, builderInstance)
 					, new TestingParameter(orderedItemClass, FieldName.ORDERED_ITEMS, orderedItemInstance)
 			);
 		} catch (Exception e) {
@@ -161,7 +161,7 @@ public class CartBuilderTester extends BaseTester {
 			Class<?> orderedItemClass = orderedItemTester.getCorrespondingClass();
 			
 			for (double weight : weights) {
-				super.buildInstance(builderClass, builderInstance, addMethod(concreteTeaFactoryInstance, weight));
+				super.buildInstance(builderClass, builderInstance, add(concreteTeaFactoryInstance, weight));
 			}
 			
 			List<?> actualOrderedItemInstances = List.class.cast(super.getFieldAsAccessible(FieldName.ORDERED_ITEMS).get(builderInstance));
@@ -190,20 +190,42 @@ public class CartBuilderTester extends BaseTester {
 	 * @return
 	 * @throws Exception
 	 */
-	public TestingMethod build() throws Exception {
-		return new TestingMethod(retriveClass(nestingClassName), MethodName.BUILD);
+	public TestingMethod buildMethod() throws Exception {
+		return new TestingMethod(super.retriveClass(nestingClassName), MethodName.BUILD);
 	}
 
 	public TestCase declareBuild() {
 		try {
-			return super.methodTester.declare(defaultPoints, className, build());
+			return super.methodTester.declare(defaultPoints, className, buildMethod());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return exceptionTestCase(e);
 		}
 	}
 
-	public TestCase operateBuild() {
-		return TestCaseUtils.failByDefault(defaultPoints, className);
+	public TestCase operateBuild(TestingMethod... buildingMethods) {
+		try {
+			TestingMethod method = buildMethod();
+
+			Object builderInstance = super.instantiate();
+			Class<?> builderClass = super.getCorrespondingClass();
+
+			Class<?> nestingClass = super.retriveClass(nestingClassName);
+			Object nestingInstance = super.buildNestingInstance(builderClass, builderInstance, method, buildingMethods);
+
+			try {
+				nestingClass.cast(nestingInstance);
+				
+				// TODO
+//				for (TestingMethod buildingMethod : buildingMethods) {
+//				}
+			} catch (ClassCastException e) {
+				return failMethodOperation(method.getName());
+			}
+			
+			return passMethodOperation(method.getName());
+		} catch (Exception e) {
+			return TestCaseUtils.errorTestcase(defaultPoints, nestingClassName, e);
+		}
 	}
 }
