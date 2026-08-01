@@ -35,3 +35,6 @@ grader-with-design-patterns/.project
 grader-with-design-patterns/pom.xml
 grader-with-design-patterns/.settings/org.eclipse.jdt.core.prefs
 grader-with-design-patterns/.settings/org.eclipse.m2e.core.prefs
+design-patterns-to-grader/target/classes/META-INF/MANIFEST.MF
+design-patterns-to-grader/target/classes/META-INF/maven/grader/design-patterns-to-grader/pom.properties
+design-patterns-to-grader/target/classes/META-INF/maven/grader/design-patterns-to-grader/pom.xml
