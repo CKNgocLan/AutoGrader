@@ -85,7 +85,7 @@ public class StudentGrader extends JFrame {
     public StudentGrader() throws NoSuchMethodException, SecurityException, IllegalAccessException, InvocationTargetException {
     	initThemeColor();
     	
-        setTitle(Midterm.MIDTERM_254);
+        setTitle(FinalExam.FINAL_254.toUpperCase());
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -497,9 +497,20 @@ public class StudentGrader extends JFrame {
             CellStyle headerStyle = createHeaderStyle(workbook);
             CellStyle passedStyle = createPassedStyle(workbook);   // Green
             CellStyle failedStyle = createFailedStyle(workbook);   // Red
+            
+            // Student Information Row
+            String[] stuDirName = selectedDirectoryName.split(Constants.UNDERSCORE);
+            if (stuDirName.length >= 2) {
+            	Row studentInforRow = sheet.createRow(0);
+                studentInforRow.createCell(1).setCellValue("Student Number");
+                studentInforRow.createCell(2).setCellValue(stuDirName[0]);
+                studentInforRow.createCell(3).setCellValue("Student Name");
+                studentInforRow.createCell(4).setCellValue(stuDirName[1]);
+            }
 
             // Header row
-            Row headerRow = sheet.createRow(0);
+            int headerRowNum = 1;
+            Row headerRow = sheet.createRow(headerRowNum);
 //            String[] headers = {"No.", "Test Case Name", "Max Points", "Earned Points", "Result", "Feedback"};
             String[] headers = {"No.", "Test Case Name", "Result", "Feedback"};
             for (int i = 0; i < headers.length; i++) {
@@ -509,7 +520,7 @@ public class StudentGrader extends JFrame {
             }
 
             // Data rows - one test case per row (vertical)
-            int rowNum = 1;
+            int rowNum = headerRowNum + 1;
 
             int passedCounter = 0;
 			for (TestResult result : results) {
@@ -517,7 +528,7 @@ public class StudentGrader extends JFrame {
 				int col = 0;
 
 				// No.
-				row.createCell(col++).setCellValue(rowNum - 1);
+				row.createCell(col++).setCellValue(rowNum - 2);
 
 				// Test Case Name
 				row.createCell(col++).setCellValue(result.testName());
