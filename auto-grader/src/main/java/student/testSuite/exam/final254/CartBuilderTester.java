@@ -93,10 +93,15 @@ public class CartBuilderTester extends BaseTester {
 	}
 
 	public TestingMethod add(Object concreteTeaFactoryInstance, double weight) throws Exception {
+		return add(concreteTeaFactoryInstance, weight, null);
+	}
+
+	public TestingMethod add(Object concreteTeaFactoryInstance, double weight, Double expectedPriceAfterTax) throws Exception {
 		return new TestingMethod(getCorrespondingClass(), MethodName.ADD,
 				new TestingParameter(orderedItemTester.getCorrespondingClass(),
 						FieldName.ORDERED_ITEM,
-						orderedItemTester.instantiateItem(concreteTeaFactoryInstance, weight)));
+						orderedItemTester.instantiateItem(concreteTeaFactoryInstance, weight)))
+				.expectedValue(expectedPriceAfterTax != null ? expectedPriceAfterTax.doubleValue() : 0);
 	}
 
 	public TestCase declareAddOrderedItem() {

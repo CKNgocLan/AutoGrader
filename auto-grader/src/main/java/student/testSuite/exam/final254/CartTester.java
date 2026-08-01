@@ -2,6 +2,7 @@ package student.testSuite.exam.final254;
 
 import java.lang.reflect.Modifier;
 import java.util.List;
+import java.util.stream.Stream;
 
 import student.constant.ClassName;
 import student.constant.FieldName;
@@ -13,6 +14,7 @@ import student.model.TestingMethod;
 import student.model.TestingParameter;
 import student.testSuite.BaseTester;
 import student.util.TestCaseUtils;
+import student.util.ValueUtils;
 
 public class CartTester extends BaseTester {
 	private OrderedItemTester orderedItemTester;
@@ -140,8 +142,12 @@ public class CartTester extends BaseTester {
 		}
 	}
 
-	public TestCase operateGetTotalPriceAfterTax(double expected, TestingMethod... buildingMethods) {
+	public TestCase operateGetTotalPriceAfterTax(TestingMethod... buildingMethods) {
 		try {
+			double expected = buildingMethods == null || buildingMethods.length == 0 ? 0 :
+				Stream.of(buildingMethods)
+					.mapToDouble(method -> ValueUtils.toDoublePrimitive(method.getExpectedValue())).sum();
+			
 			return super.methodTester.operateAsDouble(defaultPoints, className,
 					getTotalPriceAfterTax()
 							.config(super.getCorrespondingClass(), toCartInstance(buildingMethods))
