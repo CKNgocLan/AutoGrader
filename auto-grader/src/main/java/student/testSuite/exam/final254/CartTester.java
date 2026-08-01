@@ -96,15 +96,6 @@ public class CartTester extends BaseTester {
 		}
 	}
 
-	public TestCase operateValidate() {
-		try {
-			return TestCaseUtils.failByDefault(defaultPoints, className);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
-		}
-	}
-	
 	/**
 	 * printOrderedItems()
 	 */
@@ -122,6 +113,7 @@ public class CartTester extends BaseTester {
 		}
 	}
 
+	// TODO Cart.operatePrintOrderedItems()
 	public TestCase operatePrintOrderedItems(Object... orderedItems) {
 		try {
 			return TestCaseUtils.failByDefault(defaultPoints, className);
@@ -152,16 +144,23 @@ public class CartTester extends BaseTester {
 		}
 	}
 
-	public TestCase operateGetTotalPriceAfterTax(double expected) {
+	// TODO Cart.operateGetTotalPriceAfterTax()
+	public TestCase operateGetTotalPriceAfterTax(double expected, TestingMethod... buildingMethods) {
 		try {
-			return TestCaseUtils.failByDefault(defaultPoints, className);
-//			return super.methodTester.operateAsDouble(defaultPoints, className, getTotalPriceAfterTax().config(getCorrespondingClass(), instantiate()).expectedValue(expected));
+			Object cartInstance = super.buildNestingInstance(builderTester.getCorrespondingClass()
+					, builderTester.instantiateCart()
+					, builderTester.buildMethod()
+					, buildingMethods);
+
+			return super.methodTester.operateAsDouble(defaultPoints, className,
+					getTotalPriceAfterTax().config(super.getCorrespondingClass(), cartInstance).expectedValue(expected));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
 		}
 	}
 
+	// TODO Cart.operateGetTotalPriceAfterTax()
 	public TestCase operateGetTotalPriceAfterTax(double expected, Object... orderedItemList) {
 		return TestCaseUtils.failByDefault(defaultPoints, className);
 	}

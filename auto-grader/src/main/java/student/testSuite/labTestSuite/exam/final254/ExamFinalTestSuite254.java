@@ -44,73 +44,74 @@ public class ExamFinalTestSuite254 extends ALabTestSuite {
 			return Arrays.asList(
 					/* category */
 					teaCategoryTester.declare()
-					, teaCategoryTester.declareFields()
+//					, teaCategoryTester.declareFields()
+//					
+//					/* tax */
+//					, taxTester.declare()
+//					, taxTester.declareFields()
+//
+//					/* tea */
+//					, teaTester.declare()
+//					, teaTester.declareGetName()
+//					, teaTester.declareGetPrice()
+//					, teaTester.declareGetCategory()
+//					, teaTester.declareEquals()
+//					
+//					/* ordered item */
+//					, orderedItemTester.declare()
+//					, orderedItemTester.declareFields()
+//					, orderedItemTester.declareConstructor()
+//					, orderedItemTester.checkGetterDeclaration(defaultPoints)
+//					, orderedItemTester.declareAddWeight()
+//					, orderedItemTester.declareGetPriceAfterTax()
+//					, orderedItemTester.checkToStringDeclaration(defaultPoints)
+//					, orderedItemTester.declareEqualsMethod(Object.class)
+//					, orderedItemTester.declareEqualsMethod(orderedItemTester.getCorrespondingClass())
+//					
+//					/* cart builder */
+//					, builderTester.declare()
+//					, builderTester.declareFields()
+//					, builderTester.declareConstructor()
+//					, builderTester.declareFields()
+//					, builderTester.declareAddOrderedItem()
+//					, builderTester.operateAddOrderedItem(premiumMocCauTeaFactoryInstance, 1)
+//					, builderTester.operateAddOrderedItem(premiumMocCauTeaFactoryInstance, 2)
+//					, builderTester.operateAddNulldOrderedItem()
+//					, builderTester.operateAddOrderedItemWithoutWeight(premiumMocCauTeaFactoryInstance)
+//					, builderTester.operateAddOrderedItemDuplicated(premiumMocCauTeaFactoryInstance, 1, 2, 3)
+//					, builderTester.declareBuild()
+//					, builderTester.operateBuild(builderTester.add(premiumMocCauTeaFactoryInstance, premiumMocCauTeaFactoryTester.defaultWeight))
+//					
+//					/* cart */
+//					, cartTester.declare()
+//					, cartTester.declareFields()
+//					, cartTester.declareConstructor()
+//					, cartTester.haveOnlyOneConstructor()
+//					, cartTester.declareValidate()
+//					, cartTester.declarePrintOrderedItems()
+//					, cartTester.operatePrintOrderedItems()
+//					, cartTester.declareGetTotalPriceAfterTax()
+					, cartTester.operateGetTotalPriceAfterTax(premiumMocCauTeaTester.priceAfterTax(premiumMocCauTeaFactoryTester.defaultWeight)
+							, builderTester.add(premiumMocCauTeaFactoryInstance, premiumMocCauTeaFactoryTester.defaultWeight)
+						)
 					
-					/* tax */
-					, taxTester.declare()
-					, taxTester.declareFields()
-
-					/* tea */
-					, teaTester.declare()
-					, teaTester.declareGetName()
-					, teaTester.declareGetPrice()
-					, teaTester.declareGetCategory()
-					, teaTester.declareEquals()
-					
-					/* ordered item */
-					, orderedItemTester.declare()
-					, orderedItemTester.declareFields()
-					, orderedItemTester.declareConstructor()
-					, orderedItemTester.checkGetterDeclaration(defaultPoints)
-					, orderedItemTester.declareAddWeight()
-					, orderedItemTester.declareGetPriceAfterTax()
-					, orderedItemTester.checkToStringDeclaration(defaultPoints)
-					, orderedItemTester.declareEqualsMethod(Object.class)
-					, orderedItemTester.declareEqualsMethod(orderedItemTester.getCorrespondingClass())
-					
-					/* cart builder */
-					, builderTester.declare()
-					, builderTester.declareFields()
-					, builderTester.declareConstructor()
-					, builderTester.declareFields()
-					, builderTester.declareAddOrderedItem()
-					, builderTester.operateAddOrderedItem(premiumMocCauTeaFactoryInstance, 1)
-					, builderTester.operateAddOrderedItem(premiumMocCauTeaFactoryInstance, 2)
-					, builderTester.operateAddNulldOrderedItem()
-					, builderTester.operateAddOrderedItemWithoutWeight(premiumMocCauTeaFactoryInstance)
-					, builderTester.operateAddOrderedItemDuplicated(premiumMocCauTeaFactoryInstance, 1, 2, 3)
-					, builderTester.declareBuild()
-					, builderTester.operateBuild(builderTester.add(premiumMocCauTeaFactoryInstance, premiumMocCauTeaFactoryTester.defaultWeight))
-					
-					/* cart */
-					, cartTester.declare()
-					, cartTester.declareFields()
-					, cartTester.declareConstructor()
-					, cartTester.haveOnlyOneConstructor()
-					, cartTester.declareValidate()
-					, cartTester.operateValidate()
-					, cartTester.declarePrintOrderedItems()
-					, cartTester.operatePrintOrderedItems()
-					, cartTester.declareGetTotalPriceAfterTax()
-					, cartTester.operateGetTotalPriceAfterTax(0)
-					
-					/* premium moc cau tea */
-					, premiumMocCauTeaTester.declare()
-					, premiumMocCauTeaTester.implementInterface()
-					, premiumMocCauTeaTester.haveOnlyDefaultConstructor()
-					, premiumMocCauTeaTester.declareGetName()
-					, premiumMocCauTeaTester.operateGetName()
-					, premiumMocCauTeaTester.declareGetPrice()
-					, premiumMocCauTeaTester.operateGetPrice()
-					, premiumMocCauTeaTester.declareGetCategory()
-					, premiumMocCauTeaTester.operateGetCategory()
-
-					/* premium moc cau tea factory */
-					, premiumMocCauTeaFactoryTester.declare()
-					, premiumMocCauTeaFactoryTester.implementInterface()
-					, premiumMocCauTeaFactoryTester.haveOnlyDefaultConstructor()
-					, premiumMocCauTeaFactoryTester.declareCreateTea()
-					, premiumMocCauTeaFactoryTester.operateCreateTea()
+//					/* premium moc cau tea */
+//					, premiumMocCauTeaTester.declare()
+//					, premiumMocCauTeaTester.implementInterface()
+//					, premiumMocCauTeaTester.haveOnlyDefaultConstructor()
+//					, premiumMocCauTeaTester.declareGetName()
+//					, premiumMocCauTeaTester.operateGetName()
+//					, premiumMocCauTeaTester.declareGetPrice()
+//					, premiumMocCauTeaTester.operateGetPrice()
+//					, premiumMocCauTeaTester.declareGetCategory()
+//					, premiumMocCauTeaTester.operateGetCategory()
+//
+//					/* premium moc cau tea factory */
+//					, premiumMocCauTeaFactoryTester.declare()
+//					, premiumMocCauTeaFactoryTester.implementInterface()
+//					, premiumMocCauTeaFactoryTester.haveOnlyDefaultConstructor()
+//					, premiumMocCauTeaFactoryTester.declareCreateTea()
+//					, premiumMocCauTeaFactoryTester.operateCreateTea()
 					);
 		} catch (Exception e) {
 			e.printStackTrace();

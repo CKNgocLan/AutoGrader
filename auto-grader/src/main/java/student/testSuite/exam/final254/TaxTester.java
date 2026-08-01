@@ -21,8 +21,12 @@ public class TaxTester extends BaseTester {
 	
 	private TestingField[] fields() throws ClassNotFoundException, TesterGotNoClassNameException {
 		return new TestingField[] {
-				new TestingField(double.class, FieldName.UPPERCASE_TEA).setValue(Tax._10)
+				new TestingField(double.class, FieldName.UPPERCASE_TEA).setValue(tax())
 		};
+	}
+
+	public static double tax() {
+		return Tax._10;
 	}
 	
 	public TestCase declareFields() {

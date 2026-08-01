@@ -12,8 +12,8 @@ public class PremiumMocCauTeaTester extends BaseTester {
 	private TeaCategoryTester teaCategoryTester;
 
 	private final String name = "Premium Moc Cau Tea";
-	private final double price = 450_000;
 	private final EnumValue category = TeaCategoryTester.EnumValue.GREEN_TEA; 
+	private final double price = 450_000;
 
 	public PremiumMocCauTeaTester(TeaTester teaTester) throws ClassNotFoundException, TesterGotNoClassNameException {
 		super.className = ClassName.PREMIUM_MOC_CAU_TEA;
@@ -89,6 +89,10 @@ public class PremiumMocCauTeaTester extends BaseTester {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
 		}
+	}
+
+	public double priceAfterTax(double weight) {
+		return this.price * weight * (1 + TaxTester.tax());
 	}
 
 	/* getCategory() */

@@ -1,6 +1,7 @@
 package student.testSuite.exam.final254;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -46,6 +47,10 @@ public class CartBuilderTester extends BaseTester {
 			e.printStackTrace();
 			return TestCaseUtils.errorTestcase(defaultPoints, className, e);
 		}
+	}
+
+	public Object instantiateCart() throws Exception {
+		return instantiate();
 	}
 	
 	/**
